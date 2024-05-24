@@ -3,6 +3,7 @@ import 'package:recything_application/constants/color_constant.dart';
 import 'package:recything_application/constants/image_constant.dart';
 import 'package:recything_application/constants/spacing_constant.dart';
 import 'package:recything_application/constants/text_style_constant.dart';
+import 'package:recything_application/screens/customer_service/content/search_result_customer_service/search_result_customer_service_screen.dart';
 import 'package:recything_application/screens/customer_service/content/syarat_dan_ketentuan_customer_sevice_screen/syarat_dan_ketentuan_customer_service_screen.dart';
 import 'package:recything_application/screens/customer_service/content/topic_category_customer_service/topic_category_customer_service_screen.dart';
 import 'package:recything_application/screens/customer_service/widgets/item_category_customer_service_widget.dart';
@@ -18,6 +19,16 @@ class CustomerServiceScreen extends StatefulWidget {
 }
 
 class _CustomerServiceScreenState extends State<CustomerServiceScreen> {
+  final TextEditingController _searchController = TextEditingController();
+  var formKey = GlobalKey<FormState>();
+  String search = '';
+
+  @override
+  void dispose() {
+    _searchController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -38,10 +49,20 @@ class _CustomerServiceScreenState extends State<CustomerServiceScreen> {
                   ),
                 ),
                 SpacingConstant.verticalSpacing300,
-                const GlobalSearchBar(
+                GlobalSearchBar(
                   height: 40.0,
                   width: double.infinity,
                   hintText: 'Search',
+                  controller: _searchController,
+                  onSubmitted: (value) {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) =>
+                            const SearchResultCustomerService(),
+                      ),
+                    );
+                  },
                 ),
                 SpacingConstant.verticalSpacing300,
                 Column(
