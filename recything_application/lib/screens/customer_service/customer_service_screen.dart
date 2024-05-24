@@ -32,10 +32,11 @@ class _CustomerServiceScreenState extends State<CustomerServiceScreen> {
             ),
             const SizedBox(height: 16.0),
             const GlobalSearchBar(
+              height: 40.0,
+              width: double.infinity,
               hintText: 'Search',
             ),
             const SizedBox(height: 16.0),
-            
           ],
         ),
       ),
