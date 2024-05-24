@@ -6,16 +6,18 @@ import 'package:recything_application/constants/text_style_constant.dart';
 class ItemCategoryCustomerService extends StatelessWidget {
   final String title;
   final String image;
+  final Function onTap;
   const ItemCategoryCustomerService({
     super.key,
     required this.title,
     required this.image,
+    required this.onTap,
   });
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {},
+      onTap: () => onTap(),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
