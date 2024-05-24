@@ -10,7 +10,7 @@ class TextStyleConstant {
   );
   static TextStyle boldHeading2 = const TextStyle(
     fontSize: 28,
-    fontWeight: FontWeight.w700,
+    fontWeight: FontWeight.w700,    
     color: ColorConstant.blackColor,
   );
   static TextStyle boldHeading3 = const TextStyle(
