@@ -4,7 +4,8 @@ import 'package:recything_application/constants/image_constant.dart';
 import 'package:recything_application/constants/spacing_constant.dart';
 import 'package:recything_application/constants/text_style_constant.dart';
 import 'package:recything_application/screens/customer_service/widgets/item_category_customer_service_widget.dart';
-import 'package:recything_application/screens/customer_service/widgets/remin_container_customer_service_widget.dart';
+import 'package:recything_application/screens/customer_service/widgets/container_remin_customer_service_widget.dart';
+import 'package:recything_application/screens/customer_service/content/detail_answer_faq_or_other/detail_answer_faq_or_other_screen.dart';
 import 'package:recything_application/widgets/global_search_bar.dart';
 
 class CustomerServiceScreen extends StatefulWidget {
@@ -117,7 +118,15 @@ class _CustomerServiceScreenState extends State<CustomerServiceScreen> {
                           ),
                         ),
                         IconButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    const DetailAnswerFAQorOtherScreen(),
+                              ),
+                            );
+                          },
                           icon: const Icon(
                             Icons.arrow_forward_ios,
                             size: 16.0,
