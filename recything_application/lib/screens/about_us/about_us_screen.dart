@@ -14,11 +14,11 @@ class AboutUsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: ColorConstant.whiteColor,
-      appBar: GlobalAppBar(
+      appBar: const GlobalAppBar(
         title: Text(
           " About Us",
-          style: TextStyleConstant.boldSubtitle,
         ),
+        backgroundColor: ColorConstant.whiteColor,
       ),
       body: Column(
         children: [
