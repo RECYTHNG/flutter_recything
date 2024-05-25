@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:recything_application/constants/app_theme_constant.dart';
-import 'package:recything_application/widgets/global_text_field_custom_widget.dart';
 
 void main() {
   runApp(const MyApp());
