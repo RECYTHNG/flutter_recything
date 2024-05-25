@@ -15,12 +15,9 @@ class MyApp extends StatelessWidget {
       theme: AppThemeConstant.appTheme,
       debugShowCheckedModeBanner: false,
       home: const Scaffold(
-        body: Padding(
-          padding: EdgeInsets.all(16.0),
-          child: Center(
-            child: CustomTextFieldWidget(label: 'Nama', hint: 'Nama', isInputForPhone: true,),
-          ),
-        ),
+        body: Center(
+          child: Text('Hello World!'),
+        )
       ),
     );
   }
