@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:recything_application/constants/color_constant.dart';
+import 'package:recything_application/constants/text_style_constant.dart';
 
 class CustomTextFieldWidget extends StatelessWidget {
   final String label;
@@ -7,6 +9,16 @@ class CustomTextFieldWidget extends StatelessWidget {
   final TextEditingController? controller;
   final bool isForm;
   final Widget? targetScreen;
+  final bool isEnable;
+  final Function(String)? onChanged;
+  final Function(String)? onFieldSubmitted;
+  final String? Function(String?)? validator;
+  final String? error;
+  final bool isInputForPhone;
+  final Color? labelColor;
+  final double? labelFontSize;
+  final Color? floatingLabelColor;
+  final FontWeight? labelFontWeight;
 
   const CustomTextFieldWidget({
     super.key,
@@ -15,15 +27,41 @@ class CustomTextFieldWidget extends StatelessWidget {
     this.controller,
     this.isForm = true,
     this.targetScreen,
+    this.isEnable = true,
+    this.onChanged,
+    this.onFieldSubmitted,
+    this.validator,
+    this.error,
+    this.isInputForPhone = false,
+    this.labelFontSize,
+    this.labelColor,
+    this.floatingLabelColor,
+    this.labelFontWeight,
   });
 
   @override
   Widget build(BuildContext context) {
-    Widget textField = TextField(
+    Widget textField = TextFormField(
       controller: controller,
+      validator: validator,
+      onChanged: onChanged,
+      onFieldSubmitted: onFieldSubmitted,
+      style: TextStyleConstant.regularParagraph.copyWith(
+        fontSize: 14.0,
+        color: ColorConstant.primaryColor900,
+        fontWeight: FontWeight.w400,
+      ),
+      keyboardType: isInputForPhone ? TextInputType.phone : TextInputType.text,
+      inputFormatters: [
+        if (isInputForPhone) ...[
+          FilteringTextInputFormatter.digitsOnly,
+          LengthLimitingTextInputFormatter(13),
+        ]
+      ],
       decoration: InputDecoration(
-        labelText: label,
+        errorText: error,
         hintText: hint,
+        enabled: isEnable,
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8.0),
           borderSide: const BorderSide(
@@ -36,9 +74,19 @@ class CustomTextFieldWidget extends StatelessWidget {
             color: ColorConstant.primaryColor500,
           ),
         ),
+        //label
+        labelText: label,
         floatingLabelBehavior: FloatingLabelBehavior.always,
-        floatingLabelStyle:
-            const TextStyle(color: ColorConstant.primaryColor500),
+        floatingLabelStyle: TextStyleConstant.semiboldCaption.copyWith(
+          color: floatingLabelColor ?? ColorConstant.primaryColor500,
+          fontWeight: labelFontWeight ?? FontWeight.w600,
+          fontSize: labelFontSize ?? 14.0,
+        ),
+        labelStyle: TextStyleConstant.semiboldCaption.copyWith(
+          color: labelColor ?? ColorConstant.netralColor600,
+          fontWeight: labelFontWeight ?? FontWeight.w600,
+          fontSize: labelFontSize ?? 14.0,
+        ),
       ),
     );
 
