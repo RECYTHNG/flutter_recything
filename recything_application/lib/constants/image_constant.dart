@@ -11,5 +11,6 @@ class ImageConstant {
   static const String onBoardingImage4 = 'assets/images/on_boarding/on_boarding_4.png';
 
   //welcome
+  static const String welcomeImage = 'assets/images/welcome/welcome_screen_images.png';
   //auth
 }

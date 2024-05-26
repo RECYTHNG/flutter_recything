@@ -5,7 +5,7 @@ import 'package:recything_application/constants/spacing_constant.dart';
 import 'package:recything_application/constants/text_style_constant.dart';
 import 'package:recything_application/models/on_boarding_model.dart';
 import 'package:recything_application/screens/on_boarding/widgets/dot_animation_widget.dart';
-import 'package:recything_application/screens/splash/splash_screen.dart';
+import 'package:recything_application/screens/welcome/welcome_screen.dart';
 import 'package:recything_application/widgets/global_button_widget.dart';
 
 class OnBoardingScreen extends StatefulWidget {
@@ -58,7 +58,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
       title1: 'Ikuti ',
       title2: 'Challenge',
       description:
-          'Ikuti challenge daur ulang, kumpulkan poin, bersaing dengan pengguna lain, naikkan peringkatmu, dan jadilah pahlawan lingkungan.\n',
+          'Ikuti challenge daur ulang, kumpulkan poin, bersaing dengan pengguna lain, naikkan peringkatmu, dan jadilah pahlawan \nlingkungan.',
     ),
   ];
 
@@ -89,8 +89,8 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                   left: 20.0,
                   child: Image.asset(
                     ImageConstant.logo,
-                    width: 165,
-                    height: 30,
+                    width: 165.0,
+                    height: 30.0,
                   ),
                 ),
                 Positioned(
@@ -153,7 +153,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                               if (currentIndex == _onBoardingModel.length - 1) {
                                 Navigator.of(context).pushReplacement(
                                   MaterialPageRoute(
-                                    builder: (context) => const SplashScreen(),
+                                    builder: (context) => const WelcomeScreen(),
                                   ),
                                 );
                               } else {
