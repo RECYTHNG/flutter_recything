@@ -16,6 +16,46 @@ class RegisterAuthenticationScreen extends StatefulWidget {
 
 class _RegisterAuthenticationScreenState
     extends State<RegisterAuthenticationScreen> {
+  final _formKey = GlobalKey<FormState>();
+  TextEditingController _nameController = TextEditingController();
+  TextEditingController _emailController = TextEditingController();
+  TextEditingController _phoneController = TextEditingController();
+  TextEditingController _passwordController = TextEditingController();
+
+  String _name = '';
+  String _email = '';
+  String _phone = '';
+  String _password = '';
+
+  String? _errorName;
+  String? _errorEmail;
+  String? _errorPhone;
+  String? _errorPassword;
+
+  @override
+  void dispose() {
+    _nameController.dispose();
+    _emailController.dispose();
+    _phoneController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
+
+  void _resetVariable() {
+    _name = '';
+    _email = '';
+    _phone = '';
+    _password = '';
+    _errorName = null;
+    _errorEmail = null;
+    _errorPhone = null;
+    _errorPassword = null;
+    _nameController.clear();
+    _emailController.clear();
+    _phoneController.clear();
+    _passwordController.clear();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -52,28 +92,83 @@ class _RegisterAuthenticationScreenState
                   ),
                   SpacingConstant.verticalSpacing300,
                   CustomTextFieldWidget(
+                    key: _formKey,
                     label: 'Nama',
                     hint: 'Masukkan Nama Lengkap',
-                    onChanged: (value) {},
+                    hintTextColor: const Color(0xFFCBCBCB),
+                    onChanged: (String value) {
+                      _name = value;
+                      if (_name.isEmpty) {
+                        _errorName = 'Nama harus diisi oleh user.';
+                      } else if (RegExp(r'[0-9!@#%^&*(),.?":{}|<>]')
+                          .hasMatch(value)) {
+                        _errorName =
+                            'Nama tidak boleh mengandung angka atau karakter spesial.';
+                      } else {
+                        _errorName = null;
+                      }
+                      setState(() {});
+                    },
+                    error: _errorName,
                   ),
                   SpacingConstant.verticalSpacing200,
                   CustomTextFieldWidget(
+                    key: _formKey,
                     label: 'Email',
                     hint: 'Masukkan Email',
-                    onChanged: (value) {},
+                    hintTextColor: const Color(0xFFCBCBCB),
+                    onChanged: (String value) {
+                      _email = value;
+                      if (_email.isEmpty) {
+                        _errorEmail = 'Email harus harus diisi.';
+                      } else if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$')
+                          .hasMatch(value)) {
+                        _errorEmail = 'Email tidak valid.';
+                      } else {
+                        _errorEmail = null;
+                      }
+                      setState(() {});
+                    },
+                    error: _errorEmail,
                   ),
                   SpacingConstant.verticalSpacing200,
                   CustomTextFieldWidget(
+                    key: _formKey,
                     label: 'Nomor Handphone',
                     hint: 'Masukkan Nomor Handphone',
+                    hintTextColor: const Color(0xFFCBCBCB),
                     isInputForPhone: true,
-                    onChanged: (value) {},
+                    onChanged: (String value) {
+                      _phone = value;
+                      if (_phone.isEmpty) {
+                        _errorPhone = 'Nomor Handphone harus diisi.';
+                      } else if (!RegExp(r'^[0-9]+$').hasMatch(value)) {
+                        _errorPhone = 'Nomor Handphone tidak valid.';
+                      } else {
+                        _errorPhone = null;
+                      }
+                      setState(() {});
+                    },
+                    error: _errorPhone,
                   ),
                   SpacingConstant.verticalSpacing200,
                   CustomTextFieldWidget(
+                    key: _formKey,
                     label: 'Password',
                     hint: 'Masukkan Password',
-                    onChanged: (value) {},
+                    hintTextColor: const Color(0xFFCBCBCB),
+                    onChanged: (String value) {
+                      _password = value;
+                      if (_password.isEmpty) {
+                        _errorPassword = 'Password harus diisi.';
+                      } else if (_password.length < 8) {
+                        _errorPassword = 'Password minimal 8 karakter.';
+                      } else {
+                        _errorPassword = null;
+                      }
+                      setState(() {});
+                    },
+                    error: _errorPassword,
                   ),
                   SpacingConstant.verticalSpacing400,
                   GlobalButtonWidget(
