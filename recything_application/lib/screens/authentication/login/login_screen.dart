@@ -4,6 +4,7 @@ import 'package:recything_application/constants/color_constant.dart';
 import 'package:recything_application/constants/image_constant.dart';
 import 'package:recything_application/constants/spacing_constant.dart';
 import 'package:recything_application/constants/text_style_constant.dart';
+import 'package:recything_application/screens/authentication/on_time_password/one_time_password_screen.dart';
 import 'package:recything_application/screens/authentication/register/register_screen.dart';
 import 'package:recything_application/widgets/global_button_widget.dart';
 import 'package:recything_application/widgets/global_text_field_custom_widget.dart';
@@ -16,6 +17,7 @@ class LoginAuthenticationScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginAuthenticationScreen> {
+  final _formKey = GlobalKey<FormState>();
   TextEditingController _emailtelpController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
 
@@ -78,60 +80,75 @@ class _LoginScreenState extends State<LoginAuthenticationScreen> {
                     textAlign: TextAlign.justify,
                   ),
                   SpacingConstant.verticalSpacing300,
-                  CustomTextFieldWidget(
-                    label: 'Email / Nomor Telepon',
-                    hint: 'Masukkan Email atau Nomor Telepon',
-                    hintTextColor: const Color(0xFFCBCBCB),
-                    controller: _emailtelpController,
-                    onChanged: (String value) {
-                      _emailtelp = value;
-                      if (_emailtelp.isEmpty) {
-                        _errorEmailtelp =
-                            'Email atau Nomor Telepon harus diisi.';
-                      } else {
-                        _errorEmailtelp = null;
-                      }
-                      setState(() {});
-                    },
-                    error: _errorEmailtelp,
-                  ),
-                  SpacingConstant.verticalSpacing200,
-                  CustomTextFieldWidget(
-                    isInputForPassword: true,
-                    label: 'Password',
-                    hint: 'Masukkan Password',
-                    hintTextColor: const Color(0xFFCBCBCB),
-                    controller: _passwordController,
-                    obscureText: _isObscurePassword ? false : true,
-                    suffixIconButton: IconButton(
-                      icon: Icon(
-                        _isObscurePassword
-                            ? Icons.visibility_off
-                            : Icons.visibility,
-                        color: ColorConstant.netralColor600,
-                      ),
-                      onPressed: () {
-                        setState(() {
-                          _isObscurePassword = !_isObscurePassword;
-                        });
-                      },
+                  Form(
+                    key: _formKey,
+                    child: Column(
+                      children: [
+                        CustomTextFieldWidget(
+                          label: 'Email / Nomor Telepon',
+                          hint: 'Masukkan Email atau Nomor Telepon',
+                          hintTextColor: const Color(0xFFCBCBCB),
+                          controller: _emailtelpController,
+                          onChanged: (String value) {
+                            _emailtelp = value;
+                            if (_emailtelp.isEmpty) {
+                              _errorEmailtelp =
+                                  'Email atau Nomor Telepon harus diisi.';
+                            } else {
+                              _errorEmailtelp = null;
+                            }
+                            setState(() {});
+                          },
+                          error: _errorEmailtelp,
+                        ),
+                        SpacingConstant.verticalSpacing200,
+                        CustomTextFieldWidget(
+                          isInputForPassword: true,
+                          label: 'Password',
+                          hint: 'Masukkan Password',
+                          hintTextColor: const Color(0xFFCBCBCB),
+                          controller: _passwordController,
+                          obscureText: _isObscurePassword ? false : true,
+                          suffixIconButton: IconButton(
+                            icon: Icon(
+                              _isObscurePassword
+                                  ? Icons.visibility_off
+                                  : Icons.visibility,
+                              color: ColorConstant.netralColor600,
+                            ),
+                            onPressed: () {
+                              setState(() {
+                                _isObscurePassword = !_isObscurePassword;
+                              });
+                            },
+                          ),
+                          onChanged: (String value) {
+                            _password = value;
+                            if (_password.isEmpty) {
+                              _errorPassword = 'Password harus diisi.';
+                            } else if (_password.length < 8) {
+                              _errorPassword = 'Password minimal 8 karakter.';
+                            } else {
+                              _errorPassword = null;
+                            }
+                            setState(() {});
+                          },
+                          error: _errorPassword,
+                        ),
+                      ],
                     ),
-                    onChanged: (String value) {
-                      _password = value;
-                      if (_password.isEmpty) {
-                        _errorPassword = 'Password harus diisi.';
-                      } else if (_password.length < 8) {
-                        _errorPassword = 'Password minimal 8 karakter.';
-                      } else {
-                        _errorPassword = null;
-                      }
-                      setState(() {});
-                    },
-                    error: _errorPassword,
                   ),
                   SpacingConstant.verticalSpacing400,
                   GlobalButtonWidget(
-                    onTap: () {},
+                    onTap: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              const OneTimePasswordAuthenticationScreen(),
+                        ),
+                      );
+                      _resetVariable();
+                    },
                     width: double.infinity,
                     height: 40.0,
                     backgroundColor: ColorConstant.primaryColor500,
