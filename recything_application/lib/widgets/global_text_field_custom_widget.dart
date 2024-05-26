@@ -19,6 +19,9 @@ class CustomTextFieldWidget extends StatelessWidget {
   final double? labelFontSize;
   final Color? floatingLabelColor;
   final FontWeight? labelFontWeight;
+  final Color? hintTextColor;
+  final double? hintFontSize;
+  final FontWeight? hintFontWeight;
 
   const CustomTextFieldWidget({
     super.key,
@@ -37,6 +40,9 @@ class CustomTextFieldWidget extends StatelessWidget {
     this.labelColor,
     this.floatingLabelColor,
     this.labelFontWeight,
+    this.hintTextColor,
+    this.hintFontSize,
+    this.hintFontWeight,
   });
 
   @override
@@ -60,7 +66,6 @@ class CustomTextFieldWidget extends StatelessWidget {
       ],
       decoration: InputDecoration(
         errorText: error,
-        hintText: hint,
         enabled: isEnable,
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(8.0),
@@ -86,6 +91,13 @@ class CustomTextFieldWidget extends StatelessWidget {
           color: labelColor ?? ColorConstant.netralColor600,
           fontWeight: labelFontWeight ?? FontWeight.w600,
           fontSize: labelFontSize ?? 14.0,
+        ),
+        //hint
+        hintText: hint,
+        hintStyle: TextStyleConstant.regularParagraph.copyWith(
+          color: hintTextColor ?? ColorConstant.netralColor600,
+          fontSize: hintFontSize ?? 14.0,
+          fontWeight: hintFontWeight ?? FontWeight.w400,
         ),
       ),
     );
