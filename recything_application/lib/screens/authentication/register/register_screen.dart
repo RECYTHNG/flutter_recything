@@ -164,8 +164,8 @@ class _RegisterAuthenticationScreenState
                     suffixIconButton: IconButton(
                       icon: Icon(
                         _isObscurePassword
-                            ? Icons.visibility
-                            : Icons.visibility_off,
+                            ? Icons.visibility_off
+                            : Icons.visibility,
                         color: ColorConstant.netralColor600,
                       ),
                       onPressed: () {
@@ -198,7 +198,7 @@ class _RegisterAuthenticationScreenState
                     textColor: ColorConstant.whiteColor,
                     fontSize: 16.0,
                   ),
-                  SpacingConstant.verticalSpacing400,
+                  SpacingConstant.verticalSpacing300,
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -211,7 +211,8 @@ class _RegisterAuthenticationScreenState
                         onTap: () {
                           Navigator.of(context).pushReplacement(
                             MaterialPageRoute(
-                              builder: (context) => const LoginScreen(),
+                              builder: (context) =>
+                                  const LoginAuthenticationScreen(),
                             ),
                           );
                         },

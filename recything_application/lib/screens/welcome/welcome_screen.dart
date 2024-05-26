@@ -3,6 +3,7 @@ import 'package:recything_application/constants/color_constant.dart';
 import 'package:recything_application/constants/image_constant.dart';
 import 'package:recything_application/constants/spacing_constant.dart';
 import 'package:recything_application/constants/text_style_constant.dart';
+import 'package:recything_application/screens/authentication/login/login_screen.dart';
 import 'package:recything_application/screens/authentication/register/register_screen.dart';
 import 'package:recything_application/widgets/global_button_widget.dart';
 
@@ -100,7 +101,13 @@ class WelcomeScreen extends StatelessWidget {
                 ),
                 SpacingConstant.verticalSpacing200,
                 GlobalButtonWidget(
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.of(context).pushReplacement(
+                      MaterialPageRoute(
+                        builder: (context) => const LoginAuthenticationScreen(),
+                      ),
+                    );
+                  },
                   width: double.infinity,
                   height: 40.0,
                   backgroundColor: ColorConstant.whiteColor,
