@@ -17,6 +17,7 @@ class RegisterAuthenticationScreen extends StatefulWidget {
 
 class _RegisterAuthenticationScreenState
     extends State<RegisterAuthenticationScreen> {
+  final _formKey = GlobalKey<FormState>();
   TextEditingController _nameController = TextEditingController();
   TextEditingController _emailController = TextEditingController();
   TextEditingController _phoneController = TextEditingController();
@@ -93,99 +94,107 @@ class _RegisterAuthenticationScreenState
                     textAlign: TextAlign.justify,
                   ),
                   SpacingConstant.verticalSpacing300,
-                  CustomTextFieldWidget(
-                    label: 'Nama',
-                    hint: 'Masukkan Nama Lengkap',
-                    hintTextColor: const Color(0xFFCBCBCB),
-                    controller: _nameController,
-                    onChanged: (String value) {
-                      _name = value;
-                      if (_name.isEmpty) {
-                        _errorName = 'Nama harus diisi oleh user.';
-                      } else if (RegExp(r'[0-9!@#%^&*(),.?":{}|<>]')
-                          .hasMatch(value)) {
-                        _errorName =
-                            'Nama tidak boleh mengandung angka atau karakter spesial.';
-                      } else {
-                        _errorName = null;
-                      }
-                      setState(() {});
-                    },
-                    error: _errorName,
-                  ),
-                  SpacingConstant.verticalSpacing200,
-                  CustomTextFieldWidget(
-                    label: 'Email',
-                    hint: 'Masukkan Email',
-                    hintTextColor: const Color(0xFFCBCBCB),
-                    controller: _emailController,
-                    onChanged: (String value) {
-                      _email = value;
-                      if (_email.isEmpty) {
-                        _errorEmail = 'Email harus harus diisi.';
-                      } else if (!RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$')
-                          .hasMatch(value)) {
-                        _errorEmail = 'Email tidak valid.';
-                      } else {
-                        _errorEmail = null;
-                      }
-                      setState(() {});
-                    },
-                    error: _errorEmail,
-                  ),
-                  SpacingConstant.verticalSpacing200,
-                  CustomTextFieldWidget(
-                    label: 'Nomor Handphone',
-                    hint: 'Masukkan Nomor Handphone',
-                    hintTextColor: const Color(0xFFCBCBCB),
-                    isInputForPhone: true,
-                    controller: _phoneController,
-                    onChanged: (String value) {
-                      _phone = value;
-                      if (_phone.isEmpty) {
-                        _errorPhone = 'Nomor Handphone harus diisi.';
-                      } else if (!RegExp(r'^[0-9]+$').hasMatch(value)) {
-                        _errorPhone = 'Nomor Handphone tidak valid.';
-                      } else {
-                        _errorPhone = null;
-                      }
-                      setState(() {});
-                    },
-                    error: _errorPhone,
-                  ),
-                  SpacingConstant.verticalSpacing200,
-                  CustomTextFieldWidget(
-                    isInputForPassword: true,
-                    label: 'Password',
-                    hint: 'Masukkan Password',
-                    hintTextColor: const Color(0xFFCBCBCB),
-                    controller: _passwordController,
-                    obscureText: _isObscurePassword ? false : true,
-                    suffixIconButton: IconButton(
-                      icon: Icon(
-                        _isObscurePassword
-                            ? Icons.visibility_off
-                            : Icons.visibility,
-                        color: ColorConstant.netralColor600,
-                      ),
-                      onPressed: () {
-                        setState(() {
-                          _isObscurePassword = !_isObscurePassword;
-                        });
-                      },
+                  Form(
+                    key: _formKey,
+                    child: Column(
+                      children: [
+                        CustomTextFieldWidget(
+                          label: 'Nama',
+                          hint: 'Masukkan Nama Lengkap',
+                          hintTextColor: const Color(0xFFCBCBCB),
+                          controller: _nameController,
+                          onChanged: (String value) {
+                            _name = value;
+                            if (_name.isEmpty) {
+                              _errorName = 'Nama harus diisi oleh user.';
+                            } else if (RegExp(r'[0-9!@#%^&*(),.?":{}|<>]')
+                                .hasMatch(value)) {
+                              _errorName =
+                                  'Nama tidak boleh mengandung angka atau karakter spesial.';
+                            } else {
+                              _errorName = null;
+                            }
+                            setState(() {});
+                          },
+                          error: _errorName,
+                        ),
+                        SpacingConstant.verticalSpacing200,
+                        CustomTextFieldWidget(
+                          label: 'Email',
+                          hint: 'Masukkan Email',
+                          hintTextColor: const Color(0xFFCBCBCB),
+                          controller: _emailController,
+                          onChanged: (String value) {
+                            _email = value;
+                            if (_email.isEmpty) {
+                              _errorEmail = 'Email harus harus diisi.';
+                            } else if (!RegExp(
+                                    r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$')
+                                .hasMatch(value)) {
+                              _errorEmail = 'Email tidak valid.';
+                            } else {
+                              _errorEmail = null;
+                            }
+                            setState(() {});
+                          },
+                          error: _errorEmail,
+                        ),
+                        SpacingConstant.verticalSpacing200,
+                        CustomTextFieldWidget(
+                          label: 'Nomor Handphone',
+                          hint: 'Masukkan Nomor Handphone',
+                          hintTextColor: const Color(0xFFCBCBCB),
+                          isInputForPhone: true,
+                          controller: _phoneController,
+                          onChanged: (String value) {
+                            _phone = value;
+                            if (_phone.isEmpty) {
+                              _errorPhone = 'Nomor Handphone harus diisi.';
+                            } else if (!RegExp(r'^[0-9]+$').hasMatch(value)) {
+                              _errorPhone = 'Nomor Handphone tidak valid.';
+                            } else {
+                              _errorPhone = null;
+                            }
+                            setState(() {});
+                          },
+                          error: _errorPhone,
+                        ),
+                        SpacingConstant.verticalSpacing200,
+                        CustomTextFieldWidget(
+                          isInputForPassword: true,
+                          label: 'Password',
+                          hint: 'Masukkan Password',
+                          hintTextColor: const Color(0xFFCBCBCB),
+                          controller: _passwordController,
+                          obscureText: _isObscurePassword ? false : true,
+                          suffixIconButton: IconButton(
+                            icon: Icon(
+                              _isObscurePassword
+                                  ? Icons.visibility_off
+                                  : Icons.visibility,
+                              color: ColorConstant.netralColor600,
+                            ),
+                            onPressed: () {
+                              setState(() {
+                                _isObscurePassword = !_isObscurePassword;
+                              });
+                            },
+                          ),
+                          onChanged: (String value) {
+                            _password = value;
+                            if (_password.isEmpty) {
+                              _errorPassword = 'Password harus diisi.';
+                            } else if (_password.length < 8) {
+                              _errorPassword = 'Password minimal 8 karakter.';
+                            } else {
+                              _errorPassword = null;
+                            }
+                            setState(() {});
+                          },
+                          error: _errorPassword,
+                        ),
+                      ],
                     ),
-                    onChanged: (String value) {
-                      _password = value;
-                      if (_password.isEmpty) {
-                        _errorPassword = 'Password harus diisi.';
-                      } else if (_password.length < 8) {
-                        _errorPassword = 'Password minimal 8 karakter.';
-                      } else {
-                        _errorPassword = null;
-                      }
-                      setState(() {});
-                    },
-                    error: _errorPassword,
                   ),
                   SpacingConstant.verticalSpacing400,
                   GlobalButtonWidget(
