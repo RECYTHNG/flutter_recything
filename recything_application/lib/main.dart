@@ -15,8 +15,8 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       home: const Scaffold(
         body: Center(
-          child: Text('Initial Page'),
-        ),
+          child: Text('Hello World!'),
+        )
       ),
     );
   }
