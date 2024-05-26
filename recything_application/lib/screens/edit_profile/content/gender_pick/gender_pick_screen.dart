@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:recything_application/constants/color_constant.dart';
-import 'package:recything_application/constants/image_constant.dart';
+import 'package:recything_application/constants/icon_constant.dart';
 import 'package:recything_application/constants/spacing_constant.dart';
 import 'package:recything_application/constants/text_style_constant.dart';
 
@@ -12,6 +13,18 @@ class GenderPickScreen extends StatefulWidget {
 }
 
 class _GenderPickScreenState extends State<GenderPickScreen> {
+  String selectedGender = '';
+
+  void _selectGender(String gender) {
+    setState(() {
+      if (selectedGender == gender) {
+        selectedGender = '';
+      } else {
+        selectedGender = gender;
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -52,40 +65,90 @@ class _GenderPickScreenState extends State<GenderPickScreen> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Image.asset(
-                      ImageConstant.maleEditProfil,
-                      scale: 0.8,
+                    Container(
+                      alignment: Alignment.center,
+                      width: 120,
+                      child: GestureDetector(
+                        onTap: () => _selectGender('male'),
+                        child: Stack(
+                          alignment: Alignment.topRight,
+                          children: [
+                            SvgPicture.asset(
+                              IconConstant.iconMale,
+                              colorFilter: selectedGender == 'male'
+                                  ? const ColorFilter.mode(
+                                      ColorConstant.primaryColor500,
+                                      BlendMode.srcIn)
+                                  : null,
+                            ),
+                            if (selectedGender == 'male')
+                              Container(
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(100),
+                                  color: Colors.white,
+                                ),
+                                child: const Icon(
+                                  size: 22,
+                                  Icons.check_circle_rounded,
+                                  color: ColorConstant.primaryColor500,
+                                ),
+                              ),
+                          ],
+                        ),
+                      ),
                     ),
                     SpacingConstant.horizontalSpacing500,
-                    Image.asset(
-                      ImageConstant.femaleEditProfil,
-                      scale: 0.8,
+                    Container(
+                      alignment: Alignment.topLeft,
+                      width: 120,
+                      child: GestureDetector(
+                        onTap: () => _selectGender('female'),
+                        child: selectedGender != 'female'
+                            ? SvgPicture.asset(
+                                IconConstant.iconFemale,
+                              )
+                            : SvgPicture.asset(
+                                IconConstant.iconFemaleActive,
+                              ),
+                      ),
                     ),
                   ],
-                )
+                ),
               ],
             ),
             Padding(
               padding: const EdgeInsets.only(bottom: 56, right: 24, left: 24),
               child: TextButton(
-                onPressed: () => {},
+                onPressed: selectedGender == '' ? null : () {},
+                style: ButtonStyle(
+                  backgroundColor: WidgetStateProperty.resolveWith<Color>(
+                    (Set<WidgetState> states) {
+                      if (states.contains(WidgetState.disabled)) {
+                        return Colors.grey;
+                      }
+                      return ColorConstant.primaryColor500;
+                    },
+                  ),
+                  padding: WidgetStateProperty.all(const EdgeInsets.all(8)),
+                  shape: WidgetStateProperty.all(
+                    RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                  ),
+                ),
                 child: Container(
-                  color: ColorConstant.primaryColor500,
-                  child: const Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        'Simpan',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 20,
-                        ),
-                      ),
-                    ],
+                  width: double.infinity,
+                  alignment: Alignment.center,
+                  child: const Text(
+                    'Simpan',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 20,
+                    ),
                   ),
                 ),
               ),
-            )
+            ),
           ],
         ),
       ),
