@@ -3,6 +3,7 @@ import 'package:recything_application/constants/color_constant.dart';
 import 'package:recything_application/constants/image_constant.dart';
 import 'package:recything_application/constants/spacing_constant.dart';
 import 'package:recything_application/constants/text_style_constant.dart';
+import 'package:recything_application/screens/authentication/login/login_screen.dart';
 import 'package:recything_application/widgets/global_button_widget.dart';
 import 'package:recything_application/widgets/global_text_field_custom_widget.dart';
 
@@ -16,7 +17,6 @@ class RegisterAuthenticationScreen extends StatefulWidget {
 
 class _RegisterAuthenticationScreenState
     extends State<RegisterAuthenticationScreen> {
-  final _formKey = GlobalKey<FormState>();
   TextEditingController _nameController = TextEditingController();
   TextEditingController _emailController = TextEditingController();
   TextEditingController _phoneController = TextEditingController();
@@ -31,6 +31,8 @@ class _RegisterAuthenticationScreenState
   String? _errorEmail;
   String? _errorPhone;
   String? _errorPassword;
+
+  bool _isObscurePassword = false;
 
   @override
   void dispose() {
@@ -92,10 +94,10 @@ class _RegisterAuthenticationScreenState
                   ),
                   SpacingConstant.verticalSpacing300,
                   CustomTextFieldWidget(
-                    key: _formKey,
                     label: 'Nama',
                     hint: 'Masukkan Nama Lengkap',
                     hintTextColor: const Color(0xFFCBCBCB),
+                    controller: _nameController,
                     onChanged: (String value) {
                       _name = value;
                       if (_name.isEmpty) {
@@ -113,10 +115,10 @@ class _RegisterAuthenticationScreenState
                   ),
                   SpacingConstant.verticalSpacing200,
                   CustomTextFieldWidget(
-                    key: _formKey,
                     label: 'Email',
                     hint: 'Masukkan Email',
                     hintTextColor: const Color(0xFFCBCBCB),
+                    controller: _emailController,
                     onChanged: (String value) {
                       _email = value;
                       if (_email.isEmpty) {
@@ -133,11 +135,11 @@ class _RegisterAuthenticationScreenState
                   ),
                   SpacingConstant.verticalSpacing200,
                   CustomTextFieldWidget(
-                    key: _formKey,
                     label: 'Nomor Handphone',
                     hint: 'Masukkan Nomor Handphone',
                     hintTextColor: const Color(0xFFCBCBCB),
                     isInputForPhone: true,
+                    controller: _phoneController,
                     onChanged: (String value) {
                       _phone = value;
                       if (_phone.isEmpty) {
@@ -153,10 +155,25 @@ class _RegisterAuthenticationScreenState
                   ),
                   SpacingConstant.verticalSpacing200,
                   CustomTextFieldWidget(
-                    key: _formKey,
+                    isInputForPassword: true,
                     label: 'Password',
                     hint: 'Masukkan Password',
                     hintTextColor: const Color(0xFFCBCBCB),
+                    controller: _passwordController,
+                    obscureText: _isObscurePassword ? false : true,
+                    suffixIconButton: IconButton(
+                      icon: Icon(
+                        _isObscurePassword
+                            ? Icons.visibility
+                            : Icons.visibility_off,
+                        color: ColorConstant.netralColor600,
+                      ),
+                      onPressed: () {
+                        setState(() {
+                          _isObscurePassword = !_isObscurePassword;
+                        });
+                      },
+                    ),
                     onChanged: (String value) {
                       _password = value;
                       if (_password.isEmpty) {
@@ -191,7 +208,13 @@ class _RegisterAuthenticationScreenState
                             .copyWith(color: ColorConstant.netralColor600),
                       ),
                       GestureDetector(
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.of(context).pushReplacement(
+                            MaterialPageRoute(
+                              builder: (context) => const LoginScreen(),
+                            ),
+                          );
+                        },
                         child: Text(
                           'Login',
                           style: TextStyleConstant.regularSubtitle
@@ -200,6 +223,7 @@ class _RegisterAuthenticationScreenState
                       ),
                     ],
                   ),
+                  SpacingConstant.verticalSpacing200,
                 ],
               ),
             ),
