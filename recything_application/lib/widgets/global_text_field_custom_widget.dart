@@ -22,6 +22,9 @@ class CustomTextFieldWidget extends StatelessWidget {
   final Color? hintTextColor;
   final double? hintFontSize;
   final FontWeight? hintFontWeight;
+  final bool isInputForPassword;
+  final IconButton? suffixIconButton;
+  final bool obscureText;
 
   const CustomTextFieldWidget({
     super.key,
@@ -43,6 +46,9 @@ class CustomTextFieldWidget extends StatelessWidget {
     this.hintTextColor,
     this.hintFontSize,
     this.hintFontWeight,
+    this.isInputForPassword = false,
+    this.suffixIconButton,
+    this.obscureText = false,
   });
 
   @override
@@ -52,6 +58,7 @@ class CustomTextFieldWidget extends StatelessWidget {
       validator: validator,
       onChanged: onChanged,
       onFieldSubmitted: onFieldSubmitted,
+      obscureText: obscureText,
       style: TextStyleConstant.regularParagraph.copyWith(
         fontSize: 14.0,
         color: ColorConstant.primaryColor900,
@@ -99,6 +106,7 @@ class CustomTextFieldWidget extends StatelessWidget {
           fontSize: hintFontSize ?? 14.0,
           fontWeight: hintFontWeight ?? FontWeight.w400,
         ),
+        suffixIcon: isInputForPassword ? suffixIconButton : null,
       ),
     );
 
