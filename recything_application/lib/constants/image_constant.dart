@@ -12,5 +12,7 @@ class ImageConstant {
 
   //welcome
   static const String welcomeImage = 'assets/images/welcome/welcome_screen_images.png';
+
   //auth
+  static const String authImage = 'assets/images/authentication/auth_image.png';
 }
