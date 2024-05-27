@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:recything_application/constants/app_theme_constant.dart';
+import 'package:recything_application/screens/video_content/video_content_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -13,11 +14,12 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       theme: AppThemeConstant.appTheme,
       debugShowCheckedModeBanner: false,
-      home: const Scaffold(
-        body: Center(
-          child: Text('Hello World!'),
-        )
-      ),
+      home: VideoContentScreen(),
+      // home: const Scaffold(
+      //   body: Center(
+      //     child: Text('Hello World!'),
+      //   )
+      // ),
     );
   }
 }
