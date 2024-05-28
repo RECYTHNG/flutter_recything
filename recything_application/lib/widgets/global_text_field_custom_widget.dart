@@ -25,6 +25,7 @@ class CustomTextFieldWidget extends StatelessWidget {
   final bool isInputForPassword;
   final IconButton? suffixIconButton;
   final bool obscureText;
+  final bool isTextArea;
 
   const CustomTextFieldWidget({
     super.key,
@@ -49,6 +50,7 @@ class CustomTextFieldWidget extends StatelessWidget {
     this.isInputForPassword = false,
     this.suffixIconButton,
     this.obscureText = false,
+    this.isTextArea = false,
   });
 
   @override
@@ -71,6 +73,8 @@ class CustomTextFieldWidget extends StatelessWidget {
           LengthLimitingTextInputFormatter(13),
         ]
       ],
+      maxLines: isTextArea ? null : 1,
+      minLines: isTextArea ? 5 : null,
       decoration: InputDecoration(
         errorText: error,
         enabled: isEnable,

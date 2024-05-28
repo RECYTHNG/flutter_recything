@@ -68,6 +68,11 @@ class DatePickerWidgetState extends State<DatePickerWidget> {
           label: widget.label,
           hint: widget.hint,
           controller: _controller,
+          suffixIconButton: IconButton(
+            onPressed: () {},
+            icon: Icon(Icons.calendar_month_outlined),
+          ),
+          isInputForPassword: true,
         ),
       ),
     );
