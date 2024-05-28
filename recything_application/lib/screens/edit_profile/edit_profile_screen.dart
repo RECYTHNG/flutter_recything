@@ -3,7 +3,8 @@ import 'package:recything_application/constants/color_constant.dart';
 import 'package:recything_application/constants/image_constant.dart';
 import 'package:recything_application/constants/spacing_constant.dart';
 import 'package:recything_application/screens/edit_profile/content/gender_pick/gender_pick_screen.dart';
-import 'package:recything_application/screens/edit_profile/widget/custom_text_field_widget.dart';
+import 'package:recything_application/screens/edit_profile/widget/date_picker_widget.dart';
+import 'package:recything_application/widgets/global_text_field_custom_widget.dart';
 
 class EditProfileScreen extends StatefulWidget {
   const EditProfileScreen({super.key});
@@ -87,6 +88,11 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                     hint: 'Pilih Jenis Kelamin',
                     isForm: false,
                     targetScreen: GenderPickScreen(),
+                  ),
+                  SpacingConstant.verticalSpacing200,
+                  const DatePickerWidget(
+                    label: 'Tanggal Lahir',
+                    hint: 'Input Tanggal Lahir',
                   ),
                   SpacingConstant.verticalSpacing200,
                   const CustomTextFieldWidget(
