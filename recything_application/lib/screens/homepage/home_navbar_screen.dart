@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:recything_application/constants/color_constant.dart';
 import 'package:recything_application/screens/homepage/homepage_screen.dart';
-import 'package:recything_application/screens/homepage/widgets/buttom_nav_item_widget.dart';
-import 'package:recything_application/screens/homepage/widgets/rounded_floating_action_button_widget.dart';
+import 'package:recything_application/screens/homepage/widgets/bottom_navbar/buttom_nav_item_widget.dart';
+import 'package:recything_application/screens/homepage/widgets/bottom_navbar/rounded_floating_action_button_widget.dart';
 
 class HomeNavBarScreen extends StatefulWidget {
   int currentIndex = 0;
@@ -81,6 +81,7 @@ class _HomeScreenState extends State<HomeNavBarScreen> {
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      resizeToAvoidBottomInset: false,
       floatingActionButton: const RoundedFloatingActionButton(),
     );
   }
