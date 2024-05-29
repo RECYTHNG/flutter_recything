@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       theme: AppThemeConstant.appTheme,
       debugShowCheckedModeBanner: false,
-      home: const RubbishDescScreen(),
+      home: const LitterDescScreen(),
     );
   }
 }

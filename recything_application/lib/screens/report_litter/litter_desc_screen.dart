@@ -4,14 +4,14 @@ import 'package:recything_application/constants/spacing_constant.dart';
 import 'package:recything_application/constants/text_style_constant.dart';
 import 'package:recything_application/widgets/global_text_field_custom_widget.dart';
 
-class RubbishDescScreen extends StatefulWidget {
-  const RubbishDescScreen({super.key});
+class LitterDescScreen extends StatefulWidget {
+  const LitterDescScreen({super.key});
 
   @override
-  State<RubbishDescScreen> createState() => _RubbishDescScreenState();
+  State<LitterDescScreen> createState() => LitterDescScreenState();
 }
 
-class _RubbishDescScreenState extends State<RubbishDescScreen> {
+class LitterDescScreenState extends State<LitterDescScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

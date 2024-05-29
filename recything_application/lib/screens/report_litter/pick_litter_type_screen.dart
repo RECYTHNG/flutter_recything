@@ -3,14 +3,14 @@ import 'package:recything_application/constants/color_constant.dart';
 import 'package:recything_application/constants/spacing_constant.dart';
 import 'package:recything_application/constants/text_style_constant.dart';
 
-class PickRubbishTypeScreen extends StatefulWidget {
-  const PickRubbishTypeScreen({super.key});
+class PickLitterTypeScreen extends StatefulWidget {
+  const PickLitterTypeScreen({super.key});
 
   @override
-  State<PickRubbishTypeScreen> createState() => _PickRubbishTypeScreenState();
+  State<PickLitterTypeScreen> createState() => _PickLitterTypeScreenState();
 }
 
-class _PickRubbishTypeScreenState extends State<PickRubbishTypeScreen> {
+class _PickLitterTypeScreenState extends State<PickLitterTypeScreen> {
   List<Map<String, String>> listSampah = [
     {
       'name': 'Organik',
