@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:recything_application/constants/color_constant.dart';
+import 'package:recything_application/constants/shadow_constant.dart';
 import 'package:recything_application/constants/text_style_constant.dart';
 
 class ArticleSectionWidget extends StatelessWidget {
@@ -11,7 +12,6 @@ class ArticleSectionWidget extends StatelessWidget {
       padding: const EdgeInsets.only(
         right: 24,
         left: 24,
-        top: 24,
       ),
       child: Column(
         children: [
@@ -50,6 +50,7 @@ class ArticleSectionWidget extends StatelessWidget {
             decoration: BoxDecoration(
               color: ColorConstant.whiteColor,
               borderRadius: BorderRadius.circular(12),
+              boxShadow: ShadowConstant.shadowLg,
             ),
             child: Padding(
               padding: const EdgeInsets.all(12),

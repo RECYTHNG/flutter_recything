@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:recything_application/constants/color_constant.dart';
+import 'package:recything_application/constants/shadow_constant.dart';
 import 'package:recything_application/constants/text_style_constant.dart';
 
 class NewVideoSectionWidget extends StatelessWidget {
@@ -46,7 +47,10 @@ class NewVideoSectionWidget extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 12),
-          SizedBox(
+          Container(
+            decoration: BoxDecoration(
+              boxShadow: ShadowConstant.shadowLg,
+            ),
             height: 234,
             child: ListView.builder(
               scrollDirection: Axis.horizontal,
@@ -54,8 +58,9 @@ class NewVideoSectionWidget extends StatelessWidget {
               itemBuilder: (context, index) {
                 final item = carouselData[index];
                 return Container(
+                  height: 234,
                   width: 166,
-                  margin: const EdgeInsets.only(right: 12),
+                  margin: const EdgeInsets.only(right: 8),
                   decoration: BoxDecoration(
                     color: ColorConstant.whiteColor,
                     borderRadius: BorderRadius.circular(12),

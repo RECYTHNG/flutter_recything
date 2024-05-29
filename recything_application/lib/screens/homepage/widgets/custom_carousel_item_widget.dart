@@ -1,6 +1,7 @@
 import 'package:carousel_indicator_simple/carousel_indicator_simple.dart';
 import 'package:flutter/material.dart';
 import 'package:recything_application/constants/color_constant.dart';
+import 'package:recything_application/constants/shadow_constant.dart';
 import 'package:recything_application/constants/text_style_constant.dart';
 
 class CustomCarouselItem extends StatelessWidget {
@@ -22,12 +23,14 @@ class CustomCarouselItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      margin: const EdgeInsets.symmetric(horizontal: 4),
       alignment: Alignment.center,
       width: 372,
       height: 224,
       decoration: BoxDecoration(
         color: ColorConstant.whiteColor,
         borderRadius: BorderRadius.circular(8),
+        boxShadow: ShadowConstant.shadowLg,
       ),
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 12),

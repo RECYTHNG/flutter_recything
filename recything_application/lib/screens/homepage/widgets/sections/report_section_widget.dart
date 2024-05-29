@@ -49,27 +49,29 @@ class ReportSectionWidget extends StatelessWidget {
                   ),
                 ],
               ),
-              const SizedBox(height: 12),
             ],
           ),
         ),
-        FlutterCarousel.builder(
-          options: CarouselOptions(
-            height: 224,
-            showIndicator: false,
+        SizedBox(
+          height: 272,
+          child: FlutterCarousel.builder(
+            options: CarouselOptions(
+              height: 224,
+              showIndicator: false,
+            ),
+            itemCount: carouselData.length,
+            itemBuilder:
+                (BuildContext context, int itemIndex, int pageViewIndex) {
+              final item = carouselData[itemIndex];
+              return CustomCarouselItem(
+                pageViewIndex: pageViewIndex,
+                title: item['title']!,
+                subtitle: item['subtitle']!,
+                imagePath: item['imagePath']!,
+                footerText: item['footerText']!,
+              );
+            },
           ),
-          itemCount: carouselData.length,
-          itemBuilder:
-              (BuildContext context, int itemIndex, int pageViewIndex) {
-            final item = carouselData[itemIndex];
-            return CustomCarouselItem(
-              pageViewIndex: pageViewIndex,
-              title: item['title']!,
-              subtitle: item['subtitle']!,
-              imagePath: item['imagePath']!,
-              footerText: item['footerText']!,
-            );
-          },
         )
       ],
     );
