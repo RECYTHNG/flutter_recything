@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:recything_application/constants/color_constant.dart';
 
 class RoundedFloatingActionButton extends StatelessWidget {
@@ -25,10 +26,10 @@ class RoundedFloatingActionButton extends StatelessWidget {
           shape: const CircleBorder(),
           backgroundColor: ColorConstant.whiteColor,
           onPressed: () {},
-          child: const Icon(
-            Icons.volume_mute_rounded,
-            color: ColorConstant.primaryColor500,
-            size: 32,
+          child: SvgPicture.asset(
+            'assets/images/home_images/icons/report.svg',
+            width: 32,
+            height: 32,
           ),
         ),
       ),
