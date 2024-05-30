@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:recything_application/constants/color_constant.dart';
+import 'package:recything_application/constants/icon_constant.dart';
 import 'package:recything_application/constants/image_constant.dart';
 import 'package:recything_application/constants/spacing_constant.dart';
 import 'package:recything_application/constants/text_style_constant.dart';
@@ -27,7 +29,16 @@ class _ClassicAchievementContentState extends State<ClassicAchievementContent> {
                   height: 200.0,
                   width: double.infinity,
                   decoration: BoxDecoration(
-                    color: const Color(0xFF4F3415),
+                    gradient: SweepGradient(
+                      colors: [
+                        const Color(0xFF4F3415),
+                        const Color(0xFF4F3415).withOpacity(0.75),
+                      ],
+                      center: const Alignment(-2.5, 0.0),
+                      startAngle: 0.0,
+                      endAngle: 2 * 3.14159,
+                      transform: const GradientRotation(-3.14 / 3),
+                    ),
                     borderRadius: BorderRadius.circular(12),
                   ),
                   child: Padding(
@@ -90,6 +101,23 @@ class _ClassicAchievementContentState extends State<ClassicAchievementContent> {
                         bottomLeft: Radius.circular(12.0),
                         bottomRight: Radius.circular(12.0),
                       ),
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        SvgPicture.asset(
+                          width: 18.01,
+                          height: 24,
+                          IconConstant.achievementIcon,
+                        ),
+                        SpacingConstant.horizontalSpacing100,
+                        Text(
+                          'Level Lencana Anda Saat Ini',
+                          style: TextStyleConstant.regularParagraph.copyWith(
+                            color: ColorConstant.whiteColor,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ),
