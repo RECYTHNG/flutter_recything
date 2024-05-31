@@ -93,6 +93,62 @@ class _OneTimePasswordAuthenticationScreenState
     }
   }
 
+  Future<void> _resendOtp() async {
+    try {
+      final response = await OneTimePasswordAuthenticationService()
+          .postResendOneTimePassword(
+        email: widget.email,
+      );
+      if (response.code == 200 || response.code == 201) {
+        showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+            title: const Text('Success'),
+            content: Text(response.message ?? 'Success'),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: const Text('OK'),
+              ),
+            ],
+          ),
+        );
+      } else {
+        showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+            title: const Text('Error'),
+            content: Text(response.message ?? 'Error'),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: const Text('OK'),
+              ),
+            ],
+          ),
+        );
+      }
+    } catch (e) {
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: const Text('Error'),
+          content: Text('An error occurred: $e'),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(),
+              child: const Text('OK'),
+            ),
+          ],
+        ),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -147,7 +203,9 @@ class _OneTimePasswordAuthenticationScreenState
             ),
             SpacingConstant.verticalSpacing400,
             GestureDetector(
-              onTap: () {},
+              onTap: () {
+                _resendOtp();
+              },
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
