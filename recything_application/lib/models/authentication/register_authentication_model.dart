@@ -19,9 +19,9 @@ class RegisterAuthenticationModel {
 
   factory RegisterAuthenticationModel.fromJson(Map<String, dynamic> json) =>
       RegisterAuthenticationModel(
-        code: json["code"],
-        message: json["message"],
-        data: json["data"] == null ? null : Data.fromJson(json["data"]),
+        code: json["code"] ?? 0,
+        message: json["message"] == null ? null : json["message"] ?? '',
+        data: json["data"] == null ? null : Data.fromJson(json["data"] ?? {}),
       );
 
   Map<String, dynamic> toJson() => {
@@ -35,26 +35,30 @@ class Data {
   String? userId;
   String? name;
   String? email;
+  String? phoneNumber;
   bool? isVerified;
 
   Data({
     this.userId,
     this.name,
     this.email,
+    this.phoneNumber,
     this.isVerified,
   });
 
   factory Data.fromJson(Map<String, dynamic> json) => Data(
-        userId: json["user_id"],
-        name: json["name"],
-        email: json["email"],
-        isVerified: json["is_verified"],
+        userId: json["user_id"] ?? '',
+        name: json["name"] ?? '',
+        email: json["email"] ?? '',
+        phoneNumber: json["phone_number"] ?? '',
+        isVerified: json["is_verified"] ?? false,
       );
 
   Map<String, dynamic> toJson() => {
         "user_id": userId,
         "name": name,
         "email": email,
+        "phone_number": phoneNumber,
         "is_verified": isVerified,
       };
 }

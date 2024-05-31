@@ -1,9 +1,13 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:recything_application/constants/color_constant.dart';
 import 'package:recything_application/constants/image_constant.dart';
 import 'package:recything_application/constants/spacing_constant.dart';
 import 'package:recything_application/constants/text_style_constant.dart';
 import 'package:recything_application/screens/authentication/login/login_screen.dart';
+import 'package:recything_application/screens/authentication/on_time_password/one_time_password_screen.dart';
+import 'package:recything_application/services/authentication/authentication_service.dart';
 import 'package:recything_application/widgets/global_button_widget.dart';
 import 'package:recything_application/widgets/global_text_field_custom_widget.dart';
 
@@ -18,10 +22,10 @@ class RegisterAuthenticationScreen extends StatefulWidget {
 class _RegisterAuthenticationScreenState
     extends State<RegisterAuthenticationScreen> {
   final _formKey = GlobalKey<FormState>();
-  TextEditingController _nameController = TextEditingController();
-  TextEditingController _emailController = TextEditingController();
-  TextEditingController _phoneController = TextEditingController();
-  TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _phoneController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
 
   String _name = '';
   String _email = '';
@@ -57,6 +61,86 @@ class _RegisterAuthenticationScreenState
     _emailController.clear();
     _phoneController.clear();
     _passwordController.clear();
+  }
+
+  bool validation() {
+    return _name != '' &&
+        _email != '' &&
+        _phone != '' &&
+        _password != '' &&
+        _name.isNotEmpty &&
+        _email.isNotEmpty &&
+        _phone.isNotEmpty &&
+        _password.isNotEmpty;
+  }
+
+  Future<void> _register() async {
+    if (_formKey.currentState?.validate() ?? false) {
+      try {
+        final response = await AuthenticationService().postRegister(
+          name: _name,
+          email: _email,
+          phoneNumber: _phone,
+          password: _password,
+        );
+
+        if (response.code == 201) {
+          _resetVariable();
+          showDialog(
+            context: context,
+            builder: (context) => AlertDialog(
+              title: const Text('Success'),
+              content: Text(
+                response.message ?? 'Registration success!',
+              ),
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pushReplacement(
+                      MaterialPageRoute(
+                        builder: (context) =>
+                            OneTimePasswordAuthenticationScreen(
+                          email: _email,
+                        ),
+                      ),
+                    );
+                  },
+                  child: const Text('OK'),
+                ),
+              ],
+            ),
+          );
+        } else {
+          showDialog(
+            context: context,
+            builder: (context) => AlertDialog(
+              title: const Text('Error'),
+              content: Text(response.message ?? 'Unknown error'),
+              actions: [
+                TextButton(
+                  onPressed: () => Navigator.of(context).pop(),
+                  child: const Text('OK'),
+                ),
+              ],
+            ),
+          );
+        }
+      } catch (e) {
+        showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+            title: const Text('Error'),
+            content: Text('An error occurred: $e'),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.of(context).pop(),
+                child: const Text('OK'),
+              ),
+            ],
+          ),
+        );
+      }
+    }
   }
 
   @override
@@ -198,7 +282,9 @@ class _RegisterAuthenticationScreenState
                   ),
                   SpacingConstant.verticalSpacing400,
                   GlobalButtonWidget(
-                    onTap: () {},
+                    onTap: () {
+                      validation() ? _register() : null;
+                    },
                     width: double.infinity,
                     height: 40.0,
                     backgroundColor: ColorConstant.primaryColor500,

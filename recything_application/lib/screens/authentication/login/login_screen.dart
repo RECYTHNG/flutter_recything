@@ -144,7 +144,7 @@ class _LoginScreenState extends State<LoginAuthenticationScreen> {
                       Navigator.of(context).push(
                         MaterialPageRoute(
                           builder: (context) =>
-                              const OneTimePasswordAuthenticationScreen(),
+                              const OneTimePasswordAuthenticationScreen(email: '',),
                         ),
                       );
                       _resetVariable();

@@ -8,7 +8,11 @@ import 'package:recything_application/widgets/global_button_widget.dart';
 import 'widgets/container_number_otp_widget.dart';
 
 class OneTimePasswordAuthenticationScreen extends StatefulWidget {
-  const OneTimePasswordAuthenticationScreen({super.key});
+  final String email;
+  const OneTimePasswordAuthenticationScreen({
+    super.key,
+    required this.email,
+  });
 
   @override
   State<OneTimePasswordAuthenticationScreen> createState() =>
@@ -52,7 +56,7 @@ class _OneTimePasswordAuthenticationScreenState
             ),
             SpacingConstant.verticalSpacing400,
             Text(
-              'Email',
+              widget.email,
               style: TextStyleConstant.semiboldParagraph,
             ),
             SpacingConstant.verticalSpacing400,
