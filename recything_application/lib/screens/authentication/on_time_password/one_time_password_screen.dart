@@ -4,7 +4,7 @@ import 'package:recything_application/constants/color_constant.dart';
 import 'package:recything_application/constants/spacing_constant.dart';
 import 'package:recything_application/constants/text_style_constant.dart';
 import 'package:recything_application/screens/authentication/login/login_screen.dart';
-import 'package:recything_application/services/authentication/authentication_service.dart';
+import 'package:recything_application/services/authentication/otp_authentication_service.dart';
 import 'package:recything_application/widgets/global_button_widget.dart';
 
 import 'widgets/container_number_otp_widget.dart';
@@ -33,7 +33,8 @@ class _OneTimePasswordAuthenticationScreenState
         final otp = _otpControllers
             .map((e) => e.text)
             .reduce((value, element) => value + element);
-        final response = await AuthenticationService().postOneTimePassword(
+        final response =
+            await OneTimePasswordAuthenticationService().postOneTimePassword(
           email: widget.email,
           otp: int.parse(otp),
         );

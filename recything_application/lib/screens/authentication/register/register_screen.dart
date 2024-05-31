@@ -7,7 +7,7 @@ import 'package:recything_application/constants/spacing_constant.dart';
 import 'package:recything_application/constants/text_style_constant.dart';
 import 'package:recything_application/screens/authentication/login/login_screen.dart';
 import 'package:recything_application/screens/authentication/on_time_password/one_time_password_screen.dart';
-import 'package:recything_application/services/authentication/authentication_service.dart';
+import 'package:recything_application/services/authentication/register_authentication_service.dart';
 import 'package:recything_application/widgets/global_button_widget.dart';
 import 'package:recything_application/widgets/global_text_field_custom_widget.dart';
 
@@ -77,7 +77,7 @@ class _RegisterAuthenticationScreenState
   Future<void> _register() async {
     if (_formKey.currentState?.validate() ?? false) {
       try {
-        final response = await AuthenticationService().postRegister(
+        final response = await RegisterAuthenticationService().postRegister(
           name: _name,
           email: _email,
           phoneNumber: _phone,
