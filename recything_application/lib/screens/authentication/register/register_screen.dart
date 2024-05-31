@@ -85,7 +85,6 @@ class _RegisterAuthenticationScreenState
         );
 
         if (response.code == 201) {
-          _resetVariable();
           showDialog(
             context: context,
             builder: (context) => AlertDialog(
@@ -111,6 +110,7 @@ class _RegisterAuthenticationScreenState
             ),
           );
         } else {
+          _resetVariable();
           showDialog(
             context: context,
             builder: (context) => AlertDialog(
@@ -126,6 +126,7 @@ class _RegisterAuthenticationScreenState
           );
         }
       } catch (e) {
+        _resetVariable();
         showDialog(
           context: context,
           builder: (context) => AlertDialog(
