@@ -307,8 +307,7 @@ class _RegisterAuthenticationScreenState
                         onTap: () {
                           Navigator.of(context).pushReplacement(
                             MaterialPageRoute(
-                              builder: (context) =>
-                                  const LoginAuthenticationScreen(),
+                              builder: (context) => LoginAuthenticationScreen(),
                             ),
                           );
                         },

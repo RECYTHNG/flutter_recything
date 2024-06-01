@@ -21,7 +21,7 @@ class _HomeAuthenticationScreenState extends State<HomeAuthenticationScreen> {
           Navigator.pushReplacement(
             context,
             MaterialPageRoute(
-              builder: (context) => const LoginAuthenticationScreen(),
+              builder: (context) => LoginAuthenticationScreen(),
             ),
           );
         },
