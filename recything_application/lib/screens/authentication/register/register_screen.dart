@@ -24,17 +24,14 @@ class _RegisterAuthenticationScreenState
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _phoneController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
   String _name = '';
   String _email = '';
-  String _phone = '';
   String _password = '';
 
   String? _errorName;
   String? _errorEmail;
-  String? _errorPhone;
   String? _errorPassword;
 
   bool _isObscurePassword = false;
@@ -43,7 +40,6 @@ class _RegisterAuthenticationScreenState
   void dispose() {
     _nameController.dispose();
     _emailController.dispose();
-    _phoneController.dispose();
     _passwordController.dispose();
     super.dispose();
   }
@@ -51,26 +47,21 @@ class _RegisterAuthenticationScreenState
   void _resetVariable() {
     _name = '';
     _email = '';
-    _phone = '';
     _password = '';
     _errorName = null;
     _errorEmail = null;
-    _errorPhone = null;
     _errorPassword = null;
     _nameController.clear();
     _emailController.clear();
-    _phoneController.clear();
     _passwordController.clear();
   }
 
   bool validation() {
     return _name != '' &&
         _email != '' &&
-        _phone != '' &&
         _password != '' &&
         _name.isNotEmpty &&
         _email.isNotEmpty &&
-        _phone.isNotEmpty &&
         _password.isNotEmpty;
   }
 
@@ -80,7 +71,6 @@ class _RegisterAuthenticationScreenState
         final response = await RegisterAuthenticationService().postRegister(
           name: _name,
           email: _email,
-          phoneNumber: _phone,
           password: _password,
         );
 
@@ -223,26 +213,6 @@ class _RegisterAuthenticationScreenState
                             setState(() {});
                           },
                           error: _errorEmail,
-                        ),
-                        SpacingConstant.verticalSpacing200,
-                        CustomTextFieldWidget(
-                          label: 'Nomor Handphone',
-                          hint: 'Masukkan Nomor Handphone',
-                          hintTextColor: const Color(0xFFCBCBCB),
-                          isInputForPhone: true,
-                          controller: _phoneController,
-                          onChanged: (String value) {
-                            _phone = value;
-                            if (_phone.isEmpty) {
-                              _errorPhone = 'Nomor Handphone harus diisi.';
-                            } else if (!RegExp(r'^[0-9]+$').hasMatch(value)) {
-                              _errorPhone = 'Nomor Handphone tidak valid.';
-                            } else {
-                              _errorPhone = null;
-                            }
-                            setState(() {});
-                          },
-                          error: _errorPhone,
                         ),
                         SpacingConstant.verticalSpacing200,
                         CustomTextFieldWidget(
