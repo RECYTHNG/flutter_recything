@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:recything_application/models/authentication/login_authentication_model.dart';
+import 'package:recything_application/utils/shared_pref.dart';
 
 class LoginAuthenticationService {
   final Dio dio = Dio();
@@ -26,6 +27,8 @@ class LoginAuthenticationService {
       }
 
       if (response.statusCode == 200 || response.statusCode == 201) {
+        String token = response.data['data']['token'];
+        SharedPref.saveToken(token: token);
         return LoginAuthenticationModel(
           code: response.statusCode,
           message: response.data['message'],
