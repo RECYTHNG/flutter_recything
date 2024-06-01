@@ -1,11 +1,12 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:recything_application/constants/color_constant.dart';
 import 'package:recything_application/constants/image_constant.dart';
 import 'package:recything_application/constants/spacing_constant.dart';
 import 'package:recything_application/constants/text_style_constant.dart';
-import 'package:recything_application/screens/authentication/on_time_password/one_time_password_screen.dart';
 import 'package:recything_application/screens/authentication/register/register_screen.dart';
+import 'package:recything_application/services/authentication/login_authentication_service.dart';
 import 'package:recything_application/widgets/global_button_widget.dart';
 import 'package:recything_application/widgets/global_text_field_custom_widget.dart';
 
@@ -18,8 +19,8 @@ class LoginAuthenticationScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginAuthenticationScreen> {
   final _formKey = GlobalKey<FormState>();
-  TextEditingController _emailtelpController = TextEditingController();
-  TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _emailtelpController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
 
   String _emailtelp = '';
   String _password = '';
@@ -43,6 +44,73 @@ class _LoginScreenState extends State<LoginAuthenticationScreen> {
     _errorPassword = null;
     _emailtelpController.clear();
     _passwordController.clear();
+  }
+
+  bool validation() {
+    return _emailtelp != '' &&
+        _password != '' &&
+        _emailtelp.isNotEmpty &&
+        _password.isNotEmpty;
+  }
+
+  Future<void> _login() async {
+    if (_formKey.currentState?.validate() ?? false) {
+      try {
+        final response = await LoginAuthenticationService().postLogin(
+          email: _emailtelp,
+          password: _password,
+        );
+        if (response.code == 200 || response.code == 201) {
+          showDialog(
+            context: context,
+            builder: (context) => AlertDialog(
+              title: const Text('Success'),
+              content: Text(
+                response.message ?? 'Login success!',
+              ),
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: const Text('OK'),
+                ),
+              ],
+            ),
+          );
+        } else {
+          _resetVariable();
+          showDialog(
+            context: context,
+            builder: (context) => AlertDialog(
+              title: const Text('Error'),
+              content: Text(response.message ?? 'Unknown error'),
+              actions: [
+                TextButton(
+                  onPressed: () => Navigator.of(context).pop(),
+                  child: const Text('OK'),
+                ),
+              ],
+            ),
+          );
+        }
+      } catch (e) {
+        _resetVariable();
+        showDialog(
+          context: context,
+          builder: (context) => AlertDialog(
+            title: const Text('Error'),
+            content: Text('An error occurred: $e'),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.of(context).pop(),
+                child: const Text('OK'),
+              ),
+            ],
+          ),
+        );
+      }
+    }
   }
 
   @override
@@ -141,13 +209,9 @@ class _LoginScreenState extends State<LoginAuthenticationScreen> {
                   SpacingConstant.verticalSpacing400,
                   GlobalButtonWidget(
                     onTap: () {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) =>
-                              const OneTimePasswordAuthenticationScreen(email: '',),
-                        ),
-                      );
-                      _resetVariable();
+                      if (validation()) {
+                        _login();
+                      }
                     },
                     width: double.infinity,
                     height: 40.0,
