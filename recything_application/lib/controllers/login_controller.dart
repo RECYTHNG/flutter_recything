@@ -1,3 +1,6 @@
+import 'dart:async';
+
+import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:recything_application/screens/home.dart';
@@ -47,49 +50,64 @@ class LoginController extends GetxController {
           password: password.value,
         );
         if (response.code == 200 || response.code == 201) {
-          Get.dialog(
-            AlertDialog(
-              title: const Text('Success'),
-              content: Text(
-                response.message ?? 'Login success!',
-              ),
-              actions: [
-                TextButton(
-                  onPressed: () => Get.off(
-                    () => const HomeAuthenticationScreen(),
-                  ),
-                  child: const Text('OK'),
-                ),
-              ],
+          Get.snackbar(
+            '',
+            '',
+            padding: const EdgeInsets.all(0),
+            margin: const EdgeInsets.all(12),
+            duration: const Duration(seconds: 3),
+            snackStyle: SnackStyle.FLOATING,
+            backgroundColor: Colors.transparent,
+            barBlur: 0.0,
+            overlayBlur: 0.0,
+            snackPosition: SnackPosition.BOTTOM,
+            messageText: AwesomeSnackbarContent(
+              title: 'Success',
+              message: 'Message : ${response.message}',
+              contentType: ContentType.success,
             ),
           );
+          Timer(
+            const Duration(seconds: 5),
+            () {
+              Get.off(
+                () => const HomeAuthenticationScreen(),
+              );
+            },
+          );
         } else {
-          resetVariable();
-          Get.dialog(
-            AlertDialog(
-              title: const Text('Error'),
-              content: Text(response.message ?? 'Unknown error'),
-              actions: [
-                TextButton(
-                  onPressed: () => Get.back(),
-                  child: const Text('OK'),
-                ),
-              ],
+          Get.snackbar(
+            '',
+            '',
+            padding: const EdgeInsets.all(0),
+            margin: const EdgeInsets.all(12),
+            snackStyle: SnackStyle.FLOATING,
+            backgroundColor: Colors.transparent,
+            barBlur: 0.0,
+            overlayBlur: 0.0,
+            snackPosition: SnackPosition.BOTTOM,
+            messageText: AwesomeSnackbarContent(
+              title: 'Error',
+              message: 'Message : ${response.message}',
+              contentType: ContentType.failure,
             ),
           );
         }
       } catch (e) {
-        resetVariable();
-        Get.dialog(
-          AlertDialog(
-            title: const Text('Error'),
-            content: Text('An error occurred: $e'),
-            actions: [
-              TextButton(
-                onPressed: () => Get.back(),
-                child: const Text('OK'),
-              ),
-            ],
+        Get.snackbar(
+          '',
+          '',
+          padding: const EdgeInsets.all(0),
+          margin: const EdgeInsets.all(12),
+          snackStyle: SnackStyle.FLOATING,
+          backgroundColor: Colors.transparent,
+          barBlur: 0.0,
+          overlayBlur: 0.0,
+          snackPosition: SnackPosition.BOTTOM,
+          messageText: AwesomeSnackbarContent(
+            title: 'Error',
+            message: 'An error occurred: $e',
+            contentType: ContentType.failure,
           ),
         );
       }
