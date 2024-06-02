@@ -9,6 +9,8 @@ class StatusDetailMissionWidget extends StatelessWidget {
 
   Color _getBackgroundColor() {
     switch (status) {
+      case 'Bisa Diikuti':
+        return ColorConstant.infoColor500;
       case 'Proses':
         return ColorConstant.primaryColor500;
       case 'Menunggu Verifikasi':
@@ -17,6 +19,8 @@ class StatusDetailMissionWidget extends StatelessWidget {
         return ColorConstant.secondaryColor500;
       case 'Ditolak':
         return ColorConstant.dangerColor500;
+      case 'Selesai':
+        return ColorConstant.netralColor600;
       default:
         return ColorConstant.primaryColor500;
     }

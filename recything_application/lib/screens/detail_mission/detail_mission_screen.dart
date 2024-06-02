@@ -8,7 +8,7 @@ import 'package:recything_application/screens/detail_mission/widgets/status_deta
 import 'package:recything_application/screens/detail_mission/widgets/button_challenge_widget.dart';
 
 class DetailMissionScreen extends StatefulWidget {
-  final String statusChallenge;
+  String statusChallenge;
   final bool proofUpload;
 
   DetailMissionScreen({
@@ -89,6 +89,7 @@ class _DetailMissionScreenState extends State<DetailMissionScreen> {
       } else {
         if (!challengeStarted) {
           challengeStarted = true;
+          widget.statusChallenge = "Proses";
         } else if (currentStep < missionSteps.length - 1) {
           missionSteps[currentStep]['progress'] = 'done';
           currentStep++;
