@@ -10,7 +10,6 @@ import 'package:recything_application/screens/authentication/register/widgets/re
 import 'package:recything_application/screens/authentication/register/widgets/register_form_email_widget.dart';
 import 'package:recything_application/screens/authentication/register/widgets/register_form_name_widget.dart';
 import 'package:recything_application/screens/authentication/register/widgets/register_form_password_widget.dart';
-import 'package:recything_application/screens/authentication/register/widgets/register_form_phone_number_widget.dart';
 
 class RegisterAuthenticationScreen extends StatelessWidget {
   RegisterAuthenticationScreen({super.key});
@@ -62,9 +61,6 @@ class RegisterAuthenticationScreen extends StatelessWidget {
                             registerController: registerController),
                         SpacingConstant.verticalSpacing200,
                         RegisterFormEmailWidget(
-                            registerController: registerController),
-                        SpacingConstant.verticalSpacing200,
-                        RegisterFormPhoneNumberWidget(
                             registerController: registerController),
                         SpacingConstant.verticalSpacing200,
                         RegisterFormPasswordWidget(

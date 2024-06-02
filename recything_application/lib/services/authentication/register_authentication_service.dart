@@ -8,7 +8,6 @@ class RegisterAuthenticationService {
   Future<RegisterAuthenticationModel> postRegister({
     required String name,
     required String email,
-    required String phoneNumber,
     required String password,
   }) async {
     try {
@@ -18,7 +17,6 @@ class RegisterAuthenticationService {
         data: {
           'name': name,
           'email': email,
-          'phone_number': phoneNumber,
           'password': password,
         },
       );
