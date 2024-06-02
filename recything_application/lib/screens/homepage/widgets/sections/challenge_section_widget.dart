@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:recything_application/constants/color_constant.dart';
+import 'package:recything_application/constants/image_constant.dart';
 import 'package:recything_application/constants/text_style_constant.dart';
 
 class ChallengeSectionWidget extends StatelessWidget {
@@ -52,7 +53,7 @@ class ChallengeSectionWidget extends StatelessWidget {
               borderRadius: BorderRadius.circular(12),
               image: const DecorationImage(
                   scale: 2.5,
-                  image: AssetImage('assets/images/home_images/gambar_5.png'),
+                  image: AssetImage(ImageConstant.gambarIkutiChallenge),
                   alignment: Alignment.topRight),
             ),
             child: Padding(

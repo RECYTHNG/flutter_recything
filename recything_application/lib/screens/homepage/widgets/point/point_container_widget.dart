@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:recything_application/constants/color_constant.dart';
+import 'package:recything_application/constants/icon_constant.dart';
 import 'package:recything_application/constants/text_style_constant.dart';
-import 'package:recything_application/screens/homepage/widgets/point/button_riwayat_poin_widget.dart';
-import 'package:recything_application/screens/homepage/widgets/point/button_tambah_poin_widget.dart';
+import 'package:recything_application/widgets/global_button_widget.dart';
 
 class PointsContainer extends StatelessWidget {
   const PointsContainer({super.key});
@@ -33,7 +33,7 @@ class PointsContainer extends StatelessWidget {
                   ),
                 ),
                 SvgPicture.asset(
-                  'assets/images/home_images/badges/classic.svg',
+                  IconConstant.badgeClassic,
                 ),
               ],
             ),
@@ -41,7 +41,7 @@ class PointsContainer extends StatelessWidget {
               width: double.infinity,
               alignment: Alignment.centerLeft,
               child: Text(
-                '150.000',
+                '0',
                 style: TextStyleConstant.semiboldHeading3.copyWith(
                   color: ColorConstant.whiteColor,
                 ),
@@ -50,11 +50,25 @@ class PointsContainer extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                TambahPoinButton(
-                  onPressed: () {},
+                GlobalButtonWidget(
+                  onTap: () {},
+                  width: 150,
+                  height: 40,
+                  backgroundColor: ColorConstant.primaryColor500,
+                  isBorder: false,
+                  title: "Tambah Poin",
+                  textColor: ColorConstant.whiteColor,
+                  fontSize: 16,
                 ),
-                RiwayatButton(
-                  onPressed: () {},
+                GlobalButtonWidget(
+                  onTap: () {},
+                  width: 150,
+                  height: 40,
+                  backgroundColor: ColorConstant.whiteColor,
+                  isBorder: false,
+                  title: "Riwayat",
+                  textColor: ColorConstant.primaryColor500,
+                  fontSize: 16,
                 ),
               ],
             )

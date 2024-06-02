@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:recything_application/constants/color_constant.dart';
+import 'package:recything_application/constants/image_constant.dart';
 import 'package:recything_application/constants/text_style_constant.dart';
 
 class LeaderboardSectionWidget extends StatelessWidget {
@@ -57,7 +58,7 @@ class LeaderboardSectionWidget extends StatelessWidget {
               child: Column(
                 children: [
                   Image.asset(
-                    'assets/images/home_images/gambar_4.png',
+                    ImageConstant.leaderboardKosong,
                     height: 148,
                   ),
                   Text(

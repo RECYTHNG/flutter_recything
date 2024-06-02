@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:recything_application/constants/color_constant.dart';
+import 'package:recything_application/constants/icon_constant.dart';
 import 'package:recything_application/screens/homepage/homepage_screen.dart';
 import 'package:recything_application/screens/homepage/widgets/bottom_navbar/buttom_nav_item_widget.dart';
 import 'package:recything_application/screens/homepage/widgets/bottom_navbar/rounded_floating_action_button_widget.dart';
@@ -47,7 +48,7 @@ class _HomeScreenState extends State<HomeNavBarScreen> {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             BottomNavItem(
-              iconPath: 'assets/images/home_images/icons/home.svg',
+              iconPath: IconConstant.iconHome,
               label: 'Home',
               index: 0,
               currentIndex: widget.currentIndex,
@@ -55,7 +56,7 @@ class _HomeScreenState extends State<HomeNavBarScreen> {
               isSvg: true,
             ),
             BottomNavItem(
-              iconPath: 'assets/images/home_images/icons/recycling.svg',
+              iconPath: IconConstant.iconRecycling,
               label: 'Recycle',
               index: 1,
               currentIndex: widget.currentIndex,
@@ -64,7 +65,7 @@ class _HomeScreenState extends State<HomeNavBarScreen> {
             ),
             const SizedBox(width: 48),
             BottomNavItem(
-              iconPath: 'assets/images/home_images/icons/challenge.svg',
+              iconPath: IconConstant.iconChallenge,
               label: 'Recycle',
               index: 3,
               currentIndex: widget.currentIndex,
@@ -72,7 +73,7 @@ class _HomeScreenState extends State<HomeNavBarScreen> {
               isSvg: true,
             ),
             BottomNavItem(
-              iconPath: 'assets/images/home_images/icons/user.svg',
+              iconPath: IconConstant.iconUser,
               label: 'Profile',
               index: 4,
               currentIndex: widget.currentIndex,

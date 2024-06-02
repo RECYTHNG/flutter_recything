@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:recything_application/constants/image_constant.dart';
 import 'package:recything_application/constants/text_style_constant.dart';
 import 'package:recything_application/screens/homepage/widgets/sections/article_section_widget.dart';
 import 'package:recything_application/screens/homepage/widgets/sections/challenge_section_widget.dart';
@@ -68,7 +69,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                   height: 280,
                   child: Image(
                     image: AssetImage(
-                      'assets/images/home_images/banner_homepage.png',
+                      ImageConstant.headerImage,
                     ),
                     alignment: Alignment.bottomCenter,
                   ),
@@ -86,7 +87,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                           alignment: Alignment.centerRight,
                           child: const Image(
                             image: AssetImage(
-                              'assets/images/home_images/logo_recythng.png',
+                              ImageConstant.logoRecythng,
                             ),
                             width: 146,
                             alignment: Alignment.bottomCenter,

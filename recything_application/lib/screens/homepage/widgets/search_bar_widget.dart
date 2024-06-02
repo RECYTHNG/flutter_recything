@@ -1,31 +1,37 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:recything_application/constants/color_constant.dart';
+import 'package:recything_application/constants/text_style_constant.dart';
 
 class SearchBarWidget extends StatelessWidget {
   const SearchBarWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return const Padding(
-      padding: EdgeInsets.symmetric(horizontal: 24),
-      child: TextField(
-        decoration: InputDecoration(
-          filled: true,
-          fillColor: ColorConstant.netralColor500,
-          prefixIcon: Icon(Icons.search),
-          hintText: 'Search',
-          border: InputBorder.none,
-          contentPadding: EdgeInsets.symmetric(vertical: 10),
-          enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide.none,
-            borderRadius: BorderRadius.all(
-              Radius.circular(12.0),
-            ),
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 24),
+      child: GestureDetector(
+        onTap: () {},
+        child: Container(
+          height: 48,
+          width: double.infinity,
+          decoration: BoxDecoration(
+            color: ColorConstant.netralColor500,
+            borderRadius: BorderRadius.circular(8),
           ),
-          focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide.none,
-            borderRadius: BorderRadius.all(
-              Radius.circular(12.0),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 12),
+            child: Row(
+              children: [
+                const Icon(Icons.search),
+                const SizedBox(width: 8),
+                Text(
+                  'cari artiker, video',
+                  style: TextStyleConstant.regularSubtitle.copyWith(
+                    color: ColorConstant.netralColor700,
+                  ),
+                ),
+              ],
             ),
           ),
         ),
