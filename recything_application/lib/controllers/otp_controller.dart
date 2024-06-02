@@ -1,3 +1,6 @@
+import 'dart:async';
+
+import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:recything_application/screens/authentication/login/login_screen.dart';
@@ -26,45 +29,64 @@ class OtpController extends GetxController {
           otp: int.parse(otp),
         );
         if (response.code == 200 || response.code == 201) {
-          Get.dialog(
-            AlertDialog(
-              title: const Text('Success'),
-              content: Text(response.message ?? 'Success'),
-              actions: [
-                TextButton(
-                  onPressed: () => Get.off(
-                    () => LoginAuthenticationScreen(),
-                  ),
-                  child: const Text('OK'),
-                ),
-              ],
+          Get.snackbar(
+            '',
+            '',
+            padding: const EdgeInsets.all(0),
+            margin: const EdgeInsets.all(12),
+            duration: const Duration(seconds: 2),
+            snackStyle: SnackStyle.FLOATING,
+            backgroundColor: Colors.transparent,
+            barBlur: 0.0,
+            overlayBlur: 0.0,
+            snackPosition: SnackPosition.BOTTOM,
+            messageText: AwesomeSnackbarContent(
+              title: 'Success',
+              message: 'Message : ${response.message}',
+              contentType: ContentType.success,
             ),
           );
+          Timer(
+            const Duration(seconds: 3),
+            () {
+              Get.off(
+                () => LoginAuthenticationScreen(),
+              );
+            },
+          );
         } else {
-          Get.dialog(
-            AlertDialog(
-              title: const Text('Error'),
-              content: Text(response.message ?? 'Error'),
-              actions: [
-                TextButton(
-                  onPressed: () => Get.back(),
-                  child: const Text('OK'),
-                ),
-              ],
+          Get.snackbar(
+            '',
+            '',
+            padding: const EdgeInsets.all(0),
+            margin: const EdgeInsets.all(12),
+            snackStyle: SnackStyle.FLOATING,
+            backgroundColor: Colors.transparent,
+            barBlur: 0.0,
+            overlayBlur: 0.0,
+            snackPosition: SnackPosition.BOTTOM,
+            messageText: AwesomeSnackbarContent(
+              title: 'Error',
+              message: 'Message : ${response.message}',
+              contentType: ContentType.failure,
             ),
           );
         }
       } catch (e) {
-        Get.dialog(
-          AlertDialog(
-            title: const Text('Error'),
-            content: Text('An error occurred: $e'),
-            actions: [
-              TextButton(
-                onPressed: () => Get.back(),
-                child: const Text('OK'),
-              ),
-            ],
+        Get.snackbar(
+          '',
+          '',
+          padding: const EdgeInsets.all(0),
+          margin: const EdgeInsets.all(12),
+          snackStyle: SnackStyle.FLOATING,
+          backgroundColor: Colors.transparent,
+          barBlur: 0.0,
+          overlayBlur: 0.0,
+          snackPosition: SnackPosition.BOTTOM,
+          messageText: AwesomeSnackbarContent(
+            title: 'Error',
+            message: 'An error occurred: $e',
+            contentType: ContentType.failure,
           ),
         );
       }
@@ -78,43 +100,55 @@ class OtpController extends GetxController {
         email: email.value,
       );
       if (response.code == 200 || response.code == 201) {
-        Get.dialog(
-          AlertDialog(
-            title: const Text('Success'),
-            content: Text(response.message ?? 'Success'),
-            actions: [
-              TextButton(
-                onPressed: () => Get.back(),
-                child: const Text('OK'),
-              ),
-            ],
+        Get.snackbar(
+          '',
+          '',
+          padding: const EdgeInsets.all(0),
+          margin: const EdgeInsets.all(12),
+          snackStyle: SnackStyle.FLOATING,
+          backgroundColor: Colors.transparent,
+          barBlur: 0.0,
+          overlayBlur: 0.0,
+          snackPosition: SnackPosition.BOTTOM,
+          messageText: AwesomeSnackbarContent(
+            title: 'Success',
+            message: 'Message : ${response.message}',
+            contentType: ContentType.success,
           ),
         );
       } else {
-        Get.dialog(
-          AlertDialog(
-            title: const Text('Error'),
-            content: Text(response.message ?? 'Error'),
-            actions: [
-              TextButton(
-                onPressed: () => Get.back(),
-                child: const Text('OK'),
-              ),
-            ],
+        Get.snackbar(
+          '',
+          '',
+          padding: const EdgeInsets.all(0),
+          margin: const EdgeInsets.all(12),
+          snackStyle: SnackStyle.FLOATING,
+          backgroundColor: Colors.transparent,
+          barBlur: 0.0,
+          overlayBlur: 0.0,
+          snackPosition: SnackPosition.BOTTOM,
+          messageText: AwesomeSnackbarContent(
+            title: 'Error',
+            message: 'Message : ${response.message}',
+            contentType: ContentType.failure,
           ),
         );
       }
     } catch (e) {
-      Get.dialog(
-        AlertDialog(
-          title: const Text('Error'),
-          content: Text('An error occurred: $e'),
-          actions: [
-            TextButton(
-              onPressed: () => Get.back(),
-              child: const Text('OK'),
-            ),
-          ],
+      Get.snackbar(
+        '',
+        '',
+        padding: const EdgeInsets.all(0),
+        margin: const EdgeInsets.all(12),
+        snackStyle: SnackStyle.FLOATING,
+        backgroundColor: Colors.transparent,
+        barBlur: 0.0,
+        overlayBlur: 0.0,
+        snackPosition: SnackPosition.BOTTOM,
+        messageText: AwesomeSnackbarContent(
+          title: 'Error',
+          message: 'An error occurred: $e',
+          contentType: ContentType.failure,
         ),
       );
     }

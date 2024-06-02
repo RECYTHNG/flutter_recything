@@ -76,7 +76,7 @@ class RegisterController extends GetxController {
             '',
             padding: const EdgeInsets.all(0),
             margin: const EdgeInsets.all(12),
-            duration: const Duration(seconds: 3),
+            duration: const Duration(seconds: 2),
             snackStyle: SnackStyle.FLOATING,
             backgroundColor: Colors.transparent,
             barBlur: 0.0,
@@ -89,7 +89,7 @@ class RegisterController extends GetxController {
             ),
           );
           Timer(
-            const Duration(seconds: 5),
+            const Duration(seconds: 3),
             () {
               Get.to(
                 () => OneTimePasswordAuthenticationScreen(
