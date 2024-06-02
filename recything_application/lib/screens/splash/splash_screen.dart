@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:recything_application/constants/color_constant.dart';
 import 'package:recything_application/constants/image_constant.dart';
 import 'package:recything_application/screens/home.dart';
@@ -20,18 +21,12 @@ class _SplashScreenState extends State<SplashScreen> {
       const Duration(seconds: 5),
       () {
         if (token != null) {
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(
-              builder: (context) => const HomeAuthenticationScreen(),
-            ),
+          Get.off(
+            () => const HomeAuthenticationScreen(),
           );
         } else {
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(
-              builder: (context) => const OnBoardingScreen(),
-            ),
+          Get.off(
+            () => const OnBoardingScreen(),
           );
         }
       },

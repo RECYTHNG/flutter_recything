@@ -76,11 +76,8 @@ class LoginAuthenticationScreen extends StatelessWidget {
                       ),
                       GestureDetector(
                         onTap: () {
-                          Navigator.of(context).pushReplacement(
-                            MaterialPageRoute(
-                              builder: (context) =>
-                                  RegisterAuthenticationScreen(),
-                            ),
+                          Get.off(
+                            () => RegisterAuthenticationScreen(),
                           );
                         },
                         child: Text(

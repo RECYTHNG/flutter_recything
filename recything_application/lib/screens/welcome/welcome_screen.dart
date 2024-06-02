@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:recything_application/constants/color_constant.dart';
 import 'package:recything_application/constants/image_constant.dart';
 import 'package:recything_application/constants/spacing_constant.dart';
@@ -84,10 +85,8 @@ class WelcomeScreen extends StatelessWidget {
                 SpacingConstant.verticalSpacing800,
                 GlobalButtonWidget(
                   onTap: () {
-                    Navigator.of(context).pushReplacement(
-                      MaterialPageRoute(
-                        builder: (context) => RegisterAuthenticationScreen(),
-                      ),
+                    Get.off(
+                      () => RegisterAuthenticationScreen(),
                     );
                   },
                   width: double.infinity,
@@ -101,10 +100,8 @@ class WelcomeScreen extends StatelessWidget {
                 SpacingConstant.verticalSpacing200,
                 GlobalButtonWidget(
                   onTap: () {
-                    Navigator.of(context).pushReplacement(
-                      MaterialPageRoute(
-                        builder: (context) => LoginAuthenticationScreen(),
-                      ),
+                    Get.off(
+                      () => LoginAuthenticationScreen(),
                     );
                   },
                   width: double.infinity,

@@ -8,32 +8,20 @@ import 'package:recything_application/constants/text_style_constant.dart';
 import 'package:recything_application/controllers/otp_controller.dart';
 import 'package:recything_application/widgets/global_button_widget.dart';
 
-class OneTimePasswordAuthenticationScreen extends StatefulWidget {
+class OneTimePasswordAuthenticationScreen extends StatelessWidget {
   final String email;
-  const OneTimePasswordAuthenticationScreen({
+  OneTimePasswordAuthenticationScreen({
     super.key,
     required this.email,
   });
 
-  @override
-  State<OneTimePasswordAuthenticationScreen> createState() =>
-      _OneTimePasswordAuthenticationScreenState();
-}
-
-class _OneTimePasswordAuthenticationScreenState
-    extends State<OneTimePasswordAuthenticationScreen> {
   final OtpController otpController = Get.put(
     OtpController(),
   );
 
   @override
-  void initState() {
-    super.initState();
-    otpController.setEmail(widget.email);
-  }
-
-  @override
   Widget build(BuildContext context) {
+    otpController.setEmail(email);
     return Scaffold(
       backgroundColor: ColorConstant.netralColor50,
       appBar: AppBar(
@@ -65,7 +53,7 @@ class _OneTimePasswordAuthenticationScreenState
             ),
             SpacingConstant.verticalSpacing400,
             Text(
-              widget.email,
+              email,
               style: TextStyleConstant.semiboldParagraph,
             ),
             SpacingConstant.verticalSpacing400,
@@ -135,7 +123,9 @@ class _OneTimePasswordAuthenticationScreenState
                 children: [
                   Text(
                     'Kirim ulang',
-                    style: TextStyleConstant.semiboldParagraph,
+                    style: TextStyleConstant.semiboldParagraph.copyWith(
+                      color: ColorConstant.primaryColor500,
+                    ),
                   ),
                 ],
               ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:recything_application/constants/color_constant.dart';
 import 'package:recything_application/constants/image_constant.dart';
 import 'package:recything_application/constants/spacing_constant.dart';
@@ -151,10 +152,8 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                           GlobalButtonWidget(
                             onTap: () {
                               if (currentIndex == _onBoardingModel.length - 1) {
-                                Navigator.of(context).pushReplacement(
-                                  MaterialPageRoute(
-                                    builder: (context) => const WelcomeScreen(),
-                                  ),
+                                Get.off(
+                                  () => const WelcomeScreen(),
                                 );
                               } else {
                                 _pageController.nextPage(
@@ -166,7 +165,9 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                             width: double.infinity,
                             height: 40.0,
                             backgroundColor: ColorConstant.primaryColor500,
-                            title: 'Next',
+                            title: currentIndex == _onBoardingModel.length - 1
+                                ? 'Get Started'
+                                : 'Next',
                             isBorder: false,
                             textColor: ColorConstant.whiteColor,
                             fontSize: 16.0,
