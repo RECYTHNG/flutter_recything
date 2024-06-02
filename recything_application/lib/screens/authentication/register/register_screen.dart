@@ -1,138 +1,23 @@
-// ignore_for_file: use_build_context_synchronously
-
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:recything_application/constants/color_constant.dart';
 import 'package:recything_application/constants/image_constant.dart';
 import 'package:recything_application/constants/spacing_constant.dart';
 import 'package:recything_application/constants/text_style_constant.dart';
+import 'package:recything_application/controllers/register_controller.dart';
 import 'package:recything_application/screens/authentication/login/login_screen.dart';
-import 'package:recything_application/screens/authentication/on_time_password/one_time_password_screen.dart';
-import 'package:recything_application/services/authentication/register_authentication_service.dart';
-import 'package:recything_application/widgets/global_button_widget.dart';
-import 'package:recything_application/widgets/global_text_field_custom_widget.dart';
+import 'package:recything_application/screens/authentication/register/widgets/register_button_widget.dart';
+import 'package:recything_application/screens/authentication/register/widgets/register_form_email_widget.dart';
+import 'package:recything_application/screens/authentication/register/widgets/register_form_name_widget.dart';
+import 'package:recything_application/screens/authentication/register/widgets/register_form_password_widget.dart';
+import 'package:recything_application/screens/authentication/register/widgets/register_form_phone_number_widget.dart';
 
-class RegisterAuthenticationScreen extends StatefulWidget {
-  const RegisterAuthenticationScreen({super.key});
+class RegisterAuthenticationScreen extends StatelessWidget {
+  RegisterAuthenticationScreen({super.key});
 
-  @override
-  State<RegisterAuthenticationScreen> createState() =>
-      _RegisterAuthenticationScreenState();
-}
-
-class _RegisterAuthenticationScreenState
-    extends State<RegisterAuthenticationScreen> {
-  final _formKey = GlobalKey<FormState>();
-  final TextEditingController _nameController = TextEditingController();
-  final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
-
-  String _name = '';
-  String _email = '';
-  String _password = '';
-
-  String? _errorName;
-  String? _errorEmail;
-  String? _errorPassword;
-
-  bool _isObscurePassword = false;
-
-  @override
-  void dispose() {
-    _nameController.dispose();
-    _emailController.dispose();
-    _passwordController.dispose();
-    super.dispose();
-  }
-
-  void _resetVariable() {
-    _name = '';
-    _email = '';
-    _password = '';
-    _errorName = null;
-    _errorEmail = null;
-    _errorPassword = null;
-    _nameController.clear();
-    _emailController.clear();
-    _passwordController.clear();
-  }
-
-  bool validation() {
-    return _name != '' &&
-        _email != '' &&
-        _password != '' &&
-        _name.isNotEmpty &&
-        _email.isNotEmpty &&
-        _password.isNotEmpty;
-  }
-
-  Future<void> _register() async {
-    if (_formKey.currentState?.validate() ?? false) {
-      try {
-        final response = await RegisterAuthenticationService().postRegister(
-          name: _name,
-          email: _email,
-          password: _password,
-        );
-
-        if (response.code == 201) {
-          showDialog(
-            context: context,
-            builder: (context) => AlertDialog(
-              title: const Text('Success'),
-              content: Text(
-                response.message ?? 'Registration success!',
-              ),
-              actions: [
-                TextButton(
-                  onPressed: () {
-                    Navigator.of(context).pushReplacement(
-                      MaterialPageRoute(
-                        builder: (context) =>
-                            OneTimePasswordAuthenticationScreen(
-                          email: _email,
-                        ),
-                      ),
-                    );
-                  },
-                  child: const Text('OK'),
-                ),
-              ],
-            ),
-          );
-        } else {
-          _resetVariable();
-          showDialog(
-            context: context,
-            builder: (context) => AlertDialog(
-              title: const Text('Error'),
-              content: Text(response.message ?? 'Unknown error'),
-              actions: [
-                TextButton(
-                  onPressed: () => Navigator.of(context).pop(),
-                  child: const Text('OK'),
-                ),
-              ],
-            ),
-          );
-        }
-      } catch (e) {
-        _resetVariable();
-        showDialog(
-          context: context,
-          builder: (context) => AlertDialog(
-            title: const Text('Error'),
-            content: Text('An error occurred: $e'),
-            actions: [
-              TextButton(
-                onPressed: () => Navigator.of(context).pop(),
-                child: const Text('OK'),
-              ),
-            ],
-          ),
-        );
-      }
-    }
-  }
+  final RegisterController registerController = Get.put(
+    RegisterController(),
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -170,100 +55,25 @@ class _RegisterAuthenticationScreenState
                   ),
                   SpacingConstant.verticalSpacing300,
                   Form(
-                    key: _formKey,
+                    key: registerController.formKey,
                     child: Column(
                       children: [
-                        CustomTextFieldWidget(
-                          label: 'Nama',
-                          hint: 'Masukkan Nama Lengkap',
-                          hintTextColor: const Color(0xFFCBCBCB),
-                          controller: _nameController,
-                          onChanged: (String value) {
-                            _name = value;
-                            if (_name.isEmpty) {
-                              _errorName = 'Nama harus diisi oleh user.';
-                            } else if (RegExp(r'[0-9!@#%^&*(),.?":{}|<>]')
-                                .hasMatch(value)) {
-                              _errorName =
-                                  'Nama tidak boleh mengandung angka atau karakter spesial.';
-                            } else {
-                              _errorName = null;
-                            }
-                            setState(() {});
-                          },
-                          error: _errorName,
-                        ),
+                        RegisterFormNameWidget(
+                            registerController: registerController),
                         SpacingConstant.verticalSpacing200,
-                        CustomTextFieldWidget(
-                          label: 'Email',
-                          hint: 'Masukkan Email',
-                          hintTextColor: const Color(0xFFCBCBCB),
-                          controller: _emailController,
-                          onChanged: (String value) {
-                            _email = value;
-                            if (_email.isEmpty) {
-                              _errorEmail = 'Email harus harus diisi.';
-                            } else if (!RegExp(
-                                    r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$')
-                                .hasMatch(value)) {
-                              _errorEmail = 'Email tidak valid.';
-                            } else {
-                              _errorEmail = null;
-                            }
-                            setState(() {});
-                          },
-                          error: _errorEmail,
-                        ),
+                        RegisterFormEmailWidget(
+                            registerController: registerController),
                         SpacingConstant.verticalSpacing200,
-                        CustomTextFieldWidget(
-                          isInputForPassword: true,
-                          label: 'Password',
-                          hint: 'Masukkan Password',
-                          hintTextColor: const Color(0xFFCBCBCB),
-                          controller: _passwordController,
-                          obscureText: _isObscurePassword ? false : true,
-                          suffixIconButton: IconButton(
-                            icon: Icon(
-                              _isObscurePassword
-                                  ? Icons.visibility_off
-                                  : Icons.visibility,
-                              color: ColorConstant.netralColor600,
-                            ),
-                            onPressed: () {
-                              setState(() {
-                                _isObscurePassword = !_isObscurePassword;
-                              });
-                            },
-                          ),
-                          onChanged: (String value) {
-                            _password = value;
-                            if (_password.isEmpty) {
-                              _errorPassword = 'Password harus diisi.';
-                            } else if (_password.length < 8) {
-                              _errorPassword = 'Password minimal 8 karakter.';
-                            } else {
-                              _errorPassword = null;
-                            }
-                            setState(() {});
-                          },
-                          error: _errorPassword,
-                        ),
+                        RegisterFormPhoneNumberWidget(
+                            registerController: registerController),
+                        SpacingConstant.verticalSpacing200,
+                        RegisterFormPasswordWidget(
+                            registerController: registerController),
                       ],
                     ),
                   ),
                   SpacingConstant.verticalSpacing400,
-                  GlobalButtonWidget(
-                    onTap: () {
-                      validation() ? _register() : null;
-                    },
-                    width: double.infinity,
-                    height: 40.0,
-                    backgroundColor: ColorConstant.primaryColor500,
-                    isBorder: false,
-                    title: 'Register',
-                    textColor: ColorConstant.whiteColor,
-                    fontSize: 16.0,
-                  ),
+                  RegisterButtonWidget(registerController: registerController),
                   SpacingConstant.verticalSpacing300,
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,

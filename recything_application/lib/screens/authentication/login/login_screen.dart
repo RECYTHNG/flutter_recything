@@ -79,7 +79,7 @@ class LoginAuthenticationScreen extends StatelessWidget {
                           Navigator.of(context).pushReplacement(
                             MaterialPageRoute(
                               builder: (context) =>
-                                  const RegisterAuthenticationScreen(),
+                                  RegisterAuthenticationScreen(),
                             ),
                           );
                         },
