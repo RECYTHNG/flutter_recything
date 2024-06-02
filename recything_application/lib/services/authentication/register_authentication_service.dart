@@ -28,6 +28,12 @@ class RegisterAuthenticationService {
       }
 
       if (response.statusCode == 200 || response.statusCode == 201) {
+        if (kDebugMode) {
+          print(response.statusCode);
+        }
+        if (kDebugMode) {
+          print(response.data['message']);
+        }
         return RegisterAuthenticationModel(
           code: response.statusCode,
           message: response.data['message'],
