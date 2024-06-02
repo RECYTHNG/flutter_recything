@@ -76,6 +76,7 @@ class LoginController extends GetxController {
             },
           );
         } else {
+          resetVariable();
           Get.snackbar(
             '',
             '',
@@ -94,6 +95,7 @@ class LoginController extends GetxController {
           );
         }
       } catch (e) {
+        resetVariable();
         Get.snackbar(
           '',
           '',
