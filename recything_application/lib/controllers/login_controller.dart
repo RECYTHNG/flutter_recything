@@ -56,7 +56,7 @@ class LoginController extends GetxController {
               actions: [
                 TextButton(
                   onPressed: () => Get.off(
-                    const HomeAuthenticationScreen(),
+                    () => const HomeAuthenticationScreen(),
                   ),
                   child: const Text('OK'),
                 ),

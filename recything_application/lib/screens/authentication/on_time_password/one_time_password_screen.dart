@@ -1,13 +1,12 @@
 // ignore_for_file: use_build_context_synchronously
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:get/get.dart';
 import 'package:recything_application/constants/color_constant.dart';
 import 'package:recything_application/constants/spacing_constant.dart';
 import 'package:recything_application/constants/text_style_constant.dart';
-import 'package:recything_application/screens/authentication/login/login_screen.dart';
-import 'package:recything_application/services/authentication/otp_authentication_service.dart';
+import 'package:recything_application/controllers/otp_controller.dart';
 import 'package:recything_application/widgets/global_button_widget.dart';
-
-import 'widgets/container_number_otp_widget.dart';
 
 class OneTimePasswordAuthenticationScreen extends StatefulWidget {
   final String email;
@@ -23,130 +22,14 @@ class OneTimePasswordAuthenticationScreen extends StatefulWidget {
 
 class _OneTimePasswordAuthenticationScreenState
     extends State<OneTimePasswordAuthenticationScreen> {
-  final _formKey = GlobalKey<FormState>();
-  final List<TextEditingController> _otpControllers =
-      List.generate(6, (index) => TextEditingController());
+  final OtpController otpController = Get.put(
+    OtpController(),
+  );
 
-  Future<void> _submitOtp() async {
-    if (_formKey.currentState!.validate()) {
-      try {
-        final otp = _otpControllers
-            .map((e) => e.text)
-            .reduce((value, element) => value + element);
-        final response =
-            await OneTimePasswordAuthenticationService().postOneTimePassword(
-          email: widget.email,
-          otp: int.parse(otp),
-        );
-        if (response.code == 200 || response.code == 201) {
-          showDialog(
-            context: context,
-            builder: (context) => AlertDialog(
-              title: const Text('Success'),
-              content: Text(response.message ?? 'Success'),
-              actions: [
-                TextButton(
-                  onPressed: () {
-                    Navigator.of(context).pushReplacement(
-                      MaterialPageRoute(
-                        builder: (context) => LoginAuthenticationScreen(),
-                      ),
-                    );
-                  },
-                  child: const Text('OK'),
-                ),
-              ],
-            ),
-          );
-        } else {
-          showDialog(
-            context: context,
-            builder: (context) => AlertDialog(
-              title: const Text('Error'),
-              content: Text(response.message ?? 'Error'),
-              actions: [
-                TextButton(
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                  child: const Text('OK'),
-                ),
-              ],
-            ),
-          );
-        }
-      } catch (e) {
-        showDialog(
-          context: context,
-          builder: (context) => AlertDialog(
-            title: const Text('Error'),
-            content: Text('An error occurred: $e'),
-            actions: [
-              TextButton(
-                onPressed: () => Navigator.of(context).pop(),
-                child: const Text('OK'),
-              ),
-            ],
-          ),
-        );
-      }
-    }
-  }
-
-  Future<void> _resendOtp() async {
-    try {
-      final response = await OneTimePasswordAuthenticationService()
-          .postResendOneTimePassword(
-        email: widget.email,
-      );
-      if (response.code == 200 || response.code == 201) {
-        showDialog(
-          context: context,
-          builder: (context) => AlertDialog(
-            title: const Text('Success'),
-            content: Text(response.message ?? 'Success'),
-            actions: [
-              TextButton(
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-                child: const Text('OK'),
-              ),
-            ],
-          ),
-        );
-      } else {
-        showDialog(
-          context: context,
-          builder: (context) => AlertDialog(
-            title: const Text('Error'),
-            content: Text(response.message ?? 'Error'),
-            actions: [
-              TextButton(
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-                child: const Text('OK'),
-              ),
-            ],
-          ),
-        );
-      }
-    } catch (e) {
-      showDialog(
-        context: context,
-        builder: (context) => AlertDialog(
-          title: const Text('Error'),
-          content: Text('An error occurred: $e'),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.of(context).pop(),
-              child: const Text('OK'),
-            ),
-          ],
-        ),
-      );
-    }
+  @override
+  void initState() {
+    super.initState();
+    otpController.setEmail(widget.email);
   }
 
   @override
@@ -192,19 +75,60 @@ class _OneTimePasswordAuthenticationScreenState
             ),
             SpacingConstant.verticalSpacing200,
             Form(
-              key: _formKey,
+              key: otpController.formKey,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: List.generate(6, (index) {
-                  return ContainerNumberOTPWidget(
-                      controller: _otpControllers[index]);
-                }),
+                children: List.generate(
+                  6,
+                  (index) {
+                    return Obx(
+                      () => SizedBox(
+                        height: 50.0,
+                        width: 46.0,
+                        child: TextFormField(
+                          onChanged: (value) {
+                            if (value.isNotEmpty) {
+                              FocusScope.of(context).nextFocus();
+                            } else if (value.isEmpty) {
+                              FocusScope.of(context).previousFocus();
+                            }
+                          },
+                          controller: otpController.otpControllers[index],
+                          style: TextStyleConstant.semiboldTitle,
+                          textAlign: TextAlign.center,
+                          keyboardType: TextInputType.number,
+                          cursorColor: ColorConstant.primaryColor500,
+                          inputFormatters: [
+                            LengthLimitingTextInputFormatter(1),
+                            FilteringTextInputFormatter.digitsOnly,
+                          ],
+                          decoration: InputDecoration(
+                            hintText: '-',
+                            contentPadding: EdgeInsets.zero,
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(8.0),
+                              borderSide: const BorderSide(
+                                color: ColorConstant.netralColor600,
+                              ),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(8.0),
+                              borderSide: const BorderSide(
+                                color: ColorConstant.primaryColor500,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    );
+                  },
+                ),
               ),
             ),
             SpacingConstant.verticalSpacing400,
             GestureDetector(
               onTap: () {
-                _resendOtp();
+                otpController.resendOtp();
               },
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
@@ -219,7 +143,7 @@ class _OneTimePasswordAuthenticationScreenState
             const Spacer(),
             GlobalButtonWidget(
               onTap: () {
-                _submitOtp();
+                otpController.submitOtp();
               },
               width: double.infinity,
               height: 40.0,

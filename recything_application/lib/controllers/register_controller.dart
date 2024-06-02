@@ -78,7 +78,7 @@ class RegisterController extends GetxController {
                 TextButton(
                   onPressed: () {
                     Get.to(
-                      OneTimePasswordAuthenticationScreen(
+                      () => OneTimePasswordAuthenticationScreen(
                         email: email.value,
                       ),
                     );
