@@ -6,10 +6,10 @@ class MissionHeader extends StatelessWidget {
   final String pointChallenge;
 
   const MissionHeader({
-    Key? key,
+    super.key,
     required this.imageUrl,
     required this.pointChallenge,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

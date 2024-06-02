@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:recything_application/constants/color_constant.dart';
+import 'package:recything_application/constants/image_constant.dart';
 import 'package:recything_application/constants/text_style_constant.dart';
 import 'package:recything_application/screens/detail_mission/proof_upload_screen.dart';
 import 'package:recything_application/screens/detail_mission/widgets/mission_header_widget.dart';
@@ -7,6 +8,7 @@ import 'package:recything_application/screens/detail_mission/widgets/mission_ste
 import 'package:recything_application/screens/detail_mission/widgets/status_detail_mission_widget.dart';
 import 'package:recything_application/screens/detail_mission/widgets/button_challenge_widget.dart';
 
+// ignore: must_be_immutable
 class DetailMissionScreen extends StatefulWidget {
   String statusChallenge;
   final bool proofUpload;
@@ -127,8 +129,7 @@ class _DetailMissionScreenState extends State<DetailMissionScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               MissionHeader(
-                imageUrl:
-                    'https://s3-alpha-sig.figma.com/img/2c76/1de7/04514248d017c805f1402fc09d006c96?Expires=1717977600&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=genMkU2cZgN4cvWjCH~t6kXAyHaPDc2M5j~0OYx83BRGcl2AFvx9y-Y6gaa2yljoNsTnf4J1DtD6Yyew10huCbKpQKy7~rkAkVByC9322iFbt15F5hplBKA-2ZIE7QQwY8XQG59fCF446wB6tT0ko9BV7kAtaJ07TVK9OHK5J-2f6Aaq5ed8hqO1I0YP3tcEZfawSup7CfY3NS~wBMVheW107wO6BbwKghfZRptFxcz7rzNStPGn3Z7xgtSCLPcHHWJxjQdDosvhEzL28zcVBkE3bNRvwmLowF~fyvG2jjqWv9VNjbHD1ZJHQc3bZRzRt5OF0KrLnXnB2CWhzzDWeA__',
+                imageUrl: ImageConstant.imageChallenge,
                 pointChallenge: pointChallenge,
               ),
               const SizedBox(height: 12),

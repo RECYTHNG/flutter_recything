@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:recything_application/constants/icon_constant.dart';
 
 class BuktiSatuWidget extends StatelessWidget {
   final List<String> selectedBukti;
@@ -8,11 +9,11 @@ class BuktiSatuWidget extends StatelessWidget {
   final Function(int) removeBukti;
 
   const BuktiSatuWidget({
-    Key? key,
+    super.key,
     required this.selectedBukti,
     required this.pickFiles,
     required this.removeBukti,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +36,7 @@ class BuktiSatuWidget extends StatelessWidget {
                     return GestureDetector(
                       onTap: () => pickFiles(1),
                       child: SvgPicture.asset(
-                        'assets/images/detail_mission_image/upload_area.svg',
+                        IconConstant.uploadButtonAfter,
                       ),
                     );
                   } else {
@@ -75,7 +76,7 @@ class BuktiSatuWidget extends StatelessWidget {
         : GestureDetector(
             onTap: () => pickFiles(1),
             child: SvgPicture.asset(
-              'assets/images/detail_mission_image/upload_area_start.svg',
+              IconConstant.uploadButtonBefore,
             ),
           );
   }

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:recything_application/constants/color_constant.dart';
+import 'package:recything_application/constants/icon_constant.dart';
+import 'package:recything_application/constants/image_constant.dart';
 import 'package:recything_application/constants/text_style_constant.dart';
 
 // ignore: must_be_immutable
@@ -28,8 +30,7 @@ class ChallengeCompletedScreen extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 40),
-              SvgPicture.asset(
-                  'assets/images/detail_mission_image/challenge_completed.svg'),
+              SvgPicture.asset(ImageConstant.challengeCompleted),
               const SizedBox(height: 24),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 64),
@@ -47,7 +48,7 @@ class ChallengeCompletedScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   SvgPicture.asset(
-                    'assets/images/detail_mission_image/point.svg',
+                    IconConstant.iconPoint,
                     height: 32,
                   ),
                   const SizedBox(width: 4),
