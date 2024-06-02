@@ -74,11 +74,23 @@ class OneTimePasswordAuthenticationService {
       }
 
       if (response.statusCode == 200 || response.statusCode == 201) {
+        if (kDebugMode) {
+          print(response.statusCode);
+        }
+        if (kDebugMode) {
+          print(response.data['message']);
+        }
         return OneTimePasswordAuthenticationModel(
           code: response.statusCode,
           message: response.data['message'],
         );
       } else {
+        if (kDebugMode) {
+          print(response.statusCode);
+        }
+        if (kDebugMode) {
+          print(response.data['message']);
+        }
         return OneTimePasswordAuthenticationModel(
           code: response.statusCode,
           message: response.data['message'],
@@ -86,11 +98,23 @@ class OneTimePasswordAuthenticationService {
       }
     } on DioException catch (e) {
       if (e.response?.statusCode == 409) {
+        if (kDebugMode) {
+          print(e.response?.statusCode);
+        }
+        if (kDebugMode) {
+          print(e.response?.data['message']);
+        }
         return OneTimePasswordAuthenticationModel(
           code: 409,
           message: "User Not Found",
         );
       } else {
+        if (kDebugMode) {
+          print(e.response?.statusCode);
+        }
+        if (kDebugMode) {
+          print(e.response?.data['message']);
+        }
         return OneTimePasswordAuthenticationModel(
           code: e.response?.statusCode ?? 500,
           message: 'Internal Server Error',

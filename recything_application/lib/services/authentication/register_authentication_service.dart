@@ -34,6 +34,12 @@ class RegisterAuthenticationService {
           data: Data.fromJson(response.data['data']),
         );
       } else {
+        if (kDebugMode) {
+          print(response.statusCode);
+        }
+        if (kDebugMode) {
+          print(response.data['message']);
+        }
         return RegisterAuthenticationModel(
           code: response.statusCode,
           message: response.data['message'],
@@ -41,11 +47,34 @@ class RegisterAuthenticationService {
       }
     } on DioException catch (e) {
       if (e.response?.statusCode == 409) {
+        if (kDebugMode) {
+          print(e.response?.statusCode);
+        }
+        if (kDebugMode) {
+          print(e.response?.data['message']);
+        }
         return RegisterAuthenticationModel(
           code: 409,
           message: "Email already exists",
         );
+      } else if (e.response?.statusCode == 400) {
+        if (kDebugMode) {
+          print(e.response?.statusCode);
+        }
+        if (kDebugMode) {
+          print(e.response?.data['message']);
+        }
+        return RegisterAuthenticationModel(
+          code: 400,
+          message: "Invalid email format",
+        );
       } else {
+        if (kDebugMode) {
+          print(e.response?.statusCode);
+        }
+        if (kDebugMode) {
+          print(e.response?.data['message']);
+        }
         return RegisterAuthenticationModel(
           code: e.response?.statusCode ?? 500,
           message: 'Internal Server Error',
