@@ -4,6 +4,7 @@ import 'package:recything_application/constants/image_constant.dart';
 import 'package:recything_application/constants/spacing_constant.dart';
 import 'package:recything_application/constants/text_style_constant.dart';
 import 'package:recything_application/models/faq/get_all_faq_model.dart';
+import 'package:recything_application/models/faq/search_faq_model.dart';
 import 'package:recything_application/screens/customer_service/faq/content/detail_answer_faq_or_other/detail_answer_faq_or_other_screen.dart';
 import 'package:recything_application/screens/customer_service/faq/content/search_result_customer_service/search_result_customer_service_screen.dart';
 import 'package:recything_application/screens/customer_service/faq/content/syarat_dan_ketentuan_customer_sevice_screen/syarat_dan_ketentuan_customer_service_screen.dart';
@@ -12,6 +13,7 @@ import 'package:recything_application/screens/customer_service/faq/widgets/conta
 import 'package:recything_application/screens/customer_service/faq/widgets/item_category_customer_service_widget.dart';
 import 'package:recything_application/screens/customer_service/faq/widgets/item_list_faq_widget.dart';
 import 'package:recything_application/services/faq_services/get_all_faq_service.dart';
+import 'package:recything_application/services/faq_services/search_faq_service.dart';
 import 'package:recything_application/widgets/global_loading_widget.dart';
 import 'package:recything_application/widgets/global_search_bar.dart';
 
@@ -31,6 +33,9 @@ class _CustomerServiceScreenState extends State<CustomerServiceScreen> {
   List<Datum>? _faqData;
   bool _isLoading = true;
   String? _error;
+
+  List<DatumSearch> searchResults = [];
+  bool isLoading = false;
 
   @override
   void initState() {
@@ -56,6 +61,31 @@ class _CustomerServiceScreenState extends State<CustomerServiceScreen> {
       setState(() {
         _error = e.toString();
         _isLoading = false;
+      });
+    }
+  }
+
+  Future<void> _searchFaq(String query) async {
+    setState(() {
+      isLoading = true;
+    });
+
+    try {
+      final searchResult = await SearchFaqService().getSearchFaq(query: query);
+      setState(() {
+        searchResults = searchResult.data ?? [];
+        isLoading = false;
+      });
+    } catch (e) {
+      setState(() {
+        searchResults = [];
+      });
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Error: ${e.toString()}')),
+      );
+    } finally {
+      setState(() {
+        isLoading = false;
       });
     }
   }
@@ -90,7 +120,7 @@ class _CustomerServiceScreenState extends State<CustomerServiceScreen> {
                       context,
                       MaterialPageRoute(
                         builder: (context) =>
-                            const SearchResultCustomerService(),
+                            SearchResultCustomerService(query: value),
                       ),
                     );
                   },
@@ -195,7 +225,7 @@ class _CustomerServiceScreenState extends State<CustomerServiceScreen> {
                                 builder: (context) =>
                                     const TopicCategoryCustomerServiceScreen(
                                   title: 'Poin',
-                                  category: 'poin',
+                                  category: 'poin dan level',
                                 ),
                               ),
                             );

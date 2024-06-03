@@ -11,7 +11,11 @@ import 'package:recything_application/widgets/global_loading_widget.dart';
 import 'package:recything_application/widgets/global_search_bar.dart';
 
 class SearchResultCustomerService extends StatefulWidget {
-  const SearchResultCustomerService({super.key});
+  final String query;
+  const SearchResultCustomerService({
+    super.key,
+    required this.query,
+  });
 
   @override
   State<SearchResultCustomerService> createState() =>
@@ -23,7 +27,7 @@ class _SearchResultCustomerServiceState
   final TextEditingController _searchController = TextEditingController();
   var formKey = GlobalKey<FormState>();
   String search = '';
-  List<Datum> searchResults = [];
+  List<DatumSearch> searchResults = [];
   bool isLoading = false;
 
   @override
@@ -55,6 +59,12 @@ class _SearchResultCustomerServiceState
         isLoading = false;
       });
     }
+  }
+
+   @override
+  void initState() {
+    super.initState();
+    _searchFaq(widget.query);
   }
 
   @override

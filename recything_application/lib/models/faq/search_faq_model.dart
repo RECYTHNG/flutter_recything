@@ -9,7 +9,7 @@ String searchCustomerServiceModelToJson(SearchCustomerServiceModel data) =>
 class SearchCustomerServiceModel {
   int? code;
   String? message;
-  List<Datum>? data;
+  List<DatumSearch>? data;
 
   SearchCustomerServiceModel({
     this.code,
@@ -23,7 +23,7 @@ class SearchCustomerServiceModel {
         message: json["message"],
         data: json["data"] == null
             ? []
-            : List<Datum>.from(json["data"]!.map((x) => Datum.fromJson(x))),
+            : List<DatumSearch>.from(json["data"]!.map((x) => DatumSearch.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
@@ -35,20 +35,20 @@ class SearchCustomerServiceModel {
       };
 }
 
-class Datum {
+class DatumSearch {
   String? id;
   String? category;
   String? question;
   String? answer;
 
-  Datum({
+  DatumSearch({
     this.id,
     this.category,
     this.question,
     this.answer,
   });
 
-  factory Datum.fromJson(Map<String, dynamic> json) => Datum(
+  factory DatumSearch.fromJson(Map<String, dynamic> json) => DatumSearch(
         id: json["id"],
         category: json["category"],
         question: json["question"],
