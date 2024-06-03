@@ -1,12 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:recything_application/constants/color_constant.dart';
-import 'package:recything_application/constants/spacing_constant.dart';
 import 'package:recything_application/constants/text_style_constant.dart';
+import 'package:recything_application/models/faq/category_faq_model.dart';
 import 'package:recything_application/screens/customer_service/faq/content/detail_answer_faq_or_other/detail_answer_faq_or_other_screen.dart';
+import 'package:recything_application/screens/customer_service/faq/widgets/item_list_faq_widget.dart';
+import 'package:recything_application/services/faq_services/category_faq_service.dart';
+import 'package:recything_application/widgets/global_loading_widget.dart';
 
 class TopicCategoryCustomerServiceScreen extends StatefulWidget {
   final String title;
-  const TopicCategoryCustomerServiceScreen({super.key, required this.title});
+  final String category;
+  const TopicCategoryCustomerServiceScreen({
+    super.key,
+    required this.title,
+    required this.category,
+  });
 
   @override
   State<TopicCategoryCustomerServiceScreen> createState() =>
@@ -15,6 +23,26 @@ class TopicCategoryCustomerServiceScreen extends StatefulWidget {
 
 class _TopicCategoryCustomerServiceScreenState
     extends State<TopicCategoryCustomerServiceScreen> {
+  List<Datum>? _faqCategoryData;
+
+  Future<void> _fetchFaqData() async {
+    try {
+      final faqCategoryData =
+          await CategoryFaqService().getCategoryFaq(name: widget.category);
+      setState(() {
+        _faqCategoryData = faqCategoryData.data;
+      });
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _fetchFaqData();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,96 +61,28 @@ class _TopicCategoryCustomerServiceScreenState
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: Column(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  'Bagaimana cara mengatasi kesalahan \ndalam mengisi detail pengguna?',
-                  style: TextStyleConstant.semiboldCaption.copyWith(
-                    fontSize: 12.0,
-                    color: ColorConstant.netralColor900,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-                IconButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) =>
-                            const DetailAnswerFAQorOtherScreen(
-                          question: '',
-                          answer: '',
+        child: _faqCategoryData == null
+            ? const Center(child: MyLoading())
+            : ListView.builder(
+                itemCount: _faqCategoryData!.length,
+                itemBuilder: (context, index) {
+                  final faq = _faqCategoryData![index];
+                  return ItemListFaqWidget(
+                    question: faq.question ?? '',
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => DetailAnswerFAQorOtherScreen(
+                            question: faq.question ?? '',
+                            answer: faq.answer ?? '',
+                          ),
                         ),
-                      ),
-                    );
-                  },
-                  icon: const Icon(
-                    Icons.arrow_forward_ios,
-                    size: 16.0,
-                    color: ColorConstant.netralColor900,
-                  ),
-                ),
-              ],
-            ),
-            SpacingConstant.verticalSpacing200,
-            const Divider(
-              color: ColorConstant.netralColor500,
-              thickness: 1.0,
-            ),
-            SpacingConstant.verticalSpacing200,
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  'Apakah ada batasan jumlah poin yang \ndapat saya kumpulkan?',
-                  style: TextStyleConstant.semiboldCaption.copyWith(
-                    fontSize: 12.0,
-                    color: ColorConstant.netralColor900,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-                IconButton(
-                  onPressed: () {},
-                  icon: const Icon(
-                    Icons.arrow_forward_ios,
-                    size: 16.0,
-                    color: ColorConstant.netralColor900,
-                  ),
-                ),
-              ],
-            ),
-            SpacingConstant.verticalSpacing200,
-            const Divider(
-              color: ColorConstant.netralColor500,
-              thickness: 1.0,
-            ),
-            SpacingConstant.verticalSpacing200,
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  'Saya melaporkan tumpukan sampah, tetapi \ntidak ada tanggapan. Apa yang harus saya \nlakukan?',
-                  style: TextStyleConstant.semiboldCaption.copyWith(
-                    fontSize: 12.0,
-                    color: ColorConstant.netralColor900,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-                IconButton(
-                  onPressed: () {},
-                  icon: const Icon(
-                    Icons.arrow_forward_ios,
-                    size: 16.0,
-                    color: ColorConstant.netralColor900,
-                  ),
-                ),
-              ],
-            ),
-          ],
-        ),
+                      );
+                    },
+                  );
+                },
+              ),
       ),
     );
   }

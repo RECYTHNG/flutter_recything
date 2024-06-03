@@ -110,8 +110,7 @@ class _CustomerServiceScreenState extends State<CustomerServiceScreen> {
                               MaterialPageRoute(
                                 builder: (context) =>
                                     const TopicCategoryCustomerServiceScreen(
-                                  title: 'Profil',
-                                ),
+                                        title: 'Profil', category: 'profil'),
                               ),
                             );
                           },
@@ -126,6 +125,7 @@ class _CustomerServiceScreenState extends State<CustomerServiceScreen> {
                                 builder: (context) =>
                                     const TopicCategoryCustomerServiceScreen(
                                   title: 'Littering',
+                                  category: 'littering',
                                 ),
                               ),
                             );
@@ -141,6 +141,7 @@ class _CustomerServiceScreenState extends State<CustomerServiceScreen> {
                                 builder: (context) =>
                                     const TopicCategoryCustomerServiceScreen(
                                   title: 'Rubbish',
+                                  category: 'rubbish',
                                 ),
                               ),
                             );
@@ -156,6 +157,7 @@ class _CustomerServiceScreenState extends State<CustomerServiceScreen> {
                                 builder: (context) =>
                                     const TopicCategoryCustomerServiceScreen(
                                   title: 'Misi',
+                                  category: 'misi',
                                 ),
                               ),
                             );
@@ -177,6 +179,7 @@ class _CustomerServiceScreenState extends State<CustomerServiceScreen> {
                                 builder: (context) =>
                                     const TopicCategoryCustomerServiceScreen(
                                   title: 'Lokasi Sampah',
+                                  category: 'lokasi sampah',
                                 ),
                               ),
                             );
@@ -192,6 +195,7 @@ class _CustomerServiceScreenState extends State<CustomerServiceScreen> {
                                 builder: (context) =>
                                     const TopicCategoryCustomerServiceScreen(
                                   title: 'Poin',
+                                  category: 'poin',
                                 ),
                               ),
                             );
@@ -207,6 +211,7 @@ class _CustomerServiceScreenState extends State<CustomerServiceScreen> {
                                 builder: (context) =>
                                     const TopicCategoryCustomerServiceScreen(
                                   title: 'Artikel',
+                                  category: 'artikel',
                                 ),
                               ),
                             );
@@ -254,7 +259,7 @@ class _CustomerServiceScreenState extends State<CustomerServiceScreen> {
                   )
                 else if (_faqData == null || _faqData!.isEmpty)
                   const Center(
-                    child: Text('No FAQs available.'),
+                    child: Text('Tidak Ada Data'),
                   )
                 else
                   ..._faqData!.map(
