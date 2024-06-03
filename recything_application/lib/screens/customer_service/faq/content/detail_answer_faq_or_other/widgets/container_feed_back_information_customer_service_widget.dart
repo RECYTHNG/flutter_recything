@@ -6,7 +6,7 @@ import 'package:recything_application/constants/color_constant.dart';
 import 'package:recything_application/constants/icon_constant.dart';
 import 'package:recything_application/constants/spacing_constant.dart';
 import 'package:recything_application/constants/text_style_constant.dart';
-import 'package:recything_application/screens/customer_service/content/detail_answer_faq_or_other/widgets/bottom_sheet_feed_back_customer_service/bottom_sheet_feed_back_customer_service_widget.dart';
+import 'package:recything_application/screens/customer_service/faq/content/detail_answer_faq_or_other/widgets/bottom_sheet_feed_back_customer_service/bottom_sheet_feed_back_customer_service_widget.dart';
 
 class FeedBackInformationCustomerServiceWidget extends StatefulWidget {
   const FeedBackInformationCustomerServiceWidget({

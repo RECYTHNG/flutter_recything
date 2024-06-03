@@ -3,7 +3,7 @@ import 'package:recything_application/constants/color_constant.dart';
 import 'package:recything_application/constants/image_constant.dart';
 import 'package:recything_application/constants/spacing_constant.dart';
 import 'package:recything_application/constants/text_style_constant.dart';
-import 'package:recything_application/screens/chatbot/remin_chatbot_screen.dart';
+import 'package:recything_application/screens/customer_service/chatbot/remin_chatbot_screen.dart';
 
 class ReMinCustomerServiceWidget extends StatelessWidget {
   const ReMinCustomerServiceWidget({

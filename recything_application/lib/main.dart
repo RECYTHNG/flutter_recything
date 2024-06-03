@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:recything_application/constants/app_theme_constant.dart';
-import 'package:recything_application/screens/customer_service/customer_service_screen.dart';
 import 'package:intl/date_symbol_data_local.dart';
+import 'package:recything_application/screens/customer_service/faq/customer_service_screen.dart';
 
 void main() async {
   await initializeDateFormatting();

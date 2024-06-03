@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:recything_application/constants/color_constant.dart';
-import 'package:recything_application/screens/chatbot/widgets/chatbot_conversation_widget.dart';
-import 'package:recything_application/screens/chatbot/widgets/chatbot_welcome_card_widget.dart';
+import 'package:recything_application/screens/customer_service/chatbot/widgets/chatbot_conversation_widget.dart';
+import 'package:recything_application/screens/customer_service/chatbot/widgets/chatbot_welcome_card_widget.dart';
 import 'package:recything_application/widgets/global_app_bar.dart';
 
 class ReMinChatbotScreen extends StatefulWidget {

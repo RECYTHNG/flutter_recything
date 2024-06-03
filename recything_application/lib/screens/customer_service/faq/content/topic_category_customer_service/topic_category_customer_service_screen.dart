@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:recything_application/constants/color_constant.dart';
 import 'package:recything_application/constants/spacing_constant.dart';
 import 'package:recything_application/constants/text_style_constant.dart';
-import 'package:recything_application/screens/customer_service/content/detail_answer_faq_or_other/detail_answer_faq_or_other_screen.dart';
+import 'package:recything_application/screens/customer_service/faq/content/detail_answer_faq_or_other/detail_answer_faq_or_other_screen.dart';
 
 class TopicCategoryCustomerServiceScreen extends StatefulWidget {
   final String title;
