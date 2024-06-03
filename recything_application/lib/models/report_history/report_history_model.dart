@@ -12,8 +12,9 @@ class ReportHistoryModel {
   final String province;
   final String status;
   final List<WasteMaterial> wasteMaterials;
-  final dynamic reportImages;
-  final String? createdAt;
+  final List<String> reportImages;
+  final String createdAt;
+  final String reason;
 
   ReportHistoryModel({
     required this.id,
@@ -31,8 +32,8 @@ class ReportHistoryModel {
     required this.wasteMaterials,
     required this.reportImages,
     required this.createdAt,
+    required this.reason,
   });
-
 
   factory ReportHistoryModel.fromJson(Map<String, dynamic> json) {
     return ReportHistoryModel(
@@ -48,11 +49,19 @@ class ReportHistoryModel {
       city: json["city"] ?? "",
       province: json["province"] ?? "",
       status: json["status"] ?? "",
+      reason: json["reason"] ?? "",
       wasteMaterials: json["waste_materials"] == null
           ? []
           : List<WasteMaterial>.from(
-              json["waste_materials"]!.map((x) => WasteMaterial.fromJson(x))),
-      reportImages: json["report_images"],
+              json["waste_materials"]!.map(
+                (x) => WasteMaterial.fromJson(x),
+              ),
+            ),
+      reportImages: json["report_images"] is String
+          ? [json["report_images"]]
+          : json["report_images"] == null
+              ? []
+              : List<String>.from(json["report_images"]),
       createdAt: json["created_at"] ?? "",
     );
   }
@@ -73,9 +82,4 @@ class WasteMaterial {
       type: json["type"] ?? "",
     );
   }
-
-  Map<String, dynamic> toJson() => {
-        "id": id,
-        "type": type,
-      };
 }
