@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:recything_application/constants/color_constant.dart';
-import 'package:recything_application/constants/image_constant.dart';
 import 'package:recything_application/constants/spacing_constant.dart';
 import 'package:recything_application/constants/text_style_constant.dart';
 import 'package:recything_application/models/faq/search_faq_model.dart';
 import 'package:recything_application/screens/customer_service/faq/content/detail_answer_faq_or_other/detail_answer_faq_or_other_screen.dart';
+import 'package:recything_application/screens/customer_service/faq/content/search_result_customer_service/widgets/search_not_found_widget.dart';
 import 'package:recything_application/screens/customer_service/faq/widgets/item_list_faq_widget.dart';
 import 'package:recything_application/services/faq_services/search_faq_service.dart';
 import 'package:recything_application/widgets/global_loading_widget.dart';
@@ -115,38 +115,7 @@ class _SearchResultCustomerServiceState
                 ),
               ),
             if (!isLoading && searchResults.isEmpty)
-              Expanded(
-                child: Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Image.asset(
-                        ImageConstant.searchNotFound,
-                        width: 200.0,
-                        height: 200.0,
-                      ),
-                      Text(
-                        'Tidak ada hasil',
-                        style: TextStyleConstant.boldParagraph.copyWith(
-                          color: ColorConstant.netralColor900,
-                        ),
-                      ),
-                      Text(
-                        'Kami tidak mendapatkan apa yang kamu maksud :(',
-                        style: TextStyleConstant.mediumCaption.copyWith(
-                          color: ColorConstant.netralColor900,
-                        ),
-                      ),
-                      Text(
-                        'Lakukan Search ulang, yuk!',
-                        style: TextStyleConstant.boldCaption.copyWith(
-                          color: ColorConstant.netralColor900,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              )
+              const SearchingNotFoundWidget()
           ],
         ),
       ),
