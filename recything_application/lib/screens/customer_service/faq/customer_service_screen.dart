@@ -265,8 +265,12 @@ class _CustomerServiceScreenState extends State<CustomerServiceScreen> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) =>
-                                    DetailAnswerFAQorOtherScreen()),
+                              builder: (context) =>
+                                  DetailAnswerFAQorOtherScreen(
+                                question: faq.question ?? '',
+                                answer: faq.answer ?? '',
+                              ),
+                            ),
                           );
                         },
                       );

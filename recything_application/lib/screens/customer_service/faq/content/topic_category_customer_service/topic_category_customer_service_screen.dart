@@ -52,7 +52,10 @@ class _TopicCategoryCustomerServiceScreenState
                       context,
                       MaterialPageRoute(
                         builder: (context) =>
-                            const DetailAnswerFAQorOtherScreen(),
+                            const DetailAnswerFAQorOtherScreen(
+                          question: '',
+                          answer: '',
+                        ),
                       ),
                     );
                   },
