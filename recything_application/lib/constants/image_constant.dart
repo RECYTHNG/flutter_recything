@@ -9,4 +9,5 @@ class ImageConstant {
   static const String rubbishCutomerService = 'assets/images/customer_service_images/rubbish.png';
   static const String snkCutomerService = 'assets/images/customer_service_images/snk.png';
   static const String reminCutomerService = 'assets/images/customer_service_images/remin.png';
+  static const String searchNotFound = 'assets/images/customer_service_images/not_found.png';
 }
