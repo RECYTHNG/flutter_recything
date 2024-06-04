@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:recything_application/constants/color_constant.dart';
 import 'package:recything_application/constants/spacing_constant.dart';
 import 'package:recything_application/constants/text_style_constant.dart';
+import 'package:recything_application/controllers/profile_controller.dart';
 import 'package:recything_application/screens/profile/widget/menu_widget.dart';
 
 class ProfileScreen extends StatelessWidget {
-  const ProfileScreen({super.key});
-
+  ProfileScreen({super.key});
+  final ProfileController profileController = Get.put(ProfileController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,28 +36,75 @@ class ProfileScreen extends StatelessWidget {
                     width: 95,
                     child: Stack(
                       children: [
-                        Container(
-                          decoration: const BoxDecoration(
-                            image: DecorationImage(
-                              image: AssetImage(
-                                  "assets/images/profile/icon_person.png"),
-                            ),
-                            shape: BoxShape.circle,
-                          ),
+                        Obx(
+                          () {
+                            return Container(
+                              decoration: BoxDecoration(
+                                image: DecorationImage(
+                                  image: profileController.image.value.isEmpty
+                                      ? const AssetImage(
+                                          "assets/images/profile/icon_person.png")
+                                      : NetworkImage(
+                                          profileController.image.value),
+                                ),
+                                shape: BoxShape.circle,
+                              ),
+                            );
+                          },
                         ),
                         Positioned(
                           bottom: 0,
                           right: 0,
-                          child: Container(
-                            padding: EdgeInsets.all(6),
-                            height: 35,
-                            width: 35,
-                            decoration: const BoxDecoration(
-                              color: ColorConstant.netralColor500,
-                              shape: BoxShape.circle,
+                          child: GestureDetector(
+                            onTap: () {
+                              showDialog<void>(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return AlertDialog(
+                                    title: const Text('Basic dialog title'),
+                                    actions: <Widget>[
+                                      TextButton(
+                                        style: TextButton.styleFrom(
+                                          textStyle: Theme.of(context)
+                                              .textTheme
+                                              .labelLarge,
+                                        ),
+                                        child: const Text('Gallery'),
+                                        onPressed: () {
+                                          profileController.uploadAndgetImage(
+                                              ImageSource.gallery);
+                                          Get.back();
+                                        },
+                                      ),
+                                      TextButton(
+                                        style: TextButton.styleFrom(
+                                          textStyle: Theme.of(context)
+                                              .textTheme
+                                              .labelLarge,
+                                        ),
+                                        child: const Text('Camera'),
+                                        onPressed: () {
+                                          profileController.uploadAndgetImage(
+                                              ImageSource.camera);
+                                          Get.back();
+                                        },
+                                      ),
+                                    ],
+                                  );
+                                },
+                              );
+                            },
+                            child: Container(
+                              padding: const EdgeInsets.all(6),
+                              height: 35,
+                              width: 35,
+                              decoration: const BoxDecoration(
+                                color: ColorConstant.netralColor500,
+                                shape: BoxShape.circle,
+                              ),
+                              child: Image.asset(
+                                  "assets/images/profile/icon_edit.png"),
                             ),
-                            child: Image.asset(
-                                "assets/images/profile/icon_edit.png"),
                           ),
                         )
                       ],
