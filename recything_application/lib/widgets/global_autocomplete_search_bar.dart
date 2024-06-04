@@ -4,7 +4,7 @@ import 'package:recything_application/constants/text_style_constant.dart';
 import 'package:substring_highlight/substring_highlight.dart';
 
 class GlobalAutocompleteSearchBar extends StatelessWidget {
-  final List matchedSearchData;
+  final List? matchedSearchData;
   final String? query;
   final String hintText;
   final Color? fillColor;
@@ -14,19 +14,21 @@ class GlobalAutocompleteSearchBar extends StatelessWidget {
   final Function(String)? onResultSelected;
   final double height;
   final double width;
+  final Function()? handleClearedController;
 
   const GlobalAutocompleteSearchBar({
     super.key,
-    required this.matchedSearchData,
+    this.matchedSearchData,
     this.query,
     required this.hintText,
     this.fillColor,
     this.controller,
-    required this.onChanged,
+    this.onChanged,
     this.onSubmitted,
+    this.onResultSelected,
     required this.height,
     required this.width,
-    this.onResultSelected,
+    this.handleClearedController,
   });
 
   @override
@@ -56,9 +58,9 @@ class GlobalAutocompleteSearchBar extends StatelessWidget {
               shrinkWrap: true,
               children: [
                 SizedBox.fromSize(
-                  size: Size.fromHeight(height),
+                  size: Size.fromHeight(height - 1),
                 ),
-                ...matchedSearchData.map((element) {
+                ...matchedSearchData!.map((element) {
                   return Material(
                     shape: const RoundedRectangleBorder(
                       borderRadius: BorderRadius.all(
@@ -126,6 +128,7 @@ class GlobalAutocompleteSearchBar extends StatelessWidget {
                   ? IconButton(
                       onPressed: () {
                         controller?.clear();
+                        handleClearedController!();
                       },
                       icon: const Icon(
                         Icons.close,
