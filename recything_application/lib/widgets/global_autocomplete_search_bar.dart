@@ -5,20 +5,19 @@ import 'package:substring_highlight/substring_highlight.dart';
 
 class GlobalAutocompleteSearchBar extends StatelessWidget {
   final List matchedSearchData;
-  final Function() onTapSearchResult;
   final String? query;
   final String hintText;
   final Color? fillColor;
   final TextEditingController? controller;
-  final Function(String) onChanged;
+  final Function(String)? onChanged;
   final Function(String)? onSubmitted;
+  final Function(String)? onResultSelected;
   final double height;
   final double width;
 
   const GlobalAutocompleteSearchBar({
     super.key,
     required this.matchedSearchData,
-    required this.onTapSearchResult,
     this.query,
     required this.hintText,
     this.fillColor,
@@ -27,6 +26,7 @@ class GlobalAutocompleteSearchBar extends StatelessWidget {
     this.onSubmitted,
     required this.height,
     required this.width,
+    this.onResultSelected,
   });
 
   @override
@@ -67,7 +67,9 @@ class GlobalAutocompleteSearchBar extends StatelessWidget {
                     ),
                     color: ColorConstant.whiteColor,
                     child: InkWell(
-                      onTap: onTapSearchResult,
+                      onTap: () {
+                        onResultSelected!(element);
+                      },
                       child: Padding(
                         padding: const EdgeInsets.symmetric(
                           vertical: 10,
