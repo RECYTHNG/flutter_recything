@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:recything_application/constants/color_constant.dart';
 import 'package:recything_application/constants/image_constant.dart';
 import 'package:recything_application/constants/spacing_constant.dart';
 import 'package:recything_application/constants/text_style_constant.dart';
-import 'package:recything_application/models/faq/get_all_faq_model.dart';
-import 'package:recything_application/models/faq/search_faq_model.dart';
+import 'package:recything_application/controllers/customer_service_faq_controller.dart';
 import 'package:recything_application/screens/customer_service/faq/content/detail_answer_faq_or_other/detail_answer_faq_or_other_screen.dart';
 import 'package:recything_application/screens/customer_service/faq/content/search_result_customer_service/search_result_customer_service_screen.dart';
 import 'package:recything_application/screens/customer_service/faq/content/syarat_dan_ketentuan_customer_sevice_screen/syarat_dan_ketentuan_customer_service_screen.dart';
@@ -12,80 +12,15 @@ import 'package:recything_application/screens/customer_service/faq/content/topic
 import 'package:recything_application/screens/customer_service/faq/widgets/container_remin_customer_service_widget.dart';
 import 'package:recything_application/screens/customer_service/faq/widgets/item_category_customer_service_widget.dart';
 import 'package:recything_application/screens/customer_service/faq/widgets/item_list_faq_widget.dart';
-import 'package:recything_application/services/faq_services/get_all_faq_service.dart';
-import 'package:recything_application/services/faq_services/search_faq_service.dart';
 import 'package:recything_application/widgets/global_loading_widget.dart';
 import 'package:recything_application/widgets/global_search_bar.dart';
 
-class CustomerServiceScreen extends StatefulWidget {
-  const CustomerServiceScreen({super.key});
+class CustomerServiceScreen extends StatelessWidget {
+  CustomerServiceScreen({super.key});
 
-  @override
-  State<CustomerServiceScreen> createState() => _CustomerServiceScreenState();
-}
-
-class _CustomerServiceScreenState extends State<CustomerServiceScreen> {
-  final TextEditingController _searchController = TextEditingController();
-  final GetAllFaqService _faqService = GetAllFaqService();
-  var formKey = GlobalKey<FormState>();
-  List<DatumSearch> searchResults = [];
-  List<Datum>? _faqData;
-  bool _isLoading = true;
-  bool isLoading = false;
-  String? _error;
-
-  @override
-  void initState() {
-    super.initState();
-    _fetchFaqData();
-  }
-
-  @override
-  void dispose() {
-    _searchController.dispose();
-    super.dispose();
-  }
-
-  Future<void> _fetchFaqData() async {
-    try {
-      final faqData = await _faqService.getAllFaq();
-      setState(() {
-        faqData.data?.shuffle();
-        _faqData = faqData.data?.take(3).toList();
-        _isLoading = false;
-      });
-    } catch (e) {
-      setState(() {
-        _error = e.toString();
-        _isLoading = false;
-      });
-    }
-  }
-
-  Future<void> _searchFaq(String query) async {
-    setState(() {
-      isLoading = true;
-    });
-
-    try {
-      final searchResult = await SearchFaqService().getSearchFaq(query: query);
-      setState(() {
-        searchResults = searchResult.data ?? [];
-        isLoading = false;
-      });
-    } catch (e) {
-      setState(() {
-        searchResults = [];
-      });
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Error: ${e.toString()}')),
-      );
-    } finally {
-      setState(() {
-        isLoading = false;
-      });
-    }
-  }
+  final CustomerServiceFaqController customerServiceFaqController = Get.put(
+    CustomerServiceFaqController(),
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -107,20 +42,23 @@ class _CustomerServiceScreenState extends State<CustomerServiceScreen> {
                   ),
                 ),
                 SpacingConstant.verticalSpacing300,
-                GlobalSearchBar(
-                  height: 40.0,
-                  width: double.infinity,
-                  hintText: 'Search',
-                  controller: _searchController,
-                  onSubmitted: (value) {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) =>
-                            SearchResultCustomerService(query: value),
-                      ),
-                    );
-                  },
+                Obx(
+                  () => GlobalSearchBar(
+                    height: 40.0,
+                    width: double.infinity,
+                    hintText: 'Search',
+                    controller:
+                        customerServiceFaqController.searchController.value,
+                    onSubmitted: (value) {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              SearchResultCustomerService(query: value),
+                        ),
+                      );
+                    },
+                  ),
                 ),
                 SpacingConstant.verticalSpacing300,
                 Column(
@@ -276,38 +214,42 @@ class _CustomerServiceScreenState extends State<CustomerServiceScreen> {
                   ),
                 ),
                 SpacingConstant.verticalSpacing200,
-                if (_isLoading)
-                  const Center(
-                    child: MyLoading(),
-                  )
-                else if (_error != null)
-                  Center(
-                    child: Text('Error: $_error'),
-                  )
-                else if (_faqData == null || _faqData!.isEmpty)
-                  const Center(
-                    child: Text('Tidak Ada Data'),
-                  )
-                else
-                  ..._faqData!.map(
-                    (faq) {
-                      return ItemListFaqWidget(
-                        question: faq.question ?? '',
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) =>
-                                  DetailAnswerFAQorOtherScreen(
-                                question: faq.question ?? '',
-                                answer: faq.answer ?? '',
-                              ),
-                            ),
-                          );
-                        },
+                Obx(
+                  () {
+                    if (customerServiceFaqController.isLoading.value) {
+                      return const Center(
+                        child: MyLoading(),
                       );
-                    },
-                  ),
+                    } else if (customerServiceFaqController
+                        .error.value.isNotEmpty) {
+                      return Center(
+                        child: Text(
+                            'Error: ${customerServiceFaqController.error.value}'),
+                      );
+                    } else if (customerServiceFaqController.faqData.isEmpty) {
+                      return const Center(
+                        child: Text('Tidak Ada Data'),
+                      );
+                    } else {
+                      return Column(
+                        children:
+                            customerServiceFaqController.faqData.map((faq) {
+                          return ItemListFaqWidget(
+                            question: faq.question ?? '',
+                            onTap: () {
+                              Get.to(
+                                () => DetailAnswerFAQorOtherScreen(
+                                  question: faq.question ?? '',
+                                  answer: faq.answer ?? '',
+                                ),
+                              );
+                            },
+                          );
+                        }).toList(),
+                      );
+                    }
+                  },
+                ),
                 SpacingConstant.verticalSpacing300,
                 const ReMinCustomerServiceWidget(),
               ],
