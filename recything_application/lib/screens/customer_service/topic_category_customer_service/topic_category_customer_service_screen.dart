@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:recything_application/constants/color_constant.dart';
 import 'package:recything_application/constants/text_style_constant.dart';
 import 'package:recything_application/models/faq/category_faq_model.dart';
-import 'package:recything_application/screens/customer_service/faq/content/detail_answer_faq_or_other/detail_answer_faq_or_other_screen.dart';
-import 'package:recything_application/screens/customer_service/faq/widgets/item_list_faq_widget.dart';
+import 'package:recything_application/screens/customer_service/detail_answer_faq_or_other/detail_answer_faq_or_other_screen.dart';
+import 'package:recything_application/screens/customer_service/cutomer_service_faq_main/widgets/item_list_faq_widget.dart';
 import 'package:recything_application/services/faq_services/category_faq_service.dart';
 import 'package:recything_application/widgets/global_loading_widget.dart';
 

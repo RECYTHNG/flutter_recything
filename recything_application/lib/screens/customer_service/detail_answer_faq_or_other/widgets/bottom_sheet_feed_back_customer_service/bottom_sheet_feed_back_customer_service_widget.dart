@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:recything_application/constants/color_constant.dart';
 import 'package:recything_application/constants/spacing_constant.dart';
 import 'package:recything_application/constants/text_style_constant.dart';
-import 'package:recything_application/screens/customer_service/faq/content/detail_answer_faq_or_other/widgets/bottom_sheet_feed_back_customer_service/option_item_feed_back_customer_service_widget.dart';
+import 'package:recything_application/screens/customer_service/detail_answer_faq_or_other/widgets/bottom_sheet_feed_back_customer_service/option_item_feed_back_customer_service_widget.dart';
 
 Future dialogBottomSheet(
     BuildContext context, VoidCallback handleDissatisfied) {

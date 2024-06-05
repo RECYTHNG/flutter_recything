@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:recything_application/constants/color_constant.dart';
 import 'package:recything_application/constants/spacing_constant.dart';
 import 'package:recything_application/constants/text_style_constant.dart';
-import 'package:recything_application/screens/customer_service/faq/content/detail_answer_faq_or_other/widgets/container_feed_back_information_customer_service_widget.dart';
-import 'package:recything_application/screens/customer_service/faq/widgets/container_remin_customer_service_widget.dart';
+import 'package:recything_application/screens/customer_service/detail_answer_faq_or_other/widgets/container_feed_back_information_customer_service_widget.dart';
+import 'package:recything_application/screens/customer_service/cutomer_service_faq_main/widgets/container_remin_customer_service_widget.dart';
 
 class DetailAnswerFAQorOtherScreen extends StatefulWidget {
   final String question;
