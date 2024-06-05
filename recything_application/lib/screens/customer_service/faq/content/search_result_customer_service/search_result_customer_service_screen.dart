@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:recything_application/constants/color_constant.dart';
 import 'package:recything_application/constants/spacing_constant.dart';
@@ -7,8 +9,8 @@ import 'package:recything_application/screens/customer_service/faq/content/detai
 import 'package:recything_application/screens/customer_service/faq/content/search_result_customer_service/widgets/search_not_found_widget.dart';
 import 'package:recything_application/screens/customer_service/faq/widgets/item_list_faq_widget.dart';
 import 'package:recything_application/services/faq_services/search_faq_service.dart';
+import 'package:recything_application/widgets/global_autocomplete_search_bar.dart';
 import 'package:recything_application/widgets/global_loading_widget.dart';
-import 'package:recything_application/widgets/global_search_bar.dart';
 
 class SearchResultCustomerService extends StatefulWidget {
   final String query;
@@ -29,6 +31,7 @@ class _SearchResultCustomerServiceState
   String search = '';
   List<DatumSearch> searchResults = [];
   bool isLoading = false;
+  Timer? _debounce;
 
   @override
   void dispose() {
@@ -61,9 +64,20 @@ class _SearchResultCustomerServiceState
     }
   }
 
-   @override
+  void _onSearchChanged(String query) {
+    if (_debounce?.isActive ?? false) _debounce?.cancel();
+    _debounce = Timer(const Duration(milliseconds: 500), () {
+      _searchFaq(query);
+    });
+  }
+
+  @override
   void initState() {
     super.initState();
+    _searchFaq(widget.query);
+    _searchController.addListener(() {
+      _onSearchChanged(_searchController.text);
+    });
     _searchFaq(widget.query);
   }
 
@@ -87,17 +101,22 @@ class _SearchResultCustomerServiceState
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
-            GlobalSearchBar(
-              height: 40.0,
-              width: double.infinity,
-              hintText: 'Search',
-              controller: _searchController,
-              onSubmitted: (query) {
-                setState(() {
-                  search = query;
-                });
-                _searchFaq(query);
-              },
+            Flexible(
+              child: GlobalAutocompleteSearchBar(
+                height: 48.0,
+                width: double.infinity,
+                controller: _searchController,
+                matchedSearchData: [
+                  ...searchResults.map((e) => e.question ?? ''),
+                ],
+                onTapSearchResult: () {},
+                hintText: 'Search',
+                onSubmitted: (value) {
+                  _searchFaq(value);
+                },
+                onChanged: (context) {},
+                query: _searchController.text,
+              ),
             ),
             SpacingConstant.verticalSpacing200,
             if (isLoading) const Center(child: MyLoading()),
