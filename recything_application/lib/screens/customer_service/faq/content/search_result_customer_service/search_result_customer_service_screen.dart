@@ -28,8 +28,9 @@ class _SearchResultCustomerServiceState
     extends State<SearchResultCustomerService> {
   final TextEditingController _searchController = TextEditingController();
   var formKey = GlobalKey<FormState>();
-  String search = '';
   List<DatumSearch> searchResults = [];
+  List<String> matchData = [];
+  String? queryInput;
   bool isLoading = false;
   Timer? _debounce;
 
@@ -54,8 +55,8 @@ class _SearchResultCustomerServiceState
       setState(() {
         searchResults = [];
       });
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Error: ${e.toString()}')),
+      SnackBar(
+        content: Text('Error: ${e.toString()}'),
       );
     } finally {
       setState(() {
@@ -69,6 +70,26 @@ class _SearchResultCustomerServiceState
     _debounce = Timer(const Duration(milliseconds: 500), () {
       _searchFaq(query);
     });
+  }
+
+  void onChangedQuery(String value) {
+    queryInput = value;
+    setState(() {});
+    if (queryInput == "") {
+      matchData.clear();
+    } else {
+      matchData = searchResults
+          .where((element) => element.question!.contains(queryInput!))
+          .map((e) => e.question!)
+          .toList();
+    }
+    setState(() {});
+  }
+
+  void onClickMatchedResult(newValue) {
+    matchData.clear();
+    _searchController.text = newValue;
+    setState(() {});
   }
 
   @override
@@ -106,16 +127,18 @@ class _SearchResultCustomerServiceState
                 height: 48.0,
                 width: double.infinity,
                 controller: _searchController,
-                matchedSearchData: [
-                  ...searchResults.map((e) => e.question ?? ''),
-                ],
-                onTapSearchResult: () {},
+                matchedSearchData: matchData,
                 hintText: 'Search',
+                query: queryInput,
                 onSubmitted: (value) {
                   _searchFaq(value);
                 },
-                onChanged: (context) {},
-                query: _searchController.text,
+                onChanged: (value) {
+                  onChangedQuery(value);
+                },
+                onResultSelected: (newValue) {
+                  onClickMatchedResult(newValue);
+                },
               ),
             ),
             SpacingConstant.verticalSpacing200,

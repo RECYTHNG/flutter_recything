@@ -33,7 +33,12 @@ class _TopicCategoryCustomerServiceScreenState
         _faqCategoryData = faqCategoryData.data;
       });
     } catch (e) {
-      print(e);
+      setState(() {
+        _faqCategoryData = [];
+      });
+      SnackBar(
+        content: Text('Error: ${e.toString()}'),
+      );
     }
   }
 

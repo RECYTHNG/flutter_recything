@@ -26,16 +26,13 @@ class CustomerServiceScreen extends StatefulWidget {
 
 class _CustomerServiceScreenState extends State<CustomerServiceScreen> {
   final TextEditingController _searchController = TextEditingController();
-  var formKey = GlobalKey<FormState>();
-  String search = '';
-
   final GetAllFaqService _faqService = GetAllFaqService();
+  var formKey = GlobalKey<FormState>();
+  List<DatumSearch> searchResults = [];
   List<Datum>? _faqData;
   bool _isLoading = true;
-  String? _error;
-
-  List<DatumSearch> searchResults = [];
   bool isLoading = false;
+  String? _error;
 
   @override
   void initState() {
