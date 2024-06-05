@@ -4,29 +4,31 @@ import 'package:recything_application/constants/text_style_constant.dart';
 import 'package:substring_highlight/substring_highlight.dart';
 
 class GlobalAutocompleteSearchBar extends StatelessWidget {
-  final List matchedSearchData;
-  final Function() onTapSearchResult;
+  final List? matchedSearchData;
   final String? query;
   final String hintText;
   final Color? fillColor;
   final TextEditingController? controller;
-  final Function(String) onChanged;
+  final Function(String)? onChanged;
   final Function(String)? onSubmitted;
+  final Function(String)? onResultSelected;
   final double height;
   final double width;
+  final Function()? handleClearedController;
 
   const GlobalAutocompleteSearchBar({
     super.key,
-    required this.matchedSearchData,
-    required this.onTapSearchResult,
+    this.matchedSearchData,
     this.query,
     required this.hintText,
     this.fillColor,
     this.controller,
-    required this.onChanged,
+    this.onChanged,
     this.onSubmitted,
+    this.onResultSelected,
     required this.height,
     required this.width,
+    this.handleClearedController,
   });
 
   @override
@@ -56,9 +58,9 @@ class GlobalAutocompleteSearchBar extends StatelessWidget {
               shrinkWrap: true,
               children: [
                 SizedBox.fromSize(
-                  size: Size.fromHeight(height),
+                  size: Size.fromHeight(height - 1),
                 ),
-                ...matchedSearchData.map((element) {
+                ...matchedSearchData!.map((element) {
                   return Material(
                     shape: const RoundedRectangleBorder(
                       borderRadius: BorderRadius.all(
@@ -67,7 +69,9 @@ class GlobalAutocompleteSearchBar extends StatelessWidget {
                     ),
                     color: ColorConstant.whiteColor,
                     child: InkWell(
-                      onTap: onTapSearchResult,
+                      onTap: () {
+                        onResultSelected!(element);
+                      },
                       child: Padding(
                         padding: const EdgeInsets.symmetric(
                           vertical: 10,
@@ -124,6 +128,7 @@ class GlobalAutocompleteSearchBar extends StatelessWidget {
                   ? IconButton(
                       onPressed: () {
                         controller?.clear();
+                        handleClearedController!();
                       },
                       icon: const Icon(
                         Icons.close,
