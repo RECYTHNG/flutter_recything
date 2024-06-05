@@ -29,114 +29,119 @@ class ProfileScreen extends StatelessWidget {
                     .copyWith(color: ColorConstant.netralColor900),
               ),
               SpacingConstant.verticalSpacing400,
-              Row(
-                children: [
-                  SizedBox(
-                    height: 95,
-                    width: 95,
-                    child: Stack(
-                      children: [
-                        Obx(
-                          () {
-                            return Container(
+              Obx(
+                () {
+                  return Row(
+                    children: [
+                      SizedBox(
+                        height: 95,
+                        width: 95,
+                        child: Stack(
+                          children: [
+                            Container(
                               decoration: BoxDecoration(
                                 image: DecorationImage(
-                                  image: profileController.image.value.isEmpty
+                                  image: profileController
+                                              .userData.value?.pictureUrl ==
+                                          null
                                       ? const AssetImage(
                                           "assets/images/profile/icon_person.png")
-                                      : NetworkImage(
-                                          profileController.image.value),
+                                      : NetworkImage(profileController
+                                          .userData.value!.pictureUrl
+                                          .toString()),
                                 ),
                                 shape: BoxShape.circle,
                               ),
-                            );
-                          },
-                        ),
-                        Positioned(
-                          bottom: 0,
-                          right: 0,
-                          child: GestureDetector(
-                            onTap: () {
-                              showDialog<void>(
-                                context: context,
-                                builder: (BuildContext context) {
-                                  return AlertDialog(
-                                    title: const Text('Basic dialog title'),
-                                    actions: <Widget>[
-                                      TextButton(
-                                        style: TextButton.styleFrom(
-                                          textStyle: Theme.of(context)
-                                              .textTheme
-                                              .labelLarge,
-                                        ),
-                                        child: const Text('Gallery'),
-                                        onPressed: () {
-                                          profileController.uploadAndgetImage(
-                                              ImageSource.gallery);
-                                          Get.back();
-                                        },
-                                      ),
-                                      TextButton(
-                                        style: TextButton.styleFrom(
-                                          textStyle: Theme.of(context)
-                                              .textTheme
-                                              .labelLarge,
-                                        ),
-                                        child: const Text('Camera'),
-                                        onPressed: () {
-                                          profileController.uploadAndgetImage(
-                                              ImageSource.camera);
-                                          Get.back();
-                                        },
-                                      ),
-                                    ],
+                            ),
+                            Positioned(
+                              bottom: 0,
+                              right: 0,
+                              child: GestureDetector(
+                                onTap: () {
+                                  showDialog<void>(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return AlertDialog(
+                                        title: const Text('Basic dialog title'),
+                                        actions: <Widget>[
+                                          TextButton(
+                                            style: TextButton.styleFrom(
+                                              textStyle: Theme.of(context)
+                                                  .textTheme
+                                                  .labelLarge,
+                                            ),
+                                            child: const Text('Gallery'),
+                                            onPressed: () {
+                                              profileController
+                                                  .uploadAndgetImage(
+                                                      ImageSource.gallery);
+                                              Get.back();
+                                            },
+                                          ),
+                                          TextButton(
+                                            style: TextButton.styleFrom(
+                                              textStyle: Theme.of(context)
+                                                  .textTheme
+                                                  .labelLarge,
+                                            ),
+                                            child: const Text('Camera'),
+                                            onPressed: () {
+                                              profileController
+                                                  .uploadAndgetImage(
+                                                      ImageSource.camera);
+                                              Get.back();
+                                            },
+                                          ),
+                                        ],
+                                      );
+                                    },
                                   );
                                 },
-                              );
-                            },
-                            child: Container(
-                              padding: const EdgeInsets.all(6),
-                              height: 35,
-                              width: 35,
-                              decoration: const BoxDecoration(
-                                color: ColorConstant.netralColor500,
-                                shape: BoxShape.circle,
+                                child: Container(
+                                  padding: const EdgeInsets.all(6),
+                                  height: 35,
+                                  width: 35,
+                                  decoration: const BoxDecoration(
+                                    color: ColorConstant.netralColor500,
+                                    shape: BoxShape.circle,
+                                  ),
+                                  child: Image.asset(
+                                      "assets/images/profile/icon_edit.png"),
+                                ),
                               ),
-                              child: Image.asset(
-                                  "assets/images/profile/icon_edit.png"),
+                            )
+                          ],
+                        ),
+                      ),
+                      SpacingConstant.horizontalSpacing400,
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "${profileController.userData.value?.name}",
+                            style: TextStyleConstant.semiboldParagraph.copyWith(
+                              color: ColorConstant.netralColor900,
                             ),
                           ),
-                        )
-                      ],
-                    ),
-                  ),
-                  SpacingConstant.horizontalSpacing400,
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "Tatiana Septimus",
-                        style: TextStyleConstant.semiboldParagraph.copyWith(
-                          color: ColorConstant.netralColor900,
-                        ),
+                          SpacingConstant.verticalSpacing100,
+                          Text(
+                            "${profileController.userData.value?.email}",
+                            style: TextStyleConstant.regularParagraph.copyWith(
+                              color: ColorConstant.netralColor600,
+                            ),
+                          ),
+                          SpacingConstant.verticalSpacing100,
+                          Text(
+                            "Lengkapi Profile",
+                            style: TextStyleConstant.boldCaption.copyWith(
+                              color: ColorConstant.infoColor500,
+                            ),
+                          )
+                        ],
                       ),
-                      SpacingConstant.verticalSpacing100,
-                      Text(
-                        "tatianaseptimus@gmail.com",
-                        style: TextStyleConstant.regularParagraph.copyWith(
-                          color: ColorConstant.netralColor600,
-                        ),
-                      ),
-                      SpacingConstant.verticalSpacing100,
-                      Text(
-                        "Lengkapi Profil",
-                        style: TextStyleConstant.boldCaption.copyWith(
-                          color: ColorConstant.infoColor500,
-                        ),
-                      )
                     ],
-                  )
-                ],
+                  );
+                },
               ),
               SpacingConstant.verticalSpacing400,
               const MenuWidget(

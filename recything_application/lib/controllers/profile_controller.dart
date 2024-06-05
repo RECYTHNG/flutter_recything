@@ -1,12 +1,14 @@
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:recything_application/models/user/user_model.dart';
 import 'package:recything_application/services/profile/profile_service.dart';
 import 'package:recything_application/services/user/user_service.dart';
 
 class ProfileController extends GetxController {
   final ImagePicker _imagePicker = ImagePicker();
   var isLoading = false.obs;
-  var image = ''.obs;
+  // var image = ''.obs;
+  Rxn<Data?> userData = Rxn<Data>();
   @override
   void onInit() {
     getImageFromAPi();
@@ -46,11 +48,7 @@ class ProfileController extends GetxController {
     var response = await UserService.getUser();
     try {
       if (response.code == 200) {
-        image.value = response.data!.pictureUrl.toString();
-        // Get.snackbar(
-        //   "Success",
-        //   response.message.toString(),
-        // );
+        userData.value = response.data;
       } else {
         Get.snackbar(
           "Error",

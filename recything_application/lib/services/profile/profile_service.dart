@@ -9,7 +9,7 @@ class ProfileService {
     try {
       var url = "http://10.0.2.2:8080/api/v1/user/uploadAvatar";
       var authToken =
-          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiVVNSMDAwMiIsInJvbGUiOiJ1c2VyIiwiZXhwIjoxNzE3NTE0MzgyfQ.R2ESimrCv0HCJMuqrRLtwysOIMpi_T8hd5KvUMdR1OY";
+          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiVVNSMDAwNCIsInJvbGUiOiJ1c2VyIiwiZXhwIjoxNzE3ODQwMDg1fQ.28jttkw3_fH4o1xHYP-kiHyg3X4t_Gl3afgBZBxjpX4";
 
       var mimeType = lookupMimeType(pickedImage.path) ?? 'multipart/form-data';
 
