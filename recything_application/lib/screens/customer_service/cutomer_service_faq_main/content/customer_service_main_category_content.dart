@@ -23,7 +23,7 @@ class CustomerServiceMainCategoryContent extends StatelessWidget {
               image: ImageConstant.profileCutomerService,
               onTap: () {
                 Get.to(
-                  () => const TopicCategoryCustomerServiceScreen(
+                  () => TopicCategoryCustomerServiceScreen(
                     title: 'Profil',
                     category: 'profil',
                   ),
@@ -35,7 +35,7 @@ class CustomerServiceMainCategoryContent extends StatelessWidget {
               image: ImageConstant.litteringCutomerService,
               onTap: () {
                 Get.to(
-                  () => const TopicCategoryCustomerServiceScreen(
+                  () => TopicCategoryCustomerServiceScreen(
                     title: 'Littering',
                     category: 'littering',
                   ),
@@ -47,7 +47,7 @@ class CustomerServiceMainCategoryContent extends StatelessWidget {
               image: ImageConstant.rubbishCutomerService,
               onTap: () {
                 Get.to(
-                  () => const TopicCategoryCustomerServiceScreen(
+                  () => TopicCategoryCustomerServiceScreen(
                     title: 'Rubbish',
                     category: 'rubbish',
                   ),
@@ -59,7 +59,7 @@ class CustomerServiceMainCategoryContent extends StatelessWidget {
               image: ImageConstant.misiCutomerService,
               onTap: () {
                 Get.to(
-                  () => const TopicCategoryCustomerServiceScreen(
+                  () => TopicCategoryCustomerServiceScreen(
                     title: 'Misi',
                     category: 'misi',
                   ),
@@ -77,7 +77,7 @@ class CustomerServiceMainCategoryContent extends StatelessWidget {
               image: ImageConstant.lokasiCutomerService,
               onTap: () {
                 Get.to(
-                  () => const TopicCategoryCustomerServiceScreen(
+                  () => TopicCategoryCustomerServiceScreen(
                     title: 'Lokasi Sampah',
                     category: 'lokasi sampah',
                   ),
@@ -89,7 +89,7 @@ class CustomerServiceMainCategoryContent extends StatelessWidget {
               image: ImageConstant.poinService,
               onTap: () {
                 Get.to(
-                  () => const TopicCategoryCustomerServiceScreen(
+                  () => TopicCategoryCustomerServiceScreen(
                     title: 'Poin',
                     category: 'poin dan level',
                   ),
@@ -101,7 +101,7 @@ class CustomerServiceMainCategoryContent extends StatelessWidget {
               image: ImageConstant.artikelCutomerService,
               onTap: () {
                 Get.to(
-                  () => const TopicCategoryCustomerServiceScreen(
+                  () => TopicCategoryCustomerServiceScreen(
                     title: 'Artikel',
                     category: 'artikel',
                   ),

@@ -7,40 +7,28 @@ import 'package:recything_application/screens/customer_service/detail_answer_faq
 import 'package:recything_application/screens/customer_service/cutomer_service_faq_main/widgets/item_list_faq_widget.dart';
 import 'package:recything_application/widgets/global_loading_widget.dart';
 
-class TopicCategoryCustomerServiceScreen extends StatefulWidget {
+class TopicCategoryCustomerServiceScreen extends StatelessWidget {
   final String title;
   final String category;
-  const TopicCategoryCustomerServiceScreen({
+  TopicCategoryCustomerServiceScreen({
     super.key,
     required this.title,
     required this.category,
   });
 
-  @override
-  State<TopicCategoryCustomerServiceScreen> createState() =>
-      _TopicCategoryCustomerServiceScreenState();
-}
-
-class _TopicCategoryCustomerServiceScreenState
-    extends State<TopicCategoryCustomerServiceScreen> {
   final CustomerServiceMainCategoryController
       customerServiceCategoryController = Get.put(
     CustomerServiceMainCategoryController(),
   );
 
   @override
-  void initState() {
-    customerServiceCategoryController.fetchFaqData(widget.category);
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
+    customerServiceCategoryController.fetchFaqData(category);
     return Scaffold(
       backgroundColor: ColorConstant.whiteColor,
       appBar: AppBar(
         title: Text(
-          'Topik : ${widget.title}',
+          'Topik : $title',
           style: TextStyleConstant.boldTitle.copyWith(
             fontSize: 16.0,
             color: ColorConstant.netralColor800,
