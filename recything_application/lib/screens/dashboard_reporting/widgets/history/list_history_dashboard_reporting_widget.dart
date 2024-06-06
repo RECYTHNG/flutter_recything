@@ -3,6 +3,8 @@ import 'package:get/get.dart';
 import 'package:recything_application/constants/spacing_constant.dart';
 import 'package:recything_application/controllers/report_history_controller.dart';
 import 'package:recything_application/screens/dashboard_reporting/widgets/history/item_history_dashboard_reporting_widget.dart';
+import 'package:recything_application/screens/report_history_detail/report_history_detail_screen.dart';
+import 'package:recything_application/screens/report_rubbish/details/details_report_rubbish_screen.dart';
 import 'package:recything_application/utils/date_time_utils.dart';
 
 class ListHistoryDashboardReportingWidget extends StatelessWidget {
@@ -27,10 +29,11 @@ class ListHistoryDashboardReportingWidget extends StatelessWidget {
               return ItemHistoryDashboardReportingWidget(
                 reportType: history.reportType,
                 status: history.status,
-                date: DateTimeUtils(dateTimeStringInput: history.createdAt!).convertDate(),
-                time: DateTimeUtils(dateTimeStringInput: history.createdAt!).convertTime(),
+                date: DateTimeUtils(dateTimeStringInput: history.createdAt).convertDate(),
+                time: DateTimeUtils(dateTimeStringInput: history.createdAt).convertTime(),
                 onTap: () {
                   controller.selectedHistory = history.obs;
+                  Get.to(() => const ReportHistoryDetailScreen());
                 },
               );
             },

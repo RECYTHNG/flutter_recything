@@ -22,8 +22,7 @@ class ReportHistoryController extends GetxController {
     try {
       isLoading(true);
       final response = await ReportHistoryService().getReportHistory();
-      data.value =
-          response; // dia set nya menggunakan .value krn RxList dan List beda tipe
+      data.value = response;
     } catch (e) {
       Get.snackbar('Error', e.toString());
     } finally {

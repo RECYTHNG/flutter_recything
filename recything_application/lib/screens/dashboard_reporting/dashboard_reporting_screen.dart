@@ -8,14 +8,15 @@ import 'package:recything_application/controllers/report_history_controller.dart
 import 'package:recything_application/screens/dashboard_reporting/widgets/history/history_dashboard_reporting_widget.dart';
 import 'package:recything_application/screens/dashboard_reporting/widgets/icon_decoration_dashboard_reporting_widget.dart';
 import 'package:recything_application/screens/dashboard_reporting/widgets/report_type/report_type_dashboard_reporting_widget.dart';
+import 'package:recything_application/utils/system_ui_overlay_utils.dart';
 
 class DashboardReportingScreen extends StatelessWidget {
   DashboardReportingScreen({super.key});
-
   final ReportHistoryController controller = Get.put(ReportHistoryController());
-
   @override
   Widget build(BuildContext context) {
+    SystemUiOverlayUtils()
+        .setSystemUiOverlay(ColorConstant.primaryColor500, false);
     return Scaffold(
       backgroundColor: ColorConstant.primaryColor500,
       body: Stack(

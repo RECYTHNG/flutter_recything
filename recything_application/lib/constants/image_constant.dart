@@ -5,4 +5,7 @@ class ImageConstant {
   static String litteringHistory = 'assets/images/reporting_rubbish/littering.jpg';
   static String rubbishCarousel = 'assets/images/reporting_rubbish/penumpukan_sampah.jpeg';
   static String litteringCarousel = 'assets/images/reporting_rubbish/pembuangan_sampah_sembarangan.jpeg';
+
+  // Rubbish
+  static String locationResult = 'assets/images/reporting_rubbish/location_result.png';
 }

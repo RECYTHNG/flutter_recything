@@ -18,7 +18,7 @@ class ReportHistoryDetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    SystemUiOverlayUtils().setSystemUiOverlay(ColorConstant.primaryColor500);
+    SystemUiOverlayUtils().setSystemUiOverlay(ColorConstant.primaryColor500, false);
     final ReportHistoryController controller = Get.find();
     return Scaffold(
       appBar: const AppBarReportHistoryDetailWidget(),
