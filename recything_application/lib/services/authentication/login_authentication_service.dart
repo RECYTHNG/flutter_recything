@@ -11,7 +11,7 @@ class LoginAuthenticationService {
     required String password,
   }) async {
     try {
-      var url = 'http://10.0.2.2:8080/api/v1/login';
+      var url = 'http://ec2-54-79-237-162.ap-southeast-2.compute.amazonaws.com:8080/api/v1/login';
       final response = await dio.post(
         url,
         data: {
