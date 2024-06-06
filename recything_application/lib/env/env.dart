@@ -1,12 +1,15 @@
-// import 'package:envied/envied.dart';
+import 'package:envied/envied.dart';
 
-// part 'env.g.dart';
+part 'env.g.dart';
 
-// @Envied(path: '.env')
-// abstract class  Env {
-//   @EnviedField(varName: "SPOONACULAR_API_KEY")
-//   static const String apiKey = _Env.apiKey;
+@Envied(path: '.env')
+abstract class  Env {
+  @EnviedField(varName: "RECYTHING_BASE_URL")
+  static const String recythingBaseUrl = _Env.recythingBaseUrl;
 
-//   @EnviedField(varName: "GEMINI_API_KEY")
-//   static const String geminiApiKey = _Env.geminiApiKey;
-// }
+  @EnviedField(varName: "PLACES_BASE_URL")
+  static const String placesBaseUrl = _Env.placesBaseUrl;
+
+  @EnviedField(varName: "MAPS_API_KEY")
+  static const String mapsApiKey = _Env.mapsApiKey;
+}
