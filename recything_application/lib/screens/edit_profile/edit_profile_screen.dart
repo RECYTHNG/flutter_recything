@@ -48,7 +48,7 @@ class EditProfileScreen extends StatelessWidget {
                 nameController.text = data.name ?? '';
                 genderController.text = data.gender ?? '';
                 birthDateController.text =
-                    data.birthDate?.toIso8601String() ?? '';
+                    data.birthDate?.toIso8601String().split('T')[0] ?? '';
                 emailController.text = data.email ?? '';
                 phoneController.text = data.phoneNumber ?? '';
                 addressController.text = data.address ?? '';
@@ -138,7 +138,17 @@ class EditProfileScreen extends StatelessWidget {
                         ),
                         const SizedBox(height: 20),
                         TextButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            final updatedData = {
+                              'name': nameController.text,
+                              'email': emailController.text,
+                              'phone_number': phoneController.text,
+                              'address': addressController.text,
+                              'gender': genderController.text,
+                              'birth_date': birthDateController.text,
+                            };
+                            controller.updateUserProfile(updatedData);
+                          },
                           style: ButtonStyle(
                             backgroundColor:
                                 WidgetStateProperty.resolveWith<Color>(
