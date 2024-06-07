@@ -6,6 +6,7 @@ import 'package:recything_application/constants/spacing_constant.dart';
 import 'package:recything_application/constants/text_style_constant.dart';
 import 'package:recything_application/controllers/profile_controller.dart';
 import 'package:recything_application/screens/profile/widget/menu_widget.dart';
+import 'package:recything_application/widgets/global_loading_widget.dart';
 
 class ProfileScreen extends StatelessWidget {
   ProfileScreen({super.key});
@@ -13,6 +14,7 @@ class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: ColorConstant.whiteColor,
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.only(
@@ -24,7 +26,7 @@ class ProfileScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                "Profile Pengguna",
+                "Profil Pengguna",
                 style: TextStyleConstant.boldSubtitle
                     .copyWith(color: ColorConstant.netralColor900),
               ),
@@ -39,20 +41,11 @@ class ProfileScreen extends StatelessWidget {
                         child: Stack(
                           children: [
                             Container(
-                              decoration: BoxDecoration(
-                                image: DecorationImage(
-                                  image: profileController
-                                              .userData.value?.pictureUrl ==
-                                          null
-                                      ? const AssetImage(
-                                          "assets/images/profile/icon_person.png")
-                                      : NetworkImage(profileController
-                                          .userData.value!.pictureUrl
-                                          .toString()),
+                                alignment: Alignment.center,
+                                decoration: const BoxDecoration(
+                                  shape: BoxShape.circle,
                                 ),
-                                shape: BoxShape.circle,
-                              ),
-                            ),
+                                child: ImageProfile()),
                             Positioned(
                               bottom: 0,
                               right: 0,
@@ -132,7 +125,7 @@ class ProfileScreen extends StatelessWidget {
                           ),
                           SpacingConstant.verticalSpacing100,
                           Text(
-                            "Lengkapi Profile",
+                            "Lengkapi Profil",
                             style: TextStyleConstant.boldCaption.copyWith(
                               color: ColorConstant.infoColor500,
                             ),
@@ -177,5 +170,35 @@ class ProfileScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+}
+
+class ImageProfile extends StatelessWidget {
+  ImageProfile({super.key});
+  final ProfileController profileController = Get.put(ProfileController());
+
+  @override
+  Widget build(BuildContext context) {
+    if (profileController.isLoading == true) {
+      return const MyLoading();
+    } else {
+      return ClipRRect(
+        borderRadius: BorderRadius.circular(47.5),
+        child: profileController.userData.value?.pictureUrl == null ||
+                profileController.userData.value!.pictureUrl!.isEmpty
+            ? Image.asset(
+                "assets/images/profile/icon_person.png",
+                fit: BoxFit.cover,
+                width: 95,
+                height: 95,
+              )
+            : Image.network(
+                profileController.userData.value!.pictureUrl!,
+                fit: BoxFit.cover,
+                width: 95,
+                height: 95,
+              ),
+      );
+    }
   }
 }

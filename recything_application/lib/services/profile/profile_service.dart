@@ -1,15 +1,18 @@
 import 'package:dio/dio.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:recything_application/env/env.dart';
 import 'package:recything_application/models/profile/profile_model.dart';
 import 'package:mime/mime.dart';
 import 'package:http_parser/http_parser.dart';
 
 class ProfileService {
-  static Future<ProfileModel> postProfile(XFile pickedImage) async {
+  var baseUrl = Env.recythingBaseUrl;
+   Future<ProfileModel> postProfile(XFile pickedImage) async {
     try {
-      var url = "http://10.0.2.2:8080/api/v1/user/uploadAvatar";
+      var url =
+          "$baseUrl/user/uploadAvatar";
       var authToken =
-          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiVVNSMDAwNCIsInJvbGUiOiJ1c2VyIiwiZXhwIjoxNzE3ODQwMDg1fQ.28jttkw3_fH4o1xHYP-kiHyg3X4t_Gl3afgBZBxjpX4";
+          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiVVNSMDAwNiIsInJvbGUiOiJ1c2VyIiwiZXhwIjoxNzE4MDIyMzgwfQ.wS_FNrWskyjRf6apfpjlRS8G5oCYveWWz536DCUPCRI";
 
       var mimeType = lookupMimeType(pickedImage.path) ?? 'multipart/form-data';
 

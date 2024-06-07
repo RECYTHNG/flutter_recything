@@ -1,12 +1,15 @@
 import 'package:dio/dio.dart';
+import 'package:recything_application/env/env.dart';
 import 'package:recything_application/models/user/user_model.dart';
 
 class UserService {
-  static Future<UserModel> getUser() async {
+  var baseUrl = Env.recythingBaseUrl;
+  Future<UserModel> getUser() async {
     try {
-      var url = "http://10.0.2.2:8080/api/v1/user/profile";
+      var url =
+          "http://ec2-54-79-237-162.ap-southeast-2.compute.amazonaws.com:8080/api/v1/user/profile";
       var authToken =
-          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiVVNSMDAwNCIsInJvbGUiOiJ1c2VyIiwiZXhwIjoxNzE3ODQwMDg1fQ.28jttkw3_fH4o1xHYP-kiHyg3X4t_Gl3afgBZBxjpX4";
+          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiVVNSMDAwNiIsInJvbGUiOiJ1c2VyIiwiZXhwIjoxNzE4MDIyMzgwfQ.wS_FNrWskyjRf6apfpjlRS8G5oCYveWWz536DCUPCRI";
       var response = await Dio().get(
         url,
         options: Options(
