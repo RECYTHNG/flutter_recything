@@ -26,6 +26,17 @@ class UserModel {
         "message": message,
         "data": data?.toJson(),
       };
+  UserModel copyWith({
+    int? code,
+    String? message,
+    Data? data,
+  }) {
+    return UserModel(
+      code: code ?? this.code,
+      message: message ?? this.message,
+      data: data ?? this.data,
+    );
+  }
 }
 
 class Data {
@@ -80,4 +91,29 @@ class Data {
         "address": address,
         "picture_url": pictureUrl,
       };
+  Data copyWith({
+    String? id,
+    String? name,
+    String? email,
+    String? phoneNumber,
+    int? point,
+    String? badge,
+    String? gender,
+    DateTime? birthDate,
+    String? address,
+    String? pictureUrl,
+  }) {
+    return Data(
+      id: id ?? this.id,
+      name: name ?? this.name,
+      email: email ?? this.email,
+      phoneNumber: phoneNumber ?? this.phoneNumber,
+      point: point ?? this.point,
+      badge: badge ?? this.badge,
+      gender: gender ?? this.gender,
+      birthDate: birthDate ?? this.birthDate,
+      address: address ?? this.address,
+      pictureUrl: pictureUrl ?? this.pictureUrl,
+    );
+  }
 }

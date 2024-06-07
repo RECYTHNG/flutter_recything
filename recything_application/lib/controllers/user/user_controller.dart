@@ -34,4 +34,10 @@ class UserController extends GetxController {
       print("Error updating user profile: $e");
     }
   }
+
+  void updateGender(String gender) {
+    final updatedData = userModel.value.data!.copyWith(gender: gender);
+    userModel.value = userModel.value.copyWith(data: updatedData);
+    updateUserProfile({'gender': gender});
+  }
 }

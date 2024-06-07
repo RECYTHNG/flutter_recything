@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       theme: AppThemeConstant.appTheme,
       debugShowCheckedModeBanner: false,
       home: EditProfileScreen(),
