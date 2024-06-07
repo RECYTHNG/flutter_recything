@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:recything_application/controllers/report_rubbish_controller.dart';
 import 'package:recything_application/widgets/global_autocomplete_search_bar.dart';
-import 'package:recything_application/widgets/global_search_bar.dart';
 
 class SearchMapsReportRubbishWidget extends StatelessWidget {
   const SearchMapsReportRubbishWidget({super.key});
@@ -23,7 +22,10 @@ class SearchMapsReportRubbishWidget extends StatelessWidget {
             controller.onSubmitSearch(value);
           },
           onChanged: (value) => controller.onChangeQuery(value),
-          onResultSelected: (value) {},
+          onResultSelected: (value) {
+            controller.onSearchResultSelected(value);
+          },
+          handleClearedController: () => controller.onClearedController(),
         );
       },
     );

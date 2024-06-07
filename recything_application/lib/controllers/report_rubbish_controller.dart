@@ -4,16 +4,17 @@ import 'package:get/get.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:recything_application/models/maps/places_maps_model.dart';
 import 'package:recything_application/models/maps/search_autocomplete_maps_model.dart';
 import 'package:recything_application/services/maps/maps_service.dart';
 
 class ReportRubbishController extends GetxController {
-  Rx<LatLng?> currentLatLng = Rx<LatLng?>(null);
-  Rx<Position?> currentPosition = Rx<Position?>(null);
-  RxString currentAddress = RxString('');
   final Completer<GoogleMapController> mcontroller = Completer<GoogleMapController>();
+  Rx<LatLng?> currentLatLng = Rx<LatLng?>(null);
+  RxString currentAddress = RxString('');
+  Rx<Position?> currentPosition = Rx<Position?>(null);
   TextEditingController searchController = TextEditingController();
-  RxList<Prediction> autoCompleteData = <Prediction>[].obs;
+  RxList<Prediction> fetchedSearchResultData = <Prediction>[].obs;
   RxString searchQuery = ''.obs;
   RxList<String> autocomplete = <String>[].obs;
 
@@ -32,9 +33,26 @@ class ReportRubbishController extends GetxController {
     autocomplete.clear();
   }
 
+  void onClearedController() {
+    autocomplete.clear();
+  }
+
+  void onSearchResultSelected(String selectedPlace) async {
+    autocomplete.clear();
+    Prediction matchedData = fetchedSearchResultData.firstWhere((data) => data.description == selectedPlace);
+    final placesData = await MapsService().getPlacesDetails(matchedData.placeId);
+    final double latPlaces = placesData.geometry.location.lat;
+    final double longPlaces = placesData.geometry.location.long;
+    currentLatLng.value = LatLng(latPlaces, longPlaces);
+    moveCamera(currentLatLng.value!);
+    List<Placemark> placemark = await placemarkFromCoordinates(latPlaces, longPlaces);
+    print('placemark $placemark');
+  }
+
   void fetchSearchAutoComplete(String query) async {
     autocomplete.clear();
     final data = await MapsService().getAutocomplete(query);
+    fetchedSearchResultData.value = data;
     autocomplete.value = data.map((item) => item.description).toList();
   }
 

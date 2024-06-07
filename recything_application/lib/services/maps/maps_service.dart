@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:recything_application/models/maps/places_maps_model.dart';
 import 'package:recything_application/models/maps/search_autocomplete_maps_model.dart';
 
 class MapsService {
@@ -8,17 +9,20 @@ class MapsService {
 
   Future<List<Prediction>> getAutocomplete(String query) async {
     try {
-      final response = await _dio.get('$baseUrl/autocomplete/json', queryParameters: {
+      final response =
+          await _dio.get('$baseUrl/autocomplete/json', queryParameters: {
         'input': query,
         'key': apiKey,
       });
 
       if (response.statusCode == 200) {
         final decodedResponse = response.data;
-        print('decode $decodedResponse');
+        // print('decode $decodedResponse');
         if (decodedResponse['status'] == "OK") {
           final List<dynamic> predictionData = decodedResponse['predictions'];
-          return predictionData.map((data) => Prediction.fromJson(data)).toList();
+          return predictionData
+              .map((data) => Prediction.fromJson(data))
+              .toList();
         } else {
           throw 'Error: ${decodedResponse['status']}';
         }
@@ -27,6 +31,27 @@ class MapsService {
       }
     } catch (e) {
       throw 'Error: $e';
+    }
+  }
+
+  Future<PlacesMapsModel> getPlacesDetails(String placeId) async {
+    try {
+      final response = await _dio.get(
+        '$baseUrl/details/json',
+        queryParameters: {
+          'place_id': placeId,
+          'key': apiKey,
+        },
+      );
+      if (response.statusCode == 200) {
+        final data = response.data;
+        final PlacesMapsModel formattedData = PlacesMapsModel.fromJson(data['result']);
+        return formattedData;
+      } else {
+        throw 'Error Status Code ${response.statusCode}';
+      }
+    } catch (e) {
+      throw '$e';
     }
   }
 }
