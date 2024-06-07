@@ -8,7 +8,7 @@ class GetAllFaqService {
     try {
       var url = 'http://10.0.2.2:8080/api/v1/faqs';
       var authToken =
-          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiVVNSMDAwMiIsInJvbGUiOiJ1c2VyIiwiZXhwIjoxNzE3NjYxMDI5fQ.dK1mEygGuieRrQQY6FtkF3g0AG-1xudUjGYHVXA9vd8';
+          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiVVNSMDAwMSIsInJvbGUiOiJ1c2VyIiwiZXhwIjoxNzE4MDM3NTI4fQ.g3UgMZcZAKtqmNSRVXkcJ9ak3jRD5g9siilQ1qPKjtY';
       final response = await dio.get(
         url,
         options: Options(
