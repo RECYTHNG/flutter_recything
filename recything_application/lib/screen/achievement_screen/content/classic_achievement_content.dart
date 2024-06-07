@@ -5,6 +5,7 @@ import 'package:recything_application/constants/icon_constant.dart';
 import 'package:recything_application/constants/image_constant.dart';
 import 'package:recything_application/constants/spacing_constant.dart';
 import 'package:recything_application/constants/text_style_constant.dart';
+import 'package:recything_application/screen/halaman_riwayat/point_history_screen.dart';
 
 class ClassicAchievementContent extends StatefulWidget {
   const ClassicAchievementContent({super.key});
@@ -171,7 +172,13 @@ class _ClassicAchievementContentState extends State<ClassicAchievementContent> {
                       ),
                     ),
                     GestureDetector(
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => const PointHisstoryScreen(),
+                          ),
+                        );
+                      },
                       child: Text(
                         'See all',
                         style: TextStyleConstant.boldCaption.copyWith(
