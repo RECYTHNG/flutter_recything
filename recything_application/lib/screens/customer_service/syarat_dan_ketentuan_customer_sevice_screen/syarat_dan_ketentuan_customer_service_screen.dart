@@ -6,16 +6,9 @@ import 'package:recything_application/constants/text_style_constant.dart';
 import 'package:recything_application/controllers/customer_service_snk_controller.dart';
 import 'package:recything_application/widgets/global_loading_widget.dart';
 
-class SyaratDanKetentuanCustomerServiceScreen extends StatefulWidget {
-  const SyaratDanKetentuanCustomerServiceScreen({super.key});
+class SyaratDanKetentuanCustomerServiceScreen extends StatelessWidget {
+  SyaratDanKetentuanCustomerServiceScreen({super.key});
 
-  @override
-  State<SyaratDanKetentuanCustomerServiceScreen> createState() =>
-      _SyaratDanKetentuanCustomerServiceScreenState();
-}
-
-class _SyaratDanKetentuanCustomerServiceScreenState
-    extends State<SyaratDanKetentuanCustomerServiceScreen> {
   final CustomerServiceSnkController customerServiceSnkController = Get.put(
     CustomerServiceSnkController(),
   );

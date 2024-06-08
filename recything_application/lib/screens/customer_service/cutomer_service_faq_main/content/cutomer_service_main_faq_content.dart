@@ -21,11 +21,9 @@ class CutomerServiceMainFaqContent extends StatelessWidget {
           return const Center(
             child: MyLoading(),
           );
-        } else if (customerServiceFaqController
-            .error.value.isNotEmpty) {
+        } else if (customerServiceFaqController.error.value.isNotEmpty) {
           return Center(
-            child: Text(
-                'Error: ${customerServiceFaqController.error.value}'),
+            child: Text('Error: ${customerServiceFaqController.error.value}'),
           );
         } else if (customerServiceFaqController.faqData.isEmpty) {
           return const Center(
@@ -33,8 +31,7 @@ class CutomerServiceMainFaqContent extends StatelessWidget {
           );
         } else {
           return Column(
-            children:
-                customerServiceFaqController.faqData.map((faq) {
+            children: customerServiceFaqController.faqData.map((faq) {
               return ItemListFaqWidget(
                 question: faq.question ?? '',
                 onTap: () {

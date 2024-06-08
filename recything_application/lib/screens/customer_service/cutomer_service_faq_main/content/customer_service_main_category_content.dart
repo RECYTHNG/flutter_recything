@@ -113,7 +113,7 @@ class CustomerServiceMainCategoryContent extends StatelessWidget {
               image: ImageConstant.snkCutomerService,
               onTap: () {
                 Get.to(
-                  () => const SyaratDanKetentuanCustomerServiceScreen(),
+                  () => SyaratDanKetentuanCustomerServiceScreen(),
                 );
               },
             ),

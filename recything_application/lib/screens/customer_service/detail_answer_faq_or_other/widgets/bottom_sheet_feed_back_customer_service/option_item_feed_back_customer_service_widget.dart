@@ -1,5 +1,9 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:recything_application/constants/color_constant.dart';
+import 'package:recything_application/constants/icon_constant.dart';
 import 'package:recything_application/constants/text_style_constant.dart';
 
 class FeedBackOptionCustomerServiceWidget extends StatefulWidget {
@@ -43,13 +47,24 @@ class _FeedBackOptionCustomerServiceWidgetState
         ),
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 16.0),
-          child: Text(
-            widget.caption,
-            style: TextStyleConstant.regularCaption.copyWith(
-              fontSize: 12.0,
-              color: ColorConstant.netralColor900,
-              fontWeight: FontWeight.w400,
-            ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                widget.caption,
+                style: TextStyleConstant.regularCaption.copyWith(
+                  fontSize: 12.0,
+                  color: ColorConstant.netralColor900,
+                  fontWeight: FontWeight.w400,
+                ),
+              ),
+              if (isSelected)
+                SvgPicture.asset(
+                  IconConstant.checkCircleIcon,
+                  color: const Color(0xFF60AA1B),
+                  height: 12.5,
+                )
+            ],
           ),
         ),
       ),
