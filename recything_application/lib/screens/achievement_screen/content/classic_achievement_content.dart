@@ -33,7 +33,7 @@ class _ClassicAchievementContentState extends State<ClassicAchievementContent> {
                     gradient: SweepGradient(
                       colors: [
                         const Color(0xFF4F3415),
-                        const Color(0xFF4F3415).withOpacity(0.75),
+                        const Color(0xFF4F3415).withOpacity(0.95),
                       ],
                       center: const Alignment(-2.5, 0.0),
                       startAngle: 0.0,

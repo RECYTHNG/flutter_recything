@@ -33,7 +33,7 @@ class _PlatinumAchievementContentState
                     gradient: SweepGradient(
                       colors: [
                         ColorConstant.primaryColor300,
-                        ColorConstant.primaryColor300.withOpacity(0.75),
+                        ColorConstant.primaryColor300.withOpacity(0.95),
                       ],
                       center: const Alignment(-2.5, 0.0),
                       startAngle: 0.0,

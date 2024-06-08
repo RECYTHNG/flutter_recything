@@ -32,7 +32,7 @@ class _SilverAchievementContentState extends State<SilverAchievementContent> {
                     gradient: SweepGradient(
                       colors: [
                         const Color(0xFF545454),
-                        const Color(0xFF545454).withOpacity(0.75),
+                        const Color(0xFF545454).withOpacity(0.95),
                       ],
                       center: const Alignment(-2.5, 0.0),
                       startAngle: 0.0,
