@@ -1,9 +1,11 @@
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';
+import 'package:recything_application/constants/api_key_constant.dart';
 
 class CustomerServiceSnkController extends GetxController {
   RxString snkData = ''.obs;
   var isLoading = true.obs;
+  var urlTnc = tncBaseUrl;
 
   @override
   void onInit() {
@@ -12,8 +14,7 @@ class CustomerServiceSnkController extends GetxController {
   }
 
   Future<void> getSyaratDanKetentuan() async {
-    var url =
-        'http://ec2-54-79-237-162.ap-southeast-2.compute.amazonaws.com:8080/terms-and-conditions';
+    var url = urlTnc;
     try {
       final dio = Dio();
       final response = await dio.get(url);

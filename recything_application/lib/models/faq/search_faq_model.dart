@@ -23,7 +23,8 @@ class SearchCustomerServiceModel {
         message: json["message"],
         data: json["data"] == null
             ? []
-            : List<DatumSearch>.from(json["data"]!.map((x) => DatumSearch.fromJson(x))),
+            : List<DatumSearch>.from(
+                json["data"]!.map((x) => DatumSearch.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
