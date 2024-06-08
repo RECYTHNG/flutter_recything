@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:recything_application/constants/color_constant.dart';
 import 'package:recything_application/constants/spacing_constant.dart';
 import 'package:recything_application/constants/text_style_constant.dart';
-import 'package:recything_application/screens/video_content/widgets/button_widget.dart';
-import 'package:recything_application/screens/video_content/widgets/judul_dan_opsi_widget.dart';
+import 'package:recything_application/screens/video_content/widgets/komentar_widget.dart';
+import 'package:recything_application/widgets/global_search_bar.dart';
 
 class DetailVideoContentScreen extends StatelessWidget {
   const DetailVideoContentScreen({super.key});
@@ -11,6 +11,7 @@ class DetailVideoContentScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: ColorConstant.whiteColor,
       body: SafeArea(
         child: Column(
           children: [
@@ -28,74 +29,35 @@ class DetailVideoContentScreen extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const JudulDanOpsiWidget(
-                    title: "Cara Mudah Memilah Sampah di Rumah",
-                    subTitle: "11 rb ditonton",
+                  Text(
+                    "Tips Hemat Energi: Praktik Ramah Lingkungan di Rumah",
+                    style: TextStyleConstant.boldTitle
+                        .copyWith(color: ColorConstant.netralColor900),
                   ),
-                  SpacingConstant.verticalSpacing200,
-                  const Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      ButtonWidget(
-                        imageAsset: "assets/images/video_content/thumb_up.png",
-                        text: "5 Ribu",
-                      ),
-                      ButtonWidget(
-                        imageAsset: "assets/images/video_content/share.png",
-                        text: "Bagikan",
-                      ),
-                      ButtonWidget(
-                        imageAsset:
-                            "assets/images/video_content/file_download.png",
-                        text: "Unduh",
-                      ),
-                    ],
+                  SpacingConstant.verticalSpacing150,
+                  const Divider(
+                    color: ColorConstant.netralColor500,
                   ),
-                  SpacingConstant.verticalSpacing200,
+                  SpacingConstant.verticalSpacing150,
                   Text(
                     "Deskripsi",
-                    style: TextStyleConstant.boldParagraph.copyWith(
+                    style: TextStyleConstant.boldSubtitle.copyWith(
                       color: ColorConstant.netralColor900,
                     ),
                   ),
                   SpacingConstant.verticalSpacing100,
                   Text(
                     "Panduan praktis tentang bagaimana memilah sampah dengan benar di rumah. Mulai dari pengenalan jenis sampah hingga teknik pemilahan yang efektif, Anda akan belajar langkah-langkah mudah untuk meminimalkan limbah dan meningkatkan praktik daur ulang di rumah Anda. Temukan tips dan trik yang berguna dalam memulai langkah-langkah kecil untuk menjaga lingkungan tetap bersih dan sehat.",
-                    style: TextStyleConstant.semiboldCaption.copyWith(
+                    style: TextStyleConstant.regularParagraph.copyWith(
                       color: ColorConstant.netralColor900,
                     ),
+                    textAlign: TextAlign.justify,
                   ),
-                  SpacingConstant.verticalSpacing300,
-                  Text(
-                    "Segmen",
-                    style: TextStyleConstant.boldParagraph.copyWith(
-                      color: ColorConstant.netralColor900,
-                    ),
+                  SpacingConstant.verticalSpacing150,
+                  const Divider(
+                    color: ColorConstant.netralColor500,
                   ),
-                  SpacingConstant.verticalSpacing100,
-                  SizedBox(
-                    height: 63,
-                    width: double.infinity,
-                    child: ListView.builder(
-                      scrollDirection: Axis.horizontal,
-                      itemCount: 4,
-                      itemBuilder: (context, index) => Container(
-                        margin: const EdgeInsets.only(right: 11),
-                        height: 63.5,
-                        width: 113,
-                        decoration: BoxDecoration(
-                          color: ColorConstant.blackColor,
-                          borderRadius: BorderRadius.circular(4),
-                          image: const DecorationImage(
-                            fit: BoxFit.cover,
-                            image: AssetImage(
-                                "assets/images/video_content/Cards Video 3.png"),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  SpacingConstant.verticalSpacing300,
+                  SpacingConstant.verticalSpacing075,
                   Container(
                     padding: const EdgeInsets.only(
                       top: 10,
@@ -105,119 +67,165 @@ class DetailVideoContentScreen extends StatelessWidget {
                     height: 44,
                     width: double.infinity,
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Row(
-                          children: [
-                            Text(
-                              "Komentar",
-                              style: TextStyleConstant.boldParagraph.copyWith(
-                                color: ColorConstant.netralColor900,
-                              ),
-                            ),
-                            SpacingConstant.horizontalSpacing150,
-                            Text(
-                              "120",
-                              style: TextStyleConstant.regularCaption.copyWith(
-                                color: ColorConstant.netralColor600,
-                              ),
-                            )
-                          ],
+                        Text(
+                          "Komentar",
+                          style: TextStyleConstant.boldSubtitle.copyWith(
+                            color: ColorConstant.netralColor900,
+                          ),
                         ),
-                        Row(
-                          children: [
-                            Text(
-                              "Terbaru",
-                              style: TextStyleConstant.regularCaption.copyWith(
-                                color: ColorConstant.netralColor600,
-                              ),
-                            ),
-                            SpacingConstant.horizontalSpacing050,
-                            SizedBox(
-                              height: 16,
-                              width: 16,
-                              child: Image.asset(
-                                  "assets/images/video_content/sort-descending.png"),
-                            )
-                          ],
+                        SpacingConstant.horizontalSpacing150,
+                        Text(
+                          "120",
+                          style: TextStyleConstant.semiboldCaption.copyWith(
+                            color: ColorConstant.netralColor900,
+                          ),
                         ),
                       ],
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(
-                      left: 2,
-                      right: 2,
-                      top: 2,
-                    ),
-                    child: Container(
-                      alignment: Alignment.topLeft,
-                      height: 63,
-                      width: double.infinity,
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Container(
-                            height: 35,
-                            width: 35,
-                            decoration: BoxDecoration(
-                              image: DecorationImage(
-                                image: AssetImage(
-                                    "assets/images/video_content/Ellipse 339.png"),
-                              ),
-                              shape: BoxShape.circle,
+                  SpacingConstant.verticalSpacing100,
+                  const KomentarWidget(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    width: 35,
+                    height: 35,
+                    name: "Alfredo Schleifer",
+                    kometar:
+                        "ini panduan termudah dari yang pernah aku coba nih 👍 ",
+                    image: AssetImage(
+                        "assets/images/video_content/Ellipse 339.png"),
+                  ),
+                  SpacingConstant.verticalSpacing250,
+                  const KomentarWidget(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    width: 35,
+                    height: 35,
+                    name: "Kaylynn George",
+                    kometar:
+                        "Video yang informatif! Sekarang saya bisa memulai praktiknya",
+                    image: AssetImage(
+                        "assets/images/video_content/Ellipse 339.png"),
+                  ),
+                  SpacingConstant.verticalSpacing200,
+                  GestureDetector(
+                    onTap: () {
+                      showModalBottomSheet<void>(
+                        isScrollControlled: true,
+                        useSafeArea: true,
+                        backgroundColor: ColorConstant.whiteColor,
+                        context: context,
+                        builder: (BuildContext context) {
+                          return Padding(
+                            padding: EdgeInsets.only(
+                              left: 16,
+                              right: 16,
+                              top: 16,
+                              bottom: MediaQuery.of(context).viewInsets.bottom,
                             ),
-                          ),
-                          SpacingConstant.horizontalSpacing250,
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                "Alfredo Schleifer",
-                                style:
-                                    TextStyleConstant.semiboldCaption.copyWith(
-                                  color: ColorConstant.netralColor900,
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Center(
+                                  child: Padding(
+                                    padding:
+                                        const EdgeInsets.symmetric(vertical: 8),
+                                    child: Container(
+                                      height: 4,
+                                      width: 64,
+                                      decoration: BoxDecoration(
+                                        color: ColorConstant.netralColor600,
+                                        borderRadius: BorderRadius.circular(4),
+                                      ),
+                                    ),
+                                  ),
                                 ),
-                              ),
-                              Text(
-                                "ini panduan termudah dari yang pernah aku coba nih 👍 ",
-                                style: TextStyleConstant.regularFooter.copyWith(
-                                  color: ColorConstant.netralColor900,
+                                Text(
+                                  "Komentar",
+                                  style:
+                                      TextStyleConstant.boldHeading4.copyWith(
+                                    color: ColorConstant.netralColor900,
+                                  ),
                                 ),
-                              ),
-                              Row(
-                                children: [
-                                  Image.asset(
-                                    "assets/images/video_content/thumb_up_white.png",
-                                    height: 14,
+                                SpacingConstant.verticalSpacing200,
+                                Row(
+                                  children: [
+                                    Image.asset(
+                                      "assets/images/video_content/arrow_upward.png",
+                                      height: 24,
+                                    ),
+                                    SpacingConstant.horizontalSpacing150,
+                                    Text(
+                                      "Urut Komentar Terbaru",
+                                      style: TextStyleConstant.regularCaption
+                                          .copyWith(
+                                        color: ColorConstant.netralColor900,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                SpacingConstant.verticalSpacing200,
+                                Flexible(
+                                  child: ListView.builder(
+                                    shrinkWrap: true,
+                                    itemCount: 1,
+                                    itemBuilder: (context, index) {
+                                      return const Padding(
+                                        padding: EdgeInsets.symmetric(
+                                            horizontal: 16.5),
+                                        child: KomentarWidget(
+                                          margin: EdgeInsets.only(bottom: 20),
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
+                                          height: 45,
+                                          width: 45,
+                                          name: "Alfredo Schleifer",
+                                          kometar:
+                                              "Wah, hasilnya sungguh memuaskan, resepnya patut dicoba!",
+                                          image: AssetImage(
+                                              "assets/images/video_content/Ellipse 339.png"),
+                                        ),
+                                      );
+                                    },
                                   ),
-                                  SpacingConstant.horizontalSpacing200,
-                                  Image.asset(
-                                    "assets/images/video_content/thumb_down.png",
-                                    height: 14,
+                                ),
+                                const Padding(
+                                  padding: EdgeInsets.only(bottom: 16),
+                                  child: GlobalSearchBar(
+                                    prefixIcon: Icon(
+                                      Icons.person,
+                                      size: 24,
+                                    ),
+                                    suffixIcon: Icon(
+                                      Icons.send,
+                                      size: 16,
+                                      color: ColorConstant.netralColor600,
+                                    ),
+                                    height: 40,
+                                    width: double.infinity,
+                                    hintText: "Tuliskan sesuatu ..",
                                   ),
-                                  SpacingConstant.horizontalSpacing200,
-                                  Image.asset(
-                                    "assets/images/video_content/chat.png",
-                                    height: 14,
-                                  ),
-                                  SpacingConstant.horizontalSpacing200,
-                                  Image.asset(
-                                    "assets/images/video_content/emoji_flags.png",
-                                    height: 14,
-                                  ),
-                                ],
-                              )
-                            ],
-                          )
-                        ],
+                                ),
+                              ],
+                            ),
+                          );
+                        },
+                      );
+                    },
+                    child: Container(
+                      height: 19,
+                      alignment: Alignment.topCenter,
+                      child: Text(
+                        "Lihat Semua Komentar",
+                        style: TextStyleConstant.semiboldParagraph.copyWith(
+                          color: ColorConstant.infoColor500,
+                        ),
                       ),
                     ),
-                  )
+                  ),
                 ],
               ),
-            )
+            ),
           ],
         ),
       ),
