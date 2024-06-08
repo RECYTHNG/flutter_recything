@@ -16,4 +16,6 @@ final class _Env {
       'https://maps.googleapis.com/maps/api/place';
 
   static const String mapsApiKey = 'AIzaSyA93cweziQZBF3710iDMmUY9TlnVwqFcqY';
+  static const String tncBaseUrl =
+      'http://ec2-54-79-237-162.ap-southeast-2.compute.amazonaws.com:8080/terms-and-conditions';
 }
