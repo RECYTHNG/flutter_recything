@@ -41,8 +41,8 @@ class OtpController extends GetxController {
             overlayBlur: 0.0,
             snackPosition: SnackPosition.BOTTOM,
             messageText: AwesomeSnackbarContent(
-              title: 'Success',
-              message: 'Message : ${response.message}',
+              title: 'Pendaftaran Berhasil',
+              message: 'Akunmu berhasil dibuat! Selamat Datang di Recything',
               contentType: ContentType.success,
             ),
           );
@@ -53,6 +53,41 @@ class OtpController extends GetxController {
                 () => LoginAuthenticationScreen(),
               );
             },
+          );
+        } else if (response.code == 400) {
+          Get.snackbar(
+            '',
+            '',
+            padding: const EdgeInsets.all(0),
+            margin: const EdgeInsets.all(12),
+            snackStyle: SnackStyle.FLOATING,
+            backgroundColor: Colors.transparent,
+            barBlur: 0.0,
+            overlayBlur: 0.0,
+            snackPosition: SnackPosition.BOTTOM,
+            messageText: AwesomeSnackbarContent(
+              title: 'OTP Gagal',
+              message: 'Silakan isi form terlebih dahulu',
+              contentType: ContentType.failure,
+            ),
+          );
+        } else if (response.code == 409) {
+          Get.snackbar(
+            '',
+            '',
+            padding: const EdgeInsets.all(0),
+            margin: const EdgeInsets.all(12),
+            snackStyle: SnackStyle.FLOATING,
+            backgroundColor: Colors.transparent,
+            barBlur: 0.0,
+            overlayBlur: 0.0,
+            snackPosition: SnackPosition.BOTTOM,
+            messageText: AwesomeSnackbarContent(
+              title: 'kode OTP Salah',
+              message:
+                  'Kode OTP yang Anda masukkan salah. Periksa Kembali dan coba masukkan lagi',
+              contentType: ContentType.failure,
+            ),
           );
         } else {
           Get.snackbar(
@@ -67,7 +102,7 @@ class OtpController extends GetxController {
             snackPosition: SnackPosition.BOTTOM,
             messageText: AwesomeSnackbarContent(
               title: 'Error',
-              message: 'Message : ${response.message}',
+              message: response.message.toString(),
               contentType: ContentType.failure,
             ),
           );
@@ -84,8 +119,8 @@ class OtpController extends GetxController {
           overlayBlur: 0.0,
           snackPosition: SnackPosition.BOTTOM,
           messageText: AwesomeSnackbarContent(
-            title: 'Error',
-            message: 'An error occurred: $e',
+            title: 'Gagal',
+            message: 'Silakan coba lagi',
             contentType: ContentType.failure,
           ),
         );
@@ -111,8 +146,8 @@ class OtpController extends GetxController {
           overlayBlur: 0.0,
           snackPosition: SnackPosition.BOTTOM,
           messageText: AwesomeSnackbarContent(
-            title: 'Success',
-            message: 'Message : ${response.message}',
+            title: 'Kirim Ulang OTP Berhasil',
+            message: 'Kode OTP berhasil dikirim ulang ke email Anda',
             contentType: ContentType.success,
           ),
         );
@@ -129,7 +164,7 @@ class OtpController extends GetxController {
           snackPosition: SnackPosition.BOTTOM,
           messageText: AwesomeSnackbarContent(
             title: 'Error',
-            message: 'Message : ${response.message}',
+            message: response.message.toString(),
             contentType: ContentType.failure,
           ),
         );
@@ -147,7 +182,7 @@ class OtpController extends GetxController {
         snackPosition: SnackPosition.BOTTOM,
         messageText: AwesomeSnackbarContent(
           title: 'Error',
-          message: 'An error occurred: $e',
+          message: e.toString(),
           contentType: ContentType.failure,
         ),
       );

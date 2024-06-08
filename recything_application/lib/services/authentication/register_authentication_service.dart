@@ -1,9 +1,11 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
+import 'package:recything_application/constants/api_key_constant.dart';
 import 'package:recything_application/models/authentication/register_authentication_model.dart';
 
 class RegisterAuthenticationService {
   final Dio dio = Dio();
+  var baseUrl = recythingBaseUrl;
 
   Future<RegisterAuthenticationModel> postRegister({
     required String name,
@@ -11,8 +13,7 @@ class RegisterAuthenticationService {
     required String password,
   }) async {
     try {
-      var url = 'http://ec2-54-79-237-162.ap-southeast-2.compute.amazonaws.com:8080/api/v1/register';
-      
+      var url = '$baseUrl/register';
       final response = await dio.post(
         url,
         data: {

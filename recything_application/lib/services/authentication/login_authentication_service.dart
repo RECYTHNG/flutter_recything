@@ -1,17 +1,19 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
+import 'package:recything_application/constants/api_key_constant.dart';
 import 'package:recything_application/models/authentication/login_authentication_model.dart';
 import 'package:recything_application/utils/shared_pref.dart';
 
 class LoginAuthenticationService {
   final Dio dio = Dio();
+  var baseUrl = recythingBaseUrl;
 
   Future<LoginAuthenticationModel> postLogin({
     required String email,
     required String password,
   }) async {
     try {
-      var url = 'http://ec2-54-79-237-162.ap-southeast-2.compute.amazonaws.com:8080/api/v1/login';
+      var url = '$baseUrl/login';
       final response = await dio.post(
         url,
         data: {

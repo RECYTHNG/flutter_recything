@@ -73,8 +73,8 @@ class RegisterController extends GetxController {
             overlayBlur: 0.0,
             snackPosition: SnackPosition.BOTTOM,
             messageText: AwesomeSnackbarContent(
-              title: 'Success',
-              message: 'Message : ${response.message}',
+              title: 'Pendaftaran Berhasil',
+              message: 'Pengguna berhasil mendaftar! OTP dikirim ke email Anda',
               contentType: ContentType.success,
             ),
           );
@@ -87,6 +87,43 @@ class RegisterController extends GetxController {
                 ),
               );
             },
+          );
+        } else if (response.code == 400) {
+          resetVariable();
+          Get.snackbar(
+            '',
+            '',
+            padding: const EdgeInsets.all(0),
+            margin: const EdgeInsets.all(12),
+            snackStyle: SnackStyle.FLOATING,
+            backgroundColor: Colors.transparent,
+            barBlur: 0.0,
+            overlayBlur: 0.0,
+            snackPosition: SnackPosition.BOTTOM,
+            messageText: AwesomeSnackbarContent(
+              title: 'Pendaftaran Gagal!',
+              message: 'Format pengisian belum sesuai, silakan coba lagi',
+              contentType: ContentType.failure,
+            ),
+          );
+        } else if (response.code == 409) {
+          resetVariable();
+          Get.snackbar(
+            '',
+            '',
+            padding: const EdgeInsets.all(0),
+            margin: const EdgeInsets.all(12),
+            snackStyle: SnackStyle.FLOATING,
+            backgroundColor: Colors.transparent,
+            barBlur: 0.0,
+            overlayBlur: 0.0,
+            snackPosition: SnackPosition.BOTTOM,
+            messageText: AwesomeSnackbarContent(
+              title: 'Pendaftaran Gagal!',
+              message:
+                  'Email sudah dipakai! Silahkan login atau gunakan email lain!',
+              contentType: ContentType.failure,
+            ),
           );
         } else {
           resetVariable();
@@ -102,7 +139,7 @@ class RegisterController extends GetxController {
             snackPosition: SnackPosition.BOTTOM,
             messageText: AwesomeSnackbarContent(
               title: 'Error',
-              message: 'Message : ${response.message}',
+              message: response.message.toString(),
               contentType: ContentType.failure,
             ),
           );
@@ -121,7 +158,7 @@ class RegisterController extends GetxController {
           snackPosition: SnackPosition.BOTTOM,
           messageText: AwesomeSnackbarContent(
             title: 'Error',
-            message: 'An error occurred: $e',
+            message: e.toString(),
             contentType: ContentType.failure,
           ),
         );

@@ -1,9 +1,11 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
+import 'package:recything_application/constants/api_key_constant.dart';
 import 'package:recything_application/models/authentication/one_time_password_authentication_model.dart';
 
 class OneTimePasswordAuthenticationService {
   final Dio dio = Dio();
+  var baseUrl = recythingBaseUrl;
 
   //Post OTP
   Future<OneTimePasswordAuthenticationModel> postOneTimePassword({
@@ -11,7 +13,7 @@ class OneTimePasswordAuthenticationService {
     required int otp,
   }) async {
     try {
-      var url = 'http://ec2-54-79-237-162.ap-southeast-2.compute.amazonaws.com:8080/api/v1/verify-otp';
+      var url = '$baseUrl/verify-otp';
       final response = await dio.post(
         url,
         data: {
@@ -58,7 +60,9 @@ class OneTimePasswordAuthenticationService {
     required String email,
   }) async {
     try {
+      // var url = '$baseUrl/resend-otp';
       var url = 'http://10.0.2.2:8080/api/v1/resend-otp';
+
       final response = await dio.post(
         url,
         data: {
