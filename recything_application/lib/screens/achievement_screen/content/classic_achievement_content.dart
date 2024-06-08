@@ -5,7 +5,7 @@ import 'package:recything_application/constants/icon_constant.dart';
 import 'package:recything_application/constants/image_constant.dart';
 import 'package:recything_application/constants/spacing_constant.dart';
 import 'package:recything_application/constants/text_style_constant.dart';
-import 'package:recything_application/screen/halaman_riwayat/point_history_screen.dart';
+import 'package:recything_application/screens/halaman_riwayat/point_history_screen.dart';
 
 class ClassicAchievementContent extends StatefulWidget {
   const ClassicAchievementContent({super.key});

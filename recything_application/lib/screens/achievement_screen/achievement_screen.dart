@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:recything_application/constants/color_constant.dart';
 import 'package:recything_application/constants/text_style_constant.dart';
-import 'package:recything_application/screen/achievement_screen/content/classic_achievement_content.dart';
-import 'package:recything_application/screen/achievement_screen/content/gold_achievement_content.dart';
-import 'package:recything_application/screen/achievement_screen/content/platinum_achievement_content.dart';
-import 'package:recything_application/screen/achievement_screen/content/silver_achievement_content.dart';
+import 'package:recything_application/screens/achievement_screen/content/classic_achievement_content.dart';
+import 'package:recything_application/screens/achievement_screen/content/gold_achievement_content.dart';
+import 'package:recything_application/screens/achievement_screen/content/platinum_achievement_content.dart';
+import 'package:recything_application/screens/achievement_screen/content/silver_achievement_content.dart';
 
 class AchievementScreen extends StatefulWidget {
   const AchievementScreen({super.key});
