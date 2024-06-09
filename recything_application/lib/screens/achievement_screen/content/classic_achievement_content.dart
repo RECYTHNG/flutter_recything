@@ -180,9 +180,9 @@ class _ClassicAchievementContentState extends State<ClassicAchievementContent> {
                         );
                       },
                       child: Text(
-                        'See all',
+                        'Lihat Semua',
                         style: TextStyleConstant.boldCaption.copyWith(
-                          color: ColorConstant.primaryColor500,
+                          color: ColorConstant.infoColor500,
                         ),
                       ),
                     ),

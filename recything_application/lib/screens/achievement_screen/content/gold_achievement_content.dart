@@ -172,9 +172,9 @@ class _GoldAchievementContentState extends State<GoldAchievementContent> {
                     GestureDetector(
                       onTap: () {},
                       child: Text(
-                        'See all',
+                        'Lihat Semua',
                         style: TextStyleConstant.boldCaption.copyWith(
-                          color: ColorConstant.primaryColor500,
+                          color: ColorConstant.infoColor500,
                         ),
                       ),
                     ),
