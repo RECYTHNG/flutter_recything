@@ -48,6 +48,8 @@ class _ClassicAchievementContentState extends State<ClassicAchievementContent> {
   @override
   Widget build(BuildContext context) {
     int currentPoint = achievementResult?.data?.dataUser?.point ?? 0;
+    int levelPoint =
+        achievementResult?.data?.dataAchievement?[0].targetPoint ?? 0;
     int targetPoint = 50000;
     double progressValue = currentPoint / targetPoint;
     return Scaffold(
@@ -105,7 +107,7 @@ class _ClassicAchievementContentState extends State<ClassicAchievementContent> {
                               ),
                             ),
                             Text(
-                              '$targetPoint Poin',
+                              '$levelPoint Poin',
                               style: TextStyleConstant.semiboldTitle.copyWith(
                                 color: ColorConstant.whiteColor,
                               ),
@@ -238,39 +240,38 @@ class _ClassicAchievementContentState extends State<ClassicAchievementContent> {
                 ),
                 SpacingConstant.verticalSpacing100,
                 Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                    child: SizedBox(
-                      height: 100.0,
-                      width: double.infinity,
-                      child: ListView.builder(
-                        itemCount: 5,
-                        itemBuilder: (context, index) {
-                          return Padding(
-                            padding: const EdgeInsets.only(right: 8.0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  '+ 3000 poin',
-                                  style:
-                                      TextStyleConstant.mediumCaption.copyWith(
-                                    color: ColorConstant.secondaryColor500,
-                                  ),
+                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                  child: SizedBox(
+                    height: 100.0,
+                    width: double.infinity,
+                    child: ListView.builder(
+                      itemCount: 5,
+                      itemBuilder: (context, index) {
+                        return Padding(
+                          padding: const EdgeInsets.only(right: 8.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                '+ 3000 poin',
+                                style: TextStyleConstant.mediumCaption.copyWith(
+                                  color: ColorConstant.secondaryColor500,
                                 ),
-                                SpacingConstant.verticalSpacing300,
-                                Text(
-                                  '12 Hari Lalu Terselesaikan',
-                                  style:
-                                      TextStyleConstant.mediumCaption.copyWith(
-                                    color: ColorConstant.secondaryColor500,
-                                  ),
+                              ),
+                              SpacingConstant.verticalSpacing300,
+                              Text(
+                                '12 Hari Lalu Terselesaikan',
+                                style: TextStyleConstant.mediumCaption.copyWith(
+                                  color: ColorConstant.secondaryColor500,
                                 ),
-                              ],
-                            ),
-                          );
-                        },
-                      ),
-                    )),
+                              ),
+                            ],
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                ),
                 SpacingConstant.verticalSpacing200,
                 Text(
                   'Keuntungan',
