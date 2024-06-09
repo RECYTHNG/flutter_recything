@@ -50,8 +50,9 @@ class _ClassicAchievementContentState extends State<ClassicAchievementContent> {
     int currentPoint = achievementResult?.data?.dataUser?.point ?? 0;
     int levelPoint =
         achievementResult?.data?.dataAchievement?[0].targetPoint ?? 0;
-    int targetPoint = 50000;
-    double progressValue = currentPoint / targetPoint;
+    int targetPoint =
+        achievementResult?.data?.dataAchievement?[1].targetPoint ?? 0;
+    double progressValue = (targetPoint > 0) ? currentPoint / targetPoint : 0;
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.all(16.0),

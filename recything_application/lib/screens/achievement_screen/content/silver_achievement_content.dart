@@ -49,8 +49,9 @@ class _SilverAchievementContentState extends State<SilverAchievementContent> {
     int currentPoint = achievementResult?.data?.dataUser?.point ?? 0;
     int levelPoint =
         achievementResult?.data?.dataAchievement?[1].targetPoint ?? 0;
-    int targetPoint = 150000;
-    double progressValue = currentPoint / targetPoint;
+    int targetPoint =
+        achievementResult?.data?.dataAchievement?[2].targetPoint ?? 0;
+    double progressValue = (targetPoint > 0) ? currentPoint / targetPoint : 0;
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -153,7 +154,7 @@ class _SilverAchievementContentState extends State<SilverAchievementContent> {
                                     achievementResult!.data != null &&
                                     achievementResult!.data!.dataUser != null &&
                                     achievementResult!.data!.dataUser!.point! <=
-                                        targetPoint
+                                        levelPoint
                                 ? SvgPicture.asset(
                                     width: 18.01,
                                     height: 24,
@@ -178,7 +179,7 @@ class _SilverAchievementContentState extends State<SilverAchievementContent> {
                                           null &&
                                       achievementResult!
                                               .data!.dataUser!.point! <=
-                                          targetPoint
+                                          levelPoint
                                   ? 'Poin Kamu Belum Cukup'
                                   : 'Level Lencana Anda Saat Ini',
                           style: TextStyleConstant.regularParagraph.copyWith(
