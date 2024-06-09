@@ -220,7 +220,11 @@ class _SilverAchievementContentState extends State<SilverAchievementContent> {
                 ),
                 SpacingConstant.verticalSpacing100,
                 Text(
-                  '${targetPoint - currentPoint} Poin lagi untuk kamu menjadi level gold',
+                  currentPoint >= targetPoint
+                      ? 'Poin kamu sudah melewati batas level lencana ini'
+                      : currentPoint <= levelPoint
+                          ? 'Poin kamu belum cukup untuk level lencana ini'
+                          : '${targetPoint - currentPoint} Poin lagi untuk kamu menjadi level gold',
                   style: TextStyleConstant.mediumCaption.copyWith(
                     color: ColorConstant.netralColor600,
                   ),
