@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:recything_application/constants/color_constant.dart';
 import 'package:recything_application/constants/image_constant.dart';
 import 'package:recything_application/constants/spacing_constant.dart';
@@ -17,19 +18,13 @@ class OnBoardingScreen extends StatefulWidget {
 }
 
 class _OnBoardingScreenState extends State<OnBoardingScreen> {
-  late PageController _pageController;
+  late CarouselController _carouselController;
   int currentIndex = 0;
 
   @override
   void initState() {
-    _pageController = PageController(initialPage: 0);
+    _carouselController = CarouselController();
     super.initState();
-  }
-
-  @override
-  void dispose() {
-    _pageController.dispose();
-    super.dispose();
   }
 
   final List<OnBoardingModel> _onBoardingModel = [
@@ -67,119 +62,128 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: ColorConstant.netralColor50,
-      body: PageView.builder(
-          itemCount: _onBoardingModel.length,
-          controller: _pageController,
-          onPageChanged: (index) {
-            setState(() {
-              currentIndex = index;
-            });
-          },
-          itemBuilder: (context, index) {
-            return Stack(
-              children: [
-                Image.asset(
-                  _onBoardingModel[index].image,
-                  fit: BoxFit.cover,
-                  width: double.infinity,
-                  height: double.infinity,
-                ),
-                Positioned(
-                  top: 60.0,
-                  right: 20.0,
-                  left: 20.0,
-                  child: Image.asset(
-                    ImageConstant.logo,
-                    width: 165.0,
-                    height: 30.0,
+      body: Stack(
+        children: [
+          CarouselSlider.builder(
+            itemCount: _onBoardingModel.length,
+            itemBuilder: (context, index, realIndex) {
+              return Stack(
+                children: [
+                  Image.asset(
+                    _onBoardingModel[index].image,
+                    fit: BoxFit.cover,
+                    width: double.infinity,
+                    height: double.infinity,
                   ),
-                ),
-                Positioned(
-                  bottom: 0,
-                  child: Container(
-                    height: 350,
-                    width: MediaQuery.of(context).size.width,
-                    decoration: const BoxDecoration(
-                      color: ColorConstant.primaryColor50,
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(24.0),
-                        topRight: Radius.circular(24.0),
-                      ),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: Column(
-                        children: [
-                          SpacingConstant.verticalSpacing200,
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: List.generate(
-                              _onBoardingModel.length,
-                              (index) => DotAnimationWidget(
-                                isActive: index == currentIndex,
-                              ),
-                            ),
-                          ),
-                          SpacingConstant.verticalSpacing400,
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Text(
-                                _onBoardingModel[index].title1,
-                                style:
-                                    TextStyleConstant.semiboldHeading4.copyWith(
-                                  color: ColorConstant.netralColor700,
-                                ),
-                              ),
-                              Text(
-                                _onBoardingModel[index].title2,
-                                style:
-                                    TextStyleConstant.semiboldHeading4.copyWith(
-                                  color: ColorConstant.secondaryColor500,
-                                ),
-                              ),
-                            ],
-                          ),
-                          SpacingConstant.verticalSpacing300,
-                          Text(
-                            _onBoardingModel[index].description,
-                            style: TextStyleConstant.regularSubtitle.copyWith(
-                              color: ColorConstant.netralColor700,
-                            ),
-                            textAlign: TextAlign.center,
-                          ),
-                          SpacingConstant.verticalSpacing400,
-                          GlobalButtonWidget(
-                            onTap: () {
-                              if (currentIndex == _onBoardingModel.length - 1) {
-                                Get.off(
-                                  () => const WelcomeScreen(),
-                                );
-                              } else {
-                                _pageController.nextPage(
-                                  duration: const Duration(milliseconds: 500),
-                                  curve: Curves.easeIn,
-                                );
-                              }
-                            },
-                            width: double.infinity,
-                            height: 40.0,
-                            backgroundColor: ColorConstant.primaryColor500,
-                            title: currentIndex == _onBoardingModel.length - 1
-                                ? 'Get Started'
-                                : 'Next',
-                            isBorder: false,
-                            textColor: ColorConstant.whiteColor,
-                            fontSize: 16.0,
-                          ),
-                        ],
-                      ),
+                  Positioned(
+                    top: 60.0,
+                    right: 20.0,
+                    left: 20.0,
+                    child: Image.asset(
+                      ImageConstant.logo,
+                      width: 165.0,
+                      height: 30.0,
                     ),
                   ),
+                ],
+              );
+            },
+            carouselController: _carouselController,
+            options: CarouselOptions(
+              onPageChanged: (index, reason) {
+                setState(() {
+                  currentIndex = index;
+                });
+              },
+              aspectRatio: MediaQuery.of(context).size.aspectRatio,
+              viewportFraction: 1.0,
+              initialPage: 0,
+              enableInfiniteScroll: false,
+            ),
+          ),
+          Positioned(
+            bottom: 0,
+            child: Container(
+              height: 350,
+              width: MediaQuery.of(context).size.width,
+              decoration: const BoxDecoration(
+                color: ColorConstant.primaryColor50,
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(24.0),
+                  topRight: Radius.circular(24.0),
                 ),
-              ],
-            );
-          }),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  children: [
+                    SpacingConstant.verticalSpacing200,
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: List.generate(
+                        _onBoardingModel.length,
+                        (index) => DotAnimationWidget(
+                          isActive: index == currentIndex,
+                        ),
+                      ),
+                    ),
+                    SpacingConstant.verticalSpacing400,
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          _onBoardingModel[currentIndex].title1,
+                          style: TextStyleConstant.semiboldHeading4.copyWith(
+                            color: ColorConstant.netralColor700,
+                          ),
+                        ),
+                        Text(
+                          _onBoardingModel[currentIndex].title2,
+                          style: TextStyleConstant.semiboldHeading4.copyWith(
+                            color: ColorConstant.secondaryColor500,
+                          ),
+                        ),
+                      ],
+                    ),
+                    SpacingConstant.verticalSpacing300,
+                    Text(
+                      _onBoardingModel[currentIndex].description,
+                      style: TextStyleConstant.regularSubtitle.copyWith(
+                        color: ColorConstant.netralColor700,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                    SpacingConstant.verticalSpacing400,
+                    GlobalButtonWidget(
+                      onTap: () {
+                        if (currentIndex == _onBoardingModel.length - 1) {
+                          Get.off(
+                            () => const WelcomeScreen(),
+                          );
+                        } else {
+                          _carouselController.nextPage(
+                            duration: const Duration(milliseconds: 500),
+                            curve: Curves.easeIn,
+                          );
+                        }
+                      },
+                      width: double.infinity,
+                      height: 40.0,
+                      backgroundColor: ColorConstant.primaryColor500,
+                      title: currentIndex == _onBoardingModel.length - 1
+                          ? 'Get Started'
+                          : 'Next',
+                      isBorder: false,
+                      textColor: ColorConstant.whiteColor,
+                      fontSize: 16.0,
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
