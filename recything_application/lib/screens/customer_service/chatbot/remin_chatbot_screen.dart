@@ -25,12 +25,12 @@ class _ReMinChatbotScreenState extends State<ReMinChatbotScreen> {
     return Scaffold(
       backgroundColor: ColorConstant.whiteColor,
       appBar: const GlobalAppBar(
-        title: Text('ReMin Chatbot'),
+        title: Text('ReMin AI'),
         backgroundColor: ColorConstant.whiteColor,
       ),
       body: Center(
         child: isChatbotVisible
-            ? const ChatbotConversationWidget()
+            ? ChatbotConversationWidget()
             : ChatbotWelcomeCard(onStartChat: _showChatbot),
       ),
     );
