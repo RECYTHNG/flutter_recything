@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:recything_application/constants/app_theme_constant.dart';
 import 'package:intl/date_symbol_data_local.dart';
+import 'package:recything_application/screens/article_detail/article_detail_screen.dart';
 
 void main() async {
   await initializeDateFormatting();
@@ -13,13 +14,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: AppThemeConstant.appTheme,
-      debugShowCheckedModeBanner: false,
-      home: const Scaffold(
-        body: Center(
-          child: Text('Hello World!'),
-        )
-      ),
-    );
+        theme: AppThemeConstant.appTheme,
+        debugShowCheckedModeBanner: false,
+        home: const ArticleScreen());
   }
 }
