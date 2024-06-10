@@ -13,7 +13,7 @@ class HomeScreen extends StatelessWidget {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => const AboutUsScreen(),
+                    builder: (context) => AboutUsScreen(),
                   ));
             },
             child: const Text("Test")),
