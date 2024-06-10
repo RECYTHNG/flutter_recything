@@ -68,6 +68,7 @@ class ChatbotConversationWidget extends StatelessWidget {
                   showOtherUsersAvatar: false,
                   showTime: true,
                   currentUserContainerColor: ColorConstant.whiteColor,
+                  containerColor: ColorConstant.whiteColor,
                   currentUserTextColor: ColorConstant.primaryColor900,
                 ),
                 currentUser: controller.currentUser,
