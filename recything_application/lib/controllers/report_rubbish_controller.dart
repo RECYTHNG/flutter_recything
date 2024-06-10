@@ -4,9 +4,11 @@ import 'package:get/get.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:recything_application/models/maps/places_maps_model.dart';
+import 'package:recything_application/controllers/map_rubbish_controller.dart';
 import 'package:recything_application/models/maps/search_autocomplete_maps_model.dart';
+import 'package:recything_application/screens/report_rubbish/success_report_rubbish_screen.dart';
 import 'package:recything_application/services/maps/maps_service.dart';
+import 'package:recything_application/services/report_rubbish/report_rubbish_service.dart';
 
 class ReportRubbishController extends GetxController {
   final Completer<GoogleMapController> mcontroller = Completer<GoogleMapController>();
@@ -15,13 +17,24 @@ class ReportRubbishController extends GetxController {
   Rx<Position?> currentPosition = Rx<Position?>(null);
   TextEditingController searchController = TextEditingController();
   RxList<Prediction> fetchedSearchResultData = <Prediction>[].obs;
-  RxString searchQuery = ''.obs;
+  RxString searchQuery = RxString('');
   RxList<String> autocomplete = <String>[].obs;
+  RxBool isGettingCurrentLocation = false.obs;
 
-  @override
-  void onInit() {
-    super.onInit();
-    getCurrentPosition();
+  RxString address = ''.obs;
+  RxString city = ''.obs;
+  RxString province = ''.obs;
+  RxDouble lat = 0.0.obs;
+  RxDouble long = 0.0.obs;
+
+  // @override
+  // void onInit() {
+  //   super.onInit();
+  //   initializeData();
+  // }
+
+  void initializeData() async {
+    await getCurrentPosition();
   }
 
   void onSubmitSearch(String query) {
@@ -43,22 +56,30 @@ class ReportRubbishController extends GetxController {
     final placesData = await MapsService().getPlacesDetails(matchedData.placeId);
     final double latPlaces = placesData.geometry.location.lat;
     final double longPlaces = placesData.geometry.location.long;
+    lat.value = latPlaces;
+    long.value = longPlaces;
     currentLatLng.value = LatLng(latPlaces, longPlaces);
     moveCamera(currentLatLng.value!);
     List<Placemark> placemark = await placemarkFromCoordinates(latPlaces, longPlaces);
-    print('placemark $placemark');
+    await getAddressByPlacemark(placemark.first);
   }
 
   void fetchSearchAutoComplete(String query) async {
     autocomplete.clear();
-    final data = await MapsService().getAutocomplete(query);
-    fetchedSearchResultData.value = data;
-    autocomplete.value = data.map((item) => item.description).toList();
+    try {
+      final data = await MapsService().getAutocomplete(query);
+      fetchedSearchResultData.value = data;
+      autocomplete.value = data.map((item) => item.description).toList();
+    } catch (e) {
+      autocomplete.add('Hasil tidak ditemukan');
+    }
   }
 
   Future<void> getCurrentPosition() async {
+    isGettingCurrentLocation.value = true;
     final hasPermission = await _handleLocationPermission();
     if (!hasPermission) {
+      isGettingCurrentLocation.value = false;
       return;
     }
     currentPosition.value = await Geolocator.getCurrentPosition(
@@ -67,10 +88,18 @@ class ReportRubbishController extends GetxController {
     if (currentPosition.value != null) {
       await getAddressByLatLong(currentPosition.value!);
       searchController.text = currentAddress.value;
-      currentLatLng.value = LatLng(
-          currentPosition.value!.latitude, currentPosition.value!.longitude);
+      currentLatLng.value = LatLng(currentPosition.value!.latitude, currentPosition.value!.longitude);
       moveCamera(currentLatLng.value!);
     }
+    isGettingCurrentLocation.value = false;
+  }
+
+  Future<void> getAddressByPlacemark(Placemark placemark) async {
+    currentAddress.value = '${placemark.street}, ${placemark.subLocality}, ${placemark.locality}, ${placemark.subAdministrativeArea}, ${placemark.administrativeArea}, ${placemark.postalCode}';
+    searchController.text = currentAddress.value;
+    address.value = '${placemark.street}, ${placemark.subLocality}, ${placemark.locality}';
+    city.value = placemark.subAdministrativeArea!;
+    province.value = placemark.administrativeArea!;
   }
 
   Future<void> getAddressByLatLong(Position position) async {
@@ -80,8 +109,12 @@ class ReportRubbishController extends GetxController {
         position.longitude,
       );
       Placemark placemark = resultAddress.first;
-      currentAddress.value =
-          '${placemark.street}, ${placemark.subLocality}, ${placemark.locality}, ${placemark.subAdministrativeArea}, ${placemark.administrativeArea}, ${placemark.postalCode}';
+      currentAddress.value = '${placemark.street}, ${placemark.subLocality}, ${placemark.locality}, ${placemark.subAdministrativeArea}, ${placemark.administrativeArea}, ${placemark.postalCode}';
+      lat.value = position.latitude;
+      long.value = position.longitude;
+      address.value = '${placemark.street}, ${placemark.subLocality}, ${placemark.locality}';
+      city.value = placemark.subAdministrativeArea!;
+      province.value = placemark.administrativeArea!;
     } catch (e) {
       // print('Failed to get address: $e');
     }

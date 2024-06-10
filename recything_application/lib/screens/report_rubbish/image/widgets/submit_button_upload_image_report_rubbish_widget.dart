@@ -1,29 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:recything_application/constants/color_constant.dart';
+import 'package:recything_application/controllers/map_rubbish_controller.dart';
 import 'package:recything_application/controllers/report_rubbish_controller.dart';
-import 'package:recything_application/screens/report_rubbish/report_rubbish_screen.dart';
+import 'package:recything_application/services/report_rubbish/report_rubbish_service.dart';
 import 'package:recything_application/widgets/global_button_widget.dart';
 
-class NextButtonMapsReportRubbishWidget extends StatelessWidget {
-  const NextButtonMapsReportRubbishWidget({super.key});
+class SubmitButtonUploadImageReportRubbishWidget extends StatelessWidget {
+  const SubmitButtonUploadImageReportRubbishWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final ReportRubbishController controller = Get.find();
+    final MapRubbishController controller = Get.find();
     return Obx(
       () {
         return GlobalButtonWidget(
-          onTap: controller.currentAddress.value.isEmpty
-              ? () {}
-              : () => Get.off(const ReportRubbishScreen()),
+          onTap: () {
+            controller.showConfirmationDialog();
+          },
           width: double.infinity,
           height: 40,
-          backgroundColor: controller.currentAddress.value.isNotEmpty
+          backgroundColor: controller.imageFiles.isNotEmpty
               ? ColorConstant.primaryColor500
               : ColorConstant.netralColor500,
           isBorder: false,
-          title: 'Selanjutnya',
+          title: 'Kirim Laporan',
           textColor: ColorConstant.netralColor50,
           fontSize: 14,
         );

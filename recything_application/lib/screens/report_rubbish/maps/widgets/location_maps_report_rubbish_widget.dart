@@ -10,8 +10,8 @@ class LocationMapsReportRubbishWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final ReportRubbishController locationController = Get.put(ReportRubbishController());
-
+    final ReportRubbishController locationController = Get.find();
+    locationController.initializeData();
     return Scaffold(
       backgroundColor: ColorConstant.whiteColor,
       body: Center(

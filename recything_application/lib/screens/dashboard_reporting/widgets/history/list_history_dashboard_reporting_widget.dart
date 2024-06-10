@@ -4,7 +4,7 @@ import 'package:recything_application/constants/spacing_constant.dart';
 import 'package:recything_application/controllers/report_history_controller.dart';
 import 'package:recything_application/screens/dashboard_reporting/widgets/history/item_history_dashboard_reporting_widget.dart';
 import 'package:recything_application/screens/report_history_detail/report_history_detail_screen.dart';
-import 'package:recything_application/screens/report_rubbish/details/details_report_rubbish_screen.dart';
+import 'package:recything_application/screens/report_rubbish/details/details_report_rubbish_widget.dart';
 import 'package:recything_application/utils/date_time_utils.dart';
 
 class ListHistoryDashboardReportingWidget extends StatelessWidget {

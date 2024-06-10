@@ -1,23 +1,22 @@
 import 'package:dio/dio.dart';
+import 'package:recything_application/constants/api_key_constant.dart';
 import 'package:recything_application/models/maps/places_maps_model.dart';
 import 'package:recything_application/models/maps/search_autocomplete_maps_model.dart';
 
 class MapsService {
   final _dio = Dio();
-  String baseUrl = 'https://maps.googleapis.com/maps/api/place';
-  String apiKey = 'AIzaSyDyIO9UzX_LRye-t1Q_Zro1pHH6_VlvPnA';
 
   Future<List<Prediction>> getAutocomplete(String query) async {
     try {
-      final response =
-          await _dio.get('$baseUrl/autocomplete/json', queryParameters: {
-        'input': query,
-        'key': apiKey,
-      });
-
+      final response = await _dio.get(
+        '$placesBaseUrl/autocomplete/json',
+        queryParameters: {
+          'input': query,
+          'key': mapsApiKey,
+        },
+      );
       if (response.statusCode == 200) {
         final decodedResponse = response.data;
-        // print('decode $decodedResponse');
         if (decodedResponse['status'] == "OK") {
           final List<dynamic> predictionData = decodedResponse['predictions'];
           return predictionData
@@ -27,7 +26,7 @@ class MapsService {
           throw 'Error: ${decodedResponse['status']}';
         }
       } else {
-        throw 'Error: ${response.statusCode}';
+        throw 'Error Status Code ${response.statusCode}';
       }
     } catch (e) {
       throw 'Error: $e';
@@ -37,17 +36,19 @@ class MapsService {
   Future<PlacesMapsModel> getPlacesDetails(String placeId) async {
     try {
       final response = await _dio.get(
-        '$baseUrl/details/json',
+        '$placesBaseUrl/details/json',
         queryParameters: {
           'place_id': placeId,
-          'key': apiKey,
+          'key': mapsApiKey,
         },
       );
-      if (response.statusCode == 200) {
+      if (response.data['status'] == "OK") {
         final data = response.data;
-        final PlacesMapsModel formattedData = PlacesMapsModel.fromJson(data['result']);
-        return formattedData;
-      } else {
+        return PlacesMapsModel.fromJson(data['result'],);
+      } if (response.data['status'] == "ZERO_RESULTS") {
+        throw Exception;
+      }
+      else {
         throw 'Error Status Code ${response.statusCode}';
       }
     } catch (e) {

@@ -11,7 +11,7 @@ class HeaderMapsReportRubbishWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Stack(
       children: [
-        SizedBox(
+        const SizedBox(
           height: 500,
           width: double.infinity,
         ),

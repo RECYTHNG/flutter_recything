@@ -5,6 +5,7 @@ import 'package:recything_application/constants/color_constant.dart';
 import 'package:recything_application/constants/icon_constant.dart';
 import 'package:recything_application/constants/spacing_constant.dart';
 import 'package:recything_application/controllers/report_rubbish_controller.dart';
+import 'package:recything_application/widgets/global_loading_widget.dart';
 
 class CurrentLocationButtonMapsReportRubbishWidget extends StatelessWidget {
   const CurrentLocationButtonMapsReportRubbishWidget({super.key});
@@ -31,11 +32,21 @@ class CurrentLocationButtonMapsReportRubbishWidget extends StatelessWidget {
                 ),
               ],
             ),
-            child: Padding(
-              padding: const EdgeInsets.all(10),
-              child: SvgPicture.asset(
-                IconConstant.currentLocation,
-              ),
+            child: Obx(
+              () {
+                return Padding(
+                  padding: const EdgeInsets.all(11),
+                  child: controller.isGettingCurrentLocation.value == false
+                      ? SvgPicture.asset(
+                          IconConstant.currentLocation,
+                          colorFilter: const ColorFilter.mode(
+                            ColorConstant.netralColor900,
+                            BlendMode.srcIn,
+                          ),
+                        )
+                      : const MyLoading(),
+                );
+              },
             ),
           ),
         ),

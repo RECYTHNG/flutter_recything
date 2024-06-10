@@ -89,6 +89,7 @@ class GeneralInformationReportHistoryDetailWidget extends StatelessWidget {
           ),
           if (controller.selectedHistory!.value.status == 'reject') ...[
             Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
                   'Alasan',

@@ -1,21 +1,20 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
+import 'package:recything_application/constants/api_key_constant.dart';
 import 'package:recything_application/models/report_history/report_history_model.dart';
 
 class ReportHistoryService {
   final _dio = Dio();
-  String token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiVVNSMDAwMiIsInJvbGUiOiJ1c2VyIiwiZXhwIjoxNzE3ODMyODY4fQ.nyXklqiAUSIkZb9ODBfZ3lKGdsdk2WV5pdt83075U80';
+  String token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiVVNSMDAwNCIsInJvbGUiOiJ1c2VyIiwiZXhwIjoxNzE4MTY1MjU0fQ.DWq9x1icRGpv9O04HT3FGmJ07-8oh2tloy_nyl1ex7s';
 
   Future<List<ReportHistoryModel>> getReportHistory() async {
     try {
-      String baseUrl = 'http://192.168.0.200:8080/api/v1/report';
       final response = await _dio.get(
-        baseUrl,
+        '$recythingBaseUrl/report',
         options: Options(
           headers: {'Authorization': 'Bearer $token'},
         ),
       );
-
       if (response.statusCode == 200) {
         if (kDebugMode) {
           print('Response data: ${response.data.runtimeType}');
