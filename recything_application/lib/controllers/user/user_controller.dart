@@ -21,12 +21,14 @@ class UserController extends GetxController {
     }
   }
 
-  void updateUserProfile(Map<String, dynamic> updatedData) async {
+  void updateUserProfile(
+      Map<String, dynamic> updatedData, Function onSuccess) async {
     try {
       var response = await ProfileService.putUser(updatedData);
       print("Response: ${response['message']}");
       if (response['code'] == 200) {
         fetchUser();
+        onSuccess();
       } else {
         print("Error updating user profile: ${response['message']}");
       }
@@ -38,6 +40,5 @@ class UserController extends GetxController {
   void updateGender(String gender) {
     final updatedData = userModel.value.data!.copyWith(gender: gender);
     userModel.value = userModel.value.copyWith(data: updatedData);
-    updateUserProfile({'gender': gender});
   }
 }

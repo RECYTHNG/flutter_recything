@@ -5,4 +5,6 @@ class ImageConstant {
       'assets/images/edit_profile_images/male.png';
   static const String femaleEditProfil =
       'assets/images/edit_profile_images/female.png';
+  static const String successImage =
+      'assets/images/edit_profile_images/success.svg';
 }
