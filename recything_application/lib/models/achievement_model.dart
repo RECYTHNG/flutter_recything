@@ -34,7 +34,7 @@ class AchievementModel {
 class Data {
   List<DataAchievement>? dataAchievement;
   DataUser? dataUser;
-  dynamic historyUserPoint;
+  List<HistoryUserPoint>? historyUserPoint;
 
   Data({
     this.dataAchievement,
@@ -50,7 +50,10 @@ class Data {
         dataUser: json["data_user"] == null
             ? null
             : DataUser.fromJson(json["data_user"]),
-        historyUserPoint: json["history_user_point"],
+        historyUserPoint: json["history_user_point"] == null
+            ? []
+            : List<HistoryUserPoint>.from(json["history_user_point"]
+                .map((x) => HistoryUserPoint.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
@@ -58,7 +61,9 @@ class Data {
             ? []
             : List<dynamic>.from(dataAchievement!.map((x) => x.toJson())),
         "data_user": dataUser?.toJson(),
-        "history_user_point": historyUserPoint,
+        "history_user_point": historyUserPoint == null
+            ? []
+            : List<dynamic>.from(historyUserPoint!.map((x) => x.toJson())),
       };
 }
 
@@ -116,5 +121,26 @@ class DataUser {
         "name": name,
         "point": point,
         "badge": badge,
+      };
+}
+
+class HistoryUserPoint {
+  String? date;
+  int? points;
+
+  HistoryUserPoint({
+    this.date,
+    this.points,
+  });
+
+  factory HistoryUserPoint.fromJson(Map<String, dynamic> json) =>
+      HistoryUserPoint(
+        date: json["date"],
+        points: json["points"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "date": date,
+        "points": points,
       };
 }

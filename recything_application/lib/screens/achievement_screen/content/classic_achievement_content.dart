@@ -248,22 +248,38 @@ class _ClassicAchievementContentState extends State<ClassicAchievementContent> {
                     height: 100.0,
                     width: double.infinity,
                     child: ListView.builder(
-                      itemCount: 5,
+                      itemCount:
+                          achievementResult?.data?.historyUserPoint?.length ??
+                              0,
                       itemBuilder: (context, index) {
+                        var historyItem =
+                            achievementResult?.data?.historyUserPoint?[index];
+                        if (historyItem == null) {
+                          return SizedBox(
+                            child: Center(
+                              child: Text(
+                                'Data tidak ditemukan',
+                                style: TextStyleConstant.boldCaption.copyWith(
+                                  color: ColorConstant.netralColor700,
+                                ),
+                              ),
+                            ),
+                          );
+                        }
                         return Padding(
                           padding: const EdgeInsets.only(right: 8.0),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
-                                '+ 3000 poin',
+                                '+ ${historyItem.points} Poin',
                                 style: TextStyleConstant.mediumCaption.copyWith(
                                   color: ColorConstant.secondaryColor500,
                                 ),
                               ),
                               SpacingConstant.verticalSpacing300,
                               Text(
-                                '12 Hari Lalu Terselesaikan',
+                                '${historyItem.date} Hari Lalu Terselesaikan',
                                 style: TextStyleConstant.mediumCaption.copyWith(
                                   color: ColorConstant.secondaryColor500,
                                 ),
