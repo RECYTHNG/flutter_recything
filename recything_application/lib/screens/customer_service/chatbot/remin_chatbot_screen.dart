@@ -1,23 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:recything_application/constants/color_constant.dart';
 import 'package:recything_application/screens/customer_service/chatbot/widgets/chatbot_conversation_widget.dart';
 import 'package:recything_application/screens/customer_service/chatbot/widgets/chatbot_welcome_card_widget.dart';
 import 'package:recything_application/widgets/global_app_bar.dart';
+import 'package:recything_application/controllers/customer_service_remin_chatbot_controller.dart';
 
-class ReMinChatbotScreen extends StatefulWidget {
-  const ReMinChatbotScreen({super.key});
+class ReMinChatbotScreen extends StatelessWidget {
+  ReMinChatbotScreen({super.key});
 
-  @override
-  State<ReMinChatbotScreen> createState() => _ReMinChatbotScreenState();
-}
-
-class _ReMinChatbotScreenState extends State<ReMinChatbotScreen> {
-  bool isChatbotVisible = false;
+  final CustomerServiceReminChatbotController controller = Get.put(CustomerServiceReminChatbotController());
 
   void _showChatbot() {
-    setState(() {
-      isChatbotVisible = true;
-    });
+    controller.isChatbotVisible.value = true;
   }
 
   @override
@@ -29,9 +24,11 @@ class _ReMinChatbotScreenState extends State<ReMinChatbotScreen> {
         backgroundColor: ColorConstant.whiteColor,
       ),
       body: Center(
-        child: isChatbotVisible
-            ? ChatbotConversationWidget()
-            : ChatbotWelcomeCard(onStartChat: _showChatbot),
+        child: Obx(() {
+          return controller.isChatbotVisible.value
+              ? ChatbotConversationWidget()
+              : ChatbotWelcomeCard(onStartChat: _showChatbot);
+        }),
       ),
     );
   }

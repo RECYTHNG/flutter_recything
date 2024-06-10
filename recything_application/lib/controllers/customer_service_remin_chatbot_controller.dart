@@ -12,10 +12,12 @@ class CustomerServiceReminChatbotController extends GetxController {
 
   final GetReminAnswerService reminAnswer = GetReminAnswerService();
   RxBool isTyping = false.obs;
+  RxBool isChatbotVisible = false.obs;
 
   void sendMessage(ChatMessage chatMessage) async {
     messages.insert(0, chatMessage);
     isTyping.value = true;
+    isChatbotVisible.value = true;
     try {
       final response = await reminAnswer.postQuestion(chatMessage.text);
 

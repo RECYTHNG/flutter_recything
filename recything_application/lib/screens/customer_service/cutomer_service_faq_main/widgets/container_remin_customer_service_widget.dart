@@ -17,7 +17,7 @@ class ReMinCustomerServiceWidget extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => const ReMinChatbotScreen(),
+            builder: (context) => ReMinChatbotScreen(),
           ),
         );
       },
