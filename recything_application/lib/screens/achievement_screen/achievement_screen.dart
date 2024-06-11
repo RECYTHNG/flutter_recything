@@ -45,8 +45,8 @@ class _AchievementScreenState extends State<AchievementScreen> {
         body: TabBarView(
           children: [
             ClassicAchievementContent(),
-            const SilverAchievementContent(),
-            const GoldAchievementContent(),
+            SilverAchievementContent(),
+            GoldAchievementContent(),
             const PlatinumAchievementContent(),
           ],
         ),

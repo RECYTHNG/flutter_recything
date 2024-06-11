@@ -202,20 +202,24 @@ class ClassicAchievementContent extends StatelessWidget {
                         color: ColorConstant.netralColor600,
                       ),
                     ),
-                    SpacingConstant.verticalSpacing100,
-                    const Divider(
-                      color: Color(0xFFE6E6E6),
-                    ),
-                    SpacingConstant.verticalSpacing100,
                   ],
                 ),
+                SpacingConstant.verticalSpacing100,
+                const Divider(
+                  color: Color(0xFFE6E6E6),
+                ),
+                SpacingConstant.verticalSpacing100,
                 ListPointAdditionHistoryWidget(
-                    achievementController: achievementController),
+                  achievementController: achievementController,
+                ),
                 SpacingConstant.verticalSpacing200,
                 AdvantagesAchievementWidget(
                   advantagePercent: '10%',
                   svgIcon: SvgPicture.asset(
                     IconConstant.poinkuClassicAchievement,
+                  ),
+                  colorBackground: const Color(
+                    0xFF4F3415,
                   ),
                 ),
               ],

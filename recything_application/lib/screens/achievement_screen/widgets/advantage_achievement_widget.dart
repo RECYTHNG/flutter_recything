@@ -6,10 +6,12 @@ import 'package:recything_application/constants/text_style_constant.dart';
 class AdvantagesAchievementWidget extends StatelessWidget {
   final String advantagePercent;
   final Widget svgIcon;
+  final Color? colorBackground;
   const AdvantagesAchievementWidget({
     super.key,
     required this.advantagePercent,
     required this.svgIcon,
+    required this.colorBackground,
   });
 
   @override
@@ -32,10 +34,8 @@ class AdvantagesAchievementWidget extends StatelessWidget {
                 Container(
                   height: 52.0,
                   width: 52.0,
-                  decoration: const BoxDecoration(
-                    color: Color(
-                      0xFF4F3415,
-                    ),
+                  decoration: BoxDecoration(
+                    color: colorBackground,
                     shape: BoxShape.circle,
                   ),
                   child: Padding(
@@ -57,8 +57,8 @@ class AdvantagesAchievementWidget extends StatelessWidget {
                 Container(
                   height: 52.0,
                   width: 52.0,
-                  decoration: const BoxDecoration(
-                    color: Color(0xFF4F3415),
+                  decoration: BoxDecoration(
+                    color: colorBackground,
                     shape: BoxShape.circle,
                   ),
                   child: Padding(
