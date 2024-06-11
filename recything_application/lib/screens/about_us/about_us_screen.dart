@@ -5,8 +5,7 @@ import 'package:recything_application/constants/color_constant.dart';
 import 'package:recything_application/constants/spacing_constant.dart';
 import 'package:recything_application/constants/text_style_constant.dart';
 import 'package:recything_application/controllers/about_us_controller.dart';
-import 'package:recything_application/screens/about_us/widgets/tim_content_widget.dart';
-import 'package:recything_application/screens/about_us/widgets/perusahaan_content_widget.dart';
+import 'package:recything_application/screens/about_us/widgets/about_us_content_widget.dart';
 import 'package:recything_application/widgets/global_app_bar.dart';
 import 'package:recything_application/widgets/global_loading_widget.dart';
 
@@ -62,9 +61,7 @@ class AboutUsScreen extends StatelessWidget {
               ],
               views: [
                 PerusahaanContent(),
-                SingleChildScrollView(
-                  child: KenaliTimContent(),
-                ),
+                KenaliTimContent(),
                 ContactUsContent(),
               ],
             ),
@@ -104,7 +101,7 @@ class PerusahaanContent extends StatelessWidget {
                     var aboutUsData =
                         aboutUsController.aboutUsData.value!.data?[index];
                     if (aboutUsData?.title == "Pendidikan Masyarakat") {
-                      return PerusahaanContentWidget(
+                      return AboutUsContentWidget(
                         title: aboutUsData!.title.toString(),
                         subTitle: aboutUsData.description.toString(),
                         height: 160,
@@ -142,12 +139,12 @@ class PerusahaanContent extends StatelessWidget {
                         ),
                       );
                     } else if (aboutUsData?.images!.length == 0) {
-                      return PerusahaanContentWidget(
+                      return AboutUsContentWidget(
                         title: aboutUsData!.title.toString(),
                         subTitle: aboutUsData.description.toString(),
                       );
                     } else if (aboutUsData!.images!.length >= 1) {
-                      return PerusahaanContentWidget(
+                      return AboutUsContentWidget(
                         title: aboutUsData.title.toString(),
                         height: 98,
                         width: double.infinity,
@@ -175,69 +172,75 @@ class PerusahaanContent extends StatelessWidget {
 class KenaliTimContent extends StatelessWidget {
   KenaliTimContent({super.key});
   final AboutUsController aboutUsController = Get.put(AboutUsController());
-
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.only(
-        left: 16,
-        right: 16,
-      ),
-      child: Obx(() {
+    return Obx(
+      () {
         if (aboutUsController.isLoading.value) {
           return const Center(
-            child: MyLoading(),
+            child: SizedBox.expand(
+              child: Center(
+                child: MyLoading(),
+              ),
+            ),
+          );
+        } else {
+          return SingleChildScrollView(
+            child: Column(
+              children: [
+                SpacingConstant.verticalSpacing250,
+                ListView.builder(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemCount: aboutUsController.aboutUsData.value?.data?.length,
+                  itemBuilder: (context, index) {
+                    var aboutUsData =
+                        aboutUsController.aboutUsData.value!.data?[index];
+                    if (aboutUsData?.images!.length == 0) {
+                      return AboutUsContentWidget(
+                        title: aboutUsData!.title.toString(),
+                        subTitle: aboutUsData.description.toString(),
+                      );
+                    } else if (aboutUsData!.images!.length >= 1) {
+                      return AboutUsContentWidget(
+                        title: aboutUsData.title.toString(),
+                        height: 98,
+                        width: double.infinity,
+                        subTitle: aboutUsData.description.toString(),
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 16),
+                          child: ListView.builder(
+                            scrollDirection: Axis.horizontal,
+                            itemCount: aboutUsData.images?.length,
+                            itemBuilder: (context, index) {
+                              return Container(
+                                margin: const EdgeInsets.only(right: 20),
+                                height: 98,
+                                width: 98,
+                                decoration: BoxDecoration(
+                                  color: Colors.black,
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(8),
+                                  child: Image.network(
+                                    "${aboutUsData.images?[index].imageUrl}",
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                              );
+                            },
+                          ),
+                        ),
+                      );
+                    }
+                  },
+                ),
+              ],
+            ),
           );
         }
-        final aboutUsDataList = aboutUsController.aboutUsData.value?.data;
-        if (aboutUsDataList == null) {
-          return const Text('Data tidak tersedia');
-        }
-        return SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SpacingConstant.verticalSpacing300,
-              ListView.builder(
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                itemCount: aboutUsDataList.length,
-                itemBuilder: (context, index) {
-                  var aboutUsData = aboutUsDataList[index];
-                  var images = aboutUsData.images ?? [];
-                  return TimContentWidget(
-                    title: aboutUsData.title.toString(),
-                    subTitle: aboutUsData.description.toString(),
-                    child: SizedBox(
-                      height: 98,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: images.map((image) {
-                          return Container(
-                            width: 98,
-                            height: 98,
-                            decoration: BoxDecoration(
-                              color: Colors.black,
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(8),
-                              child: Image.network(
-                                image.imageUrl.toString(),
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                          );
-                        }).toList(),
-                      ),
-                    ),
-                  );
-                },
-              ),
-            ],
-          ),
-        );
-      }),
+      },
     );
   }
 }
@@ -271,12 +274,12 @@ class ContactUsContent extends StatelessWidget {
                     var aboutUsData =
                         aboutUsController.aboutUsData.value!.data?[index];
                     if (aboutUsData?.images!.length == 0) {
-                      return PerusahaanContentWidget(
+                      return AboutUsContentWidget(
                         title: aboutUsData!.title.toString(),
                         subTitle: aboutUsData.description.toString(),
                       );
                     } else if (aboutUsData!.images!.length >= 1) {
-                      return PerusahaanContentWidget(
+                      return AboutUsContentWidget(
                         title: aboutUsData.title.toString(),
                         height: 214,
                         width: double.infinity,
