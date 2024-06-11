@@ -7,7 +7,8 @@ import 'package:recything_application/constants/image_constant.dart';
 import 'package:recything_application/constants/spacing_constant.dart';
 import 'package:recything_application/constants/text_style_constant.dart';
 import 'package:recything_application/controllers/achievement_controller.dart';
-import 'package:recything_application/screens/halaman_riwayat/point_history_screen.dart';
+import 'package:recything_application/screens/achievement_screen/widgets/advantage_achievement_widget.dart';
+import 'package:recything_application/screens/achievement_screen/widgets/list_point_addition_history_widget.dart';
 
 class ClassicAchievementContent extends StatelessWidget {
   ClassicAchievementContent({super.key});
@@ -206,161 +207,17 @@ class ClassicAchievementContent extends StatelessWidget {
                       color: Color(0xFFE6E6E6),
                     ),
                     SpacingConstant.verticalSpacing100,
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          'Riwayat Penambahan Setiap Poinmu',
-                          style: TextStyleConstant.boldCaption.copyWith(
-                            color: ColorConstant.netralColor700,
-                          ),
-                        ),
-                        GestureDetector(
-                          onTap: () {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder: (context) =>
-                                    const PointHisstoryScreen(),
-                              ),
-                            );
-                          },
-                          child: Text(
-                            'Lihat Semua',
-                            style: TextStyleConstant.boldCaption.copyWith(
-                              color: ColorConstant.infoColor500,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    SpacingConstant.verticalSpacing100,
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                      child: SizedBox(
-                        height: 100.0,
-                        width: double.infinity,
-                        child: ListView.builder(
-                          itemCount: achievementController.achievementResult
-                                  .value.data?.historyUserPoint?.length ??
-                              0,
-                          itemBuilder: (context, index) {
-                            var historyItem = achievementController
-                                .achievementResult
-                                .value
-                                .data
-                                ?.historyUserPoint?[index];
-                            if (historyItem == null) {
-                              return SizedBox(
-                                child: Center(
-                                  child: Text(
-                                    'Data tidak ditemukan',
-                                    style:
-                                        TextStyleConstant.boldCaption.copyWith(
-                                      color: ColorConstant.netralColor700,
-                                    ),
-                                  ),
-                                ),
-                              );
-                            }
-
-                            DateTime parsedDate =
-                                DateTime.parse(historyItem.date!);
-                            Duration difference =
-                                DateTime.now().difference(parsedDate);
-                            int daysAgo = difference.inDays;
-
-                            return Padding(
-                              padding: const EdgeInsets.only(right: 8.0),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    '+ ${historyItem.points} Poin',
-                                    style: TextStyleConstant.mediumCaption
-                                        .copyWith(
-                                      color: ColorConstant.secondaryColor500,
-                                    ),
-                                  ),
-                                  SpacingConstant.verticalSpacing300,
-                                  Text(
-                                    '$daysAgo Hari Lalu Terselesaikan',
-                                    style: TextStyleConstant.mediumCaption
-                                        .copyWith(
-                                      color: ColorConstant.secondaryColor500,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            );
-                          },
-                        ),
-                      ),
-                    ),
-                    SpacingConstant.verticalSpacing200,
-                    Text(
-                      'Keuntungan',
-                      style: TextStyleConstant.boldSubtitle.copyWith(
-                        color: ColorConstant.netralColor900,
-                      ),
-                    ),
-                    SpacingConstant.verticalSpacing100,
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          children: [
-                            Container(
-                              height: 52.0,
-                              width: 52.0,
-                              decoration: const BoxDecoration(
-                                color: Color(0xFF4F3415),
-                                shape: BoxShape.circle,
-                              ),
-                              child: Padding(
-                                padding: const EdgeInsets.all(12.0),
-                                child: SvgPicture.asset(
-                                  IconConstant.poinkuClassicAchievement,
-                                ),
-                              ),
-                            ),
-                            SpacingConstant.horizontalSpacing200,
-                            Text(
-                              'Dapatkan Bonus Poin 10% dari \nmissions yang kamu selesaikan',
-                              style: TextStyleConstant.mediumCaption.copyWith(
-                                  color: ColorConstant.netralColor900),
-                            )
-                          ],
-                        ),
-                        SpacingConstant.verticalSpacing100,
-                        Row(
-                          children: [
-                            Container(
-                              height: 52.0,
-                              width: 52.0,
-                              decoration: const BoxDecoration(
-                                color: Color(0xFF4F3415),
-                                shape: BoxShape.circle,
-                              ),
-                              child: Padding(
-                                padding: const EdgeInsets.all(12.0),
-                                child: SvgPicture.asset(
-                                  IconConstant.poinkuClassicAchievement,
-                                ),
-                              ),
-                            ),
-                            SpacingConstant.horizontalSpacing200,
-                            Text(
-                              'Dapatkan Bonus Poin 10% dari \nmissions yang kamu selesaikan',
-                              style: TextStyleConstant.mediumCaption.copyWith(
-                                  color: ColorConstant.netralColor900),
-                            )
-                          ],
-                        ),
-                      ],
-                    )
                   ],
-                )
+                ),
+                ListPointAdditionHistoryWidget(
+                    achievementController: achievementController),
+                SpacingConstant.verticalSpacing200,
+                AdvantagesAchievementWidget(
+                  advantagePercent: '10%',
+                  svgIcon: SvgPicture.asset(
+                    IconConstant.poinkuClassicAchievement,
+                  ),
+                ),
               ],
             );
           },
