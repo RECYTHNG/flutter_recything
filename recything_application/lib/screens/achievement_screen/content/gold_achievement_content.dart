@@ -89,7 +89,7 @@ class _GoldAchievementContentState extends State<GoldAchievementContent> {
                         ),
                         SpacingConstant.verticalSpacing100,
                         Text(
-                          'Awal yang baik menuju bumi yang lebih \nbersih dan sehat untuk keluarga kita.',
+                          'Langkah besar untuk lingkungan yang \nlebih segar dan masa depan yang cerah.',
                           style: TextStyleConstant.regularParagraph.copyWith(
                             color: ColorConstant.whiteColor.withOpacity(0.6),
                           ),
@@ -299,7 +299,6 @@ class _GoldAchievementContentState extends State<GoldAchievementContent> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
                         Container(
                           height: 52.0,
@@ -308,8 +307,12 @@ class _GoldAchievementContentState extends State<GoldAchievementContent> {
                             color: Color(0xFFD4AF35),
                             shape: BoxShape.circle,
                           ),
-                          child: const Icon(Icons.star_rounded,
-                              color: ColorConstant.whiteColor),
+                          child: Padding(
+                            padding: const EdgeInsets.all(12.0),
+                            child: SvgPicture.asset(
+                              IconConstant.poinkuGoldAchievement,
+                            ),
+                          ),
                         ),
                         SpacingConstant.horizontalSpacing200,
                         Text(
@@ -321,7 +324,6 @@ class _GoldAchievementContentState extends State<GoldAchievementContent> {
                     ),
                     SpacingConstant.verticalSpacing100,
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
                         Container(
                           height: 52.0,
@@ -330,8 +332,12 @@ class _GoldAchievementContentState extends State<GoldAchievementContent> {
                             color: Color(0xFFD4AF35),
                             shape: BoxShape.circle,
                           ),
-                          child: const Icon(Icons.star_rounded,
-                              color: ColorConstant.whiteColor),
+                          child: Padding(
+                            padding: const EdgeInsets.all(12.0),
+                            child: SvgPicture.asset(
+                              IconConstant.poinkuGoldAchievement,
+                            ),
+                          ),
                         ),
                         SpacingConstant.horizontalSpacing200,
                         Text(

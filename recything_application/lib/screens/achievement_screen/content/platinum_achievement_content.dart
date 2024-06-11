@@ -90,7 +90,7 @@ class _PlatinumAchievementContentState
                         ),
                         SpacingConstant.verticalSpacing100,
                         Text(
-                          'Awal yang baik menuju bumi yang lebih \nbersih dan sehat untuk keluarga kita.',
+                          'Bersama di puncak kepedulian, \nmenciptakan dunia yang lebih hijau.',
                           style: TextStyleConstant.regularParagraph.copyWith(
                             color: ColorConstant.whiteColor.withOpacity(0.6),
                           ),
@@ -231,7 +231,7 @@ class _PlatinumAchievementContentState
                 ),
                 SpacingConstant.verticalSpacing100,
                 const Divider(
-                  color: ColorConstant.primaryColor300,
+                  color: Color(0xFFE6E6E6),
                 ),
                 SpacingConstant.verticalSpacing100,
                 Row(
@@ -300,7 +300,6 @@ class _PlatinumAchievementContentState
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
                         Container(
                           height: 52.0,
@@ -309,8 +308,12 @@ class _PlatinumAchievementContentState
                             color: ColorConstant.primaryColor300,
                             shape: BoxShape.circle,
                           ),
-                          child: const Icon(Icons.star_rounded,
-                              color: ColorConstant.whiteColor),
+                          child: Padding(
+                            padding: const EdgeInsets.all(12.0),
+                            child: SvgPicture.asset(
+                              IconConstant.poinkuPlatinumAchievement,
+                            ),
+                          ),
                         ),
                         SpacingConstant.horizontalSpacing200,
                         Text(
@@ -322,7 +325,6 @@ class _PlatinumAchievementContentState
                     ),
                     SpacingConstant.verticalSpacing100,
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
                         Container(
                           height: 52.0,
@@ -331,8 +333,12 @@ class _PlatinumAchievementContentState
                             color: ColorConstant.primaryColor300,
                             shape: BoxShape.circle,
                           ),
-                          child: const Icon(Icons.star_rounded,
-                              color: ColorConstant.whiteColor),
+                          child: Padding(
+                            padding: const EdgeInsets.all(12.0),
+                            child: SvgPicture.asset(
+                              IconConstant.poinkuPlatinumAchievement,
+                            ),
+                          ),
                         ),
                         SpacingConstant.horizontalSpacing200,
                         Text(

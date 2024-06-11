@@ -303,7 +303,6 @@ class _ClassicAchievementContentState extends State<ClassicAchievementContent> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
                         Container(
                           height: 52.0,
@@ -312,8 +311,12 @@ class _ClassicAchievementContentState extends State<ClassicAchievementContent> {
                             color: Color(0xFF4F3415),
                             shape: BoxShape.circle,
                           ),
-                          child: const Icon(Icons.star_rounded,
-                              color: ColorConstant.whiteColor),
+                          child: Padding(
+                            padding: const EdgeInsets.all(12.0),
+                            child: SvgPicture.asset(
+                              IconConstant.poinkuClassicAchievement,
+                            ),
+                          ),
                         ),
                         SpacingConstant.horizontalSpacing200,
                         Text(
@@ -325,7 +328,6 @@ class _ClassicAchievementContentState extends State<ClassicAchievementContent> {
                     ),
                     SpacingConstant.verticalSpacing100,
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
                         Container(
                           height: 52.0,
@@ -334,8 +336,12 @@ class _ClassicAchievementContentState extends State<ClassicAchievementContent> {
                             color: Color(0xFF4F3415),
                             shape: BoxShape.circle,
                           ),
-                          child: const Icon(Icons.star_rounded,
-                              color: ColorConstant.whiteColor),
+                          child: Padding(
+                            padding: const EdgeInsets.all(12.0),
+                            child: SvgPicture.asset(
+                              IconConstant.poinkuClassicAchievement,
+                            ),
+                          ),
                         ),
                         SpacingConstant.horizontalSpacing200,
                         Text(

@@ -90,7 +90,7 @@ class _SilverAchievementContentState extends State<SilverAchievementContent> {
                         ),
                         SpacingConstant.verticalSpacing100,
                         Text(
-                          'Awal yang baik menuju bumi yang lebih \nbersih dan sehat untuk keluarga kita.',
+                          'Bersama, kita menjaga alam untuk kita \ndan masa depan kita.',
                           style: TextStyleConstant.regularParagraph.copyWith(
                             color: ColorConstant.whiteColor.withOpacity(0.6),
                           ),
@@ -300,7 +300,6 @@ class _SilverAchievementContentState extends State<SilverAchievementContent> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
                         Container(
                           height: 52.0,
@@ -309,8 +308,12 @@ class _SilverAchievementContentState extends State<SilverAchievementContent> {
                             color: Color(0xFF545454),
                             shape: BoxShape.circle,
                           ),
-                          child: const Icon(Icons.star_rounded,
-                              color: ColorConstant.whiteColor),
+                          child: Padding(
+                            padding: const EdgeInsets.all(12.0),
+                            child: SvgPicture.asset(
+                              IconConstant.poinkuSilverAchievement,
+                            ),
+                          ),
                         ),
                         SpacingConstant.horizontalSpacing200,
                         Text(
@@ -322,7 +325,6 @@ class _SilverAchievementContentState extends State<SilverAchievementContent> {
                     ),
                     SpacingConstant.verticalSpacing100,
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
                         Container(
                           height: 52.0,
@@ -331,12 +333,16 @@ class _SilverAchievementContentState extends State<SilverAchievementContent> {
                             color: Color(0xFF545454),
                             shape: BoxShape.circle,
                           ),
-                          child: const Icon(Icons.star_rounded,
-                              color: ColorConstant.whiteColor),
+                          child: Padding(
+                            padding: const EdgeInsets.all(12.0),
+                            child: SvgPicture.asset(
+                              IconConstant.poinkuSilverAchievement,
+                            ),
+                          ),
                         ),
                         SpacingConstant.horizontalSpacing200,
                         Text(
-                          'Dapatkan Bonus Poin 115% dari \nmissions yang kamu selesaikan',
+                          'Dapatkan Bonus Poin 15% dari \nmissions yang kamu selesaikan',
                           style: TextStyleConstant.mediumCaption
                               .copyWith(color: ColorConstant.netralColor900),
                         )
