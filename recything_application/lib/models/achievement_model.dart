@@ -45,7 +45,7 @@ class Data {
   factory Data.fromJson(Map<String, dynamic> json) => Data(
         dataAchievement: json["data_achievement"] == null
             ? []
-            : List<DataAchievement>.from(json["data_achievement"]!
+            : List<DataAchievement>.from(json["data_achievement"]
                 .map((x) => DataAchievement.fromJson(x))),
         dataUser: json["data_user"] == null
             ? null
@@ -133,11 +133,12 @@ class HistoryUserPoint {
     this.points,
   });
 
-  factory HistoryUserPoint.fromJson(Map<String, dynamic> json) =>
-      HistoryUserPoint(
-        date: json["date"],
-        points: json["points"],
-      );
+  factory HistoryUserPoint.fromJson(Map<String, dynamic> json) {
+    return HistoryUserPoint(
+      date: json["accepted_at"],
+      points: json["point"],
+    );
+  }
 
   Map<String, dynamic> toJson() => {
         "date": date,

@@ -266,6 +266,12 @@ class _ClassicAchievementContentState extends State<ClassicAchievementContent> {
                             ),
                           );
                         }
+
+                        DateTime parsedDate = DateTime.parse(historyItem.date!);
+                        Duration difference =
+                            DateTime.now().difference(parsedDate);
+                        int daysAgo = difference.inDays;
+
                         return Padding(
                           padding: const EdgeInsets.only(right: 8.0),
                           child: Row(
@@ -279,7 +285,7 @@ class _ClassicAchievementContentState extends State<ClassicAchievementContent> {
                               ),
                               SpacingConstant.verticalSpacing300,
                               Text(
-                                '${historyItem.date} Hari Lalu Terselesaikan',
+                                '$daysAgo Hari Lalu Terselesaikan',
                                 style: TextStyleConstant.mediumCaption.copyWith(
                                   color: ColorConstant.secondaryColor500,
                                 ),
