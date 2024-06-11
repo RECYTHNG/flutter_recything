@@ -42,12 +42,12 @@ class _AchievementScreenState extends State<AchievementScreen> {
           ),
           centerTitle: true,
         ),
-        body: const TabBarView(
+        body: TabBarView(
           children: [
             ClassicAchievementContent(),
-            SilverAchievementContent(),
-            GoldAchievementContent(),
-            PlatinumAchievementContent(),
+            const SilverAchievementContent(),
+            const GoldAchievementContent(),
+            const PlatinumAchievementContent(),
           ],
         ),
       ),
