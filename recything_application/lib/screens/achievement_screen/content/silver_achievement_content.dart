@@ -8,6 +8,7 @@ import 'package:recything_application/constants/spacing_constant.dart';
 import 'package:recything_application/constants/text_style_constant.dart';
 import 'package:recything_application/controllers/achievement_controller.dart';
 import 'package:recything_application/screens/achievement_screen/widgets/advantage_achievement_widget.dart';
+import 'package:recything_application/screens/achievement_screen/widgets/current_point_widget.dart';
 import 'package:recything_application/screens/achievement_screen/widgets/list_point_addition_history_widget.dart';
 
 class SilverAchievementContent extends StatelessWidget {
@@ -199,43 +200,14 @@ class SilverAchievementContent extends StatelessWidget {
                   ],
                 ),
                 SpacingConstant.verticalSpacing200,
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Jumlah Point Kamu Saat Ini',
-                      style: TextStyleConstant.boldParagraph.copyWith(
-                        color: ColorConstant.netralColor700,
-                      ),
-                    ),
-                    Text(
-                      '$currentPoint Poin',
-                      style: TextStyleConstant.boldHeading4.copyWith(
-                        fontSize: 20.0,
-                        color: ColorConstant.netralColor900,
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ),
-                    SpacingConstant.verticalSpacing100,
-                    LinearProgressIndicator(
-                      minHeight: 8.0,
-                      value: progressValue,
-                      backgroundColor: ColorConstant.netralColor500,
-                      borderRadius: BorderRadius.circular(40.0),
-                      color: const Color(0xFF545454),
-                    ),
-                    SpacingConstant.verticalSpacing100,
-                    Text(
-                      currentPoint >= targetPoint
-                          ? 'Poin kamu sudah melewati batas level lencana ini'
-                          : currentPoint <= levelPoint
-                              ? 'Poin kamu belum cukup untuk level lencana ini'
-                              : '${targetPoint - currentPoint} Poin lagi untuk kamu menjadi level gold',
-                      style: TextStyleConstant.mediumCaption.copyWith(
-                        color: ColorConstant.netralColor600,
-                      ),
-                    ),
-                  ],
+                CurrentPointWidget(
+                  currentPoint: currentPoint,
+                  progressValue: progressValue,
+                  targetPoint: targetPoint,
+                  levelPoint: levelPoint,
+                  colorProgressBar: const Color(0xFF545454),
+                  difference:
+                      '${targetPoint - currentPoint} Poin lagi untuk kamu menjadi level gold.',
                 ),
                 SpacingConstant.verticalSpacing100,
                 const Divider(
