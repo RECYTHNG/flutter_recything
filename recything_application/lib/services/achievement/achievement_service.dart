@@ -8,7 +8,7 @@ class AchievementService {
     try {
       var url = 'http://10.0.2.2:8080/api/v1/user/achievements';
       var authToken =
-          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiVVNSMDAwMSIsInJvbGUiOiJ1c2VyIiwiZXhwIjoxNzE4MTcwMjY4fQ.TgJgk20LRDUUOaZKFAI1LJ2Q4dW3iK6MIwvOOGh5WUA';
+          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiVVNSMDAwMSIsInJvbGUiOiJ1c2VyIiwiZXhwIjoxNzE4NDQ0NDU1fQ.V-KqWJ2dI2y_ZgL8LVyo_ChsA2zfSp3Gi-4iIbv1wEU';
 
       final response = await dio.get(
         url,

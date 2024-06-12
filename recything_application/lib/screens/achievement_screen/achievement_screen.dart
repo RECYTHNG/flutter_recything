@@ -47,7 +47,7 @@ class _AchievementScreenState extends State<AchievementScreen> {
             ClassicAchievementContent(),
             SilverAchievementContent(),
             GoldAchievementContent(),
-            const PlatinumAchievementContent(),
+            PlatinumAchievementContent(),
           ],
         ),
       ),

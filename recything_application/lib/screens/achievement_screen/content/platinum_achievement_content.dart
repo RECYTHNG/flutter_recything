@@ -11,16 +11,9 @@ import 'package:recything_application/screens/achievement_screen/widgets/advanta
 import 'package:recything_application/screens/achievement_screen/widgets/current_point_widget.dart';
 import 'package:recything_application/screens/achievement_screen/widgets/list_point_addition_history_widget.dart';
 
-class PlatinumAchievementContent extends StatefulWidget {
-  const PlatinumAchievementContent({super.key});
+class PlatinumAchievementContent extends StatelessWidget {
+  PlatinumAchievementContent({super.key});
 
-  @override
-  State<PlatinumAchievementContent> createState() =>
-      _PlatinumAchievementContentState();
-}
-
-class _PlatinumAchievementContentState
-    extends State<PlatinumAchievementContent> {
   final AchievementController achievementController = Get.put(
     AchievementController(),
   );
