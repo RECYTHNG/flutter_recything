@@ -214,6 +214,7 @@ class PlatinumAchievementContent extends StatelessWidget {
                 SpacingConstant.verticalSpacing100,
                 ListPointAdditionHistoryWidget(
                   achievementController: achievementController,
+                  noHistoryPointImage: ImageConstant.platinumHistoryImage,
                 ),
                 SpacingConstant.verticalSpacing200,
                 AdvantagesAchievementWidget(

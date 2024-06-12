@@ -9,9 +9,11 @@ class ListPointAdditionHistoryWidget extends StatelessWidget {
   const ListPointAdditionHistoryWidget({
     super.key,
     required this.achievementController,
+    required this.noHistoryPointImage,
   });
 
   final AchievementController achievementController;
+  final String noHistoryPointImage;
 
   @override
   Widget build(BuildContext context) {
@@ -53,11 +55,21 @@ class ListPointAdditionHistoryWidget extends StatelessWidget {
             width: double.infinity,
             child: historyUserPoint == null || historyUserPoint.isEmpty
                 ? Center(
-                    child: Text(
-                      'Data tidak ditemukan',
-                      style: TextStyleConstant.boldCaption.copyWith(
-                        color: ColorConstant.netralColor700,
-                      ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Image.asset(
+                          noHistoryPointImage,
+                          height: 75.0,
+                        ),
+                        SpacingConstant.verticalSpacing050,
+                        Text(
+                          'Kamu Belum Memiliki Penambahan Poin',
+                          style: TextStyleConstant.mediumFooter.copyWith(
+                            color: ColorConstant.netralColor700,
+                          ),
+                        ),
+                      ],
                     ),
                   )
                 : ListView.builder(

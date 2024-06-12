@@ -216,6 +216,7 @@ class SilverAchievementContent extends StatelessWidget {
                 SpacingConstant.verticalSpacing100,
                 ListPointAdditionHistoryWidget(
                   achievementController: achievementController,
+                  noHistoryPointImage: ImageConstant.silverHistoryImage,
                 ),
                 SpacingConstant.verticalSpacing200,
                 AdvantagesAchievementWidget(

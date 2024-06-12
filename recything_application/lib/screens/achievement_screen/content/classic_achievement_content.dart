@@ -211,6 +211,7 @@ class ClassicAchievementContent extends StatelessWidget {
                 SpacingConstant.verticalSpacing100,
                 ListPointAdditionHistoryWidget(
                   achievementController: achievementController,
+                  noHistoryPointImage: ImageConstant.classicHistoryImage,
                 ),
                 SpacingConstant.verticalSpacing200,
                 AdvantagesAchievementWidget(

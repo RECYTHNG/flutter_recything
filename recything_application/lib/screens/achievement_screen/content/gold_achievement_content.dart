@@ -216,6 +216,7 @@ class GoldAchievementContent extends StatelessWidget {
                 SpacingConstant.verticalSpacing100,
                 ListPointAdditionHistoryWidget(
                   achievementController: achievementController,
+                  noHistoryPointImage: ImageConstant.goldHistoryImage,
                 ),
                 SpacingConstant.verticalSpacing200,
                 AdvantagesAchievementWidget(
