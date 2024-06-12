@@ -1,17 +1,29 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:recything_application/constants/color_constant.dart';
-import 'package:recything_application/constants/image_constant.dart';
 import 'package:recything_application/constants/spacing_constant.dart';
 import 'package:recything_application/constants/text_style_constant.dart';
+import 'package:recything_application/controllers/achievement_controller.dart';
+import 'package:recything_application/models/achievement_model.dart';
+import 'package:recything_application/screens/halaman_riwayat/widgets/list_point_history_widget.dart';
 
-class PointHisstoryScreen extends StatefulWidget {
-  const PointHisstoryScreen({super.key});
+class PointHisstoryScreen extends StatelessWidget {
+  PointHisstoryScreen({super.key});
 
-  @override
-  State<PointHisstoryScreen> createState() => _PointHisstoryScreenState();
-}
+  final AchievementController achievementController = Get.put(
+    AchievementController(),
+  );
 
-class _PointHisstoryScreenState extends State<PointHisstoryScreen> {
+  String getBadgeUrl(int points, List<DataAchievement> achievements) {
+    for (int i = achievements.length - 1; i >= 0; i--) {
+      if (points >= achievements[i].targetPoint!) {
+        return achievements[i].badgeUrl!;
+      }
+    }
+    return achievements.first.badgeUrl!;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,109 +39,63 @@ class _PointHisstoryScreenState extends State<PointHisstoryScreen> {
         ),
         centerTitle: true,
       ),
-      body: Column(
-        children: [
-          Container(
-            height: 130.0,
-            width: double.infinity,
-            decoration: const BoxDecoration(
-              color: Color(0xFF00466D),
-              borderRadius: BorderRadius.only(
-                bottomLeft: Radius.circular(8.0),
-                bottomRight: Radius.circular(8.0),
-              ),
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Image.asset(
-                  ImageConstant.goldBagdesImage,
-                  height: 24.0,
+      body: Obx(
+        () {
+          int currentPoint = achievementController
+                  .achievementResult.value.data?.dataUser?.point ??
+              0;
+          List<DataAchievement> achievements = achievementController
+                  .achievementResult.value.data?.dataAchievement ??
+              [];
+          String badgeUrl = getBadgeUrl(currentPoint, achievements);
+          return Column(
+            children: [
+              Container(
+                height: 130.0,
+                width: double.infinity,
+                decoration: const BoxDecoration(
+                  color: Color(0xFF00466D),
+                  borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(8.0),
+                    bottomRight: Radius.circular(8.0),
+                  ),
                 ),
-                SpacingConstant.horizontalSpacing100,
-                Row(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(
-                      '3000',
-                      style: TextStyleConstant.semiboldHeading4.copyWith(
-                        color: ColorConstant.whiteColor,
-                      ),
+                    CachedNetworkImage(imageUrl: 
+                      badgeUrl,
+                      height: 24.0,
+                      errorWidget: (context, url, error) => const Icon(Icons.error),
                     ),
                     SpacingConstant.horizontalSpacing100,
-                    Text(
-                      'Poin',
-                      style: TextStyleConstant.regularParagraph.copyWith(
-                        color: ColorConstant.whiteColor,
-                      ),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ),
-          SpacingConstant.verticalSpacing100,
-          Expanded(
-            child: ListView.builder(
-              itemCount: 5,
-              itemBuilder: (context, index) {
-                return Padding(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 16.0, vertical: 8.0),
-                  child: Container(
-                    height: 75.0,
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      color: ColorConstant.whiteColor,
-                      borderRadius: BorderRadius.circular(12.0),
-                      boxShadow: [
-                        BoxShadow(
-                          color: ColorConstant.blackColor.withOpacity(0.1),
-                          blurRadius: 8.0,
-                          offset: const Offset(0, 2),
+                    Row(
+                      children: [
+                        Text(
+                          currentPoint.toString(),
+                          style: TextStyleConstant.semiboldHeading4.copyWith(
+                            color: ColorConstant.whiteColor,
+                          ),
+                        ),
+                        SpacingConstant.horizontalSpacing100,
+                        Text(
+                          'Poin',
+                          style: TextStyleConstant.regularParagraph.copyWith(
+                            color: ColorConstant.whiteColor,
+                          ),
                         ),
                       ],
                     ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                'Menyelesaikan Chalenge',
-                                style:
-                                    TextStyleConstant.semiboldSubtitle.copyWith(
-                                  color: ColorConstant.netralColor900,
-                                ),
-                              ),
-                              Text(
-                                ' +1000',
-                                style:
-                                    TextStyleConstant.semiboldSubtitle.copyWith(
-                                  color: ColorConstant.netralColor900,
-                                ),
-                              ),
-                            ],
-                          ),
-                          SpacingConstant.verticalSpacing100,
-                          Text(
-                            '18 Desember 2002',
-                            style: TextStyleConstant.regularCaption.copyWith(
-                              color: ColorConstant.netralColor900,
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
-                  ),
-                );
-              },
-            ),
-          ),
-        ],
+                  ],
+                ),
+              ),
+              SpacingConstant.verticalSpacing100,
+              ListPointHistoryWidget(
+                achievementController: achievementController,
+              ),
+            ],
+          );
+        },
       ),
     );
   }

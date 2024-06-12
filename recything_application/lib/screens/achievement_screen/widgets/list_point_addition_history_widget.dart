@@ -15,6 +15,8 @@ class ListPointAdditionHistoryWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final historyUserPoint =
+        achievementController.achievementResult.value.data?.historyUserPoint;
     return Column(
       children: [
         Row(
@@ -30,7 +32,7 @@ class ListPointAdditionHistoryWidget extends StatelessWidget {
               onTap: () {
                 Navigator.of(context).push(
                   MaterialPageRoute(
-                    builder: (context) => const PointHisstoryScreen(),
+                    builder: (context) => PointHisstoryScreen(),
                   ),
                 );
               },
@@ -49,53 +51,50 @@ class ListPointAdditionHistoryWidget extends StatelessWidget {
           child: SizedBox(
             height: 100.0,
             width: double.infinity,
-            child: ListView.builder(
-              itemCount: achievementController
-                      .achievementResult.value.data?.historyUserPoint?.length ??
-                  0,
-              itemBuilder: (context, index) {
-                var historyItem = achievementController
-                    .achievementResult.value.data?.historyUserPoint?[index];
-                if (historyItem == null) {
-                  return SizedBox(
-                    child: Center(
-                      child: Text(
-                        'Data tidak ditemukan',
-                        style: TextStyleConstant.boldCaption.copyWith(
-                          color: ColorConstant.netralColor700,
-                        ),
+            child: historyUserPoint == null || historyUserPoint.isEmpty
+                ? Center(
+                    child: Text(
+                      'Data tidak ditemukan',
+                      style: TextStyleConstant.boldCaption.copyWith(
+                        color: ColorConstant.netralColor700,
                       ),
                     ),
-                  );
-                }
+                  )
+                : ListView.builder(
+                    itemCount: achievementController.achievementResult.value
+                            .data?.historyUserPoint?.length ??
+                        0,
+                    itemBuilder: (context, index) {
+                      var historyItem = historyUserPoint[index];
 
-                DateTime parsedDate = DateTime.parse(historyItem.date!);
-                Duration difference = DateTime.now().difference(parsedDate);
-                int daysAgo = difference.inDays;
+                      DateTime parsedDate = DateTime.parse(historyItem.date!);
+                      Duration difference =
+                          DateTime.now().difference(parsedDate);
+                      int daysAgo = difference.inDays;
 
-                return Padding(
-                  padding: const EdgeInsets.only(right: 8.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        '+ ${historyItem.points} Poin',
-                        style: TextStyleConstant.mediumCaption.copyWith(
-                          color: ColorConstant.secondaryColor500,
+                      return Padding(
+                        padding: const EdgeInsets.only(right: 8.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              '+ ${historyItem.points} Poin',
+                              style: TextStyleConstant.mediumCaption.copyWith(
+                                color: ColorConstant.secondaryColor500,
+                              ),
+                            ),
+                            SpacingConstant.verticalSpacing300,
+                            Text(
+                              '$daysAgo Hari Lalu Terselesaikan',
+                              style: TextStyleConstant.mediumCaption.copyWith(
+                                color: ColorConstant.secondaryColor500,
+                              ),
+                            ),
+                          ],
                         ),
-                      ),
-                      SpacingConstant.verticalSpacing300,
-                      Text(
-                        '$daysAgo Hari Lalu Terselesaikan',
-                        style: TextStyleConstant.mediumCaption.copyWith(
-                          color: ColorConstant.secondaryColor500,
-                        ),
-                      ),
-                    ],
+                      );
+                    },
                   ),
-                );
-              },
-            ),
           ),
         ),
       ],
