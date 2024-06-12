@@ -6,5 +6,5 @@ class ImageConstant {
   static const String femaleEditProfil =
       'assets/images/edit_profile_images/female.png';
   static const String successImage =
-      'assets/images/edit_profile_images/success.svg';
+      'assets/images/edit_profile_images/success.png';
 }

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:recything_application/constants/color_constant.dart';
@@ -27,19 +26,16 @@ class EditProfileScreenState extends State<EditProfileScreen> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController addressController = TextEditingController();
 
-  @override
-  void initState() {
-    super.initState();
-  }
+  final _formKey = GlobalKey<FormState>();
 
   @override
   void dispose() {
-    super.dispose();
     nameController.dispose();
     genderController.dispose();
     birthDateController.dispose();
     emailController.dispose();
     addressController.dispose();
+    super.dispose();
   }
 
   @override
@@ -82,131 +78,137 @@ class EditProfileScreenState extends State<EditProfileScreen> {
                 addressController.text = data.address ?? '';
               }
 
-              return Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Stack(
-                    alignment: Alignment.bottomCenter,
-                    clipBehavior: Clip.none,
-                    children: [
-                      Image.asset(
-                          'assets/images/edit_profile_images/Vector.png'),
-                      Positioned(
-                        bottom: -50,
-                        child: Stack(
-                          clipBehavior: Clip.none,
-                          alignment: Alignment.bottomCenter,
-                          children: [
-                            const CircleAvatar(
-                              backgroundColor: ColorConstant.blackColor10,
-                              radius: 48,
-                              child: Icon(
-                                Icons.person,
-                                color: Color(0xFF666666),
-                                size: 48,
-                              ),
-                            ),
-                            Positioned(
-                              bottom: -20,
-                              child: SvgPicture.asset(
-                                'assets/images/edit_profile_images/${data?.badge}_medal.svg',
-                                width: 40,
-                                height: 40,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                  SpacingConstant.verticalSpacing1000,
-                  GestureDetector(
-                    onTap: () => Get.to(const PhotoPickerScreen()),
-                    child: const Text(
-                      'Ubah Foto Profil',
-                      style: TextStyle(
-                        color: ColorConstant.primaryColor500,
-                        fontWeight: FontWeight.w600,
-                      ),
-                    ),
-                  ),
-                  SpacingConstant.verticalSpacing400,
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20),
-                    child: Column(
+              return Form(
+                key: _formKey,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Stack(
+                      alignment: Alignment.bottomCenter,
+                      clipBehavior: Clip.none,
                       children: [
-                        CustomTextFieldWidget(
-                          label: 'Nama Lengkap',
-                          hint: 'Nama Lengkap',
-                          controller: nameController,
-                        ),
-                        SpacingConstant.verticalSpacing200,
-                        CustomTextFieldWidget(
-                          label: 'Jenis Kelamin',
-                          hint: 'Pilih Jenis Kelamin',
-                          isForm: false,
-                          targetScreen: const GenderPickScreen(),
-                          controller: genderController,
-                        ),
-                        SpacingConstant.verticalSpacing200,
-                        DatePickerWidget(
-                          label: 'Tanggal Lahir',
-                          hint: 'Input Tanggal Lahir',
-                          controller: birthDateController,
-                        ),
-                        SpacingConstant.verticalSpacing200,
-                        CustomTextFieldWidget(
-                          label: 'Email',
-                          hint: 'Email',
-                          controller: emailController,
-                        ),
-                        SpacingConstant.verticalSpacing200,
-                        CustomTextFieldWidget(
-                          label: 'Alamat',
-                          hint: 'Isi Alamat',
-                          isTextArea: true,
-                          controller: addressController,
-                        ),
-                        SpacingConstant.verticalSpacing200,
-                        GestureDetector(
-                          onTap: () {
-                            final updatedData = {
-                              'name': nameController.text,
-                              'email': emailController.text,
-                              'address': addressController.text,
-                              'gender': genderController.text,
-                              'birth_date': birthDateController.text,
-                            };
-                            FocusScope.of(context).unfocus();
-                            controller.updateUserProfile(updatedData, () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => SuccessScreen()),
-                              );
-                            });
-                          },
-                          child: Container(
-                            padding: const EdgeInsets.symmetric(vertical: 8),
-                            width: double.infinity,
-                            alignment: Alignment.center,
-                            decoration: BoxDecoration(
-                              color: ColorConstant.primaryColor500,
-                              borderRadius: BorderRadius.circular(12),
-                            ),
-                            child: const Text(
-                              'Simpan',
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontSize: 20,
+                        Image.asset(
+                            'assets/images/edit_profile_images/Vector.png'),
+                        Positioned(
+                          bottom: -50,
+                          child: Stack(
+                            clipBehavior: Clip.none,
+                            alignment: Alignment.bottomCenter,
+                            children: [
+                              const CircleAvatar(
+                                backgroundColor: ColorConstant.blackColor10,
+                                radius: 48,
+                                child: Icon(
+                                  Icons.person,
+                                  color: Color(0xFF666666),
+                                  size: 48,
+                                ),
                               ),
-                            ),
+                              Positioned(
+                                bottom: -20,
+                                child: SvgPicture.asset(
+                                  'assets/images/edit_profile_images/${data?.badge}_medal.svg',
+                                  width: 40,
+                                  height: 40,
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                       ],
                     ),
-                  ),
-                ],
+                    SpacingConstant.verticalSpacing1000,
+                    GestureDetector(
+                      onTap: () => Get.to(const PhotoPickerScreen()),
+                      child: const Text(
+                        'Ubah Foto Profil',
+                        style: TextStyle(
+                          color: ColorConstant.primaryColor500,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ),
+                    SpacingConstant.verticalSpacing400,
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      child: Column(
+                        children: [
+                          CustomTextFieldWidget(
+                            label: 'Nama Lengkap',
+                            hint: 'Nama Lengkap',
+                            controller: nameController,
+                          ),
+                          SpacingConstant.verticalSpacing200,
+                          CustomTextFieldWidget(
+                            label: 'Jenis Kelamin',
+                            hint: 'Pilih Jenis Kelamin',
+                            isForm: false,
+                            targetScreen: const GenderPickScreen(),
+                            controller: genderController,
+                          ),
+                          SpacingConstant.verticalSpacing200,
+                          DatePickerWidget(
+                            label: 'Tanggal Lahir',
+                            hint: 'Input Tanggal Lahir',
+                            controller: birthDateController,
+                          ),
+                          SpacingConstant.verticalSpacing200,
+                          CustomTextFieldWidget(
+                            label: 'Email',
+                            hint: 'Email',
+                            controller: emailController,
+                          ),
+                          SpacingConstant.verticalSpacing200,
+                          CustomTextFieldWidget(
+                            label: 'Alamat',
+                            hint: 'Isi Alamat',
+                            isTextArea: true,
+                            controller: addressController,
+                          ),
+                          SpacingConstant.verticalSpacing200,
+                          GestureDetector(
+                            onTap: () {
+                              if (_formKey.currentState!.validate()) {
+                                final updatedData = {
+                                  'name': nameController.text,
+                                  'email': emailController.text,
+                                  'address': addressController.text,
+                                  'gender': genderController.text,
+                                  'birth_date': birthDateController.text,
+                                };
+                                FocusScope.of(context).unfocus();
+                                controller.updateUserProfile(updatedData, () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            const SuccessScreen()),
+                                  );
+                                });
+                              }
+                            },
+                            child: Container(
+                              padding: const EdgeInsets.symmetric(vertical: 8),
+                              width: double.infinity,
+                              alignment: Alignment.center,
+                              decoration: BoxDecoration(
+                                color: ColorConstant.primaryColor500,
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                              child: const Text(
+                                'Simpan',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 20,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
               );
             },
           ),

@@ -7,7 +7,7 @@ class UserService {
       var url =
           "http://ec2-54-79-237-162.ap-southeast-2.compute.amazonaws.com:8080/api/v1/user/profile";
       var authToken =
-          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiVVNSMDAwNCIsInJvbGUiOiJ1c2VyIiwiZXhwIjoxNzE4MDI4MDA4fQ.eZuTtwJBNDobmON5pSJclKCaCwT8hv32uC2MoXConOU";
+          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiVVNSMDAwNCIsInJvbGUiOiJ1c2VyIiwiZXhwIjoxNzE4NDMwOTA5fQ.pZk55H81OKr2UuHRFzeIerwyVx8RnDju_4JhnPD3EKs";
       var response = await Dio().get(
         url,
         options: Options(
