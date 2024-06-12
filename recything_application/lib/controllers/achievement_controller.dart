@@ -6,6 +6,7 @@ import 'package:recything_application/services/achievement/achievement_service.d
 class AchievementController extends GetxController {
   var isLoading = false.obs;
   var achievementResult = AchievementModel().obs;
+  var isError = false.obs;
 
   @override
   void onInit() {
@@ -15,11 +16,12 @@ class AchievementController extends GetxController {
 
   Future<void> getAchievement() async {
     isLoading.value = true;
-
     try {
+      isError(false);
       final result = await AchievementService().getAchievement();
       achievementResult.value = result;
     } catch (e) {
+      isError(true);
       if (kDebugMode) {
         print(e);
       }

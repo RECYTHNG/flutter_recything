@@ -7,6 +7,8 @@ import 'package:recything_application/constants/text_style_constant.dart';
 import 'package:recything_application/controllers/achievement_controller.dart';
 import 'package:recything_application/models/achievement_model.dart';
 import 'package:recything_application/screens/halaman_riwayat/widgets/list_point_history_widget.dart';
+import 'package:recything_application/screens/halaman_riwayat/widgets/no_record_history_point_widget.dart';
+import 'package:recything_application/widgets/global_loading_widget.dart';
 
 class PointHisstoryScreen extends StatelessWidget {
   PointHisstoryScreen({super.key});
@@ -41,6 +43,16 @@ class PointHisstoryScreen extends StatelessWidget {
       ),
       body: Obx(
         () {
+          if (achievementController.isLoading.value) {
+            return const Center(
+              child: MyLoading(),
+            );
+          }
+
+          if (achievementController.isError.value) {
+            return const NoRecordHistoryPointWidget();
+          }
+
           int currentPoint = achievementController
                   .achievementResult.value.data?.dataUser?.point ??
               0;
@@ -63,10 +75,11 @@ class PointHisstoryScreen extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    CachedNetworkImage(imageUrl: 
-                      badgeUrl,
+                    CachedNetworkImage(
+                      imageUrl: badgeUrl,
                       height: 24.0,
-                      errorWidget: (context, url, error) => const Icon(Icons.error),
+                      errorWidget: (context, url, error) =>
+                          const Icon(Icons.error),
                     ),
                     SpacingConstant.horizontalSpacing100,
                     Row(

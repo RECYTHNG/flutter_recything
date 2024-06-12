@@ -80,8 +80,7 @@ class ListPointAdditionHistoryWidget extends StatelessWidget {
                       var historyItem = historyUserPoint[index];
 
                       DateTime parsedDate = DateTime.parse(historyItem.date!);
-                      Duration difference =
-                          DateTime.now().difference(parsedDate);
+                      Duration difference =DateTime.now().difference(parsedDate);
                       int daysAgo = difference.inDays;
 
                       return Padding(

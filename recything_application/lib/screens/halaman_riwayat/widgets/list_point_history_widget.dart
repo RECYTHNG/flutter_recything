@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:recything_application/constants/color_constant.dart';
 import 'package:recything_application/constants/spacing_constant.dart';
 import 'package:recything_application/constants/text_style_constant.dart';
@@ -26,6 +27,9 @@ class ListPointHistoryWidget extends StatelessWidget {
                   0,
               itemBuilder: (context, index) {
                 var historyItem = historyUserPoint[index];
+                DateTime parsedDate = DateTime.parse(historyItem.date!);
+                DateFormat formatter = DateFormat('d MMMM yyyy', 'id_ID');
+                historyItem.date = formatter.format(parsedDate);
                 return Padding(
                   padding: const EdgeInsets.symmetric(
                       horizontal: 16.0, vertical: 8.0),

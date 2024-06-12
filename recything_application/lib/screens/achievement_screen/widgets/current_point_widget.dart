@@ -52,7 +52,7 @@ class CurrentPointWidget extends StatelessWidget {
         Text(
           currentPoint >= targetPoint
               ? 'Poin kamu sudah melewati batas level lencana ini'
-              : currentPoint <= levelPoint
+              : currentPoint < levelPoint
                   ? 'Poin kamu belum cukup untuk level lencana ini'
                   : difference,
           style: TextStyleConstant.mediumCaption.copyWith(
