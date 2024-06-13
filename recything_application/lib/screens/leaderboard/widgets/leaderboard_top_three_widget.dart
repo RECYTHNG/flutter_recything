@@ -27,9 +27,31 @@ class TopThreeLeaderboardItem extends StatelessWidget {
         Stack(
           alignment: Alignment.topCenter,
           children: [
-            Image.asset(
-              imageUrl,
+            Container(
               height: rank == 1 ? 80 : 64,
+              width: rank == 1 ? 80 : 64,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                border: Border.all(
+                  color: ColorConstant.whiteColor,
+                  width: 2,
+                ),
+              ),
+              child: ClipOval(
+                child: Image.network(
+                  imageUrl,
+                  fit: BoxFit.cover,
+                  errorBuilder: (context, error, stackTrace) {
+                    return Container(
+                      color: Colors.grey,
+                      child: Icon(
+                        Icons.person,
+                        size: rank == 1 ? 40 : 32,
+                      ),
+                    );
+                  },
+                ),
+              ),
             ),
             Column(
               children: [

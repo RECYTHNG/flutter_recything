@@ -27,13 +27,34 @@ class LeaderboardList extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(width: 8),
-                    Image.asset(
-                      item['imageUrl'] ?? '',
+                    Container(
                       height: 36,
+                      width: 36,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        border: Border.all(
+                          color: ColorConstant.whiteColor,
+                          width: 2,
+                        ),
+                      ),
+                      child: ClipOval(
+                        child: Image.network(
+                          item['imageUrl'] ?? '',
+                          fit: BoxFit.cover,
+                          errorBuilder: (context, error, stackTrace) {
+                            return Container(
+                              color: Colors.grey,
+                              child: const Icon(
+                                Icons.person,
+                              ),
+                            );
+                          },
+                        ),
+                      ),
                     ),
                     const SizedBox(width: 8),
                     Text(
-                      item['nama'] ?? '',
+                      item['name'] ?? '',
                       style: TextStyleConstant.boldParagraph.copyWith(
                         color: ColorConstant.whiteColor,
                       ),
@@ -41,7 +62,7 @@ class LeaderboardList extends StatelessWidget {
                   ],
                 ),
                 trailing: Text(
-                  item['skor'] ?? '',
+                  item['point'] ?? '',
                   style: TextStyleConstant.boldCaption.copyWith(
                     color: ColorConstant.warningColor500,
                   ),
