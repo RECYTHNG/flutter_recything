@@ -2,17 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:recything_application/constants/color_constant.dart';
 import 'package:recything_application/constants/spacing_constant.dart';
 import 'package:recything_application/constants/text_style_constant.dart';
-import 'package:recything_application/screens/article_detail/widget/content_section_widget.dart';
+import 'package:recything_application/screens/article/article_detail/widget/content_section_widget.dart';
 import 'package:recything_application/widgets/global_search_bar.dart';
 
-class ArticleScreen extends StatefulWidget {
-  const ArticleScreen({super.key});
+class ArticleDetailScreen extends StatefulWidget {
+  const ArticleDetailScreen({super.key});
 
   @override
-  State<ArticleScreen> createState() => _ArticleScreenState();
+  State<ArticleDetailScreen> createState() => _ArticleDetailScreenState();
 }
 
-class _ArticleScreenState extends State<ArticleScreen> {
+class _ArticleDetailScreenState extends State<ArticleDetailScreen> {
   final List<Map<String, String>> comments = [
     {
       "name": "Alfredo Schleifer",
