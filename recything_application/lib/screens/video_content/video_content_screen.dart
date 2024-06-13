@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:recything_application/constants/color_constant.dart';
 import 'package:recything_application/constants/spacing_constant.dart';
 import 'package:recything_application/constants/text_style_constant.dart';
+import 'package:recything_application/controllers/video_content_controller.dart';
 import 'package:recything_application/screens/video_content/detail_video_content_screen.dart';
+import 'package:recything_application/widgets/global_loading_widget.dart';
 
 import 'package:recything_application/widgets/global_search_bar.dart';
 
@@ -23,7 +26,8 @@ class _VideoContentScreenState extends State<VideoContentScreen> {
   ];
 
   int index = 0;
-
+  final VideoContentController videoContentController =
+      Get.put(VideoContentController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,7 +49,6 @@ class _VideoContentScreenState extends State<VideoContentScreen> {
                 height: 40,
                 width: double.infinity,
                 child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const Icon(
                       Icons.arrow_back,
@@ -88,28 +91,28 @@ class _VideoContentScreenState extends State<VideoContentScreen> {
                       });
                     },
                     isScrollable: true,
-                    tabs: [
+                    tabs: const [
                       Tab(
                         child: Padding(
-                          padding: const EdgeInsets.all(10),
+                          padding: EdgeInsets.all(10),
                           child: Text("Semua"),
                         ),
                       ),
                       Tab(
                         child: Padding(
-                          padding: const EdgeInsets.all(10),
+                          padding: EdgeInsets.all(10),
                           child: Text("Tips"),
                         ),
                       ),
                       Tab(
                         child: Padding(
-                          padding: const EdgeInsets.all(10),
+                          padding: EdgeInsets.all(10),
                           child: Text("Tutorial"),
                         ),
                       ),
                       Tab(
                         child: Padding(
-                          padding: const EdgeInsets.all(10),
+                          padding: EdgeInsets.all(10),
                           child: Text("Kampanye"),
                         ),
                       ),
@@ -124,71 +127,94 @@ class _VideoContentScreenState extends State<VideoContentScreen> {
                 ),
               ),
               SpacingConstant.verticalSpacing300,
-              Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.only(left: 8.5, right: 8.5),
-                  child: ListView.separated(
-                    separatorBuilder: (context, index) => const Padding(
-                      padding: EdgeInsets.only(
-                        bottom: 16,
-                        top: 7,
-                      ),
-                      child: Divider(
-                        color: ColorConstant.netralColor500,
-                      ),
-                    ),
-                    itemCount: 3,
-                    itemBuilder: (context, index) => GestureDetector(
-                      onTap: () => Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => DetailVideoContentScreen(),
+              Expanded(child: Obx(
+                () {
+                  if (videoContentController.isLoading.value == true) {
+                    return const Center(
+                      child: MyLoading(),
+                    );
+                  } else {
+                    return Padding(
+                      padding: const EdgeInsets.only(left: 8.5, right: 8.5),
+                      child: ListView.separated(
+                        separatorBuilder: (context, index) => const Padding(
+                          padding: EdgeInsets.only(
+                            bottom: 16,
+                            top: 7,
+                          ),
+                          child: Divider(
+                            color: ColorConstant.netralColor500,
+                          ),
                         ),
-                      ),
-                      child: Container(
-                        height: 235.5,
-                        width: double.infinity,
-                        child: Column(
-                          children: [
-                            Container(
-                              width: double.infinity,
-                              height: 155.5,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(4),
-                                image: const DecorationImage(
-                                  fit: BoxFit.cover,
-                                  image: AssetImage(
-                                    "assets/images/video_content/Cards Video.png",
-                                  ),
+                        itemCount: videoContentController
+                            .videoContentData.value!.data!.length,
+                        itemBuilder: (context, index) {
+                          var videoData = videoContentController
+                              .videoContentData.value!.data?[index];
+                          return GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      DetailVideoContentScreen(),
                                 ),
-                              ),
-                            ),
-                            SpacingConstant.verticalSpacing150,
-                            Column(
+                              );
+                              videoContentController
+                                  .getDetailVideoContent(videoData?.id ?? 0);
+                            },
+                            child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(
-                                  "Tips Hemat Energi: Praktik Ramah Lingkungan di Rumah",
-                                  style: TextStyleConstant.boldParagraph
-                                      .copyWith(
-                                          color: ColorConstant.netralColor900),
+                                Container(
+                                  width: double.infinity,
+                                  height: 155.5,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(4),
+                                  ),
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(4),
+                                    child: videoData?.urlThumbnail == ""
+                                        ? Image.asset(
+                                            "assets/images/video_content/placeholder_video_content.png",
+                                            fit: BoxFit.cover,
+                                          )
+                                        : Image.network(
+                                            "${videoData?.urlThumbnail}",
+                                            fit: BoxFit.cover,
+                                          ),
+                                  ),
                                 ),
-                                SpacingConstant.verticalSpacing100,
-                                Text(
-                                  "11 rb ditonton",
-                                  style: TextStyleConstant.regularFooter
-                                      .copyWith(
-                                          color: ColorConstant.netralColor900),
+                                SpacingConstant.verticalSpacing150,
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      "${videoData?.title}",
+                                      style: TextStyleConstant.boldParagraph
+                                          .copyWith(
+                                              color:
+                                                  ColorConstant.netralColor900),
+                                    ),
+                                    SpacingConstant.verticalSpacing100,
+                                    Text(
+                                      "${videoData?.viewer} ditonton",
+                                      style: TextStyleConstant.regularFooter
+                                          .copyWith(
+                                              color:
+                                                  ColorConstant.netralColor900),
+                                    ),
+                                  ],
                                 ),
                               ],
                             ),
-                          ],
-                        ),
+                          );
+                        },
                       ),
-                    ),
-                  ),
-                ),
-              ),
+                    );
+                  }
+                },
+              )),
             ],
           ),
         ),
