@@ -24,15 +24,8 @@ class DetailMissionScreen extends StatelessWidget {
       },
       builder: (controller) {
         final data = controller.data;
-        final batasAkhirChallenge =
-            DateTimeUtils(dateTimeStringInput: data['end_date']);
-        if (data == null) {
-          return const Scaffold(
-            body: Center(
-              child: CircularProgressIndicator(),
-            ),
-          );
-        } else {
+
+        if (data == null || data.isEmpty) {
           return Scaffold(
             appBar: AppBar(
               title: Text(
@@ -45,77 +38,100 @@ class DetailMissionScreen extends StatelessWidget {
               backgroundColor: ColorConstant.primaryColor500,
               foregroundColor: ColorConstant.whiteColor,
             ),
-            body: SingleChildScrollView(
-              child: Padding(
-                padding: const EdgeInsets.all(24),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    MissionHeader(
-                      imageUrl: data['thumbnail'],
-                      pointChallenge: data['point'].toString(),
-                    ),
-                    const SizedBox(height: 12),
-                    StatusDetailMissionWidget(
-                      status: data['status'] ? 'Bisa Diikuti' : 'Inactive',
-                    ),
-                    const SizedBox(height: 16),
-                    Text(
-                      data['title'],
-                      style: TextStyleConstant.semiboldHeading4,
-                    ),
-                    const SizedBox(height: 8),
-                    Text(
-                      data['description'],
-                      style: TextStyleConstant.regularParagraph,
-                    ),
-                    const SizedBox(height: 12),
-                    Text(
-                      'Batas Akhir:',
-                      style: TextStyleConstant.regularParagraph.copyWith(
-                        color: ColorConstant.netralColor600,
-                      ),
-                    ),
-                    const SizedBox(height: 8),
-                    Text(
-                      batasAkhirChallenge.convertDate(),
-                      style: TextStyleConstant.regularParagraph.copyWith(
-                        color: ColorConstant.primaryColor500,
-                      ),
-                    ),
-                    const SizedBox(height: 12),
-                    const Divider(),
-                    const SizedBox(height: 12),
-                    ListView.builder(
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
-                      itemCount: data['task_steps'].length,
-                      itemBuilder: (context, index) {
-                        final step = data['task_steps'][index];
-                        return MissionStepWidget(
-                          index: index,
-                          title: step['title'],
-                          description: step['description'],
-                          progress:
-                              'Not Started', // You can adjust this as needed
-                        );
-                      },
-                    ),
-                    const SizedBox(height: 12),
-                    ButtonChallengeWidget(
-                      challengeStarted: false,
-                      currentStep: 0,
-                      isUploadButton: false,
-                      proofUpload: false,
-                      statusChallenge: '',
-                      onPressed: () {},
-                    ),
-                  ],
-                ),
+            body: Center(
+              child: Text(
+                'Data not available.',
+                style: TextStyleConstant.semiboldTitle,
               ),
             ),
           );
         }
+
+        final batasAkhirChallenge =
+            DateTimeUtils(dateTimeStringInput: data['end_date']);
+
+        return Scaffold(
+          appBar: AppBar(
+            title: Text(
+              'Detail Challenge',
+              style: TextStyleConstant.semiboldTitle.copyWith(
+                color: ColorConstant.whiteColor,
+              ),
+            ),
+            centerTitle: true,
+            backgroundColor: ColorConstant.primaryColor500,
+            foregroundColor: ColorConstant.whiteColor,
+          ),
+          body: SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.all(24),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  MissionHeader(
+                    imageUrl: data['thumbnail'],
+                    pointChallenge: data['point'].toString(),
+                  ),
+                  const SizedBox(height: 12),
+                  StatusDetailMissionWidget(
+                    status: data['status'] ? 'Bisa Diikuti' : 'Inactive',
+                  ),
+                  const SizedBox(height: 16),
+                  Text(
+                    data['title'],
+                    style: TextStyleConstant.semiboldHeading4,
+                  ),
+                  const SizedBox(height: 8),
+                  Text(
+                    data['description'],
+                    style: TextStyleConstant.regularParagraph,
+                  ),
+                  const SizedBox(height: 12),
+                  Text(
+                    'Batas Akhir:',
+                    style: TextStyleConstant.regularParagraph.copyWith(
+                      color: ColorConstant.netralColor600,
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                  Text(
+                    batasAkhirChallenge.convertDate(),
+                    style: TextStyleConstant.regularParagraph.copyWith(
+                      color: ColorConstant.primaryColor500,
+                    ),
+                  ),
+                  const SizedBox(height: 12),
+                  const Divider(),
+                  const SizedBox(height: 12),
+                  ListView.builder(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemCount: data['task_steps'].length,
+                    itemBuilder: (context, index) {
+                      final step = data['task_steps'][index];
+                      return MissionStepWidget(
+                        index: index,
+                        title: step['title'],
+                        description: step['description'],
+                        progress:
+                            'Not Started', // You can adjust this as needed
+                      );
+                    },
+                  ),
+                  const SizedBox(height: 12),
+                  ButtonChallengeWidget(
+                    challengeStarted: false,
+                    currentStep: 0,
+                    isUploadButton: false,
+                    proofUpload: false,
+                    statusChallenge: '',
+                    onPressed: () {},
+                  ),
+                ],
+              ),
+            ),
+          ),
+        );
       },
     );
   }
