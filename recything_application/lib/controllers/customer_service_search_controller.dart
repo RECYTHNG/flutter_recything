@@ -73,4 +73,5 @@ class CustomerServiceSearchController extends GetxController {
     matchData.clear();
     searchController.value.text = newValue;
   }
+  
 }
