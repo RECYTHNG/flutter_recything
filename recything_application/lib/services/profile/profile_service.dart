@@ -7,16 +7,13 @@ import 'package:recything_application/models/user/user_model.dart';
 
 class ProfileService {
   var baseUrl = Env.recythingBaseUrl;
-  static Future<Map<String, dynamic>> putUser(
-      Map<String, dynamic> userData) async {
+  var authToken =
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiVVNSMDA3NiIsInJvbGUiOiJ1c2VyIiwiZXhwIjoxNzE4NTYxOTkyfQ.4bM4YIQsERHgG3uBACiwXgGZXeuHRGfqfbHx9GA4fQU";
+  Future<Map<String, dynamic>> putUser(Map<String, dynamic> userData) async {
     try {
-      var url =
-          "http://ec2-54-79-237-162.ap-southeast-2.compute.amazonaws.com:8080/api/v1";
-      var authToken =
-          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiVVNSMDAwNCIsInJvbGUiOiJ1c2VyIiwiZXhwIjoxNzE4NDMwOTA5fQ.pZk55H81OKr2UuHRFzeIerwyVx8RnDju_4JhnPD3EKs";
-
+      var url = "$baseUrl/user/profile";
       var response = await Dio().put(
-        '$url/user/profile',
+        url,
         data: userData,
         options: Options(
           headers: {
@@ -37,9 +34,6 @@ class ProfileService {
   Future<UserModel> uploadAvatar(XFile pickedImage) async {
     try {
       var url = "$baseUrl/user/uploadAvatar";
-      var authToken =
-          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiVVNSMDAwNCIsInJvbGUiOiJ1c2VyIiwiZXhwIjoxNzE4NDMwOTA5fQ.pZk55H81OKr2UuHRFzeIerwyVx8RnDju_4JhnPD3EKs";
-
       var mimeType = lookupMimeType(pickedImage.path) ?? 'multipart/form-data';
 
       var contentType = MediaType.parse(mimeType);

@@ -15,24 +15,9 @@ class GenderPickScreen extends StatefulWidget {
 }
 
 class _GenderPickScreenState extends State<GenderPickScreen> {
+  final UserController userController = Get.find();
+
   String selectedGender = '';
-
-  @override
-  void initState() {
-    super.initState();
-    final UserController userController = Get.find();
-    selectedGender = userController.userModel.value.data?.gender ?? '';
-  }
-
-  void _selectGender(String gender) {
-    setState(() {
-      if (selectedGender == gender) {
-        selectedGender = '';
-      } else {
-        selectedGender = gender;
-      }
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -60,138 +45,145 @@ class _GenderPickScreenState extends State<GenderPickScreen> {
         ),
         backgroundColor: ColorConstant.primaryColor500,
       ),
-      body: Container(
-        alignment: Alignment.center,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Column(
+      body: Obx(
+        () {
+          selectedGender = userController.userModel.value.data!.gender!;
+          return Container(
+            alignment: Alignment.center,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                SpacingConstant.verticalSpacing400,
-                Text(
-                  'Pilih Jenis Kelamin',
-                  style: TextStyleConstant.semiboldHeading3,
-                ),
-                SpacingConstant.verticalSpacing400,
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                Column(
                   children: [
-                    GestureDetector(
-                      onTap: () => _selectGender('Laki-laki'),
-                      child: Column(
-                        children: [
-                          Stack(
-                            alignment: Alignment.topRight,
+                    SpacingConstant.verticalSpacing400,
+                    Text(
+                      'Pilih Jenis Kelamin',
+                      style: TextStyleConstant.semiboldHeading3,
+                    ),
+                    SpacingConstant.verticalSpacing400,
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        GestureDetector(
+                          onTap: () => userController.updateGender('Laki-laki'),
+                          child: Column(
                             children: [
-                              SvgPicture.asset(
-                                IconConstant.iconMale,
-                                colorFilter: selectedGender == 'Laki-laki'
-                                    ? const ColorFilter.mode(
-                                        ColorConstant.primaryColor500,
-                                        BlendMode.srcIn)
-                                    : null,
+                              Stack(
+                                alignment: Alignment.topRight,
+                                children: [
+                                  SvgPicture.asset(
+                                    IconConstant.iconMale,
+                                    colorFilter: selectedGender == 'laki-laki'
+                                        ? const ColorFilter.mode(
+                                            ColorConstant.primaryColor500,
+                                            BlendMode.srcIn)
+                                        : null,
+                                  ),
+                                  if (selectedGender == 'laki-laki')
+                                    Container(
+                                      decoration: BoxDecoration(
+                                        borderRadius:
+                                            BorderRadius.circular(100),
+                                        color: Colors.white,
+                                      ),
+                                      child: const Icon(
+                                        size: 22,
+                                        Icons.check_circle_rounded,
+                                        color: ColorConstant.primaryColor500,
+                                      ),
+                                    ),
+                                ],
                               ),
-                              if (selectedGender == 'Laki-laki')
-                                Container(
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(100),
-                                    color: Colors.white,
-                                  ),
-                                  child: const Icon(
-                                    size: 22,
-                                    Icons.check_circle_rounded,
-                                    color: ColorConstant.primaryColor500,
-                                  ),
+                              const SizedBox(height: 8),
+                              Text(
+                                'laki-laki',
+                                style: TextStyle(
+                                  color: selectedGender == 'laki-laki'
+                                      ? ColorConstant.primaryColor500
+                                      : Colors.black,
+                                  fontWeight: FontWeight.bold,
                                 ),
+                              ),
                             ],
                           ),
-                          const SizedBox(height: 8),
-                          Text(
-                            'Laki-laki',
-                            style: TextStyle(
-                              color: selectedGender == 'Laki-laki'
-                                  ? ColorConstant.primaryColor500
-                                  : Colors.black,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    SpacingConstant.horizontalSpacing500,
-                    GestureDetector(
-                      onTap: () => _selectGender('Perempuan'),
-                      child: Column(
-                        children: [
-                          selectedGender != 'Perempuan'
-                              ? SvgPicture.asset(
-                                  IconConstant.iconFemale,
-                                )
-                              : SvgPicture.asset(
-                                  IconConstant.iconFemaleActive,
+                        ),
+                        SpacingConstant.horizontalSpacing500,
+                        GestureDetector(
+                          onTap: () => userController.updateGender('perempuan'),
+                          child: Column(
+                            children: [
+                              selectedGender != 'perempuan'
+                                  ? SvgPicture.asset(
+                                      IconConstant.iconFemale,
+                                    )
+                                  : SvgPicture.asset(
+                                      IconConstant.iconFemaleActive,
+                                    ),
+                              const SizedBox(height: 8),
+                              Text(
+                                'perempuan',
+                                style: TextStyle(
+                                  color: selectedGender == 'perempuan'
+                                      ? ColorConstant.primaryColor500
+                                      : Colors.black,
+                                  fontWeight: FontWeight.bold,
                                 ),
-                          const SizedBox(height: 8),
-                          Text(
-                            'Perempuan',
-                            style: TextStyle(
-                              color: selectedGender == 'Perempuan'
-                                  ? ColorConstant.primaryColor500
-                                  : Colors.black,
-                              fontWeight: FontWeight.bold,
-                            ),
+                              ),
+                            ],
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
                   ],
                 ),
-              ],
-            ),
-            Padding(
-              padding: const EdgeInsets.only(bottom: 56, right: 24, left: 24),
-              child: GestureDetector(
-                onTap: selectedGender == ''
-                    ? null
-                    : () {
-                        try {
-                          userController.userModel.update((user) {
-                            user?.data =
-                                user.data?.copyWith(gender: selectedGender);
-                          });
-                          Get.back();
-                        } catch (e) {
-                          print('Error in onTap: $e');
-                        }
-                      },
-                child: Container(
-                  padding: const EdgeInsets.all(8),
-                  width: double.infinity,
-                  alignment: Alignment.center,
-                  decoration: BoxDecoration(
-                    color: selectedGender == ''
-                        ? Colors.grey.shade300
-                        : ColorConstant.primaryColor500,
-                    borderRadius: BorderRadius.circular(12),
-                    border: Border.all(
-                      color: selectedGender == ''
-                          ? Colors.grey
-                          : ColorConstant.primaryColor500,
-                    ),
-                  ),
-                  child: Text(
-                    'Simpan',
-                    style: TextStyle(
-                      color: selectedGender == ''
-                          ? Colors.grey.shade600
-                          : Colors.white,
-                      fontSize: 20,
+                Padding(
+                  padding:
+                      const EdgeInsets.only(bottom: 56, right: 24, left: 24),
+                  child: GestureDetector(
+                    onTap: selectedGender == ''
+                        ? null
+                        : () {
+                            try {
+                              userController.userModel.update((user) {
+                                user?.data =
+                                    user.data?.copyWith(gender: selectedGender);
+                              });
+                              Get.back();
+                            } catch (e) {
+                              print('Error in onTap: $e');
+                            }
+                          },
+                    child: Container(
+                      padding: const EdgeInsets.all(8),
+                      width: double.infinity,
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                        color: selectedGender == ''
+                            ? Colors.grey.shade300
+                            : ColorConstant.primaryColor500,
+                        borderRadius: BorderRadius.circular(12),
+                        border: Border.all(
+                          color: selectedGender == ''
+                              ? Colors.grey
+                              : ColorConstant.primaryColor500,
+                        ),
+                      ),
+                      child: Text(
+                        'Simpan',
+                        style: TextStyle(
+                          color: selectedGender == ''
+                              ? Colors.grey.shade600
+                              : Colors.white,
+                          fontSize: 20,
+                        ),
+                      ),
                     ),
                   ),
                 ),
-              ),
+              ],
             ),
-          ],
-        ),
+          );
+        },
       ),
     );
   }

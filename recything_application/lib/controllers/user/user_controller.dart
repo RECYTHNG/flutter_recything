@@ -7,6 +7,8 @@ import 'package:recything_application/models/user/user_model.dart';
 class UserController extends GetxController {
   var userModel = UserModel().obs;
   var isLoading = false.obs;
+  ProfileService profileService = ProfileService();
+  UserService userService = UserService();
 
   @override
   void onInit() {
@@ -16,7 +18,7 @@ class UserController extends GetxController {
 
   void fetchUser() async {
     try {
-      UserModel fetchedUser = await UserService.getUser();
+      UserModel fetchedUser = await userService.getUser();
       userModel.value = fetchedUser;
     } catch (e) {
       print("Error fetching user data: $e");
@@ -26,7 +28,7 @@ class UserController extends GetxController {
   void updateUserProfile(
       Map<String, dynamic> updatedData, Function onSuccess) async {
     try {
-      var response = await ProfileService.putUser(updatedData);
+      var response = await profileService.putUser(updatedData);
       print("Response: ${response['message']}");
       if (response['code'] == 200) {
         fetchUser();
@@ -50,7 +52,6 @@ class UserController extends GetxController {
       final XFile? image = await picker.pickImage(source: ImageSource.gallery);
 
       if (image != null) {
-        ProfileService profileService = ProfileService();
         var response = await profileService.uploadAvatar(image);
         print("Response: ${response.message}");
         if (response.code == 200) {
