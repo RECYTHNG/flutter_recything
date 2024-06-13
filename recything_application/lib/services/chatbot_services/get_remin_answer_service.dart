@@ -1,25 +1,29 @@
 import 'dart:convert';
 import 'package:dio/dio.dart';
-import 'package:recything_application/env/env.dart';
+import 'package:recything_application/constants/api_key_constant.dart';
+import 'package:recything_application/utils/shared_pref.dart';
 
 class GetReminAnswerService {
-  
-  final Dio _dio = Dio(
-    BaseOptions(
-      baseUrl: (Env.recythingBaseUrl),
-      headers: {
-        'Content-Type': 'application/json; charset=UTF-8',
-        'Authorization':
-            'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiVVNSMDAwNCIsInJvbGUiOiJ1c2VyIiwiZXhwIjoxNzE4NTAzNjA2fQ._r8eWZoSOaFWHldXmM0VQzEVq96yUhavUQnqKKm3ZYM',
-      },
-    ),
-  );
+  final Dio dio = Dio();
+  var baseUrl = recythingBaseUrl;
 
   Future<String> postQuestion(String question) async {
     try {
-      final response = await _dio.post(
-        '/remin-ai',
+      var url = '$baseUrl/remin-ai';
+      String? authToken = await SharedPref.getToken();
+      if (authToken == null) {
+        throw Exception('Tidak ada token yang ditemukan');
+      }
+
+      final response = await dio.post(
+        url,
         data: jsonEncode({'question': question}),
+        options: Options(
+          headers: <String, String>{
+            'Content-Type': 'application/json; charset=UTF-8',
+            'Authorization': 'Bearer $authToken',
+          },
+        ),
       );
 
       if (response.statusCode == 200) {

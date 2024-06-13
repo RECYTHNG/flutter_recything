@@ -18,49 +18,50 @@ class CustomerServiceScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
+    return Scaffold(
+      appBar: AppBar(
         backgroundColor: ColorConstant.whiteColor,
-        body: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Kami Siap Membantu Anda',
-                  style: TextStyleConstant.boldSubtitle.copyWith(
-                    fontSize: 16.0,
-                    color: ColorConstant.netralColor900,
-                    fontWeight: FontWeight.w700,
-                  ),
+        elevation: 0.0,
+        title: CustomerServiceSearchContent(
+            customerServiceFaqController: customerServiceFaqController),
+      ),
+      backgroundColor: ColorConstant.whiteColor,
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'Kami Siap Membantu Anda',
+                style: TextStyleConstant.boldSubtitle.copyWith(
+                  fontSize: 16.0,
+                  color: ColorConstant.netralColor900,
+                  fontWeight: FontWeight.w700,
                 ),
-                SpacingConstant.verticalSpacing300,
-                CustomerServiceSearchContent(
-                    customerServiceFaqController: customerServiceFaqController),
-                SpacingConstant.verticalSpacing300,
-                const CustomerServiceMainCategoryContent(),
-                SpacingConstant.verticalSpacing400,
-                const Divider(
-                  color: ColorConstant.netralColor500,
-                  thickness: 1.0,
+              ),
+              SpacingConstant.verticalSpacing400,
+              const CustomerServiceMainCategoryContent(),
+              SpacingConstant.verticalSpacing400,
+              const Divider(
+                color: ColorConstant.netralColor500,
+                thickness: 1.0,
+              ),
+              SpacingConstant.verticalSpacing400,
+              Text(
+                'Pertanyaan yang sering diajukan',
+                style: TextStyleConstant.semiboldParagraph.copyWith(
+                  fontSize: 14.0,
+                  color: ColorConstant.netralColor600,
+                  fontWeight: FontWeight.w700,
                 ),
-                SpacingConstant.verticalSpacing400,
-                Text(
-                  'Pertanyaan yang sering diajukan',
-                  style: TextStyleConstant.semiboldParagraph.copyWith(
-                    fontSize: 14.0,
-                    color: ColorConstant.netralColor600,
-                    fontWeight: FontWeight.w700,
-                  ),
-                ),
-                SpacingConstant.verticalSpacing200,
-                CutomerServiceMainFaqContent(
-                    customerServiceFaqController: customerServiceFaqController),
-                SpacingConstant.verticalSpacing300,
-                const ReMinCustomerServiceWidget(),
-              ],
-            ),
+              ),
+              SpacingConstant.verticalSpacing200,
+              CutomerServiceMainFaqContent(
+                  customerServiceFaqController: customerServiceFaqController),
+              SpacingConstant.verticalSpacing300,
+              const ReMinCustomerServiceWidget(),
+            ],
           ),
         ),
       ),
