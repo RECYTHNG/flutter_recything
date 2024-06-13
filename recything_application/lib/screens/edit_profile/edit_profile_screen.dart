@@ -5,7 +5,6 @@ import 'package:recything_application/constants/color_constant.dart';
 import 'package:recything_application/constants/spacing_constant.dart';
 import 'package:recything_application/controllers/user/user_controller.dart';
 import 'package:recything_application/screens/edit_profile/content/gender_pick/gender_pick_screen.dart';
-import 'package:recything_application/screens/edit_profile/content/photo_pick/photo_pick_screen.dart';
 import 'package:recything_application/screens/edit_profile/content/success/success_screen.dart';
 import 'package:recything_application/screens/edit_profile/widget/date_picker_widget.dart';
 import 'package:recything_application/widgets/global_text_field_custom_widget.dart';
@@ -36,6 +35,14 @@ class EditProfileScreenState extends State<EditProfileScreen> {
     emailController.dispose();
     addressController.dispose();
     super.dispose();
+  }
+
+  Future<void> _pickImage() async {
+    controller.uploadAvatar(() {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Avatar updated successfully')),
+      );
+    });
   }
 
   @override
@@ -88,21 +95,29 @@ class EditProfileScreenState extends State<EditProfileScreen> {
                       clipBehavior: Clip.none,
                       children: [
                         Image.asset(
-                            'assets/images/edit_profile_images/Vector.png'),
+                          'assets/images/edit_profile_images/Vector.png',
+                        ),
                         Positioned(
                           bottom: -50,
                           child: Stack(
-                            clipBehavior: Clip.none,
                             alignment: Alignment.bottomCenter,
+                            clipBehavior: Clip.none,
                             children: [
-                              const CircleAvatar(
-                                backgroundColor: ColorConstant.blackColor10,
-                                radius: 48,
-                                child: Icon(
-                                  Icons.person,
-                                  color: Color(0xFF666666),
-                                  size: 48,
-                                ),
+                              ClipRRect(
+                                borderRadius: BorderRadius.circular(47.5),
+                                child: data?.pictureUrl == null ||
+                                        data!.pictureUrl!.isEmpty
+                                    ? const Icon(
+                                        Icons.person,
+                                        color: Color(0xFF666666),
+                                        size: 48,
+                                      )
+                                    : Image.network(
+                                        data.pictureUrl!,
+                                        fit: BoxFit.cover,
+                                        width: 95,
+                                        height: 95,
+                                      ),
                               ),
                               Positioned(
                                 bottom: -20,
@@ -119,7 +134,7 @@ class EditProfileScreenState extends State<EditProfileScreen> {
                     ),
                     SpacingConstant.verticalSpacing1000,
                     GestureDetector(
-                      onTap: () => Get.to(const PhotoPickerScreen()),
+                      onTap: _pickImage,
                       child: const Text(
                         'Ubah Foto Profil',
                         style: TextStyle(
