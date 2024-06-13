@@ -14,8 +14,9 @@ class HomeScreen extends StatelessWidget {
                   context,
                   MaterialPageRoute(
                     builder: (context) => DetailMissionScreen(
-                      statusChallenge: 'Bisa Diikuti',
-                      proofUpload: false,
+                      // statusChallenge: 'Bisa Diikuti',
+                      // proofUpload: false,
+                      taskId: 'TM0003',
                     ),
                   ));
             },

@@ -16,10 +16,14 @@ class MissionHeader extends StatelessWidget {
     return Stack(
       alignment: Alignment.bottomLeft,
       children: [
-        ClipRRect(
-          borderRadius: BorderRadius.circular(16),
-          child: Image.network(
-            imageUrl,
+        SizedBox(
+          width: double.infinity,
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(16),
+            child: Image.network(
+              imageUrl,
+              fit: BoxFit.cover,
+            ),
           ),
         ),
         Padding(

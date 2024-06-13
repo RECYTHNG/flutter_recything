@@ -142,8 +142,9 @@ class _ProofUploadScreenState extends State<ProofUploadScreen> {
                       context,
                       MaterialPageRoute(
                         builder: (context) => DetailMissionScreen(
-                          statusChallenge: 'Menunggu Verifikasi',
-                          proofUpload: true,
+                          // statusChallenge: 'Menunggu Verifikasi',
+                          // proofUpload: true,
+                          taskId: 'TM0003',
                         ),
                       ),
                     );
