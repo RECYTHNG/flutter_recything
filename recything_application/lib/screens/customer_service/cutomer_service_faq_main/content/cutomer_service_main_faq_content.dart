@@ -23,7 +23,7 @@ class CutomerServiceMainFaqContent extends StatelessWidget {
           );
         } else if (customerServiceFaqController.error.value.isNotEmpty) {
           return Center(
-            child: Text('Error: ${customerServiceFaqController.error.value}'),
+            child: Text('Opps! Ada Kesalahan'),
           );
         } else if (customerServiceFaqController.faqData.isEmpty) {
           return const Center(

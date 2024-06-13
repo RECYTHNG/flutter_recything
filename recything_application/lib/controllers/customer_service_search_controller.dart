@@ -40,8 +40,8 @@ class CustomerServiceSearchController extends GetxController {
         overlayBlur: 0.0,
         snackPosition: SnackPosition.BOTTOM,
         messageText: AwesomeSnackbarContent(
-          title: 'Error',
-          message: 'Message : ${e.toString()}',
+          title: 'Gagal',
+          message: 'Opps! Ada Kesalahan',
           contentType: ContentType.failure,
         ),
       );

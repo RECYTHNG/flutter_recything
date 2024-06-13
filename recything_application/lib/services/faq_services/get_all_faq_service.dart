@@ -1,14 +1,16 @@
 import 'package:dio/dio.dart';
+import 'package:recything_application/constants/api_key_constant.dart';
 import 'package:recything_application/models/faq/get_all_faq_model.dart';
 
 class GetAllFaqService {
   final Dio dio = Dio();
-
+  var baseUrl = recythingBaseUrl;
+  
   Future<GetAllFaqModel> getAllFaq() async {
     try {
-      var url = 'http://10.0.2.2:8080/api/v1/faqs';
+      var url = '$baseUrl/faqs';
       var authToken =
-          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiVVNSMDAwMSIsInJvbGUiOiJ1c2VyIiwiZXhwIjoxNzE4MDM3NTI4fQ.g3UgMZcZAKtqmNSRVXkcJ9ak3jRD5g9siilQ1qPKjtY';
+          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiVVNSMDAwNCIsInJvbGUiOiJ1c2VyIiwiZXhwIjoxNzE4NTAzNjA2fQ._r8eWZoSOaFWHldXmM0VQzEVq96yUhavUQnqKKm3ZYM';
       final response = await dio.get(
         url,
         options: Options(

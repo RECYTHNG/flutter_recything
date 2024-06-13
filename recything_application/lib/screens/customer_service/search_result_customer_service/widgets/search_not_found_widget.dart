@@ -10,36 +10,34 @@ class SearchingNotFoundWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Image.asset(
-              ImageConstant.searchNotFound,
-              width: 200.0,
-              height: 200.0,
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Image.asset(
+            ImageConstant.searchNotFound,
+            width: 200.0,
+            height: 200.0,
+          ),
+          Text(
+            'Tidak ada hasil',
+            style: TextStyleConstant.boldParagraph.copyWith(
+              color: ColorConstant.netralColor900,
             ),
-            Text(
-              'Tidak ada hasil',
-              style: TextStyleConstant.boldParagraph.copyWith(
-                color: ColorConstant.netralColor900,
-              ),
+          ),
+          Text(
+            'Kami tidak mendapatkan apa yang kamu maksud :(',
+            style: TextStyleConstant.mediumCaption.copyWith(
+              color: ColorConstant.netralColor900,
             ),
-            Text(
-              'Kami tidak mendapatkan apa yang kamu maksud :(',
-              style: TextStyleConstant.mediumCaption.copyWith(
-                color: ColorConstant.netralColor900,
-              ),
+          ),
+          Text(
+            'Lakukan Search ulang, yuk!',
+            style: TextStyleConstant.boldCaption.copyWith(
+              color: ColorConstant.netralColor900,
             ),
-            Text(
-              'Lakukan Search ulang, yuk!',
-              style: TextStyleConstant.boldCaption.copyWith(
-                color: ColorConstant.netralColor900,
-              ),
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

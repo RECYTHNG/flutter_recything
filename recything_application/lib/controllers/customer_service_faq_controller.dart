@@ -37,8 +37,8 @@ class CustomerServiceFaqController extends GetxController {
         overlayBlur: 0.0,
         snackPosition: SnackPosition.BOTTOM,
         messageText: AwesomeSnackbarContent(
-          title: 'Error',
-          message: 'Message : ${error.value}',
+          title: 'Gagal',
+          message: 'Opps! Ada Kesalahan',
           contentType: ContentType.failure,
         ),
       );

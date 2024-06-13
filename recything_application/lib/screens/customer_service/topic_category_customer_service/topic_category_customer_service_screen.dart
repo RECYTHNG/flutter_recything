@@ -43,12 +43,14 @@ class TopicCategoryCustomerServiceScreen extends StatelessWidget {
         child: Obx(
           () {
             if (customerServiceCategoryController.isLoading.value) {
-              return const Center(child: MyLoading());
+              return const Center(
+                child: MyLoading(),
+              );
             } else if (customerServiceCategoryController
                 .errorMessage.isNotEmpty) {
-              return Center(
-                  child: Text(
-                      customerServiceCategoryController.errorMessage.value));
+              return const Center(
+                child: Text('Opps! Ada Kesalahan'),
+              );
             } else {
               return ListView.builder(
                 itemCount:
