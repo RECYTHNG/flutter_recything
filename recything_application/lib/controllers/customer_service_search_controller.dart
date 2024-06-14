@@ -69,9 +69,10 @@ class CustomerServiceSearchController extends GetxController {
     }
   }
 
-  void onClickMatchedResult(newValue) {
-    matchData.clear();
+  void onClickMatchedResult(String newValue) {
+    queryInput.value = newValue;
     searchController.value.text = newValue;
+    matchData.value = [newValue];
+     matchData.clear();
   }
-  
 }

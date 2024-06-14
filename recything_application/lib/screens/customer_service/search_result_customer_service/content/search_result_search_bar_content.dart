@@ -49,11 +49,7 @@ class SearchResultSearchBarContent extends StatelessWidget {
             }
           },
           onChanged: (value) {
-            if (value.isEmpty) {
-              customerServiceSearchController.onChangedQuery(value);
-            } else {
-              customerServiceSearchController.onChangedQuery(value);
-            }
+            customerServiceSearchController.onChangedQuery(value);
           },
           onResultSelected: (newValue) {
             customerServiceSearchController.onClickMatchedResult(newValue);
