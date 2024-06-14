@@ -138,10 +138,13 @@ class _ArticleDetailScreenState extends State<ArticleDetailScreen> {
                 padding: const EdgeInsets.only(left: 16, right: 16, top: 16),
                 child: Row(
                   children: [
-                    Icon(
-                      Icons.arrow_back,
-                      color: ColorConstant.netralColor900,
-                      size: 28,
+                    GestureDetector(
+                      onTap: () => Navigator.pop(context),
+                      child: const Icon(
+                        Icons.arrow_back,
+                        color: ColorConstant.netralColor900,
+                        size: 28,
+                      ),
                     ),
                     SpacingConstant.horizontalSpacing200,
                     CircleAvatar(

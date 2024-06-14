@@ -137,53 +137,69 @@ class _ArticleListScreenState extends State<ArticleListScreen> {
                     ),
                     itemCount: 3,
                     itemBuilder: (context, index) => GestureDetector(
-                      onTap: () => Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => ArticleDetailScreen(),
-                        ),
-                      ),
-                      child: Container(
-                        height: 235.5,
-                        width: double.infinity,
-                        child: Column(
-                          children: [
-                            Container(
-                              width: double.infinity,
-                              height: 155.5,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(4),
-                                image: const DecorationImage(
-                                  fit: BoxFit.cover,
-                                  image: AssetImage(
-                                    "assets/images/video_content/Cards Video.png",
-                                  ),
-                                ),
+                        onTap: () => Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => ArticleDetailScreen(),
                               ),
                             ),
-                            SpacingConstant.verticalSpacing150,
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  "Tips Hemat Energi: Praktik Ramah Lingkungan di Rumah",
-                                  style: TextStyleConstant.boldParagraph
-                                      .copyWith(
-                                          color: ColorConstant.netralColor900),
+                        child: Container(
+                          height: 120,
+                          width: double.infinity,
+                          child: Row(
+                            children: [
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Row(
+                                      children: [
+                                        CircleAvatar(
+                                          radius: 16,
+                                          child: Icon(Icons.person),
+                                        ),
+                                        SpacingConstant.horizontalSpacing100,
+                                        Text('Full Name'),
+                                      ],
+                                    ),
+                                    SpacingConstant.verticalSpacing100,
+                                    Text(
+                                      "Tips Memilah Sampah Organik & Anorganik",
+                                      style: TextStyleConstant.boldParagraph
+                                          .copyWith(
+                                        color: ColorConstant.netralColor900,
+                                      ),
+                                    ),
+                                    SpacingConstant.verticalSpacing100,
+                                    Text(
+                                      "Tips untuk kalian yang baru mulai.",
+                                      style: TextStyleConstant.regularFooter
+                                          .copyWith(
+                                        color: ColorConstant.netralColor900,
+                                      ),
+                                    ),
+                                    Text(
+                                      "26 Mar 2024.",
+                                      style: TextStyleConstant.regularFooter
+                                          .copyWith(
+                                        color: ColorConstant.netralColor900,
+                                      ),
+                                    ),
+                                  ],
                                 ),
-                                SpacingConstant.verticalSpacing100,
-                                Text(
-                                  "11 rb ditonton",
-                                  style: TextStyleConstant.regularFooter
-                                      .copyWith(
-                                          color: ColorConstant.netralColor900),
+                              ),
+                              Expanded(
+                                child: Container(
+                                  height: double.infinity,
+                                  decoration: BoxDecoration(
+                                    color: ColorConstant.netralColor500,
+                                  ),
+                                  child: Icon(Icons.error),
                                 ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
+                              ),
+                            ],
+                          ),
+                        )),
                   ),
                 ),
               ),
