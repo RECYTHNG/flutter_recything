@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:recything_application/constants/color_constant.dart';
-import 'package:recything_application/constants/image_constant.dart';
 import 'package:recything_application/constants/text_style_constant.dart';
+import 'package:recything_application/controllers/home_controller.dart';
+import 'package:recything_application/screens/homepage/widgets/top_three_leaderboard_widget.dart';
 
 class LeaderboardSectionWidget extends StatelessWidget {
-  const LeaderboardSectionWidget({super.key});
+  LeaderboardSectionWidget({super.key});
+
+  final HomeController controller = Get.put(HomeController());
 
   @override
   Widget build(BuildContext context) {
@@ -46,31 +50,127 @@ class LeaderboardSectionWidget extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 12),
-          Container(
-            height: 197,
-            width: double.infinity,
-            decoration: BoxDecoration(
-              color: ColorConstant.primaryColor400,
-              borderRadius: BorderRadius.circular(12),
-            ),
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 24),
-              child: Column(
-                children: [
-                  Image.asset(
-                    ImageConstant.leaderboardKosong,
-                    height: 148,
+          Obx(
+            () {
+              if (controller.isLoading.value) {
+                return const Center(child: CircularProgressIndicator());
+              }
+
+              if (controller.leaderboard.isEmpty) {
+                return Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 24),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Container(
+                        height: 197,
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                          color: ColorConstant.primaryColor400,
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 24),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Image.asset(
+                                'assets/images/leaderboard/gambar_1.png',
+                                height: 148,
+                              ),
+                              Text(
+                                'Leaderboard masih kosong. Segera ikuti Challenge dan raih posisi teratas!',
+                                style:
+                                    TextStyleConstant.regularParagraph.copyWith(
+                                  color: ColorConstant.whiteColor,
+                                ),
+                                textAlign: TextAlign.center,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 16),
+                      SizedBox(
+                        width: double.infinity,
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: ColorConstant.whiteColor,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                            padding: const EdgeInsets.symmetric(vertical: 8),
+                          ),
+                          onPressed: () {},
+                          child: Text(
+                            'Ikuti Challenge',
+                            style: TextStyleConstant.regularTitle.copyWith(
+                              color: ColorConstant.primaryColor500,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
-                  Text(
-                    'Leaderboard masih kosong. Segera ikuti Challenge dan raih posisi teratas!',
-                    style: TextStyleConstant.regularParagraph.copyWith(
-                      color: ColorConstant.whiteColor,
+                );
+              }
+
+              controller.leaderboard.sort(
+                (a, b) => int.parse(b['point']!).compareTo(
+                  int.parse(a['point']!),
+                ),
+              );
+
+              return Padding(
+                padding: const EdgeInsets.symmetric(
+                  vertical: 8,
+                ),
+                child: Container(
+                  alignment: Alignment.center,
+                  height: 200,
+                  width: double.infinity,
+                  decoration: BoxDecoration(
+                    color: ColorConstant.primaryColor400,
+                    borderRadius: BorderRadius.circular(24),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 32),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        if (controller.leaderboard.length > 1)
+                          TopThreeLeaderboardItem(
+                            imageUrl: controller.leaderboard[1]['picture_url']!,
+                            name: controller.leaderboard[1]['name']!,
+                            score: controller.leaderboard[1]['point']!,
+                            rank: 2,
+                            medalAsset:
+                                'assets/images/home_images/leaderboard-badge/silver.svg',
+                          ),
+                        TopThreeLeaderboardItem(
+                          imageUrl: controller.leaderboard[0]['picture_url']!,
+                          name: controller.leaderboard[0]['name']!,
+                          score: controller.leaderboard[0]['point']!,
+                          rank: 1,
+                          medalAsset:
+                              'assets/images/home_images/leaderboard-badge/gold.svg',
+                        ),
+                        if (controller.leaderboard.length > 2)
+                          TopThreeLeaderboardItem(
+                            imageUrl: controller.leaderboard[2]['picture_url']!,
+                            name: controller.leaderboard[2]['name']!,
+                            score: controller.leaderboard[2]['point']!,
+                            rank: 3,
+                            medalAsset:
+                                'assets/images/home_images/leaderboard-badge/bronze.svg',
+                          ),
+                      ],
                     ),
-                    textAlign: TextAlign.center,
                   ),
-                ],
-              ),
-            ),
+                ),
+              );
+            },
           )
         ],
       ),

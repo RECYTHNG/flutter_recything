@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:recything_application/constants/color_constant.dart';
 import 'package:recything_application/constants/shadow_constant.dart';
 import 'package:recything_application/constants/text_style_constant.dart';
+import 'package:recything_application/controllers/home_controller.dart';
 
 class NewVideoSectionWidget extends StatelessWidget {
-  final List<Map<String, String>> carouselData;
+  NewVideoSectionWidget({super.key});
 
-  const NewVideoSectionWidget({super.key, required this.carouselData});
+  final HomeController controller = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -47,48 +49,70 @@ class NewVideoSectionWidget extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 12),
-          Container(
-            decoration: BoxDecoration(
-              boxShadow: ShadowConstant.shadowLg,
-            ),
-            height: 234,
-            child: ListView.builder(
-              scrollDirection: Axis.horizontal,
-              itemCount: carouselData.length,
-              itemBuilder: (context, index) {
-                final item = carouselData[index];
+          Obx(
+            () {
+              // Gunakan Obx untuk memantau perubahan pada controller.isLoading dan controller.videos
+              if (controller.isLoading.value) {
+                return Center(child: CircularProgressIndicator());
+              } else {
                 return Container(
-                  height: 234,
-                  width: 166,
-                  margin: const EdgeInsets.only(right: 8),
                   decoration: BoxDecoration(
-                    color: ColorConstant.whiteColor,
-                    borderRadius: BorderRadius.circular(12),
+                    boxShadow: ShadowConstant.shadowLg,
                   ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(12),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        AspectRatio(
-                          aspectRatio: 1 / 1,
-                          child: Image.asset(item['imagePath']!),
+                  height: 234,
+                  child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: controller.videos.length,
+                    itemBuilder: (context, index) {
+                      final item = controller.videos[index];
+                      final imagePath =
+                          item['imagePath'] ?? 'default_image_path.png';
+                      final title = item['title'] ?? 'Default Title';
+                      final views = (item['viewer']);
+
+                      String formattedViews;
+                      if (views >= 1000) {
+                        formattedViews =
+                            '${(views / 1000).toStringAsFixed(0)} rb';
+                      } else {
+                        formattedViews = '$views';
+                      }
+
+                      return Container(
+                        height: 234,
+                        width: 166,
+                        margin: const EdgeInsets.only(right: 8),
+                        decoration: BoxDecoration(
+                          color: ColorConstant.whiteColor,
+                          borderRadius: BorderRadius.circular(12),
                         ),
-                        Text(
-                          item['title']!,
-                          style: TextStyleConstant.semiboldParagraph,
+                        child: Padding(
+                          padding: const EdgeInsets.all(12),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              AspectRatio(
+                                aspectRatio: 1 / 1,
+                                child: Image.asset(imagePath),
+                              ),
+                              Text(
+                                title,
+                                style: TextStyleConstant.semiboldParagraph,
+                              ),
+                              Text(
+                                '$formattedViews ditonton',
+                                style: TextStyleConstant.regularFooter,
+                              ),
+                            ],
+                          ),
                         ),
-                        Text(
-                          item['views']!,
-                          style: TextStyleConstant.regularFooter,
-                        ),
-                      ],
-                    ),
+                      );
+                    },
                   ),
                 );
-              },
-            ),
+              }
+            },
           ),
         ],
       ),

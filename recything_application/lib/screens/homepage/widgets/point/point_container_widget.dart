@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 import 'package:recything_application/constants/color_constant.dart';
 import 'package:recything_application/constants/icon_constant.dart';
 import 'package:recything_application/constants/text_style_constant.dart';
+import 'package:recything_application/controllers/home_controller.dart';
 import 'package:recything_application/widgets/global_button_widget.dart';
 
 class PointsContainer extends StatelessWidget {
-  const PointsContainer({super.key});
+  PointsContainer({super.key});
+
+  final HomeController controller = Get.put(HomeController());
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +45,7 @@ class PointsContainer extends StatelessWidget {
               width: double.infinity,
               alignment: Alignment.centerLeft,
               child: Text(
-                '0',
+                controller.user['point'].toString(),
                 style: TextStyleConstant.semiboldHeading3.copyWith(
                   color: ColorConstant.whiteColor,
                 ),

@@ -96,7 +96,7 @@ class _ReportSectionWidgetState extends State<ReportSectionWidget> {
         AnimatedSmoothIndicator(
           activeIndex: _activeIndex,
           count: widget.carouselData.length,
-          effect: ExpandingDotsEffect(
+          effect: const ExpandingDotsEffect(
             dotWidth: 40,
             dotHeight: 4,
             activeDotColor: ColorConstant.netralColor900,
