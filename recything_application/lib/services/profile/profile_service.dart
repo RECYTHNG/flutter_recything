@@ -8,7 +8,7 @@ import 'package:recything_application/models/user/user_model.dart';
 class ProfileService {
   var baseUrl = Env.recythingBaseUrl;
   var authToken =
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiVVNSMDA3NiIsInJvbGUiOiJ1c2VyIiwiZXhwIjoxNzE4NTYxOTkyfQ.4bM4YIQsERHgG3uBACiwXgGZXeuHRGfqfbHx9GA4fQU";
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiVVNSMDAwNCIsInJvbGUiOiJ1c2VyIiwiZXhwIjoxNzIwOTM1ODA2fQ.XCiRcJ92sD4TwW5cxzKmqxhW_TGsdNgjI_RNY-EPVI4";
   Future<Map<String, dynamic>> putUser(Map<String, dynamic> userData) async {
     try {
       var url = "$baseUrl/user/profile";

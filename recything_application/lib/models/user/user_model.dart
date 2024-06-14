@@ -43,7 +43,6 @@ class Data {
   String? id;
   String? name;
   String? email;
-  String? phoneNumber;
   int? point;
   String? badge;
   String? gender;
@@ -55,7 +54,6 @@ class Data {
     this.id,
     this.name,
     this.email,
-    this.phoneNumber,
     this.point,
     this.badge,
     this.gender,
@@ -68,7 +66,6 @@ class Data {
         id: json["id"],
         name: json["name"],
         email: json["email"],
-        phoneNumber: json["phone_number"],
         point: json["point"],
         badge: json["badge"],
         gender: json["gender"],
@@ -83,7 +80,6 @@ class Data {
         "id": id,
         "name": name,
         "email": email,
-        "phone_number": phoneNumber,
         "point": point,
         "badge": badge,
         "gender": gender,
@@ -95,7 +91,6 @@ class Data {
     String? id,
     String? name,
     String? email,
-    String? phoneNumber,
     int? point,
     String? badge,
     String? gender,
@@ -107,7 +102,6 @@ class Data {
       id: id ?? this.id,
       name: name ?? this.name,
       email: email ?? this.email,
-      phoneNumber: phoneNumber ?? this.phoneNumber,
       point: point ?? this.point,
       badge: badge ?? this.badge,
       gender: gender ?? this.gender,

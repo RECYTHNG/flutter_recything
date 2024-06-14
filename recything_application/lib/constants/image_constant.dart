@@ -7,4 +7,6 @@ class ImageConstant {
       'assets/images/edit_profile_images/female.png';
   static const String successImage =
       'assets/images/edit_profile_images/success.png';
+  static const String backgroundImage =
+      'assets/images/edit_profile_images/background.png';
 }

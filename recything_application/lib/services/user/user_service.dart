@@ -3,11 +3,12 @@ import 'package:recything_application/env/env.dart';
 import 'package:recything_application/models/user/user_model.dart';
 
 class UserService {
-  var url = "${Env.recythingBaseUrl}/user/profile";
-  var authToken =
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiVVNSMDA3NiIsInJvbGUiOiJ1c2VyIiwiZXhwIjoxNzE4NTYxOTkyfQ.4bM4YIQsERHgG3uBACiwXgGZXeuHRGfqfbHx9GA4fQU";
+  var base = Env.recythingBaseUrl;
   Future<UserModel> getUser() async {
     try {
+      var url = "$base/user/profile";
+      var authToken =
+          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiVVNSMDAwNCIsInJvbGUiOiJ1c2VyIiwiZXhwIjoxNzIwOTM1ODA2fQ.XCiRcJ92sD4TwW5cxzKmqxhW_TGsdNgjI_RNY-EPVI4";
       var response = await Dio().get(
         url,
         options: Options(
