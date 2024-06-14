@@ -7,7 +7,7 @@ class AboutUsService {
   Future<AboutUsModel> getAboutUs(String param) async {
     try {
       var authToken =
-          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiVVNSMDAwNiIsInJvbGUiOiJ1c2VyIiwiZXhwIjoxNzE4MzU2MDM4fQ.m75Sl3hHOp6RbvSS-uayY2wLxGGComQsnO00zD3t-5c";
+          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiVVNSMDAwMyIsInJvbGUiOiJ1c2VyIiwiZXhwIjoxNzIwOTI2NDExfQ.NIBgmfUIoUAMPmBVgZZLriRvXTXf_oLkzbVEilfkCOY";
       final response = await Dio().get(
         "$baseUrl/about-us/category",
         queryParameters: {"name": param},
