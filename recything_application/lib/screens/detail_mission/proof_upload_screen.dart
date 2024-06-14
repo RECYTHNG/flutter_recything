@@ -76,12 +76,14 @@ class _ProofUploadScreenState extends State<ProofUploadScreen> {
           alignment: Alignment.center,
           padding: const EdgeInsets.all(24),
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const SizedBox(height: 24),
-              Text(
-                'Upload Aksimu',
-                style: TextStyleConstant.semiboldHeading4,
+              Center(
+                child: Text(
+                  'Upload Aksimu',
+                  style: TextStyleConstant.semiboldHeading4,
+                ),
               ),
               const SizedBox(height: 12),
               Padding(
@@ -94,7 +96,7 @@ class _ProofUploadScreenState extends State<ProofUploadScreen> {
               ),
               const SizedBox(height: 24),
               Text(
-                'Bukti 1',
+                'Bukti Pengerjaan Challenge',
                 style: TextStyleConstant.semiboldParagraph,
               ),
               const SizedBox(height: 8),
@@ -103,18 +105,14 @@ class _ProofUploadScreenState extends State<ProofUploadScreen> {
                 pickFiles: _pickFiles,
                 removeBukti: removeBuktiSatu,
               ),
-              const SizedBox(height: 24),
-              Text(
-                'Bukti 2',
-                style: TextStyleConstant.semiboldParagraph,
-              ),
               const SizedBox(height: 8),
-              BuktiDuaWidget(
-                selectedBukti: _selectedBukti2,
-                pickFiles: _pickFiles,
-                removeBukti: removeBuktiDua,
+              Text(
+                'max: 12 foto',
+                style: TextStyleConstant.regularParagraph.copyWith(
+                  color: ColorConstant.netralColor600,
+                ),
               ),
-              const SizedBox(height: 24),
+              const SizedBox(height: 64),
               Container(
                 alignment: Alignment.centerLeft,
                 child: Text(
@@ -156,7 +154,7 @@ class _ProofUploadScreenState extends State<ProofUploadScreen> {
                     ),
                   ),
                   child: Text(
-                    'Lanjutkan',
+                    'Upload Bukti',
                     style: TextStyleConstant.semiboldSubtitle.copyWith(
                       color: ColorConstant.whiteColor,
                     ),

@@ -17,67 +17,60 @@ class BuktiSatuWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return selectedBukti.isNotEmpty
-        ? Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              GridView.builder(
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  mainAxisSpacing: 12,
-                  crossAxisSpacing: 12,
-                  crossAxisCount: 3,
-                  childAspectRatio: 1 / 1,
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        GridView.builder(
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            mainAxisSpacing: 12,
+            crossAxisSpacing: 12,
+            crossAxisCount: 3,
+            childAspectRatio: 1 / 1,
+          ),
+          itemCount: selectedBukti.length + 1,
+          itemBuilder: (context, index) {
+            if (index == selectedBukti.length) {
+              return GestureDetector(
+                onTap: () => pickFiles(1),
+                child: SvgPicture.asset(
+                  IconConstant.uploadButtonAfter,
                 ),
-                itemCount: selectedBukti.length + 1,
-                itemBuilder: (context, index) {
-                  if (index == selectedBukti.length) {
-                    return GestureDetector(
-                      onTap: () => pickFiles(1),
-                      child: SvgPicture.asset(
-                        IconConstant.uploadButtonAfter,
+              );
+            } else {
+              return Stack(
+                children: [
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(12),
+                    child: AspectRatio(
+                      aspectRatio: 1 / 1,
+                      child: Image.file(
+                        File(selectedBukti[index]),
+                        fit: BoxFit.cover,
                       ),
-                    );
-                  } else {
-                    return Stack(
-                      children: [
-                        ClipRRect(
-                          borderRadius: BorderRadius.circular(12),
-                          child: AspectRatio(
-                            aspectRatio: 1 / 1,
-                            child: Image.file(
-                              File(selectedBukti[index]),
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                        ),
-                        Positioned(
-                          top: -6,
-                          right: -6,
-                          child: IconButton(
-                            icon: const Icon(
-                              Icons.close,
-                              color: Colors.white,
-                              size: 20,
-                            ),
-                            onPressed: () {
-                              removeBukti(index);
-                            },
-                          ),
-                        ),
-                      ],
-                    );
-                  }
-                },
-              ),
-            ],
-          )
-        : GestureDetector(
-            onTap: () => pickFiles(1),
-            child: SvgPicture.asset(
-              IconConstant.uploadButtonBefore,
-            ),
-          );
+                    ),
+                  ),
+                  Positioned(
+                    top: -6,
+                    right: -6,
+                    child: IconButton(
+                      icon: const Icon(
+                        Icons.close,
+                        color: Colors.white,
+                        size: 20,
+                      ),
+                      onPressed: () {
+                        removeBukti(index);
+                      },
+                    ),
+                  ),
+                ],
+              );
+            }
+          },
+        ),
+      ],
+    );
   }
 }

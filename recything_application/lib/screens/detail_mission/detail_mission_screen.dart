@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:recything_application/constants/color_constant.dart';
 import 'package:recything_application/constants/text_style_constant.dart';
 import 'package:recything_application/controllers/doing_task_detail_mission_controller.dart';
+import 'package:recything_application/screens/detail_mission/proof_upload_screen.dart';
 import 'package:recything_application/screens/detail_mission/widgets/mission_header_widget.dart';
 import 'package:recything_application/screens/detail_mission/widgets/mission_step_widget.dart';
 import 'package:recything_application/screens/detail_mission/widgets/status_detail_mission_widget.dart';
@@ -113,8 +114,7 @@ class DetailMissionScreen extends StatelessWidget {
                         index: index,
                         title: step['title'],
                         description: step['description'],
-                        progress:
-                            'Not Started', // You can adjust this as needed
+                        progress: 'Not Started',
                       );
                     },
                   ),
@@ -125,7 +125,14 @@ class DetailMissionScreen extends StatelessWidget {
                     isUploadButton: false,
                     proofUpload: false,
                     statusChallenge: '',
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => ProofUploadScreen(),
+                        ),
+                      );
+                    },
                   ),
                 ],
               ),
