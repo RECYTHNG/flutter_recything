@@ -12,7 +12,7 @@ class ProfileService {
       var url =
           "$baseUrl/user/uploadAvatar";
       var authToken =
-          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiVVNSMDAwNiIsInJvbGUiOiJ1c2VyIiwiZXhwIjoxNzE4MDIyMzgwfQ.wS_FNrWskyjRf6apfpjlRS8G5oCYveWWz536DCUPCRI";
+          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiVVNSMDAwMyIsInJvbGUiOiJ1c2VyIiwiZXhwIjoxNzIwOTI2NDExfQ.NIBgmfUIoUAMPmBVgZZLriRvXTXf_oLkzbVEilfkCOY";
 
       var mimeType = lookupMimeType(pickedImage.path) ?? 'multipart/form-data';
 

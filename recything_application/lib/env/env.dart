@@ -12,4 +12,7 @@ abstract class  Env {
 
   @EnviedField(varName: "MAPS_API_KEY")
   static const String mapsApiKey = _Env.mapsApiKey;
+
+  @EnviedField(varName: "TNC_BASE_URL")
+  static const String tncBaseUrl = _Env.tncBaseUrl;
 }

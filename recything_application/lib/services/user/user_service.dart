@@ -6,10 +6,9 @@ class UserService {
   var baseUrl = Env.recythingBaseUrl;
   Future<UserModel> getUser() async {
     try {
-      var url =
-          "http://ec2-54-79-237-162.ap-southeast-2.compute.amazonaws.com:8080/api/v1/user/profile";
+      var url = "$baseUrl/user/profile";
       var authToken =
-          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiVVNSMDAwNiIsInJvbGUiOiJ1c2VyIiwiZXhwIjoxNzE4MDIyMzgwfQ.wS_FNrWskyjRf6apfpjlRS8G5oCYveWWz536DCUPCRI";
+          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiVVNSMDAwMyIsInJvbGUiOiJ1c2VyIiwiZXhwIjoxNzIwOTI2NDExfQ.NIBgmfUIoUAMPmBVgZZLriRvXTXf_oLkzbVEilfkCOY";
       var response = await Dio().get(
         url,
         options: Options(
