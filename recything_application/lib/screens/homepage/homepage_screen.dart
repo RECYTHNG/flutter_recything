@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:recything_application/constants/color_constant.dart';
 import 'package:recything_application/constants/image_constant.dart';
 import 'package:recything_application/constants/text_style_constant.dart';
 import 'package:recything_application/screens/homepage/widgets/sections/article_section_widget.dart';
@@ -8,6 +9,7 @@ import 'package:recything_application/screens/homepage/widgets/sections/new_vide
 import 'package:recything_application/screens/homepage/widgets/point/point_container_widget.dart';
 import 'package:recything_application/screens/homepage/widgets/sections/report_section_widget.dart';
 import 'package:recything_application/screens/homepage/widgets/search_bar_widget.dart';
+import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class HomePageScreen extends StatefulWidget {
   const HomePageScreen({super.key});
@@ -27,14 +29,8 @@ class _HomePageScreenState extends State<HomePageScreen> {
     {
       'title': 'Kebersihan Lingkungan',
       'subtitle': 'Jaga kebersihan lingkungan',
-      'imagePath': 'assets/images/home_images/content_penumpukan_sampah.png',
+      'imagePath': 'assets/images/home_images/gambar_6.png',
       'footerText': 'Environmental Cleanliness',
-    },
-    {
-      'title': 'Pengelolaan Sampah',
-      'subtitle': 'Kelola sampah dengan bijak',
-      'imagePath': 'assets/images/home_images/content_penumpukan_sampah.png',
-      'footerText': 'Waste Management',
     },
   ];
 
@@ -59,6 +55,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: ColorConstant.whiteColor,
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -140,6 +137,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
             const SizedBox(height: 24),
             const SearchBarWidget(),
             ReportSectionWidget(carouselData: carouselDataReport),
+            const SizedBox(height: 12),
             const ArticleSectionWidget(),
             NewVideoSectionWidget(carouselData: carouselDataNewVideo),
             const LeaderboardSectionWidget(),

@@ -45,75 +45,128 @@ class ArticleSectionWidget extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 12),
-          Container(
-            width: 356,
-            height: 148,
-            decoration: BoxDecoration(
-              color: ColorConstant.whiteColor,
-              borderRadius: BorderRadius.circular(12),
-              boxShadow: ShadowConstant.shadowLg,
-            ),
-            child: Padding(
-              padding: const EdgeInsets.all(12),
+          SizedBox(
+            height: 200,
+            child: SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Container(
-                    width: 180,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Row(
-                          children: [
-                            Image.asset(
-                              'assets/images/home_images/avatar.png',
-                              width: 24,
+                    width: 356,
+                    height: 148,
+                    decoration: BoxDecoration(
+                      color: ColorConstant.whiteColor,
+                      borderRadius: BorderRadius.circular(12),
+                      boxShadow: ShadowConstant.shadowLg,
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(12),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Container(
+                            width: 180,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Row(
+                                  children: [
+                                    Image.asset(
+                                      'assets/images/home_images/avatar1.png',
+                                      width: 24,
+                                    ),
+                                    const SizedBox(width: 12),
+                                    Text(
+                                      'Kania Dekoruma',
+                                      style: TextStyleConstant.mediumFooter,
+                                    ),
+                                  ],
+                                ),
+                                Text(
+                                  'Jangan Sembarangan, Begini Cara Mengolah...',
+                                  style: TextStyleConstant.boldParagraph,
+                                ),
+                                Text(
+                                  'Tips untuk kalian yang baru mulai.',
+                                  style: TextStyleConstant.mediumFooter,
+                                ),
+                                Text(
+                                  '26 Maret 2024',
+                                  style: TextStyleConstant.mediumFooter,
+                                ),
+                                const SizedBox(width: 8),
+                              ],
                             ),
-                            const SizedBox(width: 12),
-                            Text(
-                              'Loka Tresna',
-                              style: TextStyleConstant.mediumFooter,
-                            ),
-                          ],
-                        ),
-                        Text(
-                          'Tips Memilah Sampah Organik & Anorganik',
-                          style: TextStyleConstant.boldParagraph,
-                        ),
-                        Text(
-                          'Tips untuk kalian yang baru mulai.',
-                          style: TextStyleConstant.mediumFooter,
-                        ),
-                        Row(
-                          children: [
-                            Text(
-                              '12 Mar',
-                              style: TextStyleConstant.mediumFooter,
-                            ),
-                            const SizedBox(width: 8),
-                            Text(
-                              '•',
-                              style: TextStyleConstant.mediumFooter,
-                            ),
-                            const SizedBox(width: 8),
-                            Text(
-                              '6 min',
-                              style: TextStyleConstant.mediumFooter,
-                            ),
-                          ],
-                        ),
-                      ],
+                          ),
+                          Image.asset(
+                            ImageConstant.gambar7,
+                            width: 148,
+                          )
+                        ],
+                      ),
                     ),
                   ),
-                  Image.asset(
-                    ImageConstant.gambar1,
-                    width: 148,
+                  SizedBox(width: 8),
+                  Container(
+                    width: 356,
+                    height: 148,
+                    decoration: BoxDecoration(
+                      color: ColorConstant.whiteColor,
+                      borderRadius: BorderRadius.circular(12),
+                      boxShadow: ShadowConstant.shadowLg,
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(12),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Container(
+                            width: 180,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Row(
+                                  children: [
+                                    Image.asset(
+                                      'assets/images/home_images/avatar2.png',
+                                      width: 24,
+                                    ),
+                                    const SizedBox(width: 12),
+                                    Text(
+                                      'Loka Tresna',
+                                      style: TextStyleConstant.mediumFooter,
+                                    ),
+                                  ],
+                                ),
+                                Text(
+                                  'Tips Memilah Sampah Organik & Anorganik',
+                                  style: TextStyleConstant.boldParagraph,
+                                ),
+                                Text(
+                                  'Tips untuk kalian yang baru mulai.',
+                                  style: TextStyleConstant.mediumFooter,
+                                ),
+                                Text(
+                                  '26 Maret 2024',
+                                  style: TextStyleConstant.mediumFooter,
+                                ),
+                              ],
+                            ),
+                          ),
+                          Image.asset(
+                            ImageConstant.gambar8,
+                            width: 148,
+                          )
+                        ],
+                      ),
+                    ),
                   )
                 ],
               ),
             ),
-          )
+          ),
         ],
       ),
     );

@@ -3,11 +3,26 @@ import 'package:flutter_carousel_widget/flutter_carousel_widget.dart';
 import 'package:recything_application/constants/color_constant.dart';
 import 'package:recything_application/constants/text_style_constant.dart';
 import 'package:recything_application/screens/homepage/widgets/custom_carousel_item_widget.dart';
+import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
-class ReportSectionWidget extends StatelessWidget {
+class ReportSectionWidget extends StatefulWidget {
   final List<Map<String, String>> carouselData;
 
   const ReportSectionWidget({super.key, required this.carouselData});
+
+  @override
+  _ReportSectionWidgetState createState() => _ReportSectionWidgetState();
+}
+
+class _ReportSectionWidgetState extends State<ReportSectionWidget> {
+  int _activeIndex = 0;
+  final PageController _pageController = PageController();
+
+  @override
+  void dispose() {
+    _pageController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -53,16 +68,21 @@ class ReportSectionWidget extends StatelessWidget {
           ),
         ),
         SizedBox(
-          height: 272,
+          height: 232,
           child: FlutterCarousel.builder(
             options: CarouselOptions(
-              height: 224,
+              height: 280,
               showIndicator: false,
+              onPageChanged: (index, reason) {
+                setState(() {
+                  _activeIndex = index;
+                });
+              },
             ),
-            itemCount: carouselData.length,
+            itemCount: widget.carouselData.length,
             itemBuilder:
                 (BuildContext context, int itemIndex, int pageViewIndex) {
-              final item = carouselData[itemIndex];
+              final item = widget.carouselData[itemIndex];
               return CustomCarouselItem(
                 pageViewIndex: pageViewIndex,
                 title: item['title']!,
@@ -72,7 +92,16 @@ class ReportSectionWidget extends StatelessWidget {
               );
             },
           ),
-        )
+        ),
+        AnimatedSmoothIndicator(
+          activeIndex: _activeIndex,
+          count: widget.carouselData.length,
+          effect: ExpandingDotsEffect(
+            dotWidth: 40,
+            dotHeight: 4,
+            activeDotColor: ColorConstant.netralColor900,
+          ),
+        ),
       ],
     );
   }
