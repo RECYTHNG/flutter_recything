@@ -1,14 +1,20 @@
 import 'package:dio/dio.dart';
+import 'package:recything_application/constants/api_key_constant.dart';
 import 'package:recything_application/models/achievement_model.dart';
+import 'package:recything_application/utils/shared_pref.dart';
 
 class AchievementService {
   final Dio dio = Dio();
+  var baseUrl = recythingBaseUrl;
 
   Future<AchievementModel> getAchievement() async {
     try {
-      var url = 'http://10.0.2.2:8080/api/v1/user/achievements';
-      var authToken =
-          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiVVNSMDAwMSIsInJvbGUiOiJ1c2VyIiwiZXhwIjoxNzE4NDQ0NDU1fQ.V-KqWJ2dI2y_ZgL8LVyo_ChsA2zfSp3Gi-4iIbv1wEU';
+      var url = '$baseUrl/user/achievements';
+      String? authToken = await SharedPref.getToken();
+      if (authToken == null) {
+        throw Exception('Tidak ada token yang ditemukan');
+      }
+
       final response = await dio.get(
         url,
         options: Options(
