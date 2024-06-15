@@ -1,3 +1,7 @@
+// To parse this JSON data, do
+//
+//     final aboutUsModel = aboutUsModelFromJson(jsonString);
+
 import 'dart:convert';
 
 AboutUsModel aboutUsModelFromJson(String str) =>
@@ -71,20 +75,24 @@ class Datum {
 
 class Image {
   String? aboutUsId;
+  String? name;
   String? imageUrl;
 
   Image({
     this.aboutUsId,
+    this.name,
     this.imageUrl,
   });
 
   factory Image.fromJson(Map<String, dynamic> json) => Image(
         aboutUsId: json["about_us_id"],
+        name: json["name"],
         imageUrl: json["image_url"],
       );
 
   Map<String, dynamic> toJson() => {
         "about_us_id": aboutUsId,
+        "name": name,
         "image_url": imageUrl,
       };
 }

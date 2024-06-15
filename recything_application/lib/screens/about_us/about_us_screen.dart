@@ -26,6 +26,11 @@ class AboutUsScreen extends StatelessWidget {
         children: [
           Expanded(
             child: ContainedTabBarView(
+              tabBarViewProperties: const TabBarViewProperties(
+                physics: ScrollPhysics(
+                  parent: NeverScrollableScrollPhysics(),
+                ),
+              ),
               callOnChangeWhileIndexIsChanging: true,
               initialIndex: aboutUsController.index.value,
               onChange: (index) {
@@ -204,30 +209,46 @@ class KenaliTimContent extends StatelessWidget {
                     } else if (aboutUsData!.images!.length >= 1) {
                       return AboutUsContentWidget(
                         title: aboutUsData.title.toString(),
-                        height: 98,
+                        height: 136,
                         width: double.infinity,
                         subTitle: aboutUsData.description.toString(),
                         child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 16),
+                          padding: const EdgeInsets.only(left: 16),
                           child: ListView.builder(
                             scrollDirection: Axis.horizontal,
                             itemCount: aboutUsData.images?.length,
                             itemBuilder: (context, index) {
-                              return Container(
-                                margin: const EdgeInsets.only(right: 20),
-                                height: 98,
-                                width: 98,
-                                decoration: BoxDecoration(
-                                  color: Colors.black,
-                                  borderRadius: BorderRadius.circular(8),
-                                ),
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(8),
-                                  child: Image.network(
-                                    "${aboutUsData.images?[index].imageUrl}",
-                                    fit: BoxFit.cover,
+                              return Column(
+                                children: [
+                                  Container(
+                                    margin: const EdgeInsets.only(right: 16),
+                                    height: 98,
+                                    width: 98,
+                                    decoration: BoxDecoration(
+                                      color: Colors.black,
+                                      borderRadius: BorderRadius.circular(8),
+                                    ),
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(8),
+                                      child: Image.network(
+                                        "${aboutUsData.images?[index].imageUrl}",
+                                        fit: BoxFit.cover,
+                                      ),
+                                    ),
                                   ),
-                                ),
+                                  Container(
+                                    alignment: Alignment.topCenter,
+                                    margin: const EdgeInsets.only(right: 16),
+                                    width: 98,
+                                    child: Text(
+                                      "${aboutUsData.images?[index].name}",
+                                      textAlign: TextAlign.center,
+                                      style: TextStyleConstant.boldCaption
+                                          .copyWith(
+                                              color: ColorConstant.blackColor),
+                                    ),
+                                  )
+                                ],
                               );
                             },
                           ),
