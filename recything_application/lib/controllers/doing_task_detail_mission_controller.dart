@@ -2,15 +2,17 @@ import 'package:get/get.dart';
 import 'package:recything_application/services/detail_mission_service/get_task_service.dart';
 
 class DoingTaskDetailMissionController extends GetxController {
-  var data;
-
+  var data = {}.obs; // Using RxMap for reactivity
   final GetTaskService _getTaskService = GetTaskService();
 
-  Future<void> getData(String taskId) async {
+  Map<int, bool> userStepCompletionMap = {};
+
+  Future<void> getData(String userTaskId) async {
     try {
-      final responseData = await _getTaskService.getDataChallenge(taskId);
+      final responseData = await _getTaskService.getDataChallenge(userTaskId);
       if (responseData.containsKey('data')) {
-        data = responseData['data'];
+        data.value = responseData['data'];
+        _createUserStepCompletionMap();
         update();
       } else {
         throw Exception('Failed to fetch data');
@@ -18,5 +20,18 @@ class DoingTaskDetailMissionController extends GetxController {
     } catch (e) {
       throw Exception('Failed to fetch data: $e');
     }
+  }
+
+  void _createUserStepCompletionMap() {
+    userStepCompletionMap.clear();
+    if (data.containsKey('task_challenge')) {
+      for (var userStep in data['task_challenge']['user_steps']) {
+        userStepCompletionMap[userStep['task_step_id']] = userStep['completed'];
+      }
+    }
+  }
+
+  bool isStepCompleted(int stepId) {
+    return userStepCompletionMap[stepId] ?? false;
   }
 }

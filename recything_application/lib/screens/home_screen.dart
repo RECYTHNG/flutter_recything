@@ -16,7 +16,7 @@ class HomeScreen extends StatelessWidget {
                     builder: (context) => DetailMissionScreen(
                       // statusChallenge: 'Bisa Diikuti',
                       // proofUpload: false,
-                      taskId: 'TM0001',
+                      userTaskId: 'UT0002',
                     ),
                   ));
             },

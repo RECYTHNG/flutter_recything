@@ -142,7 +142,7 @@ class _ProofUploadScreenState extends State<ProofUploadScreen> {
                         builder: (context) => DetailMissionScreen(
                           // statusChallenge: 'Menunggu Verifikasi',
                           // proofUpload: true,
-                          taskId: 'TM0003',
+                          userTaskId: 'TM0003',
                         ),
                       ),
                     );

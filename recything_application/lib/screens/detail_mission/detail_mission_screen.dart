@@ -11,9 +11,9 @@ import 'package:recything_application/screens/detail_mission/widgets/button_chal
 import 'package:recything_application/utils/date_time_utils.dart';
 
 class DetailMissionScreen extends StatelessWidget {
-  final String taskId;
+  final String userTaskId;
 
-  DetailMissionScreen({super.key, required this.taskId}) {
+  DetailMissionScreen({super.key, required this.userTaskId}) {
     Get.put(DoingTaskDetailMissionController());
   }
 
@@ -21,12 +21,12 @@ class DetailMissionScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetBuilder<DoingTaskDetailMissionController>(
       initState: (_) {
-        Get.find<DoingTaskDetailMissionController>().getData(taskId);
+        Get.find<DoingTaskDetailMissionController>().getData(userTaskId);
       },
       builder: (controller) {
         final data = controller.data;
 
-        if (data == null || data.isEmpty) {
+        if (data.isEmpty) {
           return Scaffold(
             appBar: AppBar(
               title: Text(
@@ -48,8 +48,8 @@ class DetailMissionScreen extends StatelessWidget {
           );
         }
 
-        final batasAkhirChallenge =
-            DateTimeUtils(dateTimeStringInput: data['end_date']);
+        final batasAkhirChallenge = DateTimeUtils(
+            dateTimeStringInput: data['task_challenge']['end_date']);
 
         return Scaffold(
           appBar: AppBar(
@@ -70,21 +70,21 @@ class DetailMissionScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   MissionHeader(
-                    imageUrl: data['thumbnail'],
-                    pointChallenge: data['point'].toString(),
+                    imageUrl: data['task_challenge']['thumbnail'],
+                    pointChallenge: data['task_challenge']['point'].toString(),
                   ),
                   const SizedBox(height: 12),
                   StatusDetailMissionWidget(
-                    status: data['status'] ? 'Bisa Diikuti' : 'Inactive',
+                    status: data['status_progress'],
                   ),
                   const SizedBox(height: 16),
                   Text(
-                    data['title'],
+                    data['task_challenge']['title'],
                     style: TextStyleConstant.semiboldHeading4,
                   ),
                   const SizedBox(height: 8),
                   Text(
-                    data['description'],
+                    data['task_challenge']['description'],
                     style: TextStyleConstant.regularParagraph,
                   ),
                   const SizedBox(height: 12),
@@ -107,14 +107,17 @@ class DetailMissionScreen extends StatelessWidget {
                   ListView.builder(
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
-                    itemCount: data['task_steps'].length,
+                    itemCount: data['task_challenge']['task_steps'].length,
                     itemBuilder: (context, index) {
-                      final step = data['task_steps'][index];
+                      final step = data['task_challenge']['task_steps'][index];
+                      final stepId = step['id'];
+                      final isCompleted = controller.isStepCompleted(stepId);
+                      final progress = isCompleted ? 'done' : 'progress';
                       return MissionStepWidget(
                         index: index,
                         title: step['title'],
                         description: step['description'],
-                        progress: 'Not Started',
+                        progress: progress,
                       );
                     },
                   ),
@@ -129,7 +132,7 @@ class DetailMissionScreen extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => ProofUploadScreen(),
+                          builder: (context) => const ProofUploadScreen(),
                         ),
                       );
                     },

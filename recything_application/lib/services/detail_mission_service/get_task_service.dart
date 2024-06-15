@@ -13,9 +13,9 @@ class GetTaskService {
     ),
   );
 
-  Future<Map<String, dynamic>> getDataChallenge(String taskId) async {
+  Future<Map<String, dynamic>> getDataChallenge(String userTaskId) async {
     try {
-      final response = await _dio.get('/user/tasks/$taskId');
+      final response = await _dio.get('/user/task/$userTaskId');
       if (response.statusCode == 200) {
         return response.data;
       } else {
