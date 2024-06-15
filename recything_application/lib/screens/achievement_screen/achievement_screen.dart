@@ -22,7 +22,7 @@ class _AchievementScreenState extends State<AchievementScreen> {
         appBar: AppBar(
           bottom: TabBar(
               tabs: const [
-                Tab(text: 'Calssic'),
+                Tab(text: 'Classic'),
                 Tab(text: 'Silver'),
                 Tab(text: 'Gold'),
                 Tab(text: 'Platinum'),
