@@ -6,7 +6,7 @@ import 'package:recything_application/models/video_content/video_content_model.d
 class VideoContentService {
   var baseUrl = Env.recythingBaseUrl;
   var authToken =
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiVVNSMDAwNiIsInJvbGUiOiJ1c2VyIiwiZXhwIjoxNzE4MzU2MDM4fQ.m75Sl3hHOp6RbvSS-uayY2wLxGGComQsnO00zD3t-5c";
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiVVNSMDAwMyIsInJvbGUiOiJ1c2VyIiwiZXhwIjoxNzIwOTI2NDExfQ.NIBgmfUIoUAMPmBVgZZLriRvXTXf_oLkzbVEilfkCOY";
   Future<VideoContentModel> getVideoContent() async {
     try {
       final response = await Dio().get(
@@ -46,7 +46,7 @@ class VideoContentService {
   Future<DetailVideoContentModel> getDetailVideoContent(int id) async {
     try {
       final response = await Dio().get(
-        "$baseUrl/videos/$id",
+        "$baseUrl/video/$id",
         options: Options(
           headers: {
             'Authorization': 'Bearer $authToken',
@@ -76,20 +76,27 @@ class VideoContentService {
     }
   }
 
-  void postComment(int id, String comment) async {
+  Future<void> postComment(int id, String comment) async {
     try {
-      await Dio().post("$baseUrl/videos/comment",
-          data: {
-            "video_id": id,
-            "comment": comment,
+      final response = await Dio().post(
+        "$baseUrl/videos/comment",
+        data: {
+          "video_id": id,
+          "comment": comment,
+        },
+        options: Options(
+          headers: {
+            'Authorization': 'Bearer $authToken',
           },
-          options: Options(
-            headers: {
-              'Authorization': 'Bearer $authToken',
-            },
-          ));
+        ),
+      );
+      if (response.statusCode == 201) {
+        print("Successfully sent comment.");
+      } else {
+        print("Failed to send comment: ${response.statusMessage}");
+      }
     } on DioException catch (e) {
-      print(e.toString());
+      print("Error posting comment: ${e.toString()}");
     }
   }
 }

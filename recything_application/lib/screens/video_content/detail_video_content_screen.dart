@@ -49,18 +49,15 @@ class DetailVideoContentScreen extends StatelessWidget {
                                         .youtubePlayerController!
                                         .addListener(
                                       () {
-                                        // Sesuaikan UI atau perilaku berdasarkan status fullscreen
                                         if (videoContentController
                                             .youtubePlayerController!
                                             .value
                                             .isFullScreen) {
                                           SystemChrome.setEnabledSystemUIMode(
                                               SystemUiMode.immersiveSticky);
-                                          // Tindakan tambahan saat memasuki fullscreen
                                         } else {
                                           SystemChrome.setEnabledSystemUIMode(
                                               SystemUiMode.edgeToEdge);
-                                          // Tindakan tambahan saat keluar dari fullscreen
                                         }
                                       },
                                     );
@@ -173,8 +170,8 @@ class DetailVideoContentScreen extends StatelessWidget {
                                           height: 35,
                                           name: commentsData["user_name"],
                                           kometar: commentsData["comment"],
-                                          image: const AssetImage(
-                                            "assets/images/video_content/Ellipse 339.png",
+                                          image: NetworkImage(
+                                            commentsData["user_profile"],
                                           ),
                                         );
                                       },
@@ -326,7 +323,7 @@ class DetailVideoContentScreen extends StatelessWidget {
                                                                               ),
                                                                             ),
                                                                             Text(
-                                                                              "15 menit",
+                                                                              comentVideo["created_at"],
                                                                               style: TextStyleConstant.regularFooter.copyWith(
                                                                                 color: ColorConstant.netralColor600,
                                                                               ),
@@ -382,26 +379,35 @@ class DetailVideoContentScreen extends StatelessWidget {
                                               child: GlobalSearchBar(
                                                 controller:
                                                     videoContentController
-                                                        .comentController,
+                                                        .commentController,
                                                 prefixIcon: const Icon(
                                                   Icons.person,
                                                   size: 24,
                                                 ),
-                                                suffixIcon: GestureDetector(
-                                                  onTap: () {
-                                                    // print(videoContentController
-                                                    //     .comentController);
-                                                    // print(detailVideoData
-                                                    //     .dataVideo?.id);
-                                                    videoContentService
-                                                        .postComment(
-                                                            detailVideoData
-                                                                .dataVideo!.id!,
-                                                            videoContentController
-                                                                .comentController
-                                                                .text);
+                                                suffixIcon: IconButton(
+                                                  onPressed: () {
+                                                    if (videoContentController
+                                                        .commentController
+                                                        .text
+                                                        .isNotEmpty) {
+                                                      videoContentController
+                                                          .postComment(
+                                                        detailVideoData
+                                                            .dataVideo!.id!,
+                                                        videoContentController
+                                                            .commentController
+                                                            .text,
+                                                      );
+                                                      videoContentController
+                                                          .commentController
+                                                          .clear();
+                                                      Navigator.pop(context);
+                                                    } else {
+                                                      Get.snackbar("Error",
+                                                          "Comment cannot be empty");
+                                                    }
                                                   },
-                                                  child: const Icon(
+                                                  icon: const Icon(
                                                     Icons.send,
                                                     size: 16,
                                                     color: ColorConstant
