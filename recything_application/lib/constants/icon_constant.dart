@@ -1,5 +1,10 @@
 class IconConstant {
-  //achievement
+  //Customer Service
+  static const String sentimenSatisfiedIcon = 'assets/icons/icon_sentiment_satisfied.svg';
+  static const String sentimenDissatisfiedIcon = 'assets/icons/icon_sentiment_dissatisfied.svg';
+  static const String checkCircleIcon = 'assets/icons/icon_check_circle.svg';
+
+   //achievement
   static const String achievementIcon = 'assets/icons/icon_achievement.svg';
   static const String unlockAchievement =
       'assets/icons/icon_unlock_achievement.svg';
