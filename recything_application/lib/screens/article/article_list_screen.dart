@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:recything_application/constants/color_constant.dart';
+import 'package:recything_application/constants/image_constant.dart';
 import 'package:recything_application/constants/spacing_constant.dart';
 import 'package:recything_application/constants/text_style_constant.dart';
+import 'package:recything_application/controllers/article/article_controller.dart';
 import 'package:recything_application/screens/article/article_detail/article_detail_screen.dart';
+import 'package:recything_application/widgets/global_loading_widget.dart';
 import 'package:recything_application/widgets/global_search_bar.dart';
+import 'package:recything_application/models/article/list_article_model.dart';
 
 class ArticleListScreen extends StatefulWidget {
   const ArticleListScreen({super.key});
@@ -13,26 +18,25 @@ class ArticleListScreen extends StatefulWidget {
 }
 
 class _ArticleListScreenState extends State<ArticleListScreen> {
-  List<Widget> menuWidget = [
-    Text('Semua'),
-    Text('Tips'),
-    Text('Tutorial'),
-    Text('Kampanye'),
-    Text('Daur Ulang'),
+  List<String> menuWidget = [
+    'Semua',
+    'Tips',
+    'Tutorial',
+    'Kampanye',
+    'Daur Ulang',
   ];
 
   int index = 0;
+  final ArticleController articleController = Get.put(ArticleController());
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: ColorConstant.whiteColor,
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.only(
-            left: 16,
-            top: 16,
-            right: 16,
-            bottom: 16,
+          padding: const EdgeInsets.symmetric(
+            vertical: 16,
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -50,12 +54,15 @@ class _ArticleListScreenState extends State<ArticleListScreen> {
                       size: 24,
                     ),
                     SpacingConstant.horizontalSpacing300,
-                    const Expanded(
+                    Expanded(
                       child: GlobalSearchBar(
                         prefixIcon: Icon(Icons.search),
                         hintText: "Search",
                         height: 40,
                         width: double.infinity,
+                        onChanged: (value) {
+                          articleController.setKeyword(value);
+                        },
                       ),
                     )
                   ],
@@ -64,7 +71,7 @@ class _ArticleListScreenState extends State<ArticleListScreen> {
               SpacingConstant.verticalSpacing300,
               DefaultTabController(
                 initialIndex: index,
-                length: 5,
+                length: menuWidget.length,
                 child: Container(
                   color: ColorConstant.whiteColor,
                   height: 42,
@@ -83,124 +90,166 @@ class _ArticleListScreenState extends State<ArticleListScreen> {
                     onTap: (value) {
                       setState(() {
                         index = value;
+                        articleController.setKeyword(menuWidget[index]);
                       });
                     },
                     isScrollable: true,
-                    tabs: [
-                      Tab(
-                        child: Padding(
-                          padding: const EdgeInsets.all(10),
-                          child: Text("Semua"),
-                        ),
-                      ),
-                      Tab(
-                        child: Padding(
-                          padding: const EdgeInsets.all(10),
-                          child: Text("Tips"),
-                        ),
-                      ),
-                      Tab(
-                        child: Padding(
-                          padding: const EdgeInsets.all(10),
-                          child: Text("Tutorial"),
-                        ),
-                      ),
-                      Tab(
-                        child: Padding(
-                          padding: const EdgeInsets.all(10),
-                          child: Text("Kampanye"),
-                        ),
-                      ),
-                      Tab(
-                        child: Padding(
-                          padding: const EdgeInsets.all(10),
-                          child: Text("Daur Ulang"),
-                        ),
-                      ),
-                    ],
+                    tabs: menuWidget
+                        .map((e) => Tab(
+                              child: Padding(
+                                padding: const EdgeInsets.all(10),
+                                child: Text(e),
+                              ),
+                            ))
+                        .toList(),
                   ),
                 ),
               ),
               SpacingConstant.verticalSpacing300,
               Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.only(left: 8.5, right: 8.5),
-                  child: ListView.separated(
-                    separatorBuilder: (context, index) => const Padding(
-                      padding: EdgeInsets.only(
-                        bottom: 16,
-                        top: 7,
-                      ),
-                      child: Divider(
-                        color: ColorConstant.netralColor500,
-                      ),
-                    ),
-                    itemCount: 3,
-                    itemBuilder: (context, index) => GestureDetector(
-                        onTap: () => Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => ArticleDetailScreen(),
-                              ),
+                child: Obx(
+                  () {
+                    if (articleController.isLoading.value) {
+                      return const Center(
+                        child: MyLoading(),
+                      );
+                    } else if (articleController.articles.value.data?.isEmpty ??
+                        true) {
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 32.0),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Image.asset(ImageConstant.notFound),
+                            Text(
+                              'Waduhh, pencarianmu tidak ada nih!',
+                              style: TextStyleConstant.boldTitle,
                             ),
-                        child: Container(
-                          height: 120,
-                          width: double.infinity,
-                          child: Row(
-                            children: [
-                              Expanded(
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Row(
+                            Text(
+                              'Kami tidak mendapatkan apa yang kamu maksud :(',
+                              style: TextStyleConstant.regularParagraph,
+                            ),
+                            Text(
+                              'Lakukan Search ulang, yuk!',
+                              style: TextStyleConstant.boldSubtitle,
+                            ),
+                          ],
+                        ),
+                      );
+                    } else {
+                      return ListView.builder(
+                        itemCount:
+                            articleController.articles.value.data?.length ?? 0,
+                        itemBuilder: (context, index) {
+                          Data article =
+                              articleController.articles.value.data![index];
+                          return GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      const ArticleDetailScreen(),
+                                  settings: RouteSettings(
+                                    arguments: article.id,
+                                  ),
+                                ),
+                              );
+                            },
+                            child: Container(
+                              padding: const EdgeInsets.only(
+                                bottom: 32,
+                                top: 20,
+                                right: 16,
+                                left: 16,
+                              ),
+                              height: 180,
+                              width: double.infinity,
+                              decoration: const BoxDecoration(
+                                border: Border(
+                                  bottom: BorderSide(
+                                    color: ColorConstant.netralColor600,
+                                    width: 1,
+                                  ),
+                                ),
+                              ),
+                              child: Row(
+                                children: [
+                                  Expanded(
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: [
-                                        CircleAvatar(
-                                          radius: 16,
-                                          child: Icon(Icons.person),
+                                        Row(
+                                          children: [
+                                            const CircleAvatar(
+                                              radius: 12,
+                                              child: Icon(Icons.person),
+                                            ),
+                                            SpacingConstant
+                                                .horizontalSpacing100,
+                                            Text(article.author!.name ??
+                                                'Unknown'),
+                                          ],
                                         ),
-                                        SpacingConstant.horizontalSpacing100,
-                                        Text('Full Name'),
+                                        SpacingConstant.verticalSpacing100,
+                                        Text(
+                                          article.title ?? '',
+                                          style: TextStyleConstant.boldSubtitle
+                                              .copyWith(
+                                            color: ColorConstant.netralColor900,
+                                          ),
+                                          overflow: TextOverflow.ellipsis,
+                                          maxLines: 2,
+                                        ),
+                                        SpacingConstant.verticalSpacing100,
+                                        Text(
+                                          article.description ?? '',
+                                          style: TextStyleConstant
+                                              .regularParagraph
+                                              .copyWith(
+                                            color: ColorConstant.netralColor900,
+                                          ),
+                                          overflow: TextOverflow.ellipsis,
+                                          maxLines: 1,
+                                        ),
+                                        Text(
+                                          article.createdAt != null
+                                              ? article.createdAt!.toString()
+                                              : '',
+                                          style: TextStyleConstant.regularFooter
+                                              .copyWith(
+                                            color: ColorConstant.netralColor900,
+                                          ),
+                                        ),
                                       ],
                                     ),
-                                    SpacingConstant.verticalSpacing100,
-                                    Text(
-                                      "Tips Memilah Sampah Organik & Anorganik",
-                                      style: TextStyleConstant.boldParagraph
-                                          .copyWith(
-                                        color: ColorConstant.netralColor900,
-                                      ),
-                                    ),
-                                    SpacingConstant.verticalSpacing100,
-                                    Text(
-                                      "Tips untuk kalian yang baru mulai.",
-                                      style: TextStyleConstant.regularFooter
-                                          .copyWith(
-                                        color: ColorConstant.netralColor900,
-                                      ),
-                                    ),
-                                    Text(
-                                      "26 Mar 2024.",
-                                      style: TextStyleConstant.regularFooter
-                                          .copyWith(
-                                        color: ColorConstant.netralColor900,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Expanded(
-                                child: Container(
-                                  height: double.infinity,
-                                  decoration: BoxDecoration(
-                                    color: ColorConstant.netralColor500,
                                   ),
-                                  child: Icon(Icons.error),
-                                ),
+                                  SpacingConstant.horizontalSpacing200,
+                                  Expanded(
+                                    child: Container(
+                                      height: double.infinity,
+                                      decoration: const BoxDecoration(
+                                        color: ColorConstant.netralColor500,
+                                      ),
+                                      child: article.thumbnailUrl != null &&
+                                              article.thumbnailUrl!.isNotEmpty
+                                          ? Image.network(article.thumbnailUrl!)
+                                          : const Icon(
+                                              Icons
+                                                  .image_not_supported_outlined,
+                                              size: 40,
+                                            ),
+                                    ),
+                                  ),
+                                ],
                               ),
-                            ],
-                          ),
-                        )),
-                  ),
+                            ),
+                          );
+                        },
+                      );
+                    }
+                  },
                 ),
               ),
             ],

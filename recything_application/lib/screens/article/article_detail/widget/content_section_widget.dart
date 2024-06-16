@@ -5,7 +5,7 @@ import 'package:recything_application/constants/text_style_constant.dart';
 class ContentSectionWidget extends StatelessWidget {
   final String title;
   final String? imagePath;
-  final List<String> contentTexts;
+  final String contentTexts;
 
   const ContentSectionWidget({
     super.key,
@@ -26,7 +26,7 @@ class ContentSectionWidget extends StatelessWidget {
         if (imagePath != null)
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 16.0),
-            child: Image.asset(
+            child: Image.network(
               imagePath!,
               width: double.infinity,
               fit: BoxFit.cover,
@@ -46,13 +46,10 @@ class ContentSectionWidget extends StatelessWidget {
               },
             ),
           ),
-        ...contentTexts.map((text) => Padding(
-              padding: const EdgeInsets.only(bottom: 16.0),
-              child: Text(
-                text,
-                style: TextStyleConstant.mediumSubtitle,
-              ),
-            )),
+        Text(
+          contentTexts,
+          style: TextStyleConstant.mediumSubtitle,
+        ),
         SpacingConstant.verticalSpacing200,
       ],
     );
