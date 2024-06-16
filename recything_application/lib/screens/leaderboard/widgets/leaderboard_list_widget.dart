@@ -10,6 +10,8 @@ class LeaderboardList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
+      physics: NeverScrollableScrollPhysics(),
+      shrinkWrap: true,
       itemCount: leaderboardList.length,
       itemBuilder: (context, index) {
         final item = leaderboardList[index];
@@ -39,7 +41,7 @@ class LeaderboardList extends StatelessWidget {
                       ),
                       child: ClipOval(
                         child: Image.network(
-                          item['imageUrl'] ?? '',
+                          item['picture_url'] ?? '',
                           fit: BoxFit.cover,
                           errorBuilder: (context, error, stackTrace) {
                             return Container(

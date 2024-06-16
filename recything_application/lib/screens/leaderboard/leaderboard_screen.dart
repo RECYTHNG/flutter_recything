@@ -98,63 +98,63 @@ class LeaderboardScreen extends StatelessWidget {
             ),
           );
 
-          return Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 16,
-                  vertical: 8,
-                ),
-                child: Container(
-                  alignment: Alignment.center,
-                  height: 200,
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                    color: ColorConstant.primaryColor400,
-                    borderRadius: BorderRadius.circular(24),
+          return SingleChildScrollView(
+            child: Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 16,
+                    vertical: 8,
                   ),
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 32),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        if (controller.leaderboardList.length > 1)
+                  child: Container(
+                    alignment: Alignment.center,
+                    height: 200,
+                    width: double.infinity,
+                    decoration: BoxDecoration(
+                      color: ColorConstant.primaryColor400,
+                      borderRadius: BorderRadius.circular(24),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 32),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          if (controller.leaderboardList.length > 1)
+                            TopThreeLeaderboardItem(
+                              imageUrl: controller.leaderboardList[1]
+                                  ['picture_url']!,
+                              name: controller.leaderboardList[1]['name']!,
+                              score: controller.leaderboardList[1]['point']!,
+                              rank: 2,
+                              medalAsset:
+                                  'assets/images/leaderboard/medal/gold.svg',
+                            ),
                           TopThreeLeaderboardItem(
-                            imageUrl: controller.leaderboardList[1]
+                            imageUrl: controller.leaderboardList[0]
                                 ['picture_url']!,
-                            name: controller.leaderboardList[1]['name']!,
-                            score: controller.leaderboardList[1]['point']!,
-                            rank: 2,
+                            name: controller.leaderboardList[0]['name']!,
+                            score: controller.leaderboardList[0]['point']!,
+                            rank: 1,
                             medalAsset:
-                                'assets/images/leaderboard/medal/silver.svg',
+                                'assets/images/leaderboard/medal/gold.svg',
                           ),
-                        TopThreeLeaderboardItem(
-                          imageUrl: controller.leaderboardList[0]
-                              ['picture_url']!,
-                          name: controller.leaderboardList[0]['name']!,
-                          score: controller.leaderboardList[0]['point']!,
-                          rank: 1,
-                          medalAsset:
-                              'assets/images/leaderboard/medal/gold.svg',
-                        ),
-                        if (controller.leaderboardList.length > 2)
-                          TopThreeLeaderboardItem(
-                            imageUrl: controller.leaderboardList[2]
-                                ['picture_url']!,
-                            name: controller.leaderboardList[2]['name']!,
-                            score: controller.leaderboardList[2]['point']!,
-                            rank: 3,
-                            medalAsset:
-                                'assets/images/leaderboard/medal/bronze.svg',
-                          ),
-                      ],
+                          if (controller.leaderboardList.length > 2)
+                            TopThreeLeaderboardItem(
+                              imageUrl: controller.leaderboardList[2]
+                                  ['picture_url']!,
+                              name: controller.leaderboardList[2]['name']!,
+                              score: controller.leaderboardList[2]['point']!,
+                              rank: 3,
+                              medalAsset:
+                                  'assets/images/leaderboard/medal/silver.svg',
+                            ),
+                        ],
+                      ),
                     ),
                   ),
                 ),
-              ),
-              Expanded(
-                child: Padding(
+                Padding(
                   padding: const EdgeInsets.symmetric(
                     horizontal: 16,
                     vertical: 8,
@@ -170,8 +170,8 @@ class LeaderboardScreen extends StatelessWidget {
                         leaderboardList: controller.leaderboardList),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           );
         }),
       ),

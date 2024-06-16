@@ -23,7 +23,7 @@ class GetAllRLeaderboardService {
             'Content-Type': 'application/json; charset=UTF-8',
             // 'Authorization': 'Bearer $authToken',
             'Authorization':
-                'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiVVNSMDAwMSIsInJvbGUiOiJ1c2VyIiwiZXhwIjoxNzE4NDY0ODA4fQ.WQa-Q_zFBNcKP7Wp00TTJvbxzUiysznWPX9Jl-iH7ns',
+                'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiVVNSMDAwMSIsInJvbGUiOiJ1c2VyIiwiZXhwIjoxNzIwOTA0MDMwfQ.lt4n0yIob6e0L-vo5_WcIvonTWFbK2ujLjxs1kYFuTQ',
           },
         ),
       );
