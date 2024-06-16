@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:recything_application/constants/color_constant.dart';
 import 'package:recything_application/constants/text_style_constant.dart';
-import 'package:recything_application/screens/detail_mission/detail_mission_screen.dart';
+import 'package:recything_application/screens/detail_mission/detail_mission_start_screen.dart';
 import 'package:recything_application/screens/detail_mission/widgets/bukti_dua_widget.dart';
 import 'package:recything_application/screens/detail_mission/widgets/bukti_satu_widget.dart';
 
@@ -139,10 +139,10 @@ class _ProofUploadScreenState extends State<ProofUploadScreen> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => DetailMissionScreen(
+                        builder: (context) => DetailMissionStartScreen(
                           // statusChallenge: 'Menunggu Verifikasi',
                           // proofUpload: true,
-                          userTaskId: 'TM0003',
+                          taskId: 'TM0003',
                         ),
                       ),
                     );

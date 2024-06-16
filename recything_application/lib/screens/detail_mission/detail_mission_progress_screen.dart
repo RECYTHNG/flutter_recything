@@ -3,17 +3,17 @@ import 'package:get/get.dart';
 import 'package:recything_application/constants/color_constant.dart';
 import 'package:recything_application/constants/text_style_constant.dart';
 import 'package:recything_application/controllers/doing_task_detail_mission_controller.dart';
-import 'package:recything_application/screens/detail_mission/proof_upload_screen.dart';
 import 'package:recything_application/screens/detail_mission/widgets/mission_header_widget.dart';
+import 'package:recything_application/screens/detail_mission/widgets/mission_step_upload_widget%20.dart';
 import 'package:recything_application/screens/detail_mission/widgets/mission_step_widget.dart';
 import 'package:recything_application/screens/detail_mission/widgets/status_detail_mission_widget.dart';
 import 'package:recything_application/screens/detail_mission/widgets/button_challenge_widget.dart';
 import 'package:recything_application/utils/date_time_utils.dart';
 
-class DetailMissionScreen extends StatelessWidget {
+class DetailMissionProgressScreen extends StatelessWidget {
   final String userTaskId;
 
-  DetailMissionScreen({super.key, required this.userTaskId}) {
+  DetailMissionProgressScreen({super.key, required this.userTaskId}) {
     Get.put(DoingTaskDetailMissionController());
   }
 
@@ -21,10 +21,11 @@ class DetailMissionScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetBuilder<DoingTaskDetailMissionController>(
       initState: (_) {
-        Get.find<DoingTaskDetailMissionController>().getData(userTaskId);
+        Get.find<DoingTaskDetailMissionController>()
+            .getDataTaskProgress(userTaskId);
       },
       builder: (controller) {
-        final data = controller.data;
+        final data = controller.dataGetProgress;
 
         if (data.isEmpty) {
           return Scaffold(
@@ -121,21 +122,11 @@ class DetailMissionScreen extends StatelessWidget {
                       );
                     },
                   ),
+                  const MissionStepUploadWidget(),
                   const SizedBox(height: 12),
                   ButtonChallengeWidget(
-                    challengeStarted: false,
-                    currentStep: 0,
-                    isUploadButton: false,
-                    proofUpload: false,
-                    statusChallenge: '',
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const ProofUploadScreen(),
-                        ),
-                      );
-                    },
+                    buttonstepCount: controller.stepCount,
+                    userTaskId: data['id'],
                   ),
                 ],
               ),

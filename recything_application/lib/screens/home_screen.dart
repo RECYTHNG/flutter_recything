@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:recything_application/screens/detail_mission/detail_mission_screen.dart';
+import 'package:recything_application/screens/detail_mission/detail_mission_progress_screen.dart';
+import 'package:recything_application/screens/detail_mission/detail_mission_start_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -8,19 +9,35 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: TextButton(
-            onPressed: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => DetailMissionScreen(
-                      // statusChallenge: 'Bisa Diikuti',
-                      // proofUpload: false,
-                      userTaskId: 'UT0002',
-                    ),
-                  ));
-            },
-            child: const Text("Task")),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            TextButton(
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => DetailMissionStartScreen(
+                        taskId: 'TM0001',
+                      ),
+                    ));
+              },
+              child: const Text("Start Task"),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => DetailMissionProgressScreen(
+                        userTaskId: 'UT0002',
+                      ),
+                    ));
+              },
+              child: const Text("Continue Task"),
+            ),
+          ],
+        ),
       ),
     );
   }
