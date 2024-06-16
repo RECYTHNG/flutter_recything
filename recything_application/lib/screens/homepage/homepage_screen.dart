@@ -37,24 +37,6 @@ class _HomePageScreenState extends State<HomePageScreen> {
     },
   ];
 
-  final List<Map<String, String>> carouselDataNewVideo = [
-    // {
-    //   'title': 'Cara Mudah Memilah Sampah di Rumah',
-    //   'imagePath': 'assets/images/home_images/gambar_2.png',
-    //   'views': '11 rb ditonton',
-    // },
-    // {
-    //   'title': 'Tips Daur Ulang Sampah',
-    //   'imagePath': 'assets/images/home_images/gambar_3.png',
-    //   'views': '15 rb ditonton',
-    // },
-    // {
-    //   'title': 'Pengelolaan Sampah',
-    //   'imagePath': 'assets/images/home_images/gambar_2.png',
-    //   'views': '9 rb ditonton',
-    // },
-  ];
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -106,12 +88,15 @@ class _HomePageScreenState extends State<HomePageScreen> {
                               alignment: Alignment.topCenter,
                               child: Row(
                                 children: [
-                                  const Icon(
-                                    Icons.account_circle_outlined,
-                                    size: 32,
+                                  ClipRRect(
+                                    borderRadius: BorderRadius.circular(100),
+                                    child: Image.network(
+                                      dataController.user['picture_url'],
+                                      height: 32,
+                                    ),
                                   ),
                                   const SizedBox(
-                                    width: 4,
+                                    width: 8,
                                   ),
                                   Text(
                                     'Hi, ${dataController.user['name']}',

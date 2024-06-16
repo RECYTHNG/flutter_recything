@@ -66,7 +66,7 @@ class NewVideoSectionWidget extends StatelessWidget {
                     itemBuilder: (context, index) {
                       final item = controller.videos[index];
                       final imagePath =
-                          item['imagePath'] ?? 'default_image_path.png';
+                          item['url_thumbnail'] ?? 'default_image_path.png';
                       final title = item['title'] ?? 'Default Title';
                       final views = (item['viewer']);
 
@@ -92,13 +92,27 @@ class NewVideoSectionWidget extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              AspectRatio(
-                                aspectRatio: 1 / 1,
-                                child: Image.asset(imagePath),
+                              Stack(
+                                alignment: Alignment.center,
+                                children: [
+                                  AspectRatio(
+                                    aspectRatio: 1 / 1,
+                                    child: Image.network(
+                                      imagePath,
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
+                                  const Icon(
+                                    Icons.play_circle,
+                                    size: 32,
+                                    color: ColorConstant.whiteColor,
+                                  ),
+                                ],
                               ),
                               Text(
                                 title,
                                 style: TextStyleConstant.semiboldParagraph,
+                                maxLines: 2,
                               ),
                               Text(
                                 '$formattedViews ditonton',

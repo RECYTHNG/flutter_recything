@@ -81,10 +81,14 @@ class TopThreeLeaderboardItem extends StatelessWidget {
             ),
           ],
         ),
-        Text(
-          name,
-          style: TextStyleConstant.boldParagraph.copyWith(
-            color: ColorConstant.whiteColor,
+        SizedBox(
+          width: 90,
+          child: Text(
+            name,
+            style: TextStyleConstant.boldParagraph.copyWith(
+              color: ColorConstant.whiteColor,
+            ),
+            overflow: TextOverflow.ellipsis,
           ),
         ),
         Text(

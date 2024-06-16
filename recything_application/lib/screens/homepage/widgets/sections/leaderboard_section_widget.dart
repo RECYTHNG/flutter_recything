@@ -146,7 +146,7 @@ class LeaderboardSectionWidget extends StatelessWidget {
                             score: controller.leaderboard[1]['point']!,
                             rank: 2,
                             medalAsset:
-                                'assets/images/home_images/leaderboard-badge/silver.svg',
+                                'assets/images/home_images/leaderboard-badge/gold.svg',
                           ),
                         TopThreeLeaderboardItem(
                           imageUrl: controller.leaderboard[0]['picture_url']!,
@@ -163,7 +163,7 @@ class LeaderboardSectionWidget extends StatelessWidget {
                             score: controller.leaderboard[2]['point']!,
                             rank: 3,
                             medalAsset:
-                                'assets/images/home_images/leaderboard-badge/bronze.svg',
+                                'assets/images/home_images/leaderboard-badge/silver.svg',
                           ),
                       ],
                     ),
