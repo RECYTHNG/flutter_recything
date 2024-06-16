@@ -2,12 +2,32 @@ import 'package:flutter/material.dart';
 import 'package:recything_application/constants/color_constant.dart';
 import 'package:recything_application/constants/spacing_constant.dart';
 import 'package:recything_application/constants/text_style_constant.dart';
+import 'package:recything_application/models/challenge/dashboard/user_dashboard_challenge_model.dart';
 
 class ThreeStepperWidget extends StatelessWidget {
-  const ThreeStepperWidget({super.key});
+  final Datum datum;
+  final String finalStatus;
+  const ThreeStepperWidget({
+    super.key,
+    required this.datum,
+    required this.finalStatus,
+  });
 
   @override
   Widget build(BuildContext context) {
+    Color finalColor;
+    if (finalStatus == 'Proses') {
+      finalColor = ColorConstant.primaryColor500;
+    } else if (finalStatus == 'Menunggu') {
+      finalColor = ColorConstant.primaryColor400;
+    } else if (finalStatus == 'Ditolak') {
+      finalColor = ColorConstant.dangerColor500;
+    } else if (finalStatus == 'Terverifikasi') {
+      finalColor = ColorConstant.secondaryColor500;
+    } else {
+      finalColor = const Color(0XFF9F9F9F);
+    }
+    final data = datum.taskChallenge.userSteps;
     return Stack(
       children: [
         Row(
@@ -21,15 +41,20 @@ class ThreeStepperWidget extends StatelessWidget {
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
                     border: Border.all(
-                      color: ColorConstant.primaryColor500,
+                      color: data[0].completed == false ? finalColor : Colors.transparent,
                     ),
-                    color: ColorConstant.primaryColor500,
+                    color: data[0].completed == true ? finalColor : Colors.transparent,
                   ),
-                  child: const Center(
-                    child: Icon(
+                  child: Center(
+                    child: data[0].completed == true ?
+                    const Icon(
                       Icons.check,
                       size: 12,
                       color: ColorConstant.whiteColor,
+                    ) : Icon(
+                      Icons.circle,
+                      size: 5,
+                      color: finalColor,
                     ),
                   ),
                 ),
@@ -54,8 +79,8 @@ class ThreeStepperWidget extends StatelessWidget {
                       child: Container(
                         width: double.infinity,
                         height: 1,
-                        decoration: const BoxDecoration(
-                          color: ColorConstant.primaryColor500,
+                        decoration: BoxDecoration(
+                          color: data[0].completed == true ? finalColor : const Color(0XFF9F9F9F),
                         ),
                       ),
                     ),
@@ -75,8 +100,8 @@ class ThreeStepperWidget extends StatelessWidget {
                       child: Container(
                         width: double.infinity,
                         height: 1,
-                        decoration: const BoxDecoration(
-                          color: ColorConstant.primaryColor500,
+                        decoration: BoxDecoration(
+                          color: data[1].completed == true ? finalColor : const Color(0XFF9F9F9F),
                         ),
                       ),
                     ),
@@ -92,15 +117,20 @@ class ThreeStepperWidget extends StatelessWidget {
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
                     border: Border.all(
-                      color: ColorConstant.primaryColor500,
+                      color: data[2].completed == false ? finalColor : Colors.transparent,
                     ),
-                    color: ColorConstant.primaryColor500,
+                    color: data[2].completed == true ? finalColor : Colors.transparent,
                   ),
-                  child: const Center(
-                    child: Icon(
+                  child: Center(
+                    child: data[2].completed == true ?
+                    const Icon(
                       Icons.check,
                       size: 12,
                       color: ColorConstant.whiteColor,
+                    ) : Icon(
+                      Icons.circle,
+                      size: 5,
+                      color: finalColor,
                     ),
                   ),
                 ),
@@ -126,17 +156,22 @@ class ThreeStepperWidget extends StatelessWidget {
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   border: Border.all(
-                    color: ColorConstant.primaryColor500,
+                    color: data[1].completed == false ? finalColor : Colors.transparent,
                   ),
-                  color: ColorConstant.primaryColor500,
+                  color: data[1].completed == true ? finalColor : ColorConstant.whiteColor,
                 ),
-                child: const Center(
-                  child: Icon(
-                    Icons.check,
-                    size: 12,
-                    color: ColorConstant.whiteColor,
+                child: Center(
+                    child: data[1].completed == true ?
+                    const Icon(
+                      Icons.check,
+                      size: 12,
+                      color: ColorConstant.whiteColor,
+                    ) : Icon(
+                      Icons.circle,
+                      size: 5,
+                      color: finalColor,
+                    ),
                   ),
-                ),
               ),
               SpacingConstant.verticalSpacing050,
               Text(

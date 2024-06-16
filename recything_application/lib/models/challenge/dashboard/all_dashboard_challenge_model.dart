@@ -1,19 +1,19 @@
-class AllChallengeModel {
+class AllDashboardChallengeModel {
   final int code;
   final String message;
   final List<Datum> data;
 
-  AllChallengeModel({
+  AllDashboardChallengeModel({
     required this.code,
     required this.message,
     required this.data,
   });
 
-  factory AllChallengeModel.fromJson(Map<String, dynamic> json) {
+  factory AllDashboardChallengeModel.fromJson(Map<String, dynamic> json) {
     var list = json['data'] as List<dynamic>? ?? [];
     List<Datum> dataList = list.map((i) => Datum.fromJson(i)).toList();
 
-    return AllChallengeModel(
+    return AllDashboardChallengeModel(
       code: json['code'],
       message: json['message'],
       data: dataList,

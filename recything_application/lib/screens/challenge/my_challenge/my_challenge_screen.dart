@@ -14,6 +14,7 @@ class MyChallengeScreen extends StatelessWidget {
     final ChallengeDashboardController controller = Get.find();
     WidgetsBinding.instance.addPostFrameCallback((_){
       controller.fetchOnProgressChallenge();
+      controller.fetchDoneChallengeSection();
     });
     return DefaultTabController(
       length: 2,

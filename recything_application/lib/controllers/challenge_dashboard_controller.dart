@@ -1,18 +1,23 @@
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:recything_application/models/challenge/dashboard/achievement_dashboard_challenge_model.dart';
-import 'package:recything_application/models/challenge/all_challenge_model.dart';
-import 'package:recything_application/models/challenge/dashboard/on_progress_dashboard_challenge_model.dart';
-import 'package:recything_application/services/challenge/achievement_dashboard_challenge_service.dart';
+import 'package:recything_application/models/challenge/dashboard/all_dashboard_challenge_model.dart';
+import 'package:recything_application/models/challenge/dashboard/user_dashboard_challenge_model.dart' as user_challenge;
+import 'package:recything_application/services/challenge/dashboard/achievement_dashboard_challenge_service.dart';
 import 'package:recything_application/services/challenge/dashboard/dashboard_challenge_service.dart';
 
 class ChallengeDashboardController extends GetxController {
   Rxn<AchievementDashboardChallengeModel> userAchievementData = Rxn<AchievementDashboardChallengeModel>();
-  Rxn<AllChallengeModel> challengeData = Rxn<AllChallengeModel>();
-  Rxn<OnProgressDashboardChallengeModel> onProgressChallengeData = Rxn<OnProgressDashboardChallengeModel>();
+  Rxn<AllDashboardChallengeModel> challengeData = Rxn<AllDashboardChallengeModel>();
+  Rxn<user_challenge.UserDashboardChallengeModel> onProgressChallengeData = Rxn<user_challenge.UserDashboardChallengeModel>();
+  Rxn<user_challenge.UserDashboardChallengeModel> doneChallengeData = Rxn<user_challenge.UserDashboardChallengeModel>();
+  Rxn<user_challenge.UserDashboardChallengeModel> historyChallengeData = Rxn<user_challenge.UserDashboardChallengeModel>();
   RxBool isLoadingFetchOnProgressChallenge = RxBool(false);
   RxBool isLoadingFetchAllChallenge = RxBool(false);
   RxBool isLoadingFetchUserAchievement = RxBool(false);
+  RxBool isLoadingFetchDoneChallenge = RxBool(false);
+  RxBool isLoadingFetchHistoryChallenge = RxBool(false);
+  Rxn<List<user_challenge.Datum>> doneChallengeSectionData = Rxn<List<user_challenge.Datum>>([]);
 
   @override
   void onInit() {
@@ -20,6 +25,24 @@ class ChallengeDashboardController extends GetxController {
     fetchUserAchievement();
     fetchAllChallenge();
     fetchOnProgressChallenge();
+  }
+
+  void fetchDoneChallengeSection() {
+    fetchDoneChallenge();
+    fetchHistoryChallenge();
+    List<user_challenge.Datum> listData = [];
+    if (doneChallengeData.value != null) {
+      listData.addAll(doneChallengeData.value!.data);
+    }
+    if (historyChallengeData.value != null) {
+      listData.addAll(historyChallengeData.value!.data);
+    }
+    doneChallengeSectionData.value = listData;
+  }
+
+  String getFirstName() {
+    List<String> name = userAchievementData.value!.data.dataUser.name.split(' ');
+    return name[0];
   }
 
   Future<void> fetchUserAchievement() async {
@@ -36,14 +59,40 @@ class ChallengeDashboardController extends GetxController {
     }
   }
 
+  Future<void> fetchDoneChallenge() async {
+    isLoadingFetchDoneChallenge.value = true;
+    try {
+      final response = await DashboardChallengeService().getDoneChallenge();
+      doneChallengeData.value = response;
+    } catch (e) {
+      if (kDebugMode) {
+        print('Error $e');
+      }
+    } finally {
+      isLoadingFetchDoneChallenge.value = false;
+    }
+  }
+
+  Future<void> fetchHistoryChallenge() async {
+    isLoadingFetchHistoryChallenge.value = true;
+    try {
+      final response = await DashboardChallengeService().getHistoryChallenge();
+      historyChallengeData.value = response;
+    } catch (e) {
+      if (kDebugMode) {
+        print('Error $e');
+      }
+    } finally {
+      isLoadingFetchHistoryChallenge.value = false;
+    }
+  }
+
   Future<void> fetchAllChallenge() async {
     isLoadingFetchAllChallenge.value = true;
     try {
       final response = await DashboardChallengeService().getAllChallenge();
       challengeData.value = response;
-      print(' berhasil $response');
       isLoadingFetchAllChallenge.value = false;
-      print(isLoadingFetchAllChallenge);
     } catch (e) {
       if (kDebugMode) {
         print('Error $e');

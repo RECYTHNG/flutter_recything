@@ -3,6 +3,8 @@ import 'package:recything_application/constants/color_constant.dart';
 import 'package:recything_application/constants/image_constant.dart';
 import 'package:recything_application/constants/text_style_constant.dart';
 import 'package:recything_application/screens/challenge/dashboard/challenge_dashboard_screen.dart';
+import 'package:recything_application/utils/system_ui_overlay_utils.dart';
+import 'package:recything_application/widgets/global_app_bar.dart';
 import 'package:recything_application/widgets/global_button_widget.dart';
 
 class ChallengeOnboardingScreen extends StatelessWidget {
@@ -10,7 +12,18 @@ class ChallengeOnboardingScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    SystemUiOverlayUtils().setSystemUiOverlay(ColorConstant.netralColor900, false);
     return Scaffold(
+      appBar: GlobalAppBar(
+        title: Text(
+          'Challenge',
+          style: TextStyleConstant.boldSubtitle.copyWith(
+            color: ColorConstant.netralColor900,
+            fontFamily: 'Nunito'
+          ),
+        ),
+        backgroundColor: ColorConstant.primaryColor50,
+      ),
       backgroundColor: ColorConstant.primaryColor50,
       body: Stack(
         children: [
@@ -24,10 +37,14 @@ class ChallengeOnboardingScreen extends StatelessWidget {
             ),
           ),
           Positioned(
-            bottom: 450,
-            right: 50,
-            child: Image.asset(
-              ImageConstant.animationOnboarding,
+            bottom: 420,
+            right: 0,
+            left: 0,
+            child: SizedBox(
+              height: 305,
+              child: Image.asset(
+                ImageConstant.animationOnboarding,
+              ),
             ),
           ),
           Positioned(

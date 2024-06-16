@@ -34,8 +34,9 @@ class HeaderChallengeListWidget extends StatelessWidget {
                 return Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Image.asset(
-                      'assets/images/challenge_dashboard/gold_medal.png',
+                    if (controller.userAchievementData.value != null)
+                    Image.network(
+                      controller.userAchievementData.value!.data.dataUser.badge,
                       width: 25,
                     ),
                     const SizedBox(width: 8),

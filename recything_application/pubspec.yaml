@@ -76,6 +76,7 @@ flutter:
   #   - images/a_dot_ham.jpeg
   assets:
     - assets/icons/
+    - assets/icons/challenge_dashboard/
     - assets/images/
     - assets/images/logo/
     - assets/images/on_boarding/

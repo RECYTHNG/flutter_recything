@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
 import 'package:recything_application/constants/color_constant.dart';
 import 'package:recything_application/constants/spacing_constant.dart';
 import 'package:recything_application/constants/text_style_constant.dart';
 import 'package:recything_application/controllers/challenge_dashboard_controller.dart';
+import 'package:recything_application/utils/user_level_utils.dart';
 
 class CardHeaderMissionDashboardWidget extends StatelessWidget {
   const CardHeaderMissionDashboardWidget({super.key});
@@ -62,23 +62,21 @@ class CardHeaderMissionDashboardWidget extends StatelessWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        // Image.asset(
-                        //   'assets/images/challenge_dashboard/gold_medal.png',
-                        // ),
                         if (controller.userAchievementData.value != null)
-                          Image.network(controller.userAchievementData.value!.data.dataUser.badge),
-                        
-                        // Image.network(controller.userAchievementData.value.data.dataUser.badge),
+                          Image.network(
+                            controller
+                                .userAchievementData.value!.data.dataUser.badge,
+                          ),
                         SpacingConstant.horizontalSpacing050,
                         Text(
-                          // toBeginningOfSentenceCase(controller
-                          //         .userAchievementData
-                          //         .value
-                          //         ?.data
-                          //         .dataUser
-                          //         .badge) ??
-                          //     'Badge',
-                          'Classic',
+                          controller.userAchievementData.value?.data != null
+                              ? UserLevelUtils.getLevel(controller
+                                  .userAchievementData
+                                  .value!
+                                  .data
+                                  .dataUser
+                                  .point)
+                              : 'Classic',
                           style: TextStyleConstant.semiboldCaption.copyWith(
                             color: ColorConstant.primaryColor500,
                           ),
@@ -107,7 +105,7 @@ class CardHeaderMissionDashboardWidget extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Expanded(
-                    child: InkWell(
+                    child: GestureDetector(
                       onTap: () {},
                       child: Container(
                         width: double.infinity,
@@ -134,7 +132,7 @@ class CardHeaderMissionDashboardWidget extends StatelessWidget {
                   ),
                   SpacingConstant.horizontalSpacing100,
                   Expanded(
-                    child: InkWell(
+                    child: GestureDetector(
                       onTap: () {},
                       child: Container(
                         width: double.infinity,

@@ -19,15 +19,7 @@ class AchievementDashboardChallengeService {
       final jsonResponse = response.data as Map<String, dynamic>;
       return AchievementDashboardChallengeModel.fromJson(jsonResponse);
     } on DioException catch (e) {
-      return AchievementDashboardChallengeModel(
-        code: 500,
-        message: '$e',
-        data: Data(
-          dataAchievement: [],
-          dataUser: DataUser(id: '', name: '', point: 0, badge: ''),
-          historyUserPoint: null,
-        ),
-      );
+      throw 'Error: ${e.response!.statusCode}';
     }
   }
 }

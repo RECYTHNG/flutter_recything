@@ -16,11 +16,13 @@ class ImageConstant {
   //auth
   static const String authImage = 'assets/images/authentication/auth_image.png';
 
-  // Mission Dashboard
+  // Challenge Dashboard
   static String backgroundDashboard = 'assets/images/challenge_dashboard/dashboard.png';
   static String logoBackgroundDashboard = 'assets/images/logo/logo_complete_recything.png';
   static String exampleItemMyChallenge = 'assets/images/challenge_dashboard/my_challenge_1.png';
   static String points = 'assets/images/challenge_dashboard/points.png';
   static String backgroundOnboarding = 'assets/images/challenge_dashboard/onboarding_background.png';
   static String animationOnboarding = 'assets/images/challenge_dashboard/animation_dashboard.png';
+  static String emptyStateChallenge = 'assets/images/challenge_dashboard/empty_state.png';
+  static String profileDashboard = 'assets/images/challenge_dashboard/profile.png';
 }

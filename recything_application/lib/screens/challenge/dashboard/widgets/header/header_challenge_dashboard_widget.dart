@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:recything_application/constants/image_constant.dart';
 import 'package:recything_application/screens/challenge/dashboard/widgets/header/card_header_challenge_dashboard_widget.dart';
+import 'package:recything_application/screens/challenge/dashboard/widgets/header/profile_header_challenge_dashboard_widget.dart';
 
 class HeaderChallengeDashboardWidget extends StatelessWidget {
   const HeaderChallengeDashboardWidget({super.key});
@@ -25,6 +26,7 @@ class HeaderChallengeDashboardWidget extends StatelessWidget {
             height: 24,
           ),
         ),
+        const ProfileHeaderChallengeDashboardWidget(),
         const CardHeaderMissionDashboardWidget(),
       ],
     );
