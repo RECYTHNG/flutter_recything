@@ -1,12 +1,13 @@
-import 'package:flutter/material.dart';
+import 'dart:io';
+
 import 'package:dotted_border/dotted_border.dart';
+import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+
 import 'package:recything_application/constants/color_constant.dart';
 import 'package:recything_application/constants/spacing_constant.dart';
 import 'package:recything_application/constants/text_style_constant.dart';
 import 'package:recything_application/widgets/global_text_field_custom_widget.dart';
-import 'dart:io';
-import 'package:video_player/video_player.dart';
 
 class LitterDescScreen extends StatefulWidget {
   const LitterDescScreen({super.key});
@@ -60,25 +61,11 @@ class LitterDescScreenState extends State<LitterDescScreen> {
                 style: TextStyleConstant.semiboldHeading4,
               ),
               SpacingConstant.verticalSpacing200,
-              media.mimeType != null && media.mimeType!.contains('video')
-                  ? FutureBuilder<void>(
-                      future: _initializeVideoPlayer(media),
-                      builder: (context, snapshot) {
-                        if (snapshot.connectionState == ConnectionState.done) {
-                          return AspectRatio(
-                            aspectRatio: _controller.value.aspectRatio,
-                            child: VideoPlayer(_controller),
-                          );
-                        } else {
-                          return Center(child: CircularProgressIndicator());
-                        }
-                      },
-                    )
-                  : Image.file(
-                      File(media.path),
-                      width: 300,
-                      fit: BoxFit.cover,
-                    ),
+              Image.file(
+                File(media.path),
+                width: 300,
+                fit: BoxFit.cover,
+              ),
               SpacingConstant.verticalSpacing200,
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -144,20 +131,6 @@ class LitterDescScreenState extends State<LitterDescScreen> {
         );
       },
     );
-  }
-
-  late VideoPlayerController _controller;
-
-  Future<void> _initializeVideoPlayer(XFile media) async {
-    _controller = VideoPlayerController.file(File(media.path));
-    await _controller.initialize();
-    setState(() {});
-  }
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
   }
 
   @override
