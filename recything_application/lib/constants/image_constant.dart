@@ -1,4 +1,27 @@
 class ImageConstant {
+  // Recycle
+  static String play = 'assets/images/recycle/play.png';
+  static String challenge = 'assets/images/recycle/challenge.png';
+  static String reporting = 'assets/images/recycle/reporting.png';
+  static String arrow = 'assets/images/recycle/arrow.png';
+  static String plastik = 'assets/images/recycle/plastik.png';
+  static String besi = 'assets/images/recycle/besi.png';
+  static String kaca = 'assets/images/recycle/kaca.png';
+  static String organik = 'assets/images/recycle/organik.png';
+  static String kayu = 'assets/images/recycle/kayu.png';
+  static String kertas = 'assets/images/recycle/kertas.png';
+  static String baterai = 'assets/images/recycle/baterai.png';
+  static String kaleng = 'assets/images/recycle/kaleng.png';
+  static String elektronik = 'assets/images/recycle/elektronik.png';
+  static String tekstil = 'assets/images/recycle/tekstil.png';
+  static String minyak = 'assets/images/recycle/minyak.png';
+  static String bolaLampu = 'assets/images/recycle/bola_lampu.png';
+  static String berbahaya = 'assets/images/recycle/berbahaya.png';
+  static String emptyStateSearch = 'assets/images/recycle/empty_state_search.png';
+  static String emptyStateKeyword = 'assets/images/recycle/not_found.png';
+
+  static String notFound = 'assets/images/article/not_found.png';
+
   //Achievement
   static const String cardImage = 'assets/images/achievement/card_images.png';
   static const String classicHistoryImage = 'assets/images/achievement/classic_history_tablet.png';
@@ -12,8 +35,8 @@ class ImageConstant {
   static const String goldBagdesImage = 'assets/images/point_history/gold_medal_images.png';
   static const String paltinumBagdesImage = 'assets/images/point_history/platinum_medal_images.png';
   static const String noRecordImage = 'assets/images/point_history/no_record_images.png'; 
-  
-   //logo
+
+  //logo
   static const String logoShape = 'assets/images/logo/logo_shape_recything.png';
   static const String logoText = 'assets/images/logo/logo_text_recything.png';
   static const String logo = 'assets/images/logo/logo_complete_recything.png';
