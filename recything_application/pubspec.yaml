@@ -38,9 +38,10 @@ dependencies:
   envied: ^0.5.4+1
   substring_highlight: ^1.0.33
   flutter_svg: ^2.0.10+1
-  file_picker: ^8.0.3
   get: ^4.6.6
   dio: ^5.4.3+1
+  image_picker: ^1.1.2
+  http_parser: ^4.1.0
 
 dev_dependencies:
   flutter_test:
@@ -54,6 +55,7 @@ dev_dependencies:
   flutter_lints: ^3.0.0
   envied_generator: ^0.5.4+1
   build_runner: ^2.4.11
+  
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -75,6 +77,7 @@ flutter:
     - assets/images/logo/
     - assets/images/detail_mission_image/
     - assets/images/detail_mission_image/status_task/
+    - assets/images/detail_mission_image/proof_upload/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

@@ -6,11 +6,11 @@ import 'package:recything_application/constants/shadow_constant.dart';
 import 'package:recything_application/constants/text_style_constant.dart';
 
 class MissionStepUploadWidget extends StatelessWidget {
-  // final String progress;
+  final String progress;
 
   const MissionStepUploadWidget({
     super.key,
-    // required this.progress,
+    required this.progress,
   });
 
   @override
@@ -18,8 +18,8 @@ class MissionStepUploadWidget extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 4),
       decoration: BoxDecoration(
-        color: 'progress' == 'done'
-            ? ColorConstant.successColor50
+        color: progress == 'done'
+            ? ColorConstant.warningColor50
             : ColorConstant.whiteColor,
         borderRadius: BorderRadius.circular(12),
         boxShadow: ShadowConstant.shadowMd,
@@ -37,6 +37,7 @@ class MissionStepUploadWidget extends StatelessWidget {
                   height: 32,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(100),
+                    color: ColorConstant.whiteColor,
                   ),
                   child: const Icon(
                     Icons.camera_alt,
@@ -64,8 +65,8 @@ class MissionStepUploadWidget extends StatelessWidget {
                     style: TextStyleConstant.regularCaption,
                   ),
                 ),
-                SvgPicture.asset('progress' == 'done'
-                    ? IconConstant.iconStatusDone
+                SvgPicture.asset(progress == 'done'
+                    ? IconConstant.iconStatusWaitingAcc
                     : IconConstant.iconStatusProcess),
               ],
             ),

@@ -34,6 +34,7 @@ class DoingTaskDetailMissionController extends GetxController {
       final responseData = await _taskService.getTaskProgressById(userTaskId);
       if (responseData.containsKey('data')) {
         dataGetProgress.value = responseData['data'];
+        taskStepCount += 1;
         taskStepId = dataGetProgress['task_challenge']['user_steps']
             [taskStepCount]['task_step_id'];
         _createUserStepCompletionMap();

@@ -9,7 +9,7 @@ class TaskStepService {
       headers: {
         'Content-Type': 'application/json; charset=UTF-8',
         'Authorization':
-            'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiVVNSMDAwMSIsInJvbGUiOiJ1c2VyIiwiZXhwIjoxNzIwOTA0MDMwfQ.lt4n0yIob6e0L-vo5_WcIvonTWFbK2ujLjxs1kYFuTQ',
+            'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiVVNSMDAzNCIsInJvbGUiOiJ1c2VyIiwiZXhwIjoxNzIxMzA1ODMwfQ.ZQJ-KErnUGP8R8F2RWY6YYhRpCpkpx1T1AWwuY0JHls',
       },
     ),
   );

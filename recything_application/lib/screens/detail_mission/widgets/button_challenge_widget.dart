@@ -27,7 +27,14 @@ class ButtonChallengeWidget extends StatelessWidget {
       child: ElevatedButton(
         onPressed: () {
           if (buttonUpload) {
-            Get.to(() => const ProofUploadScreen());
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => ProofUploadScreen(
+                  userTaskId: userTaskId,
+                ),
+              ),
+            );
           } else {
             controller.putTaskStepCompletion(userTaskId);
           }

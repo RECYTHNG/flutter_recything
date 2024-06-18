@@ -52,6 +52,8 @@ class DetailMissionProgressScreen extends StatelessWidget {
         final batasAkhirChallenge = DateTimeUtils(
             dateTimeStringInput: data['task_challenge']['end_date']);
 
+        final statusProgress = data['status_progress'];
+
         return Scaffold(
           appBar: AppBar(
             title: Text(
@@ -122,7 +124,7 @@ class DetailMissionProgressScreen extends StatelessWidget {
                       );
                     },
                   ),
-                  const MissionStepUploadWidget(),
+                  MissionStepUploadWidget(progress: statusProgress),
                   const SizedBox(height: 12),
                   ButtonChallengeWidget(
                     buttonstepCount: controller.stepCount,

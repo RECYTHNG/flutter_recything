@@ -30,7 +30,7 @@ class HomeScreen extends StatelessWidget {
                     context,
                     MaterialPageRoute(
                       builder: (context) => DetailMissionProgressScreen(
-                        userTaskId: 'UT0002',
+                        userTaskId: 'UT0006',
                       ),
                     ));
               },
