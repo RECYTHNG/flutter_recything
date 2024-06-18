@@ -1,11 +1,4 @@
 class ImageConstant {
-  static const String medalEditProfil =
-      'assets/images/edit_profile_images/medal.png';
-  static const String maleEditProfil =
-      'assets/images/edit_profile_images/male.png';
-  static const String femaleEditProfil =
-      'assets/images/edit_profile_images/female.png';
-
   //Achievement
   static const String cardImage = 'assets/images/achievement/card_images.png';
   static const String classicHistoryImage =
@@ -72,4 +65,8 @@ class ImageConstant {
       'assets/images/customer_service_images/remin.png';
   static const String searchNotFound =
       'assets/images/customer_service_images/not_found.png';
+
+  //Report Litter
+  static String locationResult =
+      'assets/images/report_litter/location_result.png';
 }

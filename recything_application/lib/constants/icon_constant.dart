@@ -1,7 +1,4 @@
 class IconConstant {
-  static const String iconMale = 'assets/icons/icon_male.svg';
-  static const String iconFemale = 'assets/icons/icon_female.svg';
-  static const String iconFemaleActive = 'assets/icons/icon_female_active.svg';
   //Customer Service
   static const String sentimenSatisfiedIcon =
       'assets/icons/icon_sentiment_satisfied.svg';
@@ -23,4 +20,10 @@ class IconConstant {
       'assets/icons/icon_poinku_gold.svg';
   static const String poinkuPlatinumAchievement =
       'assets/icons/icon_poinku_platinum.svg';
+
+  //report litter
+
+  static String reporting = 'assets/icons/report_litter/reporting.svg';
+  static String currentLocation =
+      'assets/icons/report_litter/current_location.svg';
 }

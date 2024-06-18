@@ -1,0 +1,71 @@
+import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:flutter/material.dart';
+import 'package:recything_application/screens/report_litter/success_report_litter_screen.dart';
+import 'package:recything_application/services/report_litter/report_litter_service.dart';
+
+class MapLitterController extends GetxController {
+  TextEditingController conditionController = TextEditingController();
+  RxString condition = RxString('');
+  RxBool sampahBasah = false.obs;
+  RxBool sampahKering = false.obs;
+  RxString rubbishType = RxString('');
+  RxString address = RxString('');
+  RxString city = RxString('');
+  RxString province = RxString('');
+  RxDouble lat = RxDouble(0.0);
+  RxDouble long = RxDouble(0.0);
+  RxList<String> selectedMaterial = <String>[].obs;
+  RxBool finishedStepOne = false.obs;
+
+  final ImagePicker _picker = ImagePicker();
+  RxList<XFile?> imageFiles = RxList<XFile?>([]);
+
+  RxInt currentIndex = 0.obs;
+
+  bool isMaxImagesReached() {
+    return imageFiles.length >= 9;
+  }
+
+  var tabIndex = 0.obs;
+
+  void changeTabIndex(int index) {
+    tabIndex.value = index;
+  }
+
+  Future<void> pickImage() async {
+    if (!isMaxImagesReached()) {
+      final XFile? pickedFile =
+          await _picker.pickImage(source: ImageSource.gallery);
+      if (pickedFile != null) {
+        imageFiles.add(pickedFile);
+      }
+    } else {
+      Get.snackbar("Limit", "Maksimal 9 foto");
+    }
+  }
+
+  void sendRubbishReport(MapLitterController controller) async {
+    final response = await ReportLitterService().sendReport(controller);
+    if (response == 201) {
+      Get.offAll(const SuccessReportLitterScreen());
+    } else {
+      Get.snackbar('Error', 'Coba Lagi');
+    }
+    print('$response');
+  }
+
+  void replaceImage(int index) async {
+    final XFile? pickedFile =
+        await _picker.pickImage(source: ImageSource.gallery);
+    if (pickedFile != null) {
+      imageFiles[index] = pickedFile;
+    }
+  }
+
+  void moveNextTab() {
+    if (currentIndex.value < 1) {
+      currentIndex.value++;
+    }
+  }
+}

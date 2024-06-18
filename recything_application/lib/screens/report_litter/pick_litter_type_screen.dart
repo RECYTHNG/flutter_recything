@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:recything_application/constants/color_constant.dart';
 import 'package:recything_application/constants/spacing_constant.dart';
 import 'package:recything_application/constants/text_style_constant.dart';
+import 'package:recything_application/controllers/report_litter_controller.dart';
+import 'package:recything_application/screens/report_litter/pick_litter_location_screen.dart';
 
 class PickLitterTypeScreen extends StatefulWidget {
   const PickLitterTypeScreen({super.key});
@@ -32,6 +35,9 @@ class _PickLitterTypeScreenState extends State<PickLitterTypeScreen> {
     }
   ];
 
+  ReportLitterController reportLitterController =
+      Get.put(ReportLitterController());
+
   String? _selectedType;
 
   @override
@@ -57,7 +63,7 @@ class _PickLitterTypeScreenState extends State<PickLitterTypeScreen> {
                       title: Row(
                         children: [
                           Image.asset(
-                            'assets/images/report_rubbish_images/${listSampah[index]['image']}.png',
+                            'assets/images/report_litter/${listSampah[index]['image']}.png',
                             width: 50,
                             height: 50,
                             fit: BoxFit.cover,
@@ -85,7 +91,11 @@ class _PickLitterTypeScreenState extends State<PickLitterTypeScreen> {
             ),
           ),
           TextButton(
-            onPressed: () {},
+            onPressed: () {
+              Get.to(
+                () => const PickLitterLocationScreen(),
+              );
+            },
             child: Container(
               width: double.infinity,
               padding: const EdgeInsets.symmetric(vertical: 8),
@@ -94,7 +104,7 @@ class _PickLitterTypeScreenState extends State<PickLitterTypeScreen> {
                 color: ColorConstant.primaryColor500,
                 borderRadius: BorderRadius.circular(12),
               ),
-              child: Text(
+              child: const Text(
                 'Selanjutnya',
                 style: TextStyle(
                     color: ColorConstant.netralColor50,
