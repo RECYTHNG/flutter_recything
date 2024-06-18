@@ -48,6 +48,10 @@ dependencies:
     carousel_slider: ^4.2.1
     image_picker: ^1.1.2
     dotted_border: ^2.1.0
+    geolocator: ^12.0.0
+    geocoding: ^3.0.0
+    google_maps_flutter: ^2.2.8
+    lottie: ^3.1.2
 
 dev_dependencies:
     flutter_test:
@@ -87,6 +91,8 @@ flutter:
         - assets/images/authentication/
         - assets/images/achievement/
         - assets/images/point_history/
+        - assets/images/report_litter/
+        - assets/icons/report_litter/
 
     # An image asset can refer to one or more resolution-specific "variants", see
     # https://flutter.dev/assets-and-images/#resolution-aware
