@@ -19,14 +19,6 @@ class ListArticleModel {
           : (data != null ? [Data.fromJson(data)] : null),
     );
   }
-
-  Map<String, dynamic> toJson() => {
-        "code": code,
-        "message": message,
-        "data": data != null
-            ? List<dynamic>.from(data!.map((x) => x.toJson()))
-            : null,
-      };
 }
 
 class Data {
@@ -59,9 +51,9 @@ class Data {
         author: json["author"] != null ? Author.fromJson(json["author"]) : null,
         title: json["title"],
         description: json["description"],
-        thumbnailUrl: json["thumbnailUrl"],
-        createdAt: json["createdAt"] != null
-            ? DateTime.parse(json["createdAt"])
+        thumbnailUrl: json["thumbnail_url"],
+        createdAt: json["created_at"] != null
+            ? DateTime.parse(json["created_at"])
             : null,
         wasteCategories: json["wasteCategories"] != null
             ? List<Category>.from(
@@ -76,25 +68,6 @@ class Data {
             ? List<dynamic>.from(json["comments"].map((x) => x))
             : null,
       );
-
-  Map<String, dynamic> toJson() => {
-        "id": id,
-        "author": author?.toJson(),
-        "title": title,
-        "description": description,
-        "thumbnailUrl": thumbnailUrl,
-        "createdAt": createdAt?.toIso8601String(),
-        "wasteCategories": wasteCategories != null
-            ? List<dynamic>.from(wasteCategories!.map((x) => x.toJson()))
-            : null,
-        "contentCategories": contentCategories != null
-            ? List<dynamic>.from(contentCategories!.map((x) => x.toJson()))
-            : null,
-        "sections": sections,
-        "comments": comments != null
-            ? List<dynamic>.from(comments!.map((x) => x))
-            : null,
-      };
 }
 
 class Author {
@@ -111,14 +84,8 @@ class Author {
   factory Author.fromJson(Map<String, dynamic> json) => Author(
         id: json["id"],
         name: json["name"],
-        imageUrl: json["imageUrl"],
+        imageUrl: json["image_url"],
       );
-
-  Map<String, dynamic> toJson() => {
-        "id": id,
-        "name": name,
-        "imageUrl": imageUrl,
-      };
 }
 
 class Category {
@@ -134,9 +101,4 @@ class Category {
         id: json["id"],
         name: json["name"],
       );
-
-  Map<String, dynamic> toJson() => {
-        "id": id,
-        "name": name,
-      };
 }

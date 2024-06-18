@@ -8,34 +8,35 @@ import 'package:recything_application/constants/text_style_constant.dart';
 import 'package:recything_application/controllers/article/article_controller.dart';
 import 'package:recything_application/controllers/article/article_search_controller.dart';
 import 'package:recything_application/screens/article/article_detail/article_detail_screen.dart';
-import 'package:recything_application/screens/article/article_search/article_search_screen.dart';
 import 'package:recything_application/screens/article/widget/article_app_bar_search_widget.dart';
 import 'package:recything_application/widgets/global_loading_widget.dart';
 import 'package:recything_application/models/article/list_article_model.dart';
 
-class ArticleListScreen extends StatefulWidget {
-  const ArticleListScreen({super.key});
+class ArticleSearchScreen extends StatefulWidget {
+  const ArticleSearchScreen({super.key});
 
   @override
-  State<ArticleListScreen> createState() => _ArticleListScreenState();
+  State<ArticleSearchScreen> createState() => _ArticleSearchScreenState();
 }
 
-class _ArticleListScreenState extends State<ArticleListScreen> {
-  List<String> menuWidget = [
-    'Semua',
-    'Tips',
-    'Tutorial',
-    'Kampanye',
-    'Daur Ulang',
-  ];
-
-  int index = 0;
+class _ArticleSearchScreenState extends State<ArticleSearchScreen> {
+  late String query;
   final ArticleController articleController = Get.put(ArticleController());
   final TextEditingController searchController = TextEditingController();
 
   final ArticleSearchController articleSearchController = Get.put(
     ArticleSearchController(),
   );
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    query = ModalRoute.of(context)!.settings.arguments as String;
+    articleController.setKeyword(query);
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      articleController.fetchArticles();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -59,42 +60,6 @@ class _ArticleListScreenState extends State<ArticleListScreen> {
                 children: [
                   const SizedBox(
                     height: 80.0,
-                  ),
-                  DefaultTabController(
-                    initialIndex: index,
-                    length: menuWidget.length,
-                    child: Container(
-                      color: ColorConstant.whiteColor,
-                      height: 42,
-                      width: double.infinity,
-                      child: TabBar(
-                        labelStyle: TextStyleConstant.boldParagraph.copyWith(
-                          fontSize: 16,
-                        ),
-                        unselectedLabelStyle: TextStyleConstant.boldParagraph
-                            .copyWith(fontWeight: FontWeight.w400),
-                        unselectedLabelColor: ColorConstant.netralColor900,
-                        tabAlignment: TabAlignment.start,
-                        labelColor: ColorConstant.secondaryColor500,
-                        indicatorColor: ColorConstant.secondaryColor500,
-                        dividerHeight: 0,
-                        onTap: (value) {
-                          setState(() {
-                            index = value;
-                            articleController.setKeyword(menuWidget[index]);
-                          });
-                        },
-                        isScrollable: true,
-                        tabs: menuWidget
-                            .map((e) => Tab(
-                                  child: Padding(
-                                    padding: const EdgeInsets.all(10),
-                                    child: Text(e),
-                                  ),
-                                ))
-                            .toList(),
-                      ),
-                    ),
                   ),
                   SpacingConstant.verticalSpacing300,
                   Expanded(
@@ -266,15 +231,7 @@ class _ArticleListScreenState extends State<ArticleListScreen> {
                     articleSearchController: articleSearchController,
                     onSubmitted: (value) {
                       if (value.isNotEmpty) {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const ArticleSearchScreen(),
-                            settings: RouteSettings(
-                              arguments: value,
-                            ),
-                          ),
-                        );
+                        articleController.setKeyword(value);
                       } else {
                         Get.snackbar(
                           '',

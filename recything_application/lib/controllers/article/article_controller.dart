@@ -5,7 +5,8 @@ import 'package:recything_application/services/article/article_service.dart';
 
 class ArticleController extends GetxController {
   var articles = ListArticleModel().obs;
-  var artilce = ArticleModel().obs;
+  var article = ArticleModel().obs;
+  var queryResults = <String>[].obs;
   var isLoading = false.obs;
   String keyword = '';
 
@@ -35,7 +36,7 @@ class ArticleController extends GetxController {
   void fetchArticleById({required String id}) async {
     isLoading.value = true;
     var fetchedArticle = await _articleService.getArticleById(id: id);
-    artilce.value = fetchedArticle;
+    article.value = fetchedArticle;
     isLoading.value = false;
   }
 
@@ -49,5 +50,16 @@ class ArticleController extends GetxController {
     } catch (e) {
       print("Error updating user profile: $e");
     }
+  }
+
+  void getqueryResults(String query) async {
+    var data = await _articleService.getAllArticles(keyword: query);
+    queryResults.value = data.data
+            ?.where((article) =>
+                article.title?.toLowerCase().contains(query.toLowerCase()) ??
+                false)
+            .map((article) => article.title ?? '')
+            .toList() ??
+        [];
   }
 }
