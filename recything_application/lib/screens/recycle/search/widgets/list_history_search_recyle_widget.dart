@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:recything_application/constants/color_constant.dart';
+import 'package:recything_application/constants/spacing_constant.dart';
 import 'package:recything_application/constants/text_style_constant.dart';
 import 'package:recything_application/controllers/recycle_controller.dart';
 
@@ -37,18 +38,20 @@ class ListHistorySearchRecyleWidget extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          GestureDetector(
-            onTap: () {
-              controller.onSelectedHistory(controller.searchHistory[index]);
-            },
-            child: Text(
-              controller.searchHistory[index],
-              style: TextStyleConstant.mediumCaption.copyWith(
-                color: ColorConstant.netralColor600,
+          Expanded(
+            child: GestureDetector(
+              onTap: () {
+                controller.onSelectedHistory(controller.searchHistory[index]);
+              },
+              child: Text(
+                controller.searchHistory[index],
+                style: TextStyleConstant.mediumCaption.copyWith(
+                  color: ColorConstant.netralColor600,
+                ),
               ),
             ),
           ),
-          const Spacer(),
+          SpacingConstant.horizontalSpacing100,
           GestureDetector(
             onTap: () => controller.deleteSearchHistory(index),
             child: const SizedBox(
