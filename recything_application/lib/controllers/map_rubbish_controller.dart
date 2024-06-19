@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter/material.dart';
@@ -127,23 +126,5 @@ class MapRubbishController extends GetxController {
     if (currentIndex.value < 1) {
       currentIndex.value++;
     }
-  }
-
-  Map<String, dynamic> toJson() {
-    return {
-      'latitude': lat.value,
-      'longitude': long.value,
-      'address': address.value,
-      'city': city.value,
-      'province': province.value,
-      'waste_materials': selectedMaterial.value,
-      'description': condition.value,
-      'waste_type': rubbishType.value,
-      'report_type': 'rubbish',
-    };
-  }
-
-  String toJsonString() {
-    return jsonEncode(toJson());
   }
 }

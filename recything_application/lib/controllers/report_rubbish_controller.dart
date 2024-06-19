@@ -4,11 +4,8 @@ import 'package:get/get.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:recything_application/controllers/map_rubbish_controller.dart';
 import 'package:recything_application/models/maps/search_autocomplete_maps_model.dart';
-import 'package:recything_application/screens/report_rubbish/success_report_rubbish_screen.dart';
 import 'package:recything_application/services/maps/maps_service.dart';
-import 'package:recything_application/services/report_rubbish/report_rubbish_service.dart';
 
 class ReportRubbishController extends GetxController {
   final Completer<GoogleMapController> mcontroller = Completer<GoogleMapController>();
@@ -26,12 +23,6 @@ class ReportRubbishController extends GetxController {
   RxString province = ''.obs;
   RxDouble lat = 0.0.obs;
   RxDouble long = 0.0.obs;
-
-  // @override
-  // void onInit() {
-  //   super.onInit();
-  //   initializeData();
-  // }
 
   void initializeData() async {
     await getCurrentPosition();
