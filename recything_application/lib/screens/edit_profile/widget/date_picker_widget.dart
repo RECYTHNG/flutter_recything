@@ -45,8 +45,8 @@ class DatePickerWidgetState extends State<DatePickerWidget> {
           ),
           child: DatePickerDialog(
             initialDate: selectedDate ?? DateTime.now(),
-            firstDate: DateTime(2000),
-            lastDate: DateTime(2101),
+            firstDate: DateTime(1900),
+            lastDate: DateTime.now(),
           ),
         );
       },
