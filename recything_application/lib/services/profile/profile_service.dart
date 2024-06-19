@@ -4,13 +4,13 @@ import 'package:image_picker/image_picker.dart';
 import 'package:mime/mime.dart';
 import 'package:recything_application/env/env.dart';
 import 'package:recything_application/models/user/user_model.dart';
+import 'package:recything_application/utils/shared_pref.dart';
 
 class ProfileService {
   var baseUrl = Env.recythingBaseUrl;
-  var authToken =
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiVVNSMDAwNCIsInJvbGUiOiJ1c2VyIiwiZXhwIjoxNzIwOTM1ODA2fQ.XCiRcJ92sD4TwW5cxzKmqxhW_TGsdNgjI_RNY-EPVI4";
   Future<Map<String, dynamic>> putUser(Map<String, dynamic> userData) async {
     try {
+      String? authToken = await SharedPref.getToken();
       var url = "$baseUrl/user/profile";
       var response = await Dio().put(
         url,
@@ -33,6 +33,7 @@ class ProfileService {
 
   Future<UserModel> uploadAvatar(XFile pickedImage) async {
     try {
+      String? authToken = await SharedPref.getToken();
       var url = "$baseUrl/user/uploadAvatar";
       var mimeType = lookupMimeType(pickedImage.path) ?? 'multipart/form-data';
 

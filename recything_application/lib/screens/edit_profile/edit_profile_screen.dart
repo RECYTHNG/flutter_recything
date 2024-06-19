@@ -117,8 +117,11 @@ class EditProfileScreenState extends State<EditProfileScreen> {
                                 clipBehavior: Clip.none,
                                 children: [
                                   CircleAvatar(
-                                    radius: 40,
-                                    backgroundColor: Colors.transparent,
+                                    radius: 64,
+                                    backgroundColor: data.pictureUrl == null ||
+                                            data.pictureUrl!.isEmpty
+                                        ? ColorConstant.blackColor10
+                                        : Colors.transparent,
                                     child: data.pictureUrl == null ||
                                             data.pictureUrl!.isEmpty
                                         ? const Icon(
@@ -127,8 +130,8 @@ class EditProfileScreenState extends State<EditProfileScreen> {
                                             size: 48,
                                           )
                                         : Container(
-                                            width: 80,
-                                            height: 80,
+                                            width: 128,
+                                            height: 128,
                                             decoration: BoxDecoration(
                                               color: ColorConstant.whiteColor,
                                               shape: BoxShape.circle,
@@ -146,8 +149,8 @@ class EditProfileScreenState extends State<EditProfileScreen> {
                                       bottom: -20,
                                       child: Image.network(
                                         data.badge!,
-                                        width: 32,
-                                        height: 32,
+                                        width: 40,
+                                        height: 40,
                                       ),
                                     ),
                                 ],

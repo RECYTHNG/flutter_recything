@@ -1,14 +1,14 @@
 import 'package:dio/dio.dart';
 import 'package:recything_application/env/env.dart';
 import 'package:recything_application/models/user/user_model.dart';
+import 'package:recything_application/utils/shared_pref.dart';
 
 class UserService {
   var base = Env.recythingBaseUrl;
   Future<UserModel> getUser() async {
     try {
+      String? authToken = await SharedPref.getToken();
       var url = "$base/user/profile";
-      var authToken =
-          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiVVNSMDAwNCIsInJvbGUiOiJ1c2VyIiwiZXhwIjoxNzIwOTM1ODA2fQ.XCiRcJ92sD4TwW5cxzKmqxhW_TGsdNgjI_RNY-EPVI4";
       var response = await Dio().get(
         url,
         options: Options(
