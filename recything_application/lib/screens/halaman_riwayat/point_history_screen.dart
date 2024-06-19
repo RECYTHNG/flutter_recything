@@ -17,15 +17,6 @@ class PointHisstoryScreen extends StatelessWidget {
     AchievementController(),
   );
 
-  String getBadgeUrl(int points, List<DataAchievement> achievements) {
-    for (int i = achievements.length - 1; i >= 0; i--) {
-      if (points >= achievements[i].targetPoint!) {
-        return achievements[i].badgeUrl!;
-      }
-    }
-    return achievements.first.badgeUrl!;
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -53,13 +44,10 @@ class PointHisstoryScreen extends StatelessWidget {
             return const NoRecordHistoryPointWidget();
           }
 
-          int currentPoint = achievementController
-                  .achievementResult.value.data?.dataUser?.point ??
-              0;
-          List<DataAchievement> achievements = achievementController
-                  .achievementResult.value.data?.dataAchievement ??
-              [];
-          String badgeUrl = getBadgeUrl(currentPoint, achievements);
+          var userData =
+              achievementController.achievementResult.value.data?.dataUser;
+          int currentPoint = userData?.point ?? 0;
+          String? badgeUrl = userData?.badge ?? '';
           return Column(
             children: [
               Container(

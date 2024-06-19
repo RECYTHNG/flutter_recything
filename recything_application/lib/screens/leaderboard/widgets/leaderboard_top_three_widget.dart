@@ -1,14 +1,17 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 import 'package:recything_application/constants/color_constant.dart';
 import 'package:recything_application/constants/text_style_constant.dart';
+import 'package:recything_application/controllers/leaderboard_controller.dart';
 
 class TopThreeLeaderboardItem extends StatelessWidget {
   final String imageUrl;
   final String name;
   final String score;
   final int rank;
-  final String medalAsset;
+  final String badgeUrl;
 
   const TopThreeLeaderboardItem({
     super.key,
@@ -16,7 +19,7 @@ class TopThreeLeaderboardItem extends StatelessWidget {
     required this.name,
     required this.score,
     required this.rank,
-    required this.medalAsset,
+    required this.badgeUrl,
   });
 
   @override
@@ -73,8 +76,14 @@ class TopThreeLeaderboardItem extends StatelessWidget {
                 ),
                 Padding(
                   padding: EdgeInsets.only(top: rank == 1 ? 40 : 32),
-                  child: SvgPicture.asset(
-                    medalAsset,
+                  child: CachedNetworkImage(
+                    imageUrl: badgeUrl,
+                    width: 35,
+                    height: 35,
+                    placeholder: (context, url) =>
+                        const CircularProgressIndicator(),
+                    errorWidget: (context, url, error) =>
+                        const Icon(Icons.error),
                   ),
                 ),
               ],

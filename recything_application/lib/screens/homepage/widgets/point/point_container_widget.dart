@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
@@ -5,6 +6,8 @@ import 'package:recything_application/constants/color_constant.dart';
 import 'package:recything_application/constants/icon_constant.dart';
 import 'package:recything_application/constants/text_style_constant.dart';
 import 'package:recything_application/controllers/home_controller.dart';
+import 'package:recything_application/screens/achievement_screen/achievement_screen.dart';
+import 'package:recything_application/screens/halaman_riwayat/point_history_screen.dart';
 import 'package:recything_application/widgets/global_button_widget.dart';
 
 class PointsContainer extends StatelessWidget {
@@ -36,8 +39,21 @@ class PointsContainer extends StatelessWidget {
                     color: ColorConstant.whiteColor,
                   ),
                 ),
-                SvgPicture.asset(
-                  IconConstant.badgeClassic,
+                GestureDetector(
+                  onTap: () {
+                    Get.to(
+                      () => const AchievementScreen(),
+                    );
+                  },
+                  child: CachedNetworkImage(
+                    imageUrl: controller.user['badge'] ?? '',
+                    width: 30,
+                    height: 30,
+                    placeholder: (context, url) =>
+                        const CircularProgressIndicator(),
+                    errorWidget: (context, url, error) =>
+                        const Icon(Icons.error),
+                  ),
                 ),
               ],
             ),
@@ -65,7 +81,12 @@ class PointsContainer extends StatelessWidget {
                   fontSize: 16,
                 ),
                 GlobalButtonWidget(
-                  onTap: () {},
+                  onTap: () {
+                    Get.to(
+                      () => PointHisstoryScreen(),
+                      arguments: controller.user['id'].toString(),
+                    );
+                  },
                   width: 150,
                   height: 40,
                   backgroundColor: ColorConstant.whiteColor,

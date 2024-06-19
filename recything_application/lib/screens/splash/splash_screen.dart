@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:recything_application/constants/color_constant.dart';
 import 'package:recything_application/constants/image_constant.dart';
-import 'package:recything_application/screens/home.dart';
+import 'package:recything_application/screens/homepage/home_navbar_screen.dart';
 import 'package:recything_application/screens/on_boarding/on_boarding_screen.dart';
 import 'package:recything_application/utils/shared_pref.dart';
 
@@ -22,7 +22,9 @@ class _SplashScreenState extends State<SplashScreen> {
       () {
         if (token != null) {
           Get.off(
-            () => const HomeAuthenticationScreen(),
+            () => HomeNavBarScreen(
+              currentIndex: 0,
+            ),
           );
         } else {
           Get.off(
