@@ -1,3 +1,5 @@
+import 'dart:async';
+import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter/material.dart';
@@ -22,8 +24,8 @@ class MapRubbishController extends GetxController {
 
   TextEditingController conditionController = TextEditingController();
   RxString condition = RxString('');
-  RxBool sampahBasah = false.obs;
-  RxBool sampahKering = false.obs;
+  RxBool sampahBasah = RxBool(false);
+  RxBool sampahKering = RxBool(false);
   RxString rubbishType = RxString('');
   RxString address = RxString('');
   RxString city = RxString('');
@@ -38,6 +40,18 @@ class MapRubbishController extends GetxController {
 
   RxInt currentIndex = 0.obs;
 
+  void updateStateEvery2Seconds() {
+    Timer.periodic(const Duration(seconds: 2), (timer) {
+      update();
+    });
+  }
+
+  @override
+  void onInit() {
+    super.onInit();
+    updateStateEvery2Seconds();
+  }
+
   bool isMaxImagesReached() {
     return imageFiles.length >= 9;
   }
@@ -49,9 +63,7 @@ class MapRubbishController extends GetxController {
   }
 
   void showConfirmationDialog() {
-    Get.bottomSheet(
-      const ConfirmationBottomsheetReportRubbishWidget()
-    );
+    Get.bottomSheet(const ConfirmationBottomsheetReportRubbishWidget());
   }
 
   Future<void> pickImage(ImageSource source) async {
@@ -61,14 +73,17 @@ class MapRubbishController extends GetxController {
         imageFiles.add(pickedFile);
       }
     } else {
-      Get.snackbar("Limit", "Maksimal 9 foto");
+      _showSnackbar(
+          title: 'Upload Gagal',
+          message: 'Jumlah maksimal foto adalah 9',
+          contentType: ContentType.failure);
     }
   }
 
-  Future<void> showImageSourceDialog(Function(ImageSource) onImageSourceSelected) async {
-    return Get.dialog(
-      GlobalImagePickerDialogWidget(onImageSourceSelected: onImageSourceSelected)
-    );
+  Future<void> showImageSourceDialog(
+      Function(ImageSource) onImageSourceSelected) async {
+    return Get.dialog(GlobalImagePickerDialogWidget(
+        onImageSourceSelected: onImageSourceSelected));
   }
 
   void collectData(
@@ -104,13 +119,19 @@ class MapRubbishController extends GetxController {
   }
 
   void sendRubbishReport(MapRubbishController controller) async {
-    final response = await ReportRubbishService().sendReport(controller);
-    if (response == 201) {
-      Get.offAll(const SuccessReportRubbishScreen());
-    } else {
-      Get.snackbar('Error', 'Coba Lagi');
+    try {
+      final response = await ReportRubbishService().sendReport(controller);
+      if (response == 201) {
+        Get.offAll(const SuccessReportRubbishScreen());
+      }
+    } catch (e) {
+      Get.back();
+      _showSnackbar(
+        title: 'Pengiriman Report Gagal',
+        message: 'Silakan cek kembali data yang diinputkan',
+        contentType: ContentType.failure,
+      );
     }
-    print('$response');
   }
 
   void replaceImage(int index) async {
@@ -127,4 +148,23 @@ class MapRubbishController extends GetxController {
       currentIndex.value++;
     }
   }
+}
+
+void _showSnackbar({
+  required String title,
+  required String message,
+  required ContentType contentType,
+}) {
+  Get.rawSnackbar(
+    backgroundColor: Colors.transparent,
+    snackPosition: SnackPosition.BOTTOM,
+    snackStyle: SnackStyle.FLOATING,
+    messageText: AwesomeSnackbarContent(
+      titleFontSize: 18,
+      messageFontSize: 14,
+      title: title,
+      message: message,
+      contentType: contentType,
+    ),
+  );
 }

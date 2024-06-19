@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:recything_application/models/maps/search_autocomplete_maps_model.dart';
 import 'package:recything_application/services/maps/maps_service.dart';
 
@@ -24,6 +25,12 @@ class ReportRubbishController extends GetxController {
   RxDouble lat = 0.0.obs;
   RxDouble long = 0.0.obs;
 
+  @override
+  void onInit() {
+    super.onInit();
+    getCurrentPosition();
+  }
+
   void initializeData() async {
     await getCurrentPosition();
   }
@@ -43,15 +50,18 @@ class ReportRubbishController extends GetxController {
 
   void onSearchResultSelected(String selectedPlace) async {
     autocomplete.clear();
-    Prediction matchedData = fetchedSearchResultData.firstWhere((data) => data.description == selectedPlace);
-    final placesData = await MapsService().getPlacesDetails(matchedData.placeId);
+    Prediction matchedData = fetchedSearchResultData
+        .firstWhere((data) => data.description == selectedPlace);
+    final placesData =
+        await MapsService().getPlacesDetails(matchedData.placeId);
     final double latPlaces = placesData.geometry.location.lat;
     final double longPlaces = placesData.geometry.location.long;
     lat.value = latPlaces;
     long.value = longPlaces;
     currentLatLng.value = LatLng(latPlaces, longPlaces);
     moveCamera(currentLatLng.value!);
-    List<Placemark> placemark = await placemarkFromCoordinates(latPlaces, longPlaces);
+    List<Placemark> placemark =
+        await placemarkFromCoordinates(latPlaces, longPlaces);
     await getAddressByPlacemark(placemark.first);
   }
 
@@ -78,17 +88,20 @@ class ReportRubbishController extends GetxController {
     );
     if (currentPosition.value != null) {
       await getAddressByLatLong(currentPosition.value!);
-      searchController.text = currentAddress.value;
-      currentLatLng.value = LatLng(currentPosition.value!.latitude, currentPosition.value!.longitude);
+      searchController.text = currentAddress.value!;
+      currentLatLng.value = LatLng(
+          currentPosition.value!.latitude, currentPosition.value!.longitude);
       moveCamera(currentLatLng.value!);
     }
     isGettingCurrentLocation.value = false;
   }
 
   Future<void> getAddressByPlacemark(Placemark placemark) async {
-    currentAddress.value = '${placemark.street}, ${placemark.subLocality}, ${placemark.locality}, ${placemark.subAdministrativeArea}, ${placemark.administrativeArea}, ${placemark.postalCode}';
-    searchController.text = currentAddress.value;
-    address.value = '${placemark.street}, ${placemark.subLocality}, ${placemark.locality}';
+    currentAddress.value =
+        '${placemark.street}, ${placemark.subLocality}, ${placemark.locality}, ${placemark.subAdministrativeArea}, ${placemark.administrativeArea}, ${placemark.postalCode}';
+    searchController.text = currentAddress.value!;
+    address.value =
+        '${placemark.street}, ${placemark.subLocality}, ${placemark.locality}';
     city.value = placemark.subAdministrativeArea!;
     province.value = placemark.administrativeArea!;
   }
@@ -100,14 +113,21 @@ class ReportRubbishController extends GetxController {
         position.longitude,
       );
       Placemark placemark = resultAddress.first;
-      currentAddress.value = '${placemark.street}, ${placemark.subLocality}, ${placemark.locality}, ${placemark.subAdministrativeArea}, ${placemark.administrativeArea}, ${placemark.postalCode}';
+      currentAddress.value =
+          '${placemark.street}, ${placemark.subLocality}, ${placemark.locality}, ${placemark.subAdministrativeArea}, ${placemark.administrativeArea}, ${placemark.postalCode}';
       lat.value = position.latitude;
       long.value = position.longitude;
-      address.value = '${placemark.street}, ${placemark.subLocality}, ${placemark.locality}';
+      address.value =
+          '${placemark.street}, ${placemark.subLocality}, ${placemark.locality}';
       city.value = placemark.subAdministrativeArea!;
       province.value = placemark.administrativeArea!;
+      print(currentAddress);
     } catch (e) {
-      // print('Failed to get address: $e');
+      _showSnackbar(
+        title: 'Gagal Mendapatkan Alamat',
+        message: e.toString(),
+        contentType: ContentType.failure,
+      );
     }
   }
 
@@ -117,9 +137,10 @@ class ReportRubbishController extends GetxController {
 
     serviceEnabled = await Geolocator.isLocationServiceEnabled();
     if (!serviceEnabled) {
-      Get.snackbar(
-        'Location Service Disabled',
-        'Please enable location service',
+      _showSnackbar(
+        title: 'Layanan Lokasi Dinonaktifkan',
+        message: 'Silakan aktifkan layanan lokasi',
+        contentType: ContentType.failure,
       );
       return false;
     }
@@ -127,17 +148,19 @@ class ReportRubbishController extends GetxController {
     if (locationPermission == LocationPermission.denied) {
       locationPermission = await Geolocator.requestPermission();
       if (locationPermission == LocationPermission.denied) {
-        Get.snackbar(
-          'Location Permission Denied',
-          'Please allow location permission',
+        _showSnackbar(
+          title: 'Izin Lokasi Ditolak',
+          message: 'Silakan izinkan akses lokasi',
+          contentType: ContentType.failure,
         );
         return false;
       }
     }
     if (locationPermission == LocationPermission.deniedForever) {
-      Get.snackbar(
-        'Location Permission Denied Permanently',
-        'Please enable location permission in device settings',
+      _showSnackbar(
+        title: 'Izin Lokasi Ditolak Permanen',
+        message: 'Silakan aktifkan izin lokasi di pengaturan perangkat',
+        contentType: ContentType.failure,
       );
       return false;
     }
@@ -152,6 +175,25 @@ class ReportRubbishController extends GetxController {
           target: newLatLng,
           zoom: 15,
         ),
+      ),
+    );
+  }
+
+  void _showSnackbar({
+    required String title,
+    required String message,
+    required ContentType contentType,
+  }) {
+    Get.rawSnackbar(
+      backgroundColor: Colors.transparent,
+      snackPosition: SnackPosition.BOTTOM,
+      snackStyle: SnackStyle.FLOATING,
+      messageText: AwesomeSnackbarContent(
+        titleFontSize: 18,
+        messageFontSize: 14,
+        title: title,
+        message: message,
+        contentType: contentType,
       ),
     );
   }

@@ -7,12 +7,11 @@ import 'package:recything_application/utils/shared_pref.dart';
 
 class ReportRubbishService {
   final Dio _dio = Dio();
-  String token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiVVNSMDAzNCIsInJvbGUiOiJ1c2VyIiwiZXhwIjoxNzIxMTg0NjUzfQ.IFcd5a7Vsxgs4TQo1UG_braA7Gb3jJEk8vprl8mkaf4';
   final url = '$recythingBaseUrl/report';
 
   Future<int> sendReport(MapRubbishController controller) async {
     try {
-      // final token = SharedPref.getToken();
+      final token = SharedPref.getToken();
       FormData formData = FormData();
       var jsonData = jsonEncode({
         'latitude': controller.lat.value,
@@ -47,7 +46,7 @@ class ReportRubbishService {
       );
       return response.statusCode!;
     } on DioException catch (e) {
-      throw Exception('Error: ${e.response?.statusMessage}');
+      throw Exception('${e.response?.statusMessage}');
     }
   }
 }

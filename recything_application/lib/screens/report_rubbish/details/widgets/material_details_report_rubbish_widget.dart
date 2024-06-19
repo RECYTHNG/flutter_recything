@@ -10,7 +10,7 @@ class MaterialDetailsReportRubbishWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final MapRubbishController controller = Get.put(MapRubbishController());
+    final MapRubbishController controller = Get.find();
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [

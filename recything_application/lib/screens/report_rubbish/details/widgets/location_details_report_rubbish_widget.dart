@@ -12,7 +12,7 @@ class LocationDetailsReportRubbishWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final ReportRubbishController controller = Get.put(ReportRubbishController());
+    final ReportRubbishController controller = Get.find();
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -28,6 +28,7 @@ class LocationDetailsReportRubbishWidget extends StatelessWidget {
           child: Stack(
             children: [
               GlobalSearchBar(
+                prefixIcon: const Icon(Icons.search),
                 hintText: 'Search',
                 height: 40,
                 width: double.infinity,

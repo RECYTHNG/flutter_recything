@@ -10,49 +10,46 @@ class NextButtonDetailsReportRubbishWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final MapRubbishController mapController = Get.find();
-    final ReportRubbishController rubbishController = Get.find();
-    return Positioned(
-      bottom: 25,
-      left: 0,
-      right: 0,
-      child: Obx(
-        () {
-          return GlobalButtonWidget(
-            onTap: rubbishController.currentAddress.value.isNotEmpty &&
-                    mapController.conditionController.text.isNotEmpty &&
-                    (mapController.sampahBasah.value == true ||
-                        mapController.sampahKering.value == true) &&
-                    mapController.materialData.values
-                        .any((data) => data == true)
-                ? () {
-                    mapController.collectData(
-                      rubbishController.lat.value,
-                      rubbishController.long.value,
-                      rubbishController.address.value,
-                      rubbishController.city.value,
-                      rubbishController.province.value,
-                    );
-                  }
-                : () {},
-            width: double.infinity,
-            height: 40,
-            backgroundColor:
-                rubbishController.currentAddress.value.isNotEmpty &&
-                        mapController.conditionController.text.isNotEmpty &&
-                        (mapController.sampahBasah.value == true ||
-                            mapController.sampahKering.value == true) &&
-                        mapController.materialData.values
-                            .any((data) => data == true)
-                    ? ColorConstant.primaryColor500
-                    : ColorConstant.netralColor500,
-            isBorder: false,
-            title: 'Selanjutnya',
-            textColor: ColorConstant.whiteColor,
-            fontSize: 14,
-          );
-        },
-      ),
+    return GetBuilder<MapRubbishController>(
+      builder: (mapController) {
+        return GetBuilder<ReportRubbishController>(
+          builder: (rubbishController) {
+            return GlobalButtonWidget(
+              onTap: rubbishController.currentAddress.value.isNotEmpty &&
+                      mapController.conditionController.text.isNotEmpty &&
+                      (mapController.sampahBasah.value ||
+                          mapController.sampahKering.value) &&
+                      mapController.materialData.values
+                          .any((data) => data)
+                  ? () {
+                      mapController.collectData(
+                        rubbishController.lat.value,
+                        rubbishController.long.value,
+                        rubbishController.address.value,
+                        rubbishController.city.value,
+                        rubbishController.province.value,
+                      );
+                    }
+                  : () {},
+              width: double.infinity,
+              height: 40,
+              backgroundColor:
+                  rubbishController.currentAddress.value.isNotEmpty &&
+                          mapController.conditionController.text.isNotEmpty &&
+                          (mapController.sampahBasah.value ||
+                              mapController.sampahKering.value) &&
+                          mapController.materialData.values
+                              .any((data) => data)
+                      ? ColorConstant.primaryColor500
+                      : ColorConstant.netralColor500,
+              isBorder: false,
+              title: 'Selanjutnya',
+              textColor: ColorConstant.whiteColor,
+              fontSize: 14,
+            );
+          },
+        );
+      },
     );
   }
 }

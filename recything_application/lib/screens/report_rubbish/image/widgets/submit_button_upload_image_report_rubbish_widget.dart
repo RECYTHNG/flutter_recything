@@ -13,9 +13,11 @@ class SubmitButtonUploadImageReportRubbishWidget extends StatelessWidget {
     return Obx(
       () {
         return GlobalButtonWidget(
-          onTap: () {
-            controller.showConfirmationDialog();
-          },
+          onTap: controller.imageFiles.isNotEmpty
+              ? () {
+                  controller.showConfirmationDialog();
+                }
+              : () {},
           width: double.infinity,
           height: 40,
           backgroundColor: controller.imageFiles.isNotEmpty

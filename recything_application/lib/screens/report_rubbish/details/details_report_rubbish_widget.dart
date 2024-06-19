@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:recything_application/constants/color_constant.dart';
 import 'package:recything_application/constants/spacing_constant.dart';
 import 'package:recything_application/controllers/report_rubbish_controller.dart';
@@ -15,6 +16,7 @@ class DetailsReportRubbishWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     SystemUiOverlayUtils().setSystemUiOverlay(ColorConstant.primaryColor500, false);
+    Get.put(ReportRubbishController());
     return Scaffold(
       resizeToAvoidBottomInset: true,
       backgroundColor: ColorConstant.whiteColor,
@@ -33,7 +35,7 @@ class DetailsReportRubbishWidget extends StatelessWidget {
                     const ConditionDetailsReportRibbishWidget(),
                     SpacingConstant.verticalSpacing250,
                     const TypeDetailsReportRubbishWidget(),
-                    SpacingConstant.verticalSpacing200,
+                    SpacingConstant.verticalSpacing100,
                     const MaterialDetailsReportRubbishWidget(),
                   ],
                 ),

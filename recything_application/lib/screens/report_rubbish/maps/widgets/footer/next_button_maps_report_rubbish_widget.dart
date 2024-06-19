@@ -16,7 +16,9 @@ class NextButtonMapsReportRubbishWidget extends StatelessWidget {
         return GlobalButtonWidget(
           onTap: controller.currentAddress.value.isEmpty
               ? () {}
-              : () => Get.off(const ReportRubbishScreen()),
+              : () {
+                  Get.off(const ReportRubbishScreen());
+                },
           width: double.infinity,
           height: 40,
           backgroundColor: controller.currentAddress.value.isNotEmpty

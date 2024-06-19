@@ -10,7 +10,7 @@ class ConditionDetailsReportRibbishWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final MapRubbishController controller = Get.put(MapRubbishController());
+    final MapRubbishController controller = Get.find();
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -24,7 +24,7 @@ class ConditionDetailsReportRibbishWidget extends StatelessWidget {
         Container(
           width: double.infinity,
           height: 135,
-          padding: const EdgeInsets.all(16),
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
           decoration: BoxDecoration(
             border: Border.all(
               width: 1,
