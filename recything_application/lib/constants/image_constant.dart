@@ -11,7 +11,7 @@ class ImageConstant {
   static String litteringCarousel = 'assets/images/reporting_rubbish/pembuangan_sampah_sembarangan.jpeg';
 
   // Rubbish
-  static String locationResult = 'assets/images/reporting_rubbish/location_result.png';  
+  static String locationResult = 'assets/images/reporting_rubbish/location_result.png';
 
   // Recycle
   static String play = 'assets/images/recycle/play.png';
