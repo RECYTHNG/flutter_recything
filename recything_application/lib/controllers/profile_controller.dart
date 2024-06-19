@@ -1,6 +1,8 @@
+import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:recything_application/models/user/user_model.dart';
+import 'package:recything_application/screens/profile/widget/snackbar_widget.dart';
 import 'package:recything_application/services/profile/profile_service.dart';
 import 'package:recything_application/services/user/user_service.dart';
 
@@ -17,35 +19,45 @@ class ProfileController extends GetxController {
   }
 
   void uploadAndgetImage(ImageSource imageSource) async {
+    isLoading.value = true;
     try {
       XFile? pickedImage = await _imagePicker.pickImage(source: imageSource);
-      isLoading(true);
       if (pickedImage != null) {
         var response = await profileService.postProfile(pickedImage);
         if (response.code == 200) {
-          Get.snackbar(
-            "Success",
-            response.message.toString(),
+          showSnackbar(
+            title: "Succes",
+            message: response.message.toString(),
+            contentType: ContentType.success,
           );
           getImageFromAPi();
         } else {
-          Get.snackbar(
-            "Error",
-            response.message.toString(),
+          showSnackbar(
+            title: "Error",
+            message: response.message.toString(),
+            contentType: ContentType.failure,
           );
         }
       } else {
-        Get.snackbar("Error", "No Image Selected");
+        showSnackbar(
+          title: "Error",
+          message: "No Image Selected",
+          contentType: ContentType.failure,
+        );
       }
     } catch (e) {
-      Get.snackbar("Error", "An error occurred : $e");
+      showSnackbar(
+        title: "Error",
+        message: "An error occurred",
+        contentType: ContentType.failure,
+      );
     } finally {
-      isLoading(false);
+      isLoading.value = false;
     }
   }
 
   void getImageFromAPi() async {
-    isLoading(true);
+    isLoading.value = true;
     var response = await userService.getUser();
     try {
       if (response.code == 200) {
@@ -59,7 +71,7 @@ class ProfileController extends GetxController {
     } catch (e) {
       Get.snackbar("Error", "An error occurred : $e");
     } finally {
-      isLoading(false);
+      isLoading.value = false;
     }
   }
 }

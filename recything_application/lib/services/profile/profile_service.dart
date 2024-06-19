@@ -4,16 +4,14 @@ import 'package:recything_application/env/env.dart';
 import 'package:recything_application/models/profile/profile_model.dart';
 import 'package:mime/mime.dart';
 import 'package:http_parser/http_parser.dart';
+import 'package:recything_application/utils/shared_pref.dart';
 
 class ProfileService {
   var baseUrl = Env.recythingBaseUrl;
-   Future<ProfileModel> postProfile(XFile pickedImage) async {
+  Future<ProfileModel> postProfile(XFile pickedImage) async {
     try {
-      var url =
-          "$baseUrl/user/uploadAvatar";
-      var authToken =
-          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiVVNSMDAwMyIsInJvbGUiOiJ1c2VyIiwiZXhwIjoxNzIwOTI2NDExfQ.NIBgmfUIoUAMPmBVgZZLriRvXTXf_oLkzbVEilfkCOY";
-
+      var url = "$baseUrl/user/uploadAvatar";
+      String? authToken = await SharedPref.getToken();
       var mimeType = lookupMimeType(pickedImage.path) ?? 'multipart/form-data';
 
       var contentType = MediaType.parse(mimeType);
@@ -40,11 +38,7 @@ class ProfileService {
       );
 
       if (response.statusCode == 200) {
-        return ProfileModel(
-          code: response.statusCode,
-          data: Data.fromJson(response.data["data"]),
-          message: response.data["message"],
-        );
+        return ProfileModel.fromJson(response.data);
       } else {
         return ProfileModel(
           code: response.statusCode,
