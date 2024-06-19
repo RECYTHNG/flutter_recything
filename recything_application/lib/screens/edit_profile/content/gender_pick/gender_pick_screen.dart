@@ -20,6 +20,7 @@ class _GenderPickScreenState extends State<GenderPickScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: ColorConstant.whiteColor,
       appBar: AppBar(
         centerTitle: true,
         title: const Text(
