@@ -1,7 +1,9 @@
 import 'package:get/get.dart';
+import 'package:recything_application/screens/detail_mission/detail_mission_progress_screen.dart';
 import 'package:recything_application/services/detail_mission_service/task_step_service.dart';
 
 class DoingTaskDetailMissionController extends GetxController {
+  var dataGetTask = {}.obs;
   var dataGetStartTask = {}.obs;
   var dataGetProgress = {}.obs;
   var dataStartTask = {}.obs;
@@ -19,7 +21,7 @@ class DoingTaskDetailMissionController extends GetxController {
     try {
       final responseData = await _taskService.getTaskStart(taskId);
       if (responseData.containsKey('data')) {
-        dataGetStartTask.value = responseData['data'];
+        dataGetTask.value = responseData['data'];
         update();
       } else {
         throw Exception('Failed to fetch data');
@@ -34,17 +36,7 @@ class DoingTaskDetailMissionController extends GetxController {
       final responseData = await _taskService.getTaskProgressById(userTaskId);
       if (responseData.containsKey('data')) {
         dataGetProgress.value = responseData['data'];
-        taskStepCount += 1;
-        taskStepId = dataGetProgress['task_challenge']['user_steps']
-            [taskStepCount]['task_step_id'];
         _createUserStepCompletionMap();
-        if (taskStepCount == userStepCompletionMap.length) {
-          buttonUpload = true;
-        }
-        print('TaskStep: $taskStepId');
-        print('userStep: $userStepCompletionMap');
-        print('taskStepcount: $taskStepCount');
-        print('usersteplength: ${userStepCompletionMap.length}');
         update();
       } else {
         throw Exception('Failed to fetch data');
@@ -61,6 +53,11 @@ class DoingTaskDetailMissionController extends GetxController {
       if (response.containsKey('data')) {
         dataStartTask.value = response['data'];
         update();
+        Get.to(
+          DetailMissionProgressScreen(
+            userTaskId: dataStartTask['id'],
+          ),
+        );
       } else {
         throw Exception('Failed to get valid response from API');
       }
@@ -97,7 +94,17 @@ class DoingTaskDetailMissionController extends GetxController {
           taskStepCount += 1;
         }
       }
+      update();
+      if (taskStepCount == userStepCompletionMap.length) {
+        buttonUpload = true;
+      }
     }
+    taskStepId = dataGetProgress['task_challenge']['user_steps'][taskStepCount]
+        ['task_step_id'];
+    print('TaskStepId: $taskStepId');
+    print('userStepCompletionMap: $userStepCompletionMap');
+    print('taskStepCount: $taskStepCount');
+    print('userStepCompletionMapLength: ${userStepCompletionMap.length}');
   }
 
   bool isStepCompleted(int stepId) {

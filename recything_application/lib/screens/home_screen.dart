@@ -15,24 +15,26 @@ class HomeScreen extends StatelessWidget {
             TextButton(
               onPressed: () {
                 Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => DetailMissionStartScreen(
-                        taskId: 'TM0001',
-                      ),
-                    ));
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => DetailMissionStartScreen(
+                      taskId: 'TM0015',
+                    ),
+                  ),
+                );
               },
               child: const Text("Start Task"),
             ),
             TextButton(
               onPressed: () {
                 Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => DetailMissionProgressScreen(
-                        userTaskId: 'UT0006',
-                      ),
-                    ));
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => DetailMissionProgressScreen(
+                      userTaskId: 'UT0023',
+                    ),
+                  ),
+                );
               },
               child: const Text("Continue Task"),
             ),

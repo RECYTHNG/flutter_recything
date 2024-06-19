@@ -4,10 +4,11 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:http_parser/http_parser.dart';
 import 'package:recything_application/env/env.dart';
+import 'package:recything_application/utils/shared_pref.dart';
 
 class PostImageProofService {
   var baseUrl = Env.recythingBaseUrl;
-  final Dio _dio = Dio();
+  final Dio dio = Dio();
 
   Future<void> uploadFiles(
       String taskId, List<String> imagePaths, String description) async {
@@ -19,7 +20,6 @@ class PostImageProofService {
 
     for (var path in imagePaths) {
       String fileName = path.split('/').last;
-      print(fileName);
       formData.files.add(
         MapEntry(
           'images',
@@ -32,13 +32,17 @@ class PostImageProofService {
     print(formData);
 
     try {
-      var response = await _dio.post(
+      String? authToken = await SharedPref.getToken();
+      if (authToken == null) {
+        throw Exception('Tidak ada token yang ditemukan');
+      }
+
+      var response = await dio.post(
         url,
         data: formData,
         options: Options(
           headers: {
-            HttpHeaders.authorizationHeader:
-                'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiVVNSMDAzNCIsInJvbGUiOiJ1c2VyIiwiZXhwIjoxNzIxMzA1ODMwfQ.ZQJ-KErnUGP8R8F2RWY6YYhRpCpkpx1T1AWwuY0JHls',
+            HttpHeaders.authorizationHeader: 'Bearer $authToken',
             HttpHeaders.acceptHeader: 'application/json',
             HttpHeaders.contentTypeHeader: 'multipart/form-data',
           },
@@ -47,6 +51,8 @@ class PostImageProofService {
 
       if (response.statusCode == 200) {
         print('Upload successful');
+        print(response.data);
+        return response.data;
       } else {
         print('Upload failed with status: ${response.statusCode}');
         print('Response data: ${response.data}');

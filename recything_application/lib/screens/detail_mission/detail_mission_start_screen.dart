@@ -25,7 +25,7 @@ class DetailMissionStartScreen extends StatelessWidget {
         Get.find<DoingTaskDetailMissionController>().getDataTaskStart(taskId);
       },
       builder: (controller) {
-        final data = controller.dataGetStartTask;
+        final data = controller.dataGetTask;
 
         if (data.isEmpty) {
           return Scaffold(

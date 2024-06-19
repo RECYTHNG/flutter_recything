@@ -1,18 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 import 'package:recything_application/constants/color_constant.dart';
 import 'package:recything_application/constants/icon_constant.dart';
 import 'package:recything_application/constants/image_constant.dart';
 import 'package:recything_application/constants/text_style_constant.dart';
+import 'package:recything_application/controllers/doing_task_detail_mission_controller.dart';
+import 'package:recything_application/controllers/doing_task_proof_upload_controller.dart';
 
-// ignore: must_be_immutable
-class ChallengeCompletedScreen extends StatelessWidget {
-  ChallengeCompletedScreen({super.key});
-
-  String pointChallenge = '3000';
+class WaitingVerificationScreen extends StatelessWidget {
+  WaitingVerificationScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final DoingTaskDetailMissionController controller =
+        Get.put(DoingTaskDetailMissionController());
+
+    final pointChallenge =
+        controller.dataGetProgress['data']['task_challenge']['point'];
+    print(pointChallenge);
+    // final pointChallenge = '3000';
     return Scaffold(
       body: Container(
         decoration: const BoxDecoration(

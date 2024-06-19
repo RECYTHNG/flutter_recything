@@ -21,7 +21,6 @@ class ProofUploadScreen extends StatefulWidget {
 class _ProofUploadScreenState extends State<ProofUploadScreen> {
   final DoingTaskProofUploadController controller =
       Get.put(DoingTaskProofUploadController());
-  // List<String> _selectedBukti1 = [];
   final ImagePicker _picker = ImagePicker();
   final TextEditingController descriptionController = TextEditingController();
 

@@ -1,22 +1,30 @@
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';
-import 'package:recything_application/env/env.dart';
+import 'package:recything_application/constants/api_key_constant.dart';
+import 'package:recything_application/utils/shared_pref.dart';
 
 class TaskStepService {
-  final Dio _dio = Dio(
-    BaseOptions(
-      baseUrl: Env.recythingBaseUrl,
-      headers: {
-        'Content-Type': 'application/json; charset=UTF-8',
-        'Authorization':
-            'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiVVNSMDAzNCIsInJvbGUiOiJ1c2VyIiwiZXhwIjoxNzIxMzA1ODMwfQ.ZQJ-KErnUGP8R8F2RWY6YYhRpCpkpx1T1AWwuY0JHls',
-      },
-    ),
-  );
+  final Dio dio = Dio();
+  var baseUrl = recythingBaseUrl;
 
   Future<Map<String, dynamic>> getTaskStart(String taskId) async {
     try {
-      final response = await _dio.get('/user/tasks/$taskId');
+      var url = '$baseUrl/user/tasks/$taskId';
+      String? authToken = await SharedPref.getToken();
+      if (authToken == null) {
+        throw Exception('Tidak ada token yang ditemukan');
+      }
+
+      final response = await dio.get(
+        url,
+        options: Options(
+          headers: <String, String>{
+            'Content-Type': 'application/json; charset=UTF-8',
+            'Authorization': 'Bearer $authToken',
+          },
+        ),
+      );
+
       if (response.statusCode == 200) {
         return response.data;
       } else {
@@ -29,7 +37,19 @@ class TaskStepService {
 
   Future<Map<String, dynamic>> getTaskProgressById(String userTaskId) async {
     try {
-      final response = await _dio.get('/user/task/$userTaskId');
+      String? authToken = await SharedPref.getToken();
+      if (authToken == null) {
+        throw Exception('Tidak ada token yang ditemukan');
+      }
+      final response = await dio.get(
+        '$baseUrl/user/task/$userTaskId',
+        options: Options(
+          headers: <String, String>{
+            'Content-Type': 'application/json; charset=UTF-8',
+            'Authorization': 'Bearer $authToken',
+          },
+        ),
+      );
       if (response.statusCode == 200) {
         return response.data;
       } else {
@@ -43,21 +63,22 @@ class TaskStepService {
   Future<Map<String, dynamic>> postTaskById(
       String taskId, RxMap<dynamic, dynamic> data) async {
     try {
-      final response = await _dio.post(
-        '/user/tasks/TM0001',
+      String? authToken = await SharedPref.getToken();
+      if (authToken == null) {
+        throw Exception('Tidak ada token yang ditemukan');
+      }
+      final response = await dio.post(
+        '$baseUrl/user/tasks/$taskId',
         data: {},
         options: Options(
           headers: <String, String>{
-            'Content-Length': '0',
+            'Content-Type': 'application/json; charset=UTF-8',
+            'Authorization': 'Bearer $authToken',
           },
         ),
       );
       print(response.data);
-      if (response.statusCode == 200) {
-        return response.data;
-      } else {
-        throw Exception('Failed to get response from API');
-      }
+      return response.data;
     } catch (e) {
       throw Exception('Failed to submit data: $e');
     }
@@ -66,13 +87,25 @@ class TaskStepService {
   Future<Map<String, dynamic>> putTaskStepCompletion(
       String userTaskId, int taskStepId) async {
     try {
-      final response = await _dio.put(
-        '/user-current/steps',
+      String? authToken = await SharedPref.getToken();
+      if (authToken == null) {
+        throw Exception('Tidak ada token yang ditemukan');
+      }
+
+      final response = await dio.put(
+        '$baseUrl/user-current/steps',
         data: {
           'user_task_id': userTaskId,
           'task_step_id': taskStepId,
         },
+        options: Options(
+          headers: <String, String>{
+            'Content-Type': 'application/json; charset=UTF-8',
+            'Authorization': 'Bearer $authToken',
+          },
+        ),
       );
+
       if (response.statusCode == 200) {
         return response.data;
       } else {
