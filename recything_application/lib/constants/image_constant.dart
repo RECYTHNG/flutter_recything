@@ -1,15 +1,4 @@
 class ImageConstant {
-  static const String medalEditProfil =
-      'assets/images/edit_profile_images/medal.png';
-  static const String maleEditProfil =
-      'assets/images/edit_profile_images/male.png';
-  static const String femaleEditProfil =
-      'assets/images/edit_profile_images/female.png';
-  static const String successImage =
-      'assets/images/edit_profile_images/success.png';
-  static const String backgroundImage =
-      'assets/images/edit_profile_images/background.png';
-
   // Recycle
   static String play = 'assets/images/recycle/play.png';
   static String challenge = 'assets/images/recycle/challenge.png';
@@ -117,4 +106,14 @@ class ImageConstant {
 
   static const leaderboardKosong = 'assets/images/home_images/gambar_4.png';
   static const gambarIkutiChallenge = 'assets/images/home_images/gambar_5.png';
+
+  // edit profil
+  static const String medalEditProfil =
+      'assets/images/edit_profile_images/medal.png';
+  static const String maleEditProfil =
+      'assets/images/edit_profile_images/male.png';
+  static const String femaleEditProfil =
+      'assets/images/edit_profile_images/female.png';
+  static const String backgroundImage =
+      'assets/images/edit_profile_images/background.png';
 }

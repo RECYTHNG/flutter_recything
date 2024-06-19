@@ -14,8 +14,6 @@ class UserController extends GetxController {
   var email = RxString('');
   var address = RxString('');
 
-  final ImagePicker _picker = ImagePicker();
-
   ProfileService profileService = ProfileService();
   UserService userService = UserService();
 
