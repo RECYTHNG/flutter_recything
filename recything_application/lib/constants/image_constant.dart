@@ -1,4 +1,8 @@
 class ImageConstant {
+  // Global - Image Picker Dialog
+  static String camera = 'assets/images/global/camera_image_dialog.png';
+  static String gallery = 'assets/images/global/gallery_image_dialog.png';
+
   //Achievement
   static const String cardImage = 'assets/images/achievement/card_images.png';
   static const String classicHistoryImage = 'assets/images/achievement/classic_history_tablet.png';
