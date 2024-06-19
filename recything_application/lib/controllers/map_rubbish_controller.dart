@@ -4,7 +4,8 @@ import 'package:image_picker/image_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:recything_application/screens/report_rubbish/success_report_rubbish_screen.dart';
 import 'package:recything_application/screens/report_rubbish/widgets/confirmation_bottomsheet_report_rubbish_widget.dart';
-import 'package:recything_application/services/report_rubbish/report_rubbish_service.dart';
+import 'package:recything_application/services/rubbish/rubbish_service.dart';
+import 'package:recything_application/widgets/global_image_picker_dialog_widget.dart';
 
 class MapRubbishController extends GetxController {
   RxMap<String, bool> materialData = RxMap({
@@ -54,15 +55,21 @@ class MapRubbishController extends GetxController {
     );
   }
 
-  Future<void> pickImage() async {
+  Future<void> pickImage(ImageSource source) async {
     if (!isMaxImagesReached()) {
-      final XFile? pickedFile = await _picker.pickImage(source: ImageSource.gallery);
+      final XFile? pickedFile = await _picker.pickImage(source: source);
       if (pickedFile != null) {
         imageFiles.add(pickedFile);
       }
     } else {
       Get.snackbar("Limit", "Maksimal 9 foto");
     }
+  }
+
+  Future<void> showImageSourceDialog(Function(ImageSource) onImageSourceSelected) async {
+    return Get.dialog(
+      GlobalImagePickerDialogWidget(onImageSourceSelected: onImageSourceSelected)
+    );
   }
 
   void collectData(
@@ -108,11 +115,12 @@ class MapRubbishController extends GetxController {
   }
 
   void replaceImage(int index) async {
-    final XFile? pickedFile =
-        await _picker.pickImage(source: ImageSource.gallery);
-    if (pickedFile != null) {
-      imageFiles[index] = pickedFile;
-    }
+    showImageSourceDialog((ImageSource source) async {
+      final XFile? pickedFile = await _picker.pickImage(source: source);
+      if (pickedFile != null) {
+        imageFiles[index] = pickedFile;
+      }
+    });
   }
 
   void moveNextTab() {

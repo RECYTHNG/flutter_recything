@@ -1,4 +1,8 @@
 class ImageConstant {
+  // Global - Image Picker Dialog
+  static String camera = 'assets/images/global/camera_image_dialog.png';
+  static String gallery = 'assets/images/global/gallery_image_dialog.png';
+
   // Dashboard Reporting
   static String emptyStateHistory = 'assets/images/reporting_rubbish/empty_history.png';
   static String rubbishHistory = 'assets/images/reporting_rubbish/rubbish.jpg';

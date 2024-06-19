@@ -57,6 +57,7 @@ dependencies:
     timeago: ^3.6.1
     gallery_picker: ^0.5.1
     image_picker: ^1.1.2
+    http_parser: ^4.0.2
 
 dev_dependencies:
     flutter_test:
@@ -88,12 +89,12 @@ flutter:
     #   - images/a_dot_burr.jpeg
     #   - images/a_dot_ham.jpeg
     assets:
+        - assets/images/global/
         - assets/images/home_images/
         - assets/images/home_images/badges/
         - assets/images/home_images/icons/
         - assets/images/home_images/leaderboard-badge/
         - assets/icons/reporting_rubbish/
-        - assets/images/
         - assets/images/
         - assets/images/customer_service_images/
         - assets/images/logo/

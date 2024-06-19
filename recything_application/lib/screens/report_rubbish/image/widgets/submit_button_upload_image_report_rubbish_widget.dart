@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:recything_application/constants/color_constant.dart';
 import 'package:recything_application/controllers/map_rubbish_controller.dart';
-import 'package:recything_application/controllers/report_rubbish_controller.dart';
-import 'package:recything_application/services/report_rubbish/report_rubbish_service.dart';
 import 'package:recything_application/widgets/global_button_widget.dart';
 
 class SubmitButtonUploadImageReportRubbishWidget extends StatelessWidget {

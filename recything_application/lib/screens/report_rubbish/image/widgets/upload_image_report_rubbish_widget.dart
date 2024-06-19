@@ -91,7 +91,7 @@ class UploadImageReportRubbishWidget extends StatelessWidget {
                           !controller.isMaxImagesReached()) {
                         return _buildImageContainer(
                           null,
-                          controller.pickImage,
+                          () => controller.showImageSourceDialog(controller.pickImage),
                         );
                       } else if (index < controller.imageFiles.length) {
                         return _buildImageContainer(
