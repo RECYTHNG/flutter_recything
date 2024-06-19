@@ -82,6 +82,7 @@ flutter:
     #   - images/a_dot_burr.jpeg
     #   - images/a_dot_ham.jpeg
     assets:
+        - assets/images/global/
         - assets/images/home_images/
         - assets/images/home_images/badges/
         - assets/images/home_images/icons/
