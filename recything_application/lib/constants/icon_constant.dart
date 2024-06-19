@@ -12,6 +12,8 @@ class IconConstant {
       'assets/images/detail_mission_image/status_task/done.svg';
   static const iconStatusWaitingAcc =
       'assets/images/detail_mission_image/status_task/review.svg';
+  static const iconStatusReject =
+      'assets/images/detail_mission_image/status_task/reject.svg';
 
   static const iconInputUseCamera =
       'assets/images/detail_mission_image/proof_upload/input_camera.svg';

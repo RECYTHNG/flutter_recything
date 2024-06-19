@@ -15,12 +15,10 @@ class DoingTaskProofUploadController extends GetxController {
       }
 
       List<String> imagePaths = selectedImages.map((image) => image).toList();
-      print(imagePaths);
-      print(description);
 
       await _taskStepService.uploadFiles(userTaskId, imagePaths, description);
       Get.to(
-        () => WaitingVerificationScreen,
+        () => WaitingVerificationScreen(),
       );
 
       print('Success: Proof uploaded successfully');

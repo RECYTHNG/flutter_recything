@@ -18,7 +18,7 @@ class HomeScreen extends StatelessWidget {
                   context,
                   MaterialPageRoute(
                     builder: (context) => DetailMissionStartScreen(
-                      taskId: 'TM0015',
+                      taskId: 'TM0008',
                     ),
                   ),
                 );
@@ -31,7 +31,7 @@ class HomeScreen extends StatelessWidget {
                   context,
                   MaterialPageRoute(
                     builder: (context) => DetailMissionProgressScreen(
-                      userTaskId: 'UT0023',
+                      userTaskId: 'UT0020',
                     ),
                   ),
                 );

@@ -7,20 +7,45 @@ import 'package:recything_application/constants/text_style_constant.dart';
 
 class MissionStepUploadWidget extends StatelessWidget {
   final String progress;
+  final String statusProgress;
+  final String statusAccepted;
 
   const MissionStepUploadWidget({
     super.key,
     required this.progress,
+    required this.statusProgress,
+    required this.statusAccepted,
   });
 
   @override
   Widget build(BuildContext context) {
+    Color _getContainerColor(String statusProgress, String statusAccepted) {
+      switch (statusProgress) {
+        case 'done':
+          switch (statusAccepted) {
+            case 'need_review':
+              return ColorConstant.warningColor50;
+            case 'accept':
+              return ColorConstant
+                  .successColor50; // You might need to define this color
+            case 'reject':
+              return ColorConstant
+                  .dangerColor50; // You might need to define this color
+            default:
+              return ColorConstant.whiteColor;
+          }
+        case 'in_progress':
+          return ColorConstant
+              .whiteColor; // You might need to define this color
+        default:
+          return ColorConstant.whiteColor;
+      }
+    }
+
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 4),
       decoration: BoxDecoration(
-        color: progress == 'done'
-            ? ColorConstant.warningColor50
-            : ColorConstant.whiteColor,
+        color: _getContainerColor(statusProgress, statusAccepted),
         borderRadius: BorderRadius.circular(12),
         boxShadow: ShadowConstant.shadowMd,
       ),
@@ -65,9 +90,31 @@ class MissionStepUploadWidget extends StatelessWidget {
                     style: TextStyleConstant.regularCaption,
                   ),
                 ),
-                SvgPicture.asset(progress == 'done'
-                    ? IconConstant.iconStatusWaitingAcc
-                    : IconConstant.iconStatusProcess),
+                Builder(
+                  builder: (context) {
+                    switch (statusProgress) {
+                      case 'done':
+                        switch (statusAccepted) {
+                          case 'need_rivew':
+                            return SvgPicture.asset(
+                                IconConstant.iconStatusWaitingAcc);
+                          case 'accept':
+                            return SvgPicture.asset(
+                                IconConstant.iconStatusProcess);
+                          case 'reject':
+                            return SvgPicture.asset(
+                                IconConstant.iconStatusReject);
+                          default:
+                            return SvgPicture.asset(
+                                IconConstant.iconStatusProcess);
+                        }
+                      case 'in_progress':
+                        return SvgPicture.asset(IconConstant.iconStatusProcess);
+                      default:
+                        return SvgPicture.asset(IconConstant.iconStatusProcess);
+                    }
+                  },
+                ),
               ],
             ),
             const SizedBox(height: 4),

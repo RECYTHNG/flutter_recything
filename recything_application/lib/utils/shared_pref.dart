@@ -14,7 +14,7 @@ class SharedPref {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     // String? token = preferences.getString(_keyToken);
     String? token =
-        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiVVNSMDAwNSIsInJvbGUiOiJ1c2VyIiwiZXhwIjoxNzIxMzkwNDc0fQ.Rl1TB5oB2gzMn-qW2KU7PxO2X-HzVWNnY4pHGB7F4e8';
+        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiVVNSMDAwNCIsInJvbGUiOiJ1c2VyIiwiZXhwIjoxNzIxMzcxMzQyfQ.PrSPbBCMO4ObpDF63xe23bWv12mewn5ZKvzrdOF9Qwo';
     return token;
   }
 

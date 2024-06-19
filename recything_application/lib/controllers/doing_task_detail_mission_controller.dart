@@ -8,6 +8,7 @@ class DoingTaskDetailMissionController extends GetxController {
   var dataGetProgress = {}.obs;
   var dataStartTask = {}.obs;
   var dataPutStepTask = {}.obs;
+  var isLoading = false.obs;
 
   final TaskStepService _taskService = TaskStepService();
   int stepCount = 0;
@@ -18,16 +19,18 @@ class DoingTaskDetailMissionController extends GetxController {
   Map<int, bool> userStepCompletionMap = {};
 
   Future<void> getDataTaskStart(String taskId) async {
+    isLoading.value = true;
     try {
       final responseData = await _taskService.getTaskStart(taskId);
       if (responseData.containsKey('data')) {
         dataGetTask.value = responseData['data'];
-        update();
       } else {
         throw Exception('Failed to fetch data');
       }
     } catch (e) {
       throw Exception('Failed to fetch data: $e');
+    } finally {
+      isLoading.value = false;
     }
   }
 
@@ -37,22 +40,22 @@ class DoingTaskDetailMissionController extends GetxController {
       if (responseData.containsKey('data')) {
         dataGetProgress.value = responseData['data'];
         _createUserStepCompletionMap();
-        update();
       } else {
         throw Exception('Failed to fetch data');
       }
     } catch (e) {
       throw Exception('Failed to fetch data: $e');
+    } finally {
+      isLoading.value = false;
     }
   }
 
   Future<void> startTask(String taskId, RxMap<dynamic, dynamic> data) async {
+    isLoading.value = false;
     try {
       final response = await _taskService.postTaskById(taskId, data);
-      print('Response: $response');
       if (response.containsKey('data')) {
         dataStartTask.value = response['data'];
-        update();
         Get.to(
           DetailMissionProgressScreen(
             userTaskId: dataStartTask['id'],
@@ -63,22 +66,24 @@ class DoingTaskDetailMissionController extends GetxController {
       }
     } catch (e) {
       throw Exception('Failed to start task: $e');
-    }
+    } finally {}
   }
 
   Future<void> putTaskStepCompletion(String userTaskId) async {
+    isLoading.value = true;
     try {
       final response =
           await _taskService.putTaskStepCompletion(userTaskId, taskStepId);
       if (response.containsKey('data')) {
         dataPutStepTask.value = response['data'];
         await getDataTaskProgress(userTaskId);
-        update();
       } else {
         throw Exception('Failed to get valid response from API');
       }
     } catch (e) {
       throw Exception('Failed to update task step completion: $e');
+    } finally {
+      isLoading.value = false;
     }
   }
 
@@ -94,21 +99,16 @@ class DoingTaskDetailMissionController extends GetxController {
           taskStepCount += 1;
         }
       }
-      update();
       if (taskStepCount == userStepCompletionMap.length) {
         buttonUpload = true;
       }
     }
     taskStepId = dataGetProgress['task_challenge']['user_steps'][taskStepCount]
         ['task_step_id'];
-    print('TaskStepId: $taskStepId');
-    print('userStepCompletionMap: $userStepCompletionMap');
-    print('taskStepCount: $taskStepCount');
-    print('userStepCompletionMapLength: ${userStepCompletionMap.length}');
+    isLoading.value = false;
   }
 
   bool isStepCompleted(int stepId) {
-    print(stepId);
     return userStepCompletionMap[stepId] ?? false;
   }
 }

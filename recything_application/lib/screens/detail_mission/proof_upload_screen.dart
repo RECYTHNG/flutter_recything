@@ -43,12 +43,16 @@ class _ProofUploadScreenState extends State<ProofUploadScreen> {
                 GestureDetector(
                   onTap: () async {
                     Navigator.of(context).pop();
-                    final XFile? photo =
-                        await _picker.pickImage(source: ImageSource.camera);
-                    if (photo != null) {
-                      setState(() {
-                        controller.selectedImages.add(photo.path);
-                      });
+                    if (controller.selectedImages.length < 2) {
+                      final XFile? photo =
+                          await _picker.pickImage(source: ImageSource.camera);
+                      if (photo != null) {
+                        setState(() {
+                          controller.selectedImages.add(photo.path);
+                        });
+                      }
+                    } else {
+                      _showMaxPhotosDialog(context);
                     }
                   },
                   child: SvgPicture.asset(
@@ -56,22 +60,24 @@ class _ProofUploadScreenState extends State<ProofUploadScreen> {
                   ),
                 ),
                 GestureDetector(
-                  onTap: () {},
-                  child: SvgPicture.asset(
-                    IconConstant.iconInputUseCamera,
-                  ),
-                ),
-                GestureDetector(
                   onTap: () async {
                     Navigator.of(context).pop();
-                    final List<XFile>? images = await _picker.pickMultiImage();
-                    if (images != null && images.isNotEmpty) {
-                      setState(
-                        () {
-                          controller.selectedImages.addAll(
-                              images.map((image) => image.path).toList());
-                        },
-                      );
+                    if (controller.selectedImages.length < 2) {
+                      final List<XFile>? images =
+                          await _picker.pickMultiImage();
+                      if (images != null && images.isNotEmpty) {
+                        if (controller.selectedImages.length + images.length <=
+                            2) {
+                          setState(() {
+                            controller.selectedImages.addAll(
+                                images.map((image) => image.path).toList());
+                          });
+                        } else {
+                          _showMaxPhotosDialog(context);
+                        }
+                      }
+                    } else {
+                      _showMaxPhotosDialog(context);
                     }
                   },
                   child: SvgPicture.asset(
@@ -81,6 +87,26 @@ class _ProofUploadScreenState extends State<ProofUploadScreen> {
               ],
             ),
           ),
+        );
+      },
+    );
+  }
+
+  void _showMaxPhotosDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text('Maximum Photos Reached'),
+          content: Text('You can only select up to 12 photos.'),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Text('OK'),
+            ),
+          ],
         );
       },
     );

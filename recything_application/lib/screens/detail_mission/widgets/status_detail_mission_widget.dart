@@ -3,26 +3,53 @@ import 'package:recything_application/constants/color_constant.dart';
 import 'package:recything_application/constants/text_style_constant.dart';
 
 class StatusDetailMissionWidget extends StatelessWidget {
-  final String status;
+  final String statusProgress;
+  final String statusAccepted;
 
-  const StatusDetailMissionWidget({required this.status, super.key});
+  const StatusDetailMissionWidget(
+      {required this.statusProgress, super.key, required this.statusAccepted});
 
   Color _getBackgroundColor() {
-    switch (status) {
-      case 'Bisa Diikuti':
+    switch (statusProgress) {
+      case 'ready':
         return ColorConstant.infoColor500;
-      case 'Proses':
+      case 'in_progress':
         return ColorConstant.primaryColor500;
-      case 'Menunggu Verifikasi':
-        return ColorConstant.primaryColor400;
-      case 'Terverifikasi':
-        return ColorConstant.secondaryColor500;
-      case 'Ditolak':
-        return ColorConstant.dangerColor500;
-      case 'Selesai':
-        return ColorConstant.netralColor600;
+      case 'done':
+        switch (statusAccepted) {
+          case 'need_rivew':
+            return ColorConstant.primaryColor400;
+          case 'accept':
+            return ColorConstant.secondaryColor500;
+          case 'reject':
+            return ColorConstant.dangerColor500;
+          default:
+            return ColorConstant.primaryColor500;
+        }
       default:
         return ColorConstant.primaryColor500;
+    }
+  }
+
+  String _getTitleText() {
+    switch (statusProgress) {
+      case 'ready':
+        return 'Bisa Diikuti';
+      case 'in_progress':
+        return 'Proses';
+      case 'done':
+        switch (statusAccepted) {
+          case 'need_rivew':
+            return 'Menunggu';
+          case 'accept':
+            return 'Diterima';
+          case 'reject':
+            return 'Ditolak';
+          default:
+            return 'Proses';
+        }
+      default:
+        return 'Proses';
     }
   }
 
@@ -42,7 +69,7 @@ class StatusDetailMissionWidget extends StatelessWidget {
             borderRadius: BorderRadius.circular(8),
           ),
           child: Text(
-            status,
+            _getTitleText(),
             style: TextStyleConstant.semiboldCaption.copyWith(
               color: ColorConstant.whiteColor,
             ),
