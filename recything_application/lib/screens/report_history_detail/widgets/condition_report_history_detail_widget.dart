@@ -23,7 +23,7 @@ class ConditionReportHistoryDetailWidget extends StatelessWidget {
           ),
           Obx(() {
             return Text(
-              controller.selectedHistory!.value.description,
+              controller.selectedHistory.value!.description,
               style: TextStyleConstant.boldParagraph.copyWith(
                 color: ColorConstant.netralColor600,
               ),

@@ -38,7 +38,7 @@ class GeneralInformationReportHistoryDetailWidget extends StatelessWidget {
                   children: [
                     Obx(() {
                       return Text(
-                        controller.selectedHistory!.value.reportType ==
+                        controller.selectedHistory.value!.reportType ==
                                 'rubbish'
                             ? 'Tumpukan Sampah'
                             : 'Sampah Sembarangan',
@@ -70,16 +70,16 @@ class GeneralInformationReportHistoryDetailWidget extends StatelessWidget {
               const SizedBox(width: 10),
               Obx(() {
                 return Text(
-                  controller.selectedHistory!.value.status == 'need review'
+                  controller.selectedHistory.value!.status == 'need review'
                       ? 'PROSES'
-                      : controller.selectedHistory!.value.status == 'approve'
+                      : controller.selectedHistory.value!.status == 'approve'
                           ? 'DITERIMA'
                           : 'DITOLAK',
                   style: TextStyleConstant.boldParagraph.copyWith(
-                    color: controller.selectedHistory!.value.status ==
+                    color: controller.selectedHistory.value!.status ==
                             'need review'
                         ? ColorConstant.warningColor500
-                        : controller.selectedHistory!.value.status == 'approve'
+                        : controller.selectedHistory.value!.status == 'approve'
                             ? ColorConstant.successColor500
                             : ColorConstant.dangerColor500,
                   ),
@@ -87,7 +87,7 @@ class GeneralInformationReportHistoryDetailWidget extends StatelessWidget {
               })
             ],
           ),
-          if (controller.selectedHistory!.value.status == 'reject') ...[
+          if (controller.selectedHistory.value!.status == 'reject') ...[
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -111,7 +111,7 @@ class GeneralInformationReportHistoryDetailWidget extends StatelessWidget {
                     children: [
                       Obx(() {
                         return Text(
-                          controller.selectedHistory!.value.reason,
+                          controller.selectedHistory.value!.reason,
                           style: TextStyleConstant.boldParagraph.copyWith(
                             color: ColorConstant.netralColor600,
                           ),
@@ -123,18 +123,22 @@ class GeneralInformationReportHistoryDetailWidget extends StatelessWidget {
               ],
             ),
           ],
-          if (controller.selectedHistory!.value.status == 'approve' ||
-              controller.selectedHistory!.value.status == 'need review') ...[
+          if (controller.selectedHistory.value!.status == 'approve' ||
+              controller.selectedHistory.value!.status == 'need review') ...[
             Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SpacingConstant.verticalSpacing050,
                 Obx(() {
-                  return Text(
-                    controller.selectedHistory!.value.status == 'approve'
-                        ? StringValueConstant.approveTextMessage
-                        : StringValueConstant.needReviewTextMessage,
-                    style: TextStyleConstant.boldParagraph.copyWith(
-                      color: ColorConstant.netralColor600,
+                  return Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      controller.selectedHistory.value!.status == 'approve'
+                          ? StringValueConstant.approveTextMessage
+                          : StringValueConstant.needReviewTextMessage,
+                      style: TextStyleConstant.boldParagraph.copyWith(
+                        color: ColorConstant.netralColor600,
+                      ),
                     ),
                   );
                 })

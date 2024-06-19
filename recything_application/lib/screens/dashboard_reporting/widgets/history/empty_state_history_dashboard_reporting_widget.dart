@@ -11,6 +11,7 @@ class EmptyStateHistoryDashboardReportingWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
+        SpacingConstant.verticalSpacing300,
         Image.asset(
           ImageConstant.emptyStateHistory,
           width: 100,

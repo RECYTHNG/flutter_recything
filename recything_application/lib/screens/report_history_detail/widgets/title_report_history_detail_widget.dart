@@ -23,7 +23,7 @@ class TitleReportHistoryDetailWidget extends StatelessWidget {
           ),
           Obx(() {
             return Text(
-              controller.selectedHistory!.value.title,
+              controller.selectedHistory.value!.title,
               style: TextStyleConstant.boldParagraph.copyWith(
                 color: ColorConstant.netralColor600,
               ),

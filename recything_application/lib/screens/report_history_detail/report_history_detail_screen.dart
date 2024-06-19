@@ -38,7 +38,7 @@ class ReportHistoryDetailScreen extends StatelessWidget {
                     SpacingConstant.verticalSpacing200,
                     const RubbishTypeReportHistoryDetailWidget(),
                     SpacingConstant.verticalSpacing200,
-                    if (controller.selectedHistory!.value.reportType == 'rubbish')
+                    if (controller.selectedHistory.value!.reportType == 'rubbish')
                       const RubbishMaterialReportHistoryDetailWidget()
                     else
                       const TitleReportHistoryDetailWidget(),

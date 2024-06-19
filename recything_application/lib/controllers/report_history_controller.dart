@@ -3,13 +3,11 @@ import 'package:recything_application/models/report_history/report_history_model
 import 'package:recything_application/services/report_history/report_history_service.dart';
 
 class ReportHistoryController extends GetxController {
-  RxList<ReportHistoryModel> data = <ReportHistoryModel>[].obs;
-  RxList<ReportHistoryModel> displayedData = <ReportHistoryModel>[].obs;
-  RxBool isLoading = true.obs;
-  Rx<ReportHistoryModel>? selectedHistory;
-
-  // Dasboard Reporting Controller
-  RxInt currentIndexCarousell = 0.obs;
+  Rxn<ReportHistoryModel> reportHistoryData = Rxn<ReportHistoryModel>();
+  Rxn<List<ReportHistoryModel>> displayedData = Rxn<List<ReportHistoryModel>>();
+  RxBool isLoadingFetchReportHistoryData = RxBool(false);
+  Rxn<Report> selectedHistory = Rxn<Report>();
+  RxInt currentIndexCarousell = RxInt(1);
 
   @override
   void onInit() {
@@ -18,15 +16,12 @@ class ReportHistoryController extends GetxController {
   }
 
   void fetchReportHistoryData() async {
-    data.clear();
+    isLoadingFetchReportHistoryData.value = true;
     try {
-      isLoading(true);
       final response = await ReportHistoryService().getReportHistory();
-      data.value = response;
-    } catch (e) {
-      Get.snackbar('Error', e.toString());
+      reportHistoryData.value = response;
     } finally {
-      isLoading(false);
+      isLoadingFetchReportHistoryData.value = false;
     }
   }
 }

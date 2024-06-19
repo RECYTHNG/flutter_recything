@@ -25,12 +25,12 @@ class RubbishTypeReportHistoryDetailWidget extends StatelessWidget {
             ),
           ),
           SpacingConstant.verticalSpacing075,
-          if (controller.selectedHistory!.value.wasteType !=
+          if (controller.selectedHistory.value!.wasteType !=
               'sampah basah,sampah kering') ...[
             Obx(() {
               return ItemContainerReportHistoryDetailWidget(
                 name: toBeginningOfSentenceCase(
-                  controller.selectedHistory!.value.wasteType,
+                  controller.selectedHistory.value!.wasteType,
                 ),
               );
             }),

@@ -23,7 +23,7 @@ class LocationReportHistoryDetailWidget extends StatelessWidget {
           ),
           Obx(() {
             return Text(
-              '${controller.selectedHistory!.value.address}, ${controller.selectedHistory!.value.city}, ${controller.selectedHistory!.value.province}',
+              '${controller.selectedHistory.value!.address}, ${controller.selectedHistory.value!.city}, ${controller.selectedHistory.value!.province}',
               style: TextStyleConstant.boldParagraph.copyWith(
                 color: ColorConstant.netralColor600,
               ),

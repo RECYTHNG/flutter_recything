@@ -22,7 +22,7 @@ class AppBarReportHistoryDetailWidget extends StatelessWidget implements Preferr
       ),
       flexibleSpace: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
+          padding: const EdgeInsets.only(right: 16),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -40,7 +40,7 @@ class AppBarReportHistoryDetailWidget extends StatelessWidget implements Preferr
                   ),
                   const Spacer(),
                   Text(
-                    controller.selectedHistory!.value.reportType == 'rubbish'
+                    controller.selectedHistory.value!.reportType == 'rubbish'
                         ? 'Laporan Penumpukan Sampah'
                         : 'Laporan Sampah Sembarangan',
                     style: TextStyleConstant.boldSubtitle.copyWith(
@@ -48,7 +48,7 @@ class AppBarReportHistoryDetailWidget extends StatelessWidget implements Preferr
                     ),
                   ),
                   const Spacer(),
-                  SpacingConstant.horizontalSpacing600,
+                  SpacingConstant.horizontalSpacing200,
                 ],
               ),
             ],

@@ -23,13 +23,13 @@ class ImageReportHistoryDetailWidget extends StatelessWidget {
             ),
           ),
           SpacingConstant.verticalSpacing075,
-          if (controller.selectedHistory!.value.reportImages.isNotEmpty)
+          if (controller.selectedHistory.value!.reportImages.isNotEmpty)
             Obx(() {
               return Wrap(
                 spacing: 12,
-                runSpacing: 6,
+                runSpacing: 12,
                 children: [
-                  ...controller.selectedHistory!.value.reportImages.map((item) {
+                  ...controller.selectedHistory.value!.reportImages.map((item) {
                     return Container(
                       width: 80,
                       height: 80,

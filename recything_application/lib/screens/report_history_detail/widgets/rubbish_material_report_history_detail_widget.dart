@@ -30,7 +30,7 @@ class RubbishMaterialReportHistoryDetailWidget extends StatelessWidget {
               spacing: 12,
               runSpacing: 6,
               children: [
-                ...controller.selectedHistory!.value.wasteMaterials.map((item) {
+                ...controller.selectedHistory.value!.wasteMaterials.map((item) {
                   return ItemContainerReportHistoryDetailWidget(
                     name: toBeginningOfSentenceCase(item.type),
                   );

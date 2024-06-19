@@ -11,12 +11,12 @@ import 'package:recything_application/screens/dashboard_reporting/widgets/report
 import 'package:recything_application/utils/system_ui_overlay_utils.dart';
 
 class DashboardReportingScreen extends StatelessWidget {
-  DashboardReportingScreen({super.key});
-  final ReportHistoryController controller = Get.put(ReportHistoryController());
+  const DashboardReportingScreen({super.key});
+
   @override
   Widget build(BuildContext context) {
-    SystemUiOverlayUtils()
-        .setSystemUiOverlay(ColorConstant.primaryColor500, false);
+    Get.put(ReportHistoryController());
+    SystemUiOverlayUtils().setSystemUiOverlay(ColorConstant.primaryColor500, false);
     return Scaffold(
       backgroundColor: ColorConstant.primaryColor500,
       body: Stack(
@@ -49,8 +49,8 @@ class DashboardReportingScreen extends StatelessWidget {
                 child: Column(
                   children: [
                     const ReportTypeDashboardReportingWidget(),
-                    SpacingConstant.verticalSpacing200,
-                    const HistoryDashboardReportingWidget()
+                    SpacingConstant.verticalSpacing250,
+                    const HistoryDashboardReportingWidget(),
                   ],
                 ),
               ),
