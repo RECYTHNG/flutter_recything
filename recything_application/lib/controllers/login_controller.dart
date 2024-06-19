@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:recything_application/screens/home.dart';
+import 'package:recything_application/screens/homepage/home_navbar_screen.dart';
 import 'package:recything_application/services/authentication/login_authentication_service.dart';
 
 class LoginController extends GetxController {
@@ -71,7 +71,7 @@ class LoginController extends GetxController {
             const Duration(seconds: 3),
             () {
               Get.off(
-                () => const HomeAuthenticationScreen(),
+                () => HomeNavBarScreen(currentIndex: 0,),
               );
             },
           );

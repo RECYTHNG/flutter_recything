@@ -4,6 +4,7 @@ import 'package:recything_application/constants/icon_constant.dart';
 import 'package:recything_application/screens/homepage/homepage_screen.dart';
 import 'package:recything_application/screens/homepage/widgets/bottom_navbar/buttom_nav_item_widget.dart';
 import 'package:recything_application/screens/homepage/widgets/bottom_navbar/rounded_floating_action_button_widget.dart';
+import 'package:recything_application/screens/recycle/dashboard/dashboard_recycle_screen.dart';
 
 class HomeNavBarScreen extends StatefulWidget {
   int currentIndex = 0;
@@ -16,7 +17,7 @@ class HomeNavBarScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeNavBarScreen> {
   final List<Widget> _pages = [
     const HomePageScreen(),
-    const HomePageScreen(),
+    const DashboardRecycleScreen(),
     const HomePageScreen(),
     const HomePageScreen(),
     const HomePageScreen(),
