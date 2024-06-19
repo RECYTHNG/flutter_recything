@@ -95,6 +95,7 @@ flutter:
         - assets/images/home_images/icons/
         - assets/images/home_images/leaderboard-badge/
         - assets/icons/reporting_rubbish/
+        - assets/icons/challenge_dashboard/
         - assets/images/
         - assets/images/customer_service_images/
         - assets/images/logo/
@@ -110,6 +111,7 @@ flutter:
         - assets/images/recycle/
         - assets/images/reporting_rubbish/
         - assets/lotties/
+        - assets/images/challenge_dashboard/
 
     # An image asset can refer to one or more resolution-specific "variants", see
     # https://flutter.dev/assets-and-images/#resolution-aware

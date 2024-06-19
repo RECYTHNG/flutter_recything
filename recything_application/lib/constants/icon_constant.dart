@@ -32,4 +32,8 @@ class IconConstant {
   // rubbish
   static String reporting = 'assets/icons/reporting_rubbish/reporting.svg';
   static String currentLocation = 'assets/icons/reporting_rubbish/current_location.svg';
+
+  // Dashboard Challenge
+  static String profileChallenge = 'assets/icons/challenge_dashboard/profile.svg';
+  static String arrowChallenge = 'assets/icons/challenge_dashboard/right_arrow.svg';
 }
