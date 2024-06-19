@@ -8,8 +8,7 @@ class ArticleRecycleService {
 
   Future<ArticleRecycleModel> getArticle({bool? isSorted}) async {
     try {
-      // final token = SharedPref.getToken();
-      const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiVVNSMDAzNCIsInJvbGUiOiJ1c2VyIiwiZXhwIjoxNzIxMTg0NjUzfQ.IFcd5a7Vsxgs4TQo1UG_braA7Gb3jJEk8vprl8mkaf4';
+      final token = SharedPref.getToken();
       final Map<String, String> queryParams = {};
       if (isSorted == true) {
         queryParams['sort_by'] = 'created_at';
