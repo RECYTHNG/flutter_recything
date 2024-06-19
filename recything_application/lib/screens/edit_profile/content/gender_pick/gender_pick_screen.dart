@@ -17,12 +17,8 @@ class GenderPickScreen extends StatefulWidget {
 class _GenderPickScreenState extends State<GenderPickScreen> {
   final UserController userController = Get.find();
 
-  String selectedGender = '';
-
   @override
   Widget build(BuildContext context) {
-    final UserController userController = Get.find();
-
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -48,7 +44,7 @@ class _GenderPickScreenState extends State<GenderPickScreen> {
       body: Obx(
         () {
           String selectedGender =
-              userController.userModel.value.data?.gender ?? '';
+              userController.gender.value.capitalizeFirst ?? '';
           return Container(
             alignment: Alignment.center,
             child: Column(
@@ -63,8 +59,9 @@ class _GenderPickScreenState extends State<GenderPickScreen> {
                     ),
                     SpacingConstant.verticalSpacing400,
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
+                        SpacingConstant.horizontalSpacing500,
                         GestureDetector(
                           onTap: () => userController.updateGender('Laki-laki'),
                           child: Column(
@@ -74,15 +71,13 @@ class _GenderPickScreenState extends State<GenderPickScreen> {
                                 children: [
                                   SvgPicture.asset(
                                     IconConstant.iconMale,
-                                    colorFilter: selectedGender.toLowerCase() ==
-                                            'laki-laki'
+                                    colorFilter: selectedGender == 'Laki-laki'
                                         ? const ColorFilter.mode(
                                             ColorConstant.primaryColor500,
                                             BlendMode.srcIn)
                                         : null,
                                   ),
-                                  if (selectedGender.toLowerCase() ==
-                                      'laki-laki')
+                                  if (selectedGender == 'Laki-laki')
                                     Container(
                                       decoration: BoxDecoration(
                                         borderRadius:
@@ -99,10 +94,9 @@ class _GenderPickScreenState extends State<GenderPickScreen> {
                               ),
                               const SizedBox(height: 8),
                               Text(
-                                'laki-laki',
+                                'Laki-laki',
                                 style: TextStyle(
-                                  color: selectedGender.toLowerCase() ==
-                                          'laki-laki'
+                                  color: selectedGender == 'Laki-laki'
                                       ? ColorConstant.primaryColor500
                                       : Colors.black,
                                   fontWeight: FontWeight.bold,
@@ -111,12 +105,11 @@ class _GenderPickScreenState extends State<GenderPickScreen> {
                             ],
                           ),
                         ),
-                        SpacingConstant.horizontalSpacing500,
                         GestureDetector(
                           onTap: () => userController.updateGender('Perempuan'),
                           child: Column(
                             children: [
-                              selectedGender.toLowerCase() != 'perempuan'
+                              selectedGender != 'Perempuan'
                                   ? SvgPicture.asset(
                                       IconConstant.iconFemale,
                                     )
@@ -127,8 +120,7 @@ class _GenderPickScreenState extends State<GenderPickScreen> {
                               Text(
                                 'Perempuan',
                                 style: TextStyle(
-                                  color: selectedGender.toLowerCase() ==
-                                          'perempuan'
+                                  color: selectedGender == 'Perempuan'
                                       ? ColorConstant.primaryColor500
                                       : Colors.black,
                                   fontWeight: FontWeight.bold,
@@ -137,6 +129,7 @@ class _GenderPickScreenState extends State<GenderPickScreen> {
                             ],
                           ),
                         ),
+                        SpacingConstant.horizontalSpacing500,
                       ],
                     ),
                   ],

@@ -8,11 +8,11 @@ import 'package:recything_application/widgets/global_image_picker_dialog_widget.
 class UserController extends GetxController {
   var userModel = UserModel().obs;
   var isLoading = false.obs;
-  var name = RxString('');
-  var gender = RxString('');
-  var birthDate = RxString('');
-  var email = RxString('');
-  var address = RxString('');
+  var name = ''.obs;
+  var gender = ''.obs;
+  var birthDate = ''.obs;
+  var email = ''.obs;
+  var address = ''.obs;
 
   ProfileService profileService = ProfileService();
   UserService userService = UserService();
