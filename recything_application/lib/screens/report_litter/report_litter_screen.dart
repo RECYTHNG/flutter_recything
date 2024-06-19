@@ -3,92 +3,54 @@ import 'dart:io';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:get/get.dart';
 
 import 'package:recything_application/constants/color_constant.dart';
 import 'package:recything_application/constants/spacing_constant.dart';
 import 'package:recything_application/constants/text_style_constant.dart';
-import 'package:recything_application/widgets/global_button_widget.dart';
+import 'package:recything_application/screens/report_litter/widget/bottomsheet/confirmation_bottom_sheet.dart';
+import 'package:recything_application/screens/report_litter/widget/bottomsheet/edit_photo_bottom_sheet.dart';
+import 'package:recything_application/screens/report_litter/widget/bottomsheet/litter_type_bottom_sheet.dart';
 import 'package:recything_application/widgets/global_text_field_custom_widget.dart';
+import 'package:recything_application/controllers/report_litter_controller.dart';
 
-class LitterDescScreen extends StatefulWidget {
-  const LitterDescScreen({super.key});
+class ReportLitterScreen extends StatefulWidget {
+  const ReportLitterScreen({super.key});
 
   @override
-  State<LitterDescScreen> createState() => LitterDescScreenState();
+  State<ReportLitterScreen> createState() => ReportLitterScreenState();
 }
 
-class LitterDescScreenState extends State<LitterDescScreen> {
-  List<XFile>? _mediaFiles = [];
-  late ImagePicker _picker;
-
-  List<String> items = ['organic', 'anorganic', 'danger'];
+class ReportLitterScreenState extends State<ReportLitterScreen> {
+  final ReportLitterController _controller = Get.put(ReportLitterController());
 
   @override
   void initState() {
     super.initState();
-    _picker = ImagePicker();
+    _controller.collectData(
+      37.4219983,
+      -122.084,
+      'Cibeureum, Kec. Cimahi Sel., Kota Cimahi, Jawa Barat 40535',
+      'Kota Cimahi',
+      'Jawa Barat',
+    );
   }
 
   Future<void> _pickMedia(bool isImage) async {
-    final XFile? media = await _picker.pickImage(
-      source: ImageSource.gallery,
-      preferredCameraDevice: CameraDevice.rear,
-    );
-    if (media != null) {
-      setState(() {
-        _mediaFiles = (_mediaFiles ?? [])..add(media);
-      });
-    }
+    await _controller.pickImage();
   }
 
   void _showConfirmationSheet() {
     showModalBottomSheet(
       context: context,
       builder: (BuildContext context) {
-        return Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Container(
-                width: 108,
-                height: 4,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(50),
-                  color: ColorConstant.netralColor600,
-                ),
-              ),
-              SpacingConstant.verticalSpacing300,
-              Text(
-                'Apakah Anda yakin untuk mengirimkan laporan tersebut?',
-                style: TextStyleConstant.semiboldHeading4,
-                textAlign: TextAlign.center,
-              ),
-              SpacingConstant.verticalSpacing200,
-              GlobalButtonWidget(
-                backgroundColor: ColorConstant.primaryColor500,
-                textColor: ColorConstant.whiteColor,
-                onTap: () {},
-                width: 160,
-                height: 40,
-                isBorder: false,
-                title: 'Ya, saya yakin',
-                fontSize: 16,
-              ),
-              SpacingConstant.verticalSpacing200,
-              GlobalButtonWidget(
-                backgroundColor: ColorConstant.whiteColor,
-                textColor: ColorConstant.primaryColor500,
-                onTap: () {},
-                width: 160,
-                height: 40,
-                isBorder: false,
-                title: 'Edit Laporan',
-                fontSize: 16,
-              ),
-              SpacingConstant.verticalSpacing200,
-            ],
-          ),
+        return ConfirmationBottomSheet(
+          onConfirm: () {
+            _controller.sendLitterReport(_controller);
+          },
+          onCancel: () {
+            Navigator.pop(context);
+          },
         );
       },
     );
@@ -98,175 +60,28 @@ class LitterDescScreenState extends State<LitterDescScreen> {
     showModalBottomSheet(
       context: context,
       builder: (BuildContext context) {
-        return Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Container(
-                width: 108,
-                height: 4,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(50),
-                  color: ColorConstant.netralColor600,
-                ),
-              ),
-              SpacingConstant.verticalSpacing300,
-              Text(
-                'Ubah Jenis Sampah',
-                style: TextStyleConstant.semiboldHeading4,
-                textAlign: TextAlign.center,
-              ),
-              SpacingConstant.verticalSpacing200,
-              _buildLitterTypeOption(
-                'assets/images/report_litter/organic.png',
-                'Organik',
-                active == 'organic',
-              ),
-              SpacingConstant.verticalSpacing200,
-              _buildLitterTypeOption(
-                'assets/images/report_litter/anorganic.png',
-                'Anorganik',
-                active == 'anorganic',
-              ),
-              SpacingConstant.verticalSpacing200,
-              _buildLitterTypeOption(
-                'assets/images/report_litter/danger.png',
-                'Berbahaya',
-                active == 'danger',
-              ),
-            ],
-          ),
-        );
+        return LitterTypeBottomSheet();
       },
     );
   }
 
-  Widget _buildLitterTypeOption(String imagePath, String label, bool isActive) {
-    return Container(
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(12),
-        color: isActive ? ColorConstant.netralColor500 : Colors.transparent,
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Row(
-            children: [
-              Image.asset(
-                imagePath,
-                width: 50,
-                height: 50,
-                fit: BoxFit.cover,
-              ),
-              SpacingConstant.horizontalSpacing100,
-              Text(
-                label,
-                style: TextStyleConstant.regularSubtitle,
-              ),
-            ],
-          ),
-          if (isActive)
-            const Icon(
-              Icons.check_circle,
-              color: ColorConstant.successColor500,
-            ),
-        ],
-      ),
-    );
-  }
-
-  void _showEditPhotoBottomSheet(XFile media) {
+  void _showEditPhotoBottomSheet(XFile media, int index) {
     showModalBottomSheet(
       context: context,
       builder: (BuildContext context) {
-        return Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Container(
-                width: 108,
-                height: 4,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(50),
-                  color: ColorConstant.netralColor600,
-                ),
-              ),
-              SpacingConstant.verticalSpacing400,
-              Text(
-                'Preview Media',
-                style: TextStyleConstant.semiboldHeading4,
-              ),
-              SpacingConstant.verticalSpacing200,
-              Image.file(
-                File(media.path),
-                width: 300,
-                fit: BoxFit.cover,
-              ),
-              SpacingConstant.verticalSpacing200,
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Container(
-                    padding: EdgeInsetsDirectional.symmetric(horizontal: 16),
-                    decoration: BoxDecoration(
-                      color: ColorConstant.primaryColor500,
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    child: TextButton(
-                      onPressed: () async {
-                        final XFile? newMedia = await _picker.pickImage(
-                          source: ImageSource.gallery,
-                          preferredCameraDevice: CameraDevice.rear,
-                        );
-                        if (newMedia != null) {
-                          setState(() {
-                            _mediaFiles = _mediaFiles!
-                                .map((m) => m == media ? newMedia : m)
-                                .toList();
-                          });
-                          Navigator.pop(context);
-                        }
-                      },
-                      child: Text(
-                        'Ganti Foto',
-                        style: TextStyle(
-                          color: ColorConstant.netralColor50,
-                          fontWeight: FontWeight.w600,
-                          fontSize: 20,
-                        ),
-                      ),
-                    ),
-                  ),
-                  Container(
-                    padding: EdgeInsetsDirectional.symmetric(horizontal: 16),
-                    decoration: BoxDecoration(
-                      color: ColorConstant.netralColor500,
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    child: TextButton(
-                      onPressed: () {
-                        setState(() {
-                          _mediaFiles!.remove(media);
-                        });
-                        Navigator.pop(context);
-                      },
-                      child: Text(
-                        'Hapus',
-                        style: TextStyle(
-                          color: ColorConstant.primaryColor500,
-                          fontWeight: FontWeight.w600,
-                          fontSize: 20,
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ],
-          ),
+        return EditPhotoBottomSheet(
+          media: media,
+          index: index,
+          onReplaceImage: () {
+            _controller.replaceImage(index);
+            Navigator.pop(context);
+          },
+          onDelete: () {
+            setState(() {
+              _controller.imageFiles.removeAt(index);
+            });
+            Navigator.pop(context);
+          },
         );
       },
     );
@@ -326,7 +141,7 @@ class LitterDescScreenState extends State<LitterDescScreen> {
                           SpacingConstant.horizontalSpacing200,
                           Flexible(
                             child: Text(
-                              'Cibeureum, Kec. Cimahi Sel., Kota Cimahi, Jawa Barat 40535',
+                              _controller.address.value,
                               softWrap: true,
                               style: TextStyleConstant.regularSubtitle,
                             ),
@@ -393,6 +208,7 @@ class LitterDescScreenState extends State<LitterDescScreen> {
                   label: 'Judul Laporan',
                   hint: 'Contoh: Sampah Pinggir Jalan',
                   isFloatingLabel: false,
+                  onChanged: (value) => _controller.title.value = value,
                 ),
                 Row(
                   children: [
@@ -410,6 +226,7 @@ class LitterDescScreenState extends State<LitterDescScreen> {
                   hint: 'Laporan',
                   isFloatingLabel: false,
                   isTextArea: true,
+                  onChanged: (value) => _controller.condition.value = value,
                 ),
                 SpacingConstant.verticalSpacing200,
                 Wrap(
@@ -418,26 +235,27 @@ class LitterDescScreenState extends State<LitterDescScreen> {
                   spacing: 8.0,
                   runSpacing: 8.0,
                   children: [
-                    if (_mediaFiles != null && _mediaFiles!.isNotEmpty)
-                      ..._mediaFiles!.map((media) {
-                        return GestureDetector(
-                          onTap: () => _showEditPhotoBottomSheet(media),
-                          child: Container(
-                            width: 100,
-                            height: 100,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(4),
-                            ),
-                            child: media.mimeType != null
-                                ? Icon(Icons.play_circle_fill,
-                                    size: 50, color: Colors.black)
-                                : Image.file(
-                                    File(media.path),
-                                    fit: BoxFit.cover,
-                                  ),
+                    ..._controller.imageFiles.asMap().entries.map((entry) {
+                      int index = entry.key;
+                      XFile? media = entry.value;
+                      return GestureDetector(
+                        onTap: () => _showEditPhotoBottomSheet(media, index),
+                        child: Container(
+                          width: 100,
+                          height: 100,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(4),
                           ),
-                        );
-                      }),
+                          child: media!.mimeType != null
+                              ? Icon(Icons.play_circle_fill,
+                                  size: 50, color: Colors.black)
+                              : Image.file(
+                                  File(media.path),
+                                  fit: BoxFit.cover,
+                                ),
+                        ),
+                      );
+                    }),
                     GestureDetector(
                       onTap: () => _pickMedia(true),
                       child: DottedBorder(

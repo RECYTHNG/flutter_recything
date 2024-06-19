@@ -6,7 +6,7 @@ import 'package:recything_application/controllers/report_litter_controller.dart'
 class ReportLitterService {
   final Dio _dio = Dio();
   String token =
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiVVNSMDAwNCIsInJvbGUiOiJ1c2VyIiwiZXhwIjoxNzE4MTY1MjU0fQ.DWq9x1icRGpv9O04HT3FGmJ07-8oh2tloy_nyl1ex7s';
+      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiVVNSMDAwNCIsInJvbGUiOiJ1c2VyIiwiZXhwIjoxNzIwOTcyNjg0fQ.1gS0T0FXve-C6VnTtV1gUdVcqjY04_nfjkaww8yLNUg';
 
   Future<int> sendReport(ReportLitterController controller) async {
     String url = '$recythingBaseUrl/report';

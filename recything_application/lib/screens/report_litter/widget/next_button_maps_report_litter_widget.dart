@@ -16,7 +16,7 @@ class NextButtonMapsReportLitterWidget extends StatelessWidget {
         return GlobalButtonWidget(
           onTap: controller.currentAddress.value.isEmpty
               ? () {}
-              : () => Get.off(const LitterDescScreen()),
+              : () => Get.off(const ReportLitterScreen()),
           width: double.infinity,
           height: 40,
           backgroundColor: controller.currentAddress.value.isNotEmpty
