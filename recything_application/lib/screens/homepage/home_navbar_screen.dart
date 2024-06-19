@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:recything_application/constants/color_constant.dart';
 import 'package:recything_application/constants/icon_constant.dart';
+import 'package:recything_application/screens/challenge/dashboard/challenge_dashboard_screen.dart';
 import 'package:recything_application/screens/dashboard_reporting/dashboard_reporting_screen.dart';
 import 'package:recything_application/screens/homepage/homepage_screen.dart';
 import 'package:recything_application/screens/homepage/widgets/bottom_navbar/buttom_nav_item_widget.dart';
@@ -22,7 +23,7 @@ class _HomeScreenState extends State<HomeNavBarScreen> {
     const HomePageScreen(),
     const DashboardRecycleScreen(),
     const DashboardReportingScreen(),
-    const HomePageScreen(),
+    const ChallengeDashboardScreen(),
     const HomePageScreen(),
   ];
 
