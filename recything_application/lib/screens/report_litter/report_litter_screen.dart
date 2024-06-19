@@ -7,6 +7,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:recything_application/constants/color_constant.dart';
 import 'package:recything_application/constants/spacing_constant.dart';
 import 'package:recything_application/constants/text_style_constant.dart';
+import 'package:recything_application/widgets/global_button_widget.dart';
 import 'package:recything_application/widgets/global_text_field_custom_widget.dart';
 
 class LitterDescScreen extends StatefulWidget {
@@ -19,6 +20,8 @@ class LitterDescScreen extends StatefulWidget {
 class LitterDescScreenState extends State<LitterDescScreen> {
   List<XFile>? _mediaFiles = [];
   late ImagePicker _picker;
+
+  List<String> items = ['organic', 'anorganic', 'danger'];
 
   @override
   void initState() {
@@ -38,7 +41,143 @@ class LitterDescScreenState extends State<LitterDescScreen> {
     }
   }
 
-  void _showBottomSheet(XFile media) {
+  void _showConfirmationSheet() {
+    showModalBottomSheet(
+      context: context,
+      builder: (BuildContext context) {
+        return Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Container(
+                width: 108,
+                height: 4,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(50),
+                  color: ColorConstant.netralColor600,
+                ),
+              ),
+              SpacingConstant.verticalSpacing300,
+              Text(
+                'Apakah Anda yakin untuk mengirimkan laporan tersebut?',
+                style: TextStyleConstant.semiboldHeading4,
+                textAlign: TextAlign.center,
+              ),
+              SpacingConstant.verticalSpacing200,
+              GlobalButtonWidget(
+                backgroundColor: ColorConstant.primaryColor500,
+                textColor: ColorConstant.whiteColor,
+                onTap: () {},
+                width: 160,
+                height: 40,
+                isBorder: false,
+                title: 'Ya, saya yakin',
+                fontSize: 16,
+              ),
+              SpacingConstant.verticalSpacing200,
+              GlobalButtonWidget(
+                backgroundColor: ColorConstant.whiteColor,
+                textColor: ColorConstant.primaryColor500,
+                onTap: () {},
+                width: 160,
+                height: 40,
+                isBorder: false,
+                title: 'Edit Laporan',
+                fontSize: 16,
+              ),
+              SpacingConstant.verticalSpacing200,
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  void _showEditLitterTypeSheet(String active) {
+    showModalBottomSheet(
+      context: context,
+      builder: (BuildContext context) {
+        return Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Container(
+                width: 108,
+                height: 4,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(50),
+                  color: ColorConstant.netralColor600,
+                ),
+              ),
+              SpacingConstant.verticalSpacing300,
+              Text(
+                'Ubah Jenis Sampah',
+                style: TextStyleConstant.semiboldHeading4,
+                textAlign: TextAlign.center,
+              ),
+              SpacingConstant.verticalSpacing200,
+              _buildLitterTypeOption(
+                'assets/images/report_litter/organic.png',
+                'Organik',
+                active == 'organic',
+              ),
+              SpacingConstant.verticalSpacing200,
+              _buildLitterTypeOption(
+                'assets/images/report_litter/anorganic.png',
+                'Anorganik',
+                active == 'anorganic',
+              ),
+              SpacingConstant.verticalSpacing200,
+              _buildLitterTypeOption(
+                'assets/images/report_litter/danger.png',
+                'Berbahaya',
+                active == 'danger',
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  Widget _buildLitterTypeOption(String imagePath, String label, bool isActive) {
+    return Container(
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(12),
+        color: isActive ? ColorConstant.netralColor500 : Colors.transparent,
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Row(
+            children: [
+              Image.asset(
+                imagePath,
+                width: 50,
+                height: 50,
+                fit: BoxFit.cover,
+              ),
+              SpacingConstant.horizontalSpacing100,
+              Text(
+                label,
+                style: TextStyleConstant.regularSubtitle,
+              ),
+            ],
+          ),
+          if (isActive)
+            const Icon(
+              Icons.check_circle,
+              color: ColorConstant.successColor500,
+            ),
+        ],
+      ),
+    );
+  }
+
+  void _showEditPhotoBottomSheet(XFile media) {
     showModalBottomSheet(
       context: context,
       builder: (BuildContext context) {
@@ -92,7 +231,7 @@ class LitterDescScreenState extends State<LitterDescScreen> {
                         }
                       },
                       child: Text(
-                        'Ganti Foto/Video',
+                        'Ganti Foto',
                         style: TextStyle(
                           color: ColorConstant.netralColor50,
                           fontWeight: FontWeight.w600,
@@ -223,9 +362,13 @@ class LitterDescScreenState extends State<LitterDescScreen> {
                                 color: ColorConstant.netralColor600,
                               ),
                               SpacingConstant.horizontalSpacing100,
-                              Icon(
-                                Icons.edit,
-                                color: ColorConstant.netralColor600,
+                              GestureDetector(
+                                onTap: () =>
+                                    _showEditLitterTypeSheet('organic'),
+                                child: Icon(
+                                  Icons.edit,
+                                  color: ColorConstant.netralColor600,
+                                ),
                               ),
                             ],
                           )
@@ -278,15 +421,14 @@ class LitterDescScreenState extends State<LitterDescScreen> {
                     if (_mediaFiles != null && _mediaFiles!.isNotEmpty)
                       ..._mediaFiles!.map((media) {
                         return GestureDetector(
-                          onTap: () => _showBottomSheet(media),
+                          onTap: () => _showEditPhotoBottomSheet(media),
                           child: Container(
                             width: 100,
                             height: 100,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(4),
                             ),
-                            child: media.mimeType != null &&
-                                    media.mimeType!.contains('video')
+                            child: media.mimeType != null
                                 ? Icon(Icons.play_circle_fill,
                                     size: 50, color: Colors.black)
                                 : Image.file(
@@ -327,7 +469,7 @@ class LitterDescScreenState extends State<LitterDescScreen> {
                 borderRadius: BorderRadius.circular(12),
               ),
               child: TextButton(
-                onPressed: () {},
+                onPressed: () => _showConfirmationSheet(),
                 child: Text(
                   'Kirim Laporan',
                   style: TextStyle(

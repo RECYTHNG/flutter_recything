@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:recything_application/constants/color_constant.dart';
-import 'package:recything_application/controllers/report_litter_controller.dart';
-import 'package:recything_application/screens/report_litter/litter_desc_screen.dart';
+import 'package:recything_application/controllers/map_litter_controller.dart';
+import 'package:recything_application/screens/report_litter/report_litter_screen.dart';
 import 'package:recything_application/widgets/global_button_widget.dart';
 
 class NextButtonMapsReportLitterWidget extends StatelessWidget {
@@ -10,7 +10,7 @@ class NextButtonMapsReportLitterWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final ReportLitterController controller = Get.find();
+    final MapLitterController controller = Get.find();
     return Obx(
       () {
         return GlobalButtonWidget(

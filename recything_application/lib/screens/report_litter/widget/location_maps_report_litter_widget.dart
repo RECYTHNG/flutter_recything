@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:recything_application/constants/color_constant.dart';
-import 'package:recything_application/controllers/report_litter_controller.dart';
+import 'package:recything_application/controllers/map_litter_controller.dart';
 import 'package:recything_application/widgets/global_loading_widget.dart';
 
 class LocationMapsReportLitterWidget extends StatelessWidget {
@@ -10,7 +10,7 @@ class LocationMapsReportLitterWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final ReportLitterController locationController = Get.find();
+    final MapLitterController locationController = Get.find();
     locationController.initializeData();
     return Scaffold(
       backgroundColor: ColorConstant.whiteColor,

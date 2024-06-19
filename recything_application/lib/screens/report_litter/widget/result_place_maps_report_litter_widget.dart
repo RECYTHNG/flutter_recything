@@ -4,14 +4,14 @@ import 'package:recything_application/constants/color_constant.dart';
 import 'package:recything_application/constants/image_constant.dart';
 import 'package:recything_application/constants/spacing_constant.dart';
 import 'package:recything_application/constants/text_style_constant.dart';
-import 'package:recything_application/controllers/report_litter_controller.dart';
+import 'package:recything_application/controllers/map_litter_controller.dart';
 
 class ResultPlaceMapsReportLitterWidget extends StatelessWidget {
   const ResultPlaceMapsReportLitterWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final ReportLitterController controller = Get.find();
+    final MapLitterController controller = Get.find();
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.symmetric(

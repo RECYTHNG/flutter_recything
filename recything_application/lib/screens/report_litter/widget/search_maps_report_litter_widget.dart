@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:recything_application/controllers/report_litter_controller.dart';
+import 'package:recything_application/controllers/map_litter_controller.dart';
 import 'package:recything_application/widgets/global_autocomplete_search_bar.dart';
 
 class SearchMapsReportLitterWidget extends StatelessWidget {
@@ -8,7 +8,7 @@ class SearchMapsReportLitterWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final ReportLitterController controller = Get.find();
+    final MapLitterController controller = Get.find();
     return Obx(
       () {
         return GlobalAutocompleteSearchBar(

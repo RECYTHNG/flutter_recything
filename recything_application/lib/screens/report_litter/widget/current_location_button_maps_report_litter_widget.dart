@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:recything_application/constants/color_constant.dart';
 import 'package:recything_application/constants/icon_constant.dart';
 import 'package:recything_application/constants/spacing_constant.dart';
-import 'package:recything_application/controllers/report_litter_controller.dart';
+import 'package:recything_application/controllers/map_litter_controller.dart';
 import 'package:recything_application/widgets/global_loading_widget.dart';
 
 class CurrentLocationButtonMapsReportLitterWidget extends StatelessWidget {
@@ -12,7 +12,7 @@ class CurrentLocationButtonMapsReportLitterWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final ReportLitterController controller = Get.find();
+    final MapLitterController controller = Get.find();
     return Row(
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
