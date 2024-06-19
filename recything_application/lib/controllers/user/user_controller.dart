@@ -3,10 +3,19 @@ import 'package:image_picker/image_picker.dart';
 import 'package:recything_application/services/profile/profile_service.dart';
 import 'package:recything_application/services/user/user_service.dart';
 import 'package:recything_application/models/user/user_model.dart';
+import 'package:recything_application/widgets/global_image_picker_dialog_widget.dart';
 
 class UserController extends GetxController {
   var userModel = UserModel().obs;
   var isLoading = false.obs;
+  var name = RxString('');
+  var gender = RxString('');
+  var birthDate = RxString('');
+  var email = RxString('');
+  var address = RxString('');
+
+  final ImagePicker _picker = ImagePicker();
+
   ProfileService profileService = ProfileService();
   UserService userService = UserService();
 
@@ -20,14 +29,27 @@ class UserController extends GetxController {
     try {
       UserModel fetchedUser = await userService.getUser();
       userModel.value = fetchedUser;
+
+      name.value = fetchedUser.data?.name ?? '';
+      gender.value = fetchedUser.data?.gender ?? '';
+      birthDate.value =
+          fetchedUser.data?.birthDate?.toIso8601String().split('T')[0] ?? '';
+      email.value = fetchedUser.data?.email ?? '';
+      address.value = fetchedUser.data?.address ?? '';
     } catch (e) {
       print("Error fetching user data: $e");
     }
   }
 
-  void updateUserProfile(
-      Map<String, dynamic> updatedData, Function onSuccess) async {
+  void updateUserProfile(Function onSuccess) async {
     try {
+      var updatedData = {
+        'name': name.value,
+        'email': email.value,
+        'address': address.value,
+        'gender': gender.value,
+        'birth_date': birthDate.value,
+      };
       var response = await profileService.putUser(updatedData);
       print("Response: ${response['message']}");
       if (response['code'] == 200) {
@@ -41,15 +63,21 @@ class UserController extends GetxController {
     }
   }
 
-  void updateGender(String gender) {
-    final updatedData = userModel.value.data!.copyWith(gender: gender);
-    userModel.value = userModel.value.copyWith(data: updatedData);
+  void updateGender(String newGender) {
+    gender.value = newGender;
   }
 
-  void uploadAvatar(Function onSuccess) async {
+  Future<void> showImageSourceDialog(
+      Function(ImageSource) onImageSourceSelected) async {
+    return Get.dialog(GlobalImagePickerDialogWidget(
+        onImageSourceSelected: onImageSourceSelected));
+  }
+
+  Future<void> pickImage(ImageSource source) async {
+    isLoading.value = true;
     try {
       final ImagePicker picker = ImagePicker();
-      final XFile? image = await picker.pickImage(source: ImageSource.gallery);
+      final XFile? image = await picker.pickImage(source: source);
 
       if (image != null) {
         var response = await profileService.uploadAvatar(image);
@@ -57,13 +85,14 @@ class UserController extends GetxController {
         if (response.code == 200) {
           fetchUser();
           userModel.value = response;
-          onSuccess();
         } else {
           print("Error uploading avatar: ${response.message}");
         }
       }
     } catch (e) {
       print("Error uploading avatar: $e");
+    } finally {
+      isLoading.value = false;
     }
   }
 }

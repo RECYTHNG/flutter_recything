@@ -1,7 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:recything_application/constants/color_constant.dart';
 import 'package:recything_application/constants/image_constant.dart';
+import 'package:recything_application/constants/lottie_constant.dart';
 import 'package:recything_application/constants/spacing_constant.dart';
+import 'package:recything_application/constants/text_style_constant.dart';
+import 'package:recything_application/controllers/user/user_controller.dart';
+import 'package:recything_application/screens/home.dart';
+import 'package:recything_application/widgets/global_button_widget.dart';
+import 'package:lottie/lottie.dart';
 
 class SuccessScreen extends StatelessWidget {
   const SuccessScreen({super.key});
@@ -24,7 +31,12 @@ class SuccessScreen extends StatelessWidget {
               ),
             ),
             SpacingConstant.verticalSpacing1000,
-            Image.asset(ImageConstant.successImage),
+            Lottie.asset(
+              LottieConstant.verify,
+              height: 312,
+              width: 328,
+              repeat: false,
+            ),
             SpacingConstant.verticalSpacing200,
             const Text(
               'Datamu Berhasil Diperbarui!',
@@ -40,62 +52,38 @@ class SuccessScreen extends StatelessWidget {
               child: Text(
                 'Selamat! Profilmu berhasil diperbarui! Saatnya menjadi pahlawan lingkungan!',
                 textAlign: TextAlign.center,
-                style: TextStyle(
+                style: TextStyleConstant.regularSubtitle.copyWith(
                   color: ColorConstant.netralColor600,
-                  fontSize: 16,
                 ),
               ),
             ),
             SpacingConstant.verticalSpacing1000,
-            GestureDetector(
-              onTap: () {
-                Navigator.pop(context);
-              },
-              child: Container(
-                padding: const EdgeInsets.symmetric(vertical: 12),
-                alignment: Alignment.center,
+            GlobalButtonWidget(
+                onTap: () {
+                  Get.delete<UserController>();
+                  Get.offAll(() => const HomeAuthenticationScreen());
+                },
                 width: double.infinity,
-                decoration: BoxDecoration(
-                  color: ColorConstant.primaryColor500,
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                child: Text(
-                  'Home',
-                  style: TextStyle(
-                    color: ColorConstant.whiteColor,
-                    fontSize: 20,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-              ),
-            ),
+                height: 60,
+                backgroundColor: ColorConstant.primaryColor500,
+                isBorder: false,
+                title: 'Home',
+                textColor: ColorConstant.whiteColor,
+                fontSize: 20),
             SpacingConstant.verticalSpacing200,
-            GestureDetector(
-              onTap: () {
-                Navigator.pop(context);
-              },
-              child: Container(
-                padding: const EdgeInsets.symmetric(vertical: 12),
-                alignment: Alignment.center,
+            GlobalButtonWidget(
+                onTap: () {
+                  Get.delete<UserController>();
+                  Get.offAll(() => const HomeAuthenticationScreen());
+                },
                 width: double.infinity,
-                decoration: BoxDecoration(
-                  color: ColorConstant.whiteColor,
-                  borderRadius: BorderRadius.circular(12),
-                  border: Border.all(
-                    color: ColorConstant.primaryColor500,
-                    width: 2,
-                  ),
-                ),
-                child: Text(
-                  'Cek Profile',
-                  style: TextStyle(
-                    color: ColorConstant.primaryColor500,
-                    fontSize: 20,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-              ),
-            ),
+                height: 60,
+                backgroundColor: ColorConstant.whiteColor,
+                isBorder: true,
+                borderColor: ColorConstant.primaryColor500,
+                title: 'Cek Profil',
+                textColor: ColorConstant.primaryColor500,
+                fontSize: 20),
           ],
         ),
       ),

@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:recything_application/constants/color_constant.dart';
@@ -22,42 +21,7 @@ class EditProfileScreen extends StatefulWidget {
 class EditProfileScreenState extends State<EditProfileScreen> {
   final UserController controller = Get.put(UserController());
 
-  final TextEditingController nameController = TextEditingController();
-  final TextEditingController genderController = TextEditingController();
-  final TextEditingController birthDateController = TextEditingController();
-  final TextEditingController emailController = TextEditingController();
-  final TextEditingController addressController = TextEditingController();
-
   final _formKey = GlobalKey<FormState>();
-
-  bool _isLoading = false;
-
-  @override
-  void dispose() {
-    nameController.dispose();
-    genderController.dispose();
-    birthDateController.dispose();
-    emailController.dispose();
-    addressController.dispose();
-    super.dispose();
-  }
-
-  Future<void> _pickImage() async {
-    setState(() {
-      _isLoading = true;
-    });
-    try {
-      controller.uploadAvatar(() {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text('Avatar updated successfully')),
-        );
-      });
-    } finally {
-      setState(() {
-        _isLoading = false;
-      });
-    }
-  }
 
   Future<void> _loadImage(String url) async {
     if (url.isEmpty) {
@@ -121,19 +85,10 @@ class EditProfileScreenState extends State<EditProfileScreen> {
               child: MyLoading(),
             );
           }
-
-          nameController.text = data.name ?? '';
-          genderController.text = data.gender ?? '';
-          birthDateController.text =
-              data.birthDate?.toIso8601String().split('T')[0] ?? '';
-          emailController.text = data.email ?? '';
-          addressController.text = data.address ?? '';
-
           return FutureBuilder(
             future: _loadAllData(),
             builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.waiting ||
-                  _isLoading) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
                 return const Center(
                   child: MyLoading(),
                 );
@@ -202,7 +157,8 @@ class EditProfileScreenState extends State<EditProfileScreen> {
                         ),
                         SpacingConstant.verticalSpacing1000,
                         GestureDetector(
-                          onTap: _pickImage,
+                          onTap: () => controller
+                              .showImageSourceDialog(controller.pickImage),
                           child: const Text(
                             'Ubah Foto Profil',
                             style: TextStyle(
@@ -219,7 +175,9 @@ class EditProfileScreenState extends State<EditProfileScreen> {
                               CustomTextFieldWidget(
                                 label: 'Nama Lengkap',
                                 hint: 'Nama Lengkap',
-                                controller: nameController,
+                                controller: TextEditingController(
+                                  text: controller.name.value,
+                                ),
                               ),
                               SpacingConstant.verticalSpacing200,
                               CustomTextFieldWidget(
@@ -227,47 +185,42 @@ class EditProfileScreenState extends State<EditProfileScreen> {
                                 hint: 'Pilih Jenis Kelamin',
                                 isForm: false,
                                 targetScreen: const GenderPickScreen(),
-                                controller: genderController,
+                                controller: TextEditingController(
+                                  text: controller.gender.value,
+                                ),
                               ),
                               SpacingConstant.verticalSpacing200,
                               DatePickerWidget(
                                 label: 'Tanggal Lahir',
                                 hint: 'Input Tanggal Lahir',
-                                controller: birthDateController,
+                                controller: TextEditingController(
+                                  text: controller.birthDate.value,
+                                ),
                               ),
                               SpacingConstant.verticalSpacing200,
                               CustomTextFieldWidget(
                                 label: 'Email',
                                 hint: 'Email',
-                                controller: emailController,
+                                controller: TextEditingController(
+                                  text: controller.email.value,
+                                ),
                               ),
                               SpacingConstant.verticalSpacing200,
                               CustomTextFieldWidget(
                                 label: 'Alamat',
                                 hint: 'Isi Alamat',
                                 isTextArea: true,
-                                controller: addressController,
+                                controller: TextEditingController(
+                                  text: controller.address.value,
+                                ),
                               ),
                               SpacingConstant.verticalSpacing200,
                               GestureDetector(
                                 onTap: () {
                                   if (_formKey.currentState!.validate()) {
-                                    final updatedData = {
-                                      'name': nameController.text,
-                                      'email': emailController.text,
-                                      'address': addressController.text,
-                                      'gender': genderController.text,
-                                      'birth_date': birthDateController.text,
-                                    };
                                     FocusScope.of(context).unfocus();
-                                    controller.updateUserProfile(updatedData,
-                                        () {
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                const SuccessScreen()),
-                                      );
+                                    controller.updateUserProfile(() {
+                                      Get.to(() => const SuccessScreen());
                                     });
                                   }
                                 },
