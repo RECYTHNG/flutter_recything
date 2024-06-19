@@ -101,6 +101,7 @@ flutter:
         - assets/images/point_history/
         - assets/images/article/
         - assets/images/recycle/
+        - assets/images/edit_profile_images/
 
     # An image asset can refer to one or more resolution-specific "variants", see
     # https://flutter.dev/assets-and-images/#resolution-aware

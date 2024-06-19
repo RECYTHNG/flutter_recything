@@ -4,6 +4,7 @@ import 'package:recything_application/constants/spacing_constant.dart';
 import 'package:recything_application/screens/achievement_screen/achievement_screen.dart';
 import 'package:recything_application/screens/authentication/login/login_screen.dart';
 import 'package:recything_application/screens/customer_service/cutomer_service_faq_main/customer_service_screen.dart';
+import 'package:recything_application/screens/edit_profile/edit_profile_screen.dart';
 import 'package:recything_application/utils/shared_pref.dart';
 
 class HomeAuthenticationScreen extends StatefulWidget {
@@ -48,6 +49,15 @@ class _HomeAuthenticationScreenState extends State<HomeAuthenticationScreen> {
                 );
               },
               child: const Text('Achievement'),
+            ),
+            SpacingConstant.verticalSpacing100,
+            ElevatedButton(
+              onPressed: () {
+                Get.to(
+                  () => const EditProfileScreen(),
+                );
+              },
+              child: const Text('Edit Profil'),
             ),
           ],
         ),

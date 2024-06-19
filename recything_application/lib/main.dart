@@ -3,11 +3,9 @@ import 'package:get/get.dart';
 import 'package:recything_application/constants/app_theme_constant.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:recything_application/screens/splash/splash_screen.dart';
-import 'package:recything_application/controllers/user/user_controller.dart';
 
 void main() async {
   await initializeDateFormatting();
-  Get.put(UserController());
   runApp(const MyApp());
 }
 
