@@ -28,6 +28,8 @@ class IconConstant {
   static const badgeClassic = 'assets/images/home_images/badges/classic.svg';
   static const badgeSilver = 'assets/images/home_images/badges/silver.svg';
   static const badgeGold = 'assets/images/home_images/badges/gold.svg';
+
+  // rubbish
+  static String reporting = 'assets/icons/reporting_rubbish/reporting.svg';
+  static String currentLocation = 'assets/icons/reporting_rubbish/current_location.svg';
 }
-
-

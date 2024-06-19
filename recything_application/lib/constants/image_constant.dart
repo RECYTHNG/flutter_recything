@@ -1,4 +1,18 @@
 class ImageConstant {
+  // Global - Image Picker Dialog
+  static String camera = 'assets/images/global/camera_image_dialog.png';
+  static String gallery = 'assets/images/global/gallery_image_dialog.png';
+
+  // Dashboard Reporting
+  static String emptyStateHistory = 'assets/images/reporting_rubbish/empty_history.png';
+  static String rubbishHistory = 'assets/images/reporting_rubbish/rubbish.jpg';
+  static String litteringHistory = 'assets/images/reporting_rubbish/littering.jpg';
+  static String rubbishCarousel = 'assets/images/reporting_rubbish/penumpukan_sampah.jpeg';
+  static String litteringCarousel = 'assets/images/reporting_rubbish/pembuangan_sampah_sembarangan.jpeg';
+
+  // Rubbish
+  static String locationResult = 'assets/images/reporting_rubbish/location_result.png';
+
   // Recycle
   static String play = 'assets/images/recycle/play.png';
   static String challenge = 'assets/images/recycle/challenge.png';
@@ -21,10 +35,6 @@ class ImageConstant {
   static String emptyStateKeyword = 'assets/images/recycle/not_found.png';
 
   static String notFound = 'assets/images/article/not_found.png';
-
-  // Global - Image Picker Dialog
-  static String camera = 'assets/images/global/camera_image_dialog.png';
-  static String gallery = 'assets/images/global/gallery_image_dialog.png';
 
   //Achievement
   static const String cardImage = 'assets/images/achievement/card_images.png';
