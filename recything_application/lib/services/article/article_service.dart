@@ -55,8 +55,10 @@ class ArticleService {
   Future<ArticleModel> getArticleById({required String id}) async {
     try {
       var url = "$base/article/$id";
-      var authToken =
-          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiVVNSMDAwNCIsInJvbGUiOiJ1c2VyIiwiZXhwIjoxNzIwOTcyNjg0fQ.1gS0T0FXve-C6VnTtV1gUdVcqjY04_nfjkaww8yLNUg";
+      String? authToken = await SharedPref.getToken();
+      if (authToken == null) {
+        throw Exception('Tidak ada token yang ditemukan');
+      }
 
       var response = await _dio.get(
         url,
@@ -94,8 +96,11 @@ class ArticleService {
       {required String id, required String comment}) async {
     try {
       var url = "$base/article/$id/comment";
-      var authToken =
-          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiVVNSMDAwNCIsInJvbGUiOiJ1c2VyIiwiZXhwIjoxNzIwOTcyNjg0fQ.1gS0T0FXve-C6VnTtV1gUdVcqjY04_nfjkaww8yLNUg";
+      String? authToken = await SharedPref.getToken();
+      if (authToken == null) {
+        throw Exception('Tidak ada token yang ditemukan');
+      }
+      
       final response = await _dio.post(
         url,
         data: {'comment': comment},

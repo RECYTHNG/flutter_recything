@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 import 'package:http_parser/http_parser.dart';
 import 'package:recything_application/env/env.dart';
 import 'package:recything_application/utils/shared_pref.dart';
@@ -29,7 +30,9 @@ class PostImageProofService {
       );
     }
 
-    print(formData);
+    if (kDebugMode) {
+      print(formData);
+    }
 
     try {
       String? authToken = await SharedPref.getToken();
@@ -54,15 +57,25 @@ class PostImageProofService {
       }
 
       if (response.statusCode == 200) {
-        print('Upload successful');
-        print(response.data);
+        if (kDebugMode) {
+          print('Upload successful');
+        }
+        if (kDebugMode) {
+          print(response.data);
+        }
         return response.data;
       } else {
-        print('Upload failed with status: ${response.statusCode}');
-        print('Response data: ${response.data}');
+        if (kDebugMode) {
+          print('Upload failed with status: ${response.statusCode}');
+        }
+        if (kDebugMode) {
+          print('Response data: ${response.data}');
+        }
       }
     } catch (e) {
-      print('Error occurred: $e');
+      if (kDebugMode) {
+        print('Error occurred: $e');
+      }
     }
   }
 }

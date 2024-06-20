@@ -1,13 +1,17 @@
 import 'package:dio/dio.dart';
 import 'package:recything_application/env/env.dart';
 import 'package:recything_application/models/about_us/about_us_model.dart';
+import 'package:recything_application/utils/shared_pref.dart';
 
 class AboutUsService {
   var baseUrl = Env.recythingBaseUrl;
   Future<AboutUsModel> getAboutUs(String param) async {
     try {
-      var authToken =
-          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiVVNSMDAwMyIsInJvbGUiOiJ1c2VyIiwiZXhwIjoxNzIwOTI2NDExfQ.NIBgmfUIoUAMPmBVgZZLriRvXTXf_oLkzbVEilfkCOY";
+       String? authToken = await SharedPref.getToken();
+      if (authToken == null) {
+        throw Exception('Tidak ada token yang ditemukan');
+      }
+      
       final response = await Dio().get(
         "$baseUrl/about-us/category",
         queryParameters: {"name": param},

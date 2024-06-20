@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 import 'package:recything_application/env/env.dart';
 import 'package:recything_application/models/video_content/detail_video_content_model.dart';
 import 'package:recything_application/models/video_content/response_category_model.dart';
@@ -102,12 +103,18 @@ class VideoContentService {
         ),
       );
       if (response.statusCode == 201) {
-        print("Successfully sent comment.");
+        if (kDebugMode) {
+          print("Successfully sent comment.");
+        }
       } else {
-        print("Failed to send comment: ${response.statusMessage}");
+        if (kDebugMode) {
+          print("Failed to send comment: ${response.statusMessage}");
+        }
       }
     } on DioException catch (e) {
-      print("Error posting comment: ${e.toString()}");
+      if (kDebugMode) {
+        print("Error posting comment: ${e.toString()}");
+      }
     }
   }
 

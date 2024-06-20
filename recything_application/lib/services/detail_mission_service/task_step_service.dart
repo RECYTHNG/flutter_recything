@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:recything_application/constants/api_key_constant.dart';
 import 'package:recything_application/utils/shared_pref.dart';
@@ -41,6 +42,7 @@ class TaskStepService {
       if (authToken == null) {
         throw Exception('Tidak ada token yang ditemukan');
       }
+
       final response = await dio.get(
         '$baseUrl/user/task/$userTaskId',
         options: Options(
@@ -67,6 +69,7 @@ class TaskStepService {
       if (authToken == null) {
         throw Exception('Tidak ada token yang ditemukan');
       }
+
       final response = await dio.post(
         '$baseUrl/user/tasks/$taskId',
         data: {},
@@ -77,7 +80,9 @@ class TaskStepService {
           },
         ),
       );
-      print(response.data);
+      if (kDebugMode) {
+        print(response.data);
+      }
       return response.data;
     } catch (e) {
       throw Exception('Failed to submit data: $e');
