@@ -174,7 +174,7 @@ class TextStyleConstant {
     fontWeight: FontWeight.w400,
     color: ColorConstant.blackColor,
   );
-  static TextStyle regularSubtitle= const TextStyle(
+  static TextStyle regularSubtitle = const TextStyle(
     fontSize: 16,
     fontWeight: FontWeight.w400,
     color: ColorConstant.blackColor,
