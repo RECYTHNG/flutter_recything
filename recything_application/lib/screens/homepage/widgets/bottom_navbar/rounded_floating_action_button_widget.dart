@@ -5,9 +5,11 @@ import 'package:recything_application/constants/icon_constant.dart';
 
 class RoundedFloatingActionButton extends StatelessWidget {
   final Function() onTap;
+  final bool isMenuActive;
   const RoundedFloatingActionButton({
     super.key,
     required this.onTap,
+    required this.isMenuActive,
   });
 
   @override
@@ -25,7 +27,9 @@ class RoundedFloatingActionButton extends StatelessWidget {
       ),
       child: Material(
         elevation: 12,
-        shadowColor: ColorConstant.whiteColor,
+        shadowColor: isMenuActive
+            ? ColorConstant.dangerColor500
+            : ColorConstant.whiteColor,
         shape: const CircleBorder(),
         child: FloatingActionButton(
           shape: const CircleBorder(),
@@ -35,6 +39,12 @@ class RoundedFloatingActionButton extends StatelessWidget {
             IconConstant.iconReport,
             width: 32,
             height: 32,
+            colorFilter: ColorFilter.mode(
+              isMenuActive
+                  ? ColorConstant.dangerColor500
+                  : ColorConstant.primaryColor500,
+              BlendMode.srcIn,
+            ),
           ),
         ),
       ),

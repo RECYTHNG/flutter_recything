@@ -21,6 +21,7 @@ class PlatinumAchievementContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: ColorConstant.whiteColor,
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Obx(
