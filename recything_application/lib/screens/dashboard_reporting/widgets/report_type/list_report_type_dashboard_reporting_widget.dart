@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:recything_application/constants/image_constant.dart';
 import 'package:recything_application/controllers/report_history_controller.dart';
 import 'package:recything_application/screens/dashboard_reporting/widgets/report_type/item_report_type_dashboard_reporting_widget.dart';
+import 'package:recything_application/screens/report_litter/pick_litter_type_screen.dart';
 import 'package:recything_application/screens/report_rubbish/report_rubbish_screen.dart';
 
 class ListReportTypeDashboardReportingWidget extends StatelessWidget {
@@ -17,7 +18,7 @@ class ListReportTypeDashboardReportingWidget extends StatelessWidget {
     ),
     ItemReportTypeDashboardReportingWidget(
       onTap: () {
-        Get.to(const ReportRubbishScreen());
+        Get.to(const PickLitterTypeScreen());
       },
       title: 'Pembuangan Sampah Sembarangan',
       image: ImageConstant.litteringCarousel,
