@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:recything_application/constants/spacing_constant.dart';
-import 'package:recything_application/controllers/article/article_controller.dart';
+import 'package:recything_application/controllers/article_controller.dart';
 import 'package:recything_application/controllers/recycle_controller.dart';
 import 'package:recything_application/models/recycle/article_recycle_model.dart';
 import 'package:recything_application/screens/article/article_detail/article_detail_screen.dart';

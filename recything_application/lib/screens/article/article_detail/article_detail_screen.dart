@@ -5,7 +5,7 @@ import 'package:intl/intl.dart';
 import 'package:recything_application/constants/color_constant.dart';
 import 'package:recything_application/constants/spacing_constant.dart';
 import 'package:recything_application/constants/text_style_constant.dart';
-import 'package:recything_application/controllers/article/article_controller.dart';
+import 'package:recything_application/controllers/article_controller.dart';
 import 'package:recything_application/screens/article/article_detail/widget/content_section_widget.dart';
 import 'package:recything_application/widgets/global_loading_widget.dart';
 import 'package:recything_application/widgets/global_search_bar.dart';

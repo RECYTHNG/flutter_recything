@@ -8,7 +8,7 @@ class VideoRecycleService {
 
   Future<VideoRecycleModel> getVideo() async {
     try {
-      final token = SharedPref.getToken();
+      final token = await SharedPref.getToken();
       final response = await _dio.get(
         '$recythingBaseUrl/videos',
         options: Options(

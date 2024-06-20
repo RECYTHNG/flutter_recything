@@ -10,7 +10,7 @@ class SearchByKeywordyRecycleService {
   Future<ArticleCategoryRecycleModel> getArticleByKeyword(
       String keyword) async {
     try {
-      final token = SharedPref.getToken();
+      final token = await SharedPref.getToken();
       final response = await _dio.get(
         '$recythingBaseUrl/article/search',
         queryParameters: {

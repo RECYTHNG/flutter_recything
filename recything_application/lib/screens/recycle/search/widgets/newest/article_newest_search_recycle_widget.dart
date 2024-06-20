@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:recything_application/constants/spacing_constant.dart';
-import 'package:recything_application/controllers/article/article_controller.dart';
+import 'package:recything_application/controllers/article_controller.dart';
 import 'package:recything_application/controllers/recycle_controller.dart';
 import 'package:recything_application/models/recycle/article_recycle_model.dart';
 import 'package:recything_application/screens/article/article_detail/article_detail_screen.dart';
@@ -23,7 +23,8 @@ class ArticleNewestSearchRecycleWidget extends StatelessWidget {
       children: [
         Obx(
           () {
-            if (controller.isLoadingFetchSortedArticle.value || controller.articleSortedData.value == null) {
+            if (controller.isLoadingFetchSortedArticle.value ||
+                controller.articleSortedData.value == null) {
               return const SizedBox(
                 height: 142,
                 child: Center(
@@ -36,11 +37,15 @@ class ArticleNewestSearchRecycleWidget extends StatelessWidget {
                 ),
               );
             } else {
-              final List<Article> dataToShow = controller.articleSortedData.value!.data.articles.take(3).toList();
+              final List<Article> dataToShow = controller
+                  .articleSortedData.value!.data.articles
+                  .take(3)
+                  .toList();
               return SizedBox(
                 height: 142,
                 child: ListView.separated(
-                  separatorBuilder: (context, index) => SpacingConstant.horizontalSpacing200,
+                  separatorBuilder: (context, index) =>
+                      SpacingConstant.horizontalSpacing200,
                   scrollDirection: Axis.horizontal,
                   itemCount: dataToShow.length,
                   clipBehavior: Clip.none,

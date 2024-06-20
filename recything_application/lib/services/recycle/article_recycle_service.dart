@@ -8,10 +8,7 @@ class ArticleRecycleService {
 
   Future<ArticleRecycleModel> getArticle({bool? isSorted}) async {
     try {
-      String? authToken = await SharedPref.getToken();
-      if (authToken == null) {
-        throw Exception('Tidak ada token yang ditemukan');
-      }
+      final token = await SharedPref.getToken();
       final Map<String, String> queryParams = {};
       if (isSorted == true) {
         queryParams['sort_by'] = 'created_at';
@@ -21,9 +18,10 @@ class ArticleRecycleService {
         '$recythingBaseUrl/articles',
         queryParameters: queryParams,
         options: Options(
-          headers: {'Authorization': 'Bearer $authToken'},
+          headers: {'Authorization': 'Bearer $token'},
         ),
       );
+      print(response.data);
       final jsonResponse = response.data as Map<String, dynamic>;
       return ArticleRecycleModel.fromJson(jsonResponse);
     } on DioException catch (e) {

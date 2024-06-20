@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
+import 'package:get/get.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:recything_application/constants/app_theme_constant.dart';
 import 'package:recything_application/screens/splash/splash_screen.dart';
@@ -19,7 +19,6 @@ class MyApp extends StatelessWidget {
       theme: AppThemeConstant.appTheme,
       debugShowCheckedModeBanner: false,
       home: const SplashScreen(),
-
     );
   }
 }

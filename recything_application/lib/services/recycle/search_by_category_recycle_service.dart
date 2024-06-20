@@ -7,9 +7,10 @@ import 'package:recything_application/utils/shared_pref.dart';
 class SearchByCategoryRecycleService {
   final Dio _dio = Dio();
 
-  Future<ArticleCategoryRecycleModel> getArticleByCategory(String category) async {
+  Future<ArticleCategoryRecycleModel> getArticleByCategory(
+      String category) async {
     try {
-      final token = SharedPref.getToken();
+      final token = await SharedPref.getToken();
       final response = await _dio.get(
         '$recythingBaseUrl/article/category',
         queryParameters: {

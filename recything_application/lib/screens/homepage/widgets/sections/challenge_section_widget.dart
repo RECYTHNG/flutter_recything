@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:recything_application/constants/color_constant.dart';
 import 'package:recything_application/constants/image_constant.dart';
 import 'package:recything_application/constants/text_style_constant.dart';
+import 'package:recything_application/screens/challenge/dashboard/challenge_dashboard_screen.dart';
+import 'package:recything_application/screens/homepage/home_navbar_screen.dart';
 
 class ChallengeSectionWidget extends StatelessWidget {
   const ChallengeSectionWidget({super.key});
@@ -34,7 +37,13 @@ class ChallengeSectionWidget extends StatelessWidget {
                 ],
               ),
               TextButton(
-                onPressed: () {},
+                onPressed: () {
+                  Get.offAll(
+                    () => HomeNavBarScreen(
+                      currentIndex: 3,
+                    ),
+                  );
+                },
                 child: Text(
                   'Lihat Semua',
                   style: TextStyleConstant.semiboldCaption.copyWith(
