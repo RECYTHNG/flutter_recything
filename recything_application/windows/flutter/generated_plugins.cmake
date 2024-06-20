@@ -5,7 +5,10 @@
 list(APPEND FLUTTER_PLUGIN_LIST
   file_selector_windows
   geolocator_windows
+<<<<<<< HEAD
+=======
   permission_handler_windows
+>>>>>>> development
   url_launcher_windows
 )
 
