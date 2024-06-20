@@ -3,7 +3,7 @@ import 'package:envied/envied.dart';
 part 'env.g.dart';
 
 @Envied(path: '.env')
-abstract class  Env {
+abstract class Env {
   @EnviedField(varName: "RECYTHING_BASE_URL")
   static const String recythingBaseUrl = _Env.recythingBaseUrl;
 
