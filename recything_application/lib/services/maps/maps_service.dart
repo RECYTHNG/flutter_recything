@@ -44,13 +44,11 @@ class MapsService {
       );
       if (response.data['status'] == "OK") {
         final data = response.data;
-        return PlacesMapsModel.fromJson(
-          data['result'],
-        );
-      }
-      if (response.data['status'] == "ZERO_RESULTS") {
+        return PlacesMapsModel.fromJson(data['result'],);
+      } if (response.data['status'] == "ZERO_RESULTS") {
         throw Exception;
-      } else {
+      }
+      else {
         throw 'Error Status Code ${response.statusCode}';
       }
     } catch (e) {

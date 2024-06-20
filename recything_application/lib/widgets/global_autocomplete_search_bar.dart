@@ -38,6 +38,7 @@ class GlobalAutocompleteSearchBar extends StatelessWidget {
         if (query != '')
           Container(
             width: width,
+            height: matchedSearchData!.length > 5 ? 250 : null,
             decoration: BoxDecoration(
               color: ColorConstant.whiteColor,
               boxShadow: [
@@ -57,9 +58,6 @@ class GlobalAutocompleteSearchBar extends StatelessWidget {
             child: ListView(
               shrinkWrap: true,
               children: [
-                SizedBox.fromSize(
-                  size: Size.fromHeight(height - 1),
-                ),
                 ...matchedSearchData!.map((element) {
                   return Material(
                     shape: const RoundedRectangleBorder(

@@ -9,6 +9,9 @@ class GlobalSearchBar extends StatelessWidget {
   final Function(String)? onSubmitted;
   final double height;
   final double width;
+  final Widget? suffixIcon;
+  final Widget? prefixIcon;
+  final FocusNode? focusNode;
 
   const GlobalSearchBar({
     super.key,
@@ -19,6 +22,9 @@ class GlobalSearchBar extends StatelessWidget {
     required this.height,
     required this.width,
     this.onSubmitted,
+    this.suffixIcon,
+    this.prefixIcon,
+    this.focusNode,
   });
 
   @override
@@ -27,6 +33,7 @@ class GlobalSearchBar extends StatelessWidget {
       height: height,
       width: width,
       child: TextField(
+        focusNode: focusNode,
         controller: controller,
         onChanged: onChanged,
         onSubmitted: onSubmitted,
@@ -41,21 +48,8 @@ class GlobalSearchBar extends StatelessWidget {
             fontSize: 14.0,
             color: ColorConstant.netralColor600,
           ),
-          prefixIcon: const Icon(
-            Icons.search,
-            color: ColorConstant.netralColor900,
-          ),
-          suffixIcon: controller?.text.isNotEmpty ?? false
-              ? IconButton(
-                  onPressed: () {
-                    controller?.clear();
-                  },
-                  icon: const Icon(
-                    Icons.close,
-                    color: ColorConstant.netralColor900,
-                  ),
-                )
-              : null,
+          prefixIcon: prefixIcon,
+          suffixIcon: suffixIcon,
           filled: true,
           fillColor: fillColor ?? ColorConstant.netralColor500,
           border: OutlineInputBorder(

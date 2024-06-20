@@ -5,8 +5,7 @@ class SystemUiOverlayUtils {
     SystemChrome.setSystemUIOverlayStyle(
       SystemUiOverlayStyle(
         statusBarColor: color,
-        statusBarIconBrightness:
-            isIconDark ? Brightness.dark : Brightness.light,
+        statusBarIconBrightness: isIconDark ? Brightness.dark : Brightness.light,
       ),
     );
   }
