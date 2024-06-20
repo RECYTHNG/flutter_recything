@@ -75,7 +75,6 @@ dev_dependencies:
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
-
 # The following section is specific to Flutter packages.
 flutter:
     # The following line ensures that the Material Icons font is
@@ -90,6 +89,7 @@ flutter:
     #   - images/a_dot_ham.jpeg
     assets:
         - assets/images/global/
+        - assets/images/profile/
         - assets/images/home_images/
         - assets/images/home_images/badges/
         - assets/images/home_images/icons/
