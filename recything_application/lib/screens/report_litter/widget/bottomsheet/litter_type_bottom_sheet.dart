@@ -6,6 +6,8 @@ import 'package:recything_application/constants/text_style_constant.dart';
 import 'package:recything_application/controllers/report_litter_controller.dart';
 
 class LitterTypeBottomSheet extends StatelessWidget {
+  LitterTypeBottomSheet({super.key});
+
   final ReportLitterController controller = Get.find<ReportLitterController>();
 
   @override

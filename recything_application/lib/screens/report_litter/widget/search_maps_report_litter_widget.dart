@@ -16,7 +16,7 @@ class SearchMapsReportLitterWidget extends StatelessWidget {
           height: 40,
           width: double.infinity,
           controller: controller.searchController,
-          matchedSearchData: controller.autocomplete,
+          matchedSearchData: controller.autocomplete.value,
           query: controller.searchQuery.value,
           onSubmitted: (value) {
             controller.onSubmitSearch(value);

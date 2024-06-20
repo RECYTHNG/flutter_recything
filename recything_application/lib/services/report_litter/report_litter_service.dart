@@ -2,8 +2,8 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:recything_application/constants/api_key_constant.dart';
 import 'package:recything_application/controllers/report_litter_controller.dart';
-import 'package:recything_application/utils/shared_pref.dart';
 import 'package:http_parser/http_parser.dart';
+import 'package:recything_application/utils/shared_pref.dart';
 
 class ReportLitterService {
   final Dio _dio = Dio();
@@ -11,8 +11,7 @@ class ReportLitterService {
 
   Future<int> sendReport(ReportLitterController controller) async {
     try {
-      String token =
-          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiVVNSMDA1NCIsInJvbGUiOiJ1c2VyIiwiZXhwIjoxNzIxNDQ5MTkwfQ.k891APrZbfnw0oDnQ86ozvu94n1rMXSG1DI-rfrEhzo';
+      String? token = await SharedPref.getToken();
       FormData formData = FormData();
       var jsonData = jsonEncode({
         'latitude': controller.lat.value,

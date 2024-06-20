@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -11,7 +13,7 @@ class LocationMapsReportLitterWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final MapLitterController locationController = Get.find();
-    locationController.initializeData();
+    locationController.mcontroller = Completer();
     return Scaffold(
       backgroundColor: ColorConstant.whiteColor,
       body: Center(

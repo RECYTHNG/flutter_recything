@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:geolocator/geolocator.dart';
@@ -8,7 +9,7 @@ import 'package:recything_application/models/maps/search_autocomplete_maps_model
 import 'package:recything_application/services/maps/maps_service.dart';
 
 class MapLitterController extends GetxController {
-  final Completer<GoogleMapController> mcontroller =
+  late Completer<GoogleMapController> mcontroller =
       Completer<GoogleMapController>();
   Rx<LatLng?> currentLatLng = Rx<LatLng?>(null);
   RxString currentAddress = RxString('');
@@ -25,8 +26,10 @@ class MapLitterController extends GetxController {
   RxDouble lat = 0.0.obs;
   RxDouble long = 0.0.obs;
 
-  void initializeData() async {
-    await getCurrentPosition();
+  @override
+  void onInit() {
+    super.onInit();
+    getCurrentPosition();
   }
 
   void onSubmitSearch(String query) {
@@ -78,10 +81,11 @@ class MapLitterController extends GetxController {
       return;
     }
     currentPosition.value = await Geolocator.getCurrentPosition(
-        desiredAccuracy: LocationAccuracy.best);
+      desiredAccuracy: LocationAccuracy.best,
+    );
     if (currentPosition.value != null) {
       await getAddressByLatLong(currentPosition.value!);
-      searchController.text = currentAddress.value;
+      searchController.text = currentAddress.value!;
       currentLatLng.value = LatLng(
           currentPosition.value!.latitude, currentPosition.value!.longitude);
       moveCamera(currentLatLng.value!);
@@ -92,7 +96,7 @@ class MapLitterController extends GetxController {
   Future<void> getAddressByPlacemark(Placemark placemark) async {
     currentAddress.value =
         '${placemark.street}, ${placemark.subLocality}, ${placemark.locality}, ${placemark.subAdministrativeArea}, ${placemark.administrativeArea}, ${placemark.postalCode}';
-    searchController.text = currentAddress.value;
+    searchController.text = currentAddress.value!;
     address.value =
         '${placemark.street}, ${placemark.subLocality}, ${placemark.locality}';
     city.value = placemark.subAdministrativeArea!;
@@ -101,8 +105,10 @@ class MapLitterController extends GetxController {
 
   Future<void> getAddressByLatLong(Position position) async {
     try {
-      final resultAddress =
-          await placemarkFromCoordinates(position.latitude, position.longitude);
+      final resultAddress = await placemarkFromCoordinates(
+        position.latitude,
+        position.longitude,
+      );
       Placemark placemark = resultAddress.first;
       currentAddress.value =
           '${placemark.street}, ${placemark.subLocality}, ${placemark.locality}, ${placemark.subAdministrativeArea}, ${placemark.administrativeArea}, ${placemark.postalCode}';
@@ -112,8 +118,13 @@ class MapLitterController extends GetxController {
           '${placemark.street}, ${placemark.subLocality}, ${placemark.locality}';
       city.value = placemark.subAdministrativeArea!;
       province.value = placemark.administrativeArea!;
+      print(currentAddress);
     } catch (e) {
-      // print('Failed to get address: $e');
+      _showSnackbar(
+        title: 'Gagal Mendapatkan Alamat',
+        message: e.toString(),
+        contentType: ContentType.failure,
+      );
     }
   }
 
@@ -123,22 +134,31 @@ class MapLitterController extends GetxController {
 
     serviceEnabled = await Geolocator.isLocationServiceEnabled();
     if (!serviceEnabled) {
-      Get.snackbar(
-          'Location Service Disabled', 'Please enable location service');
+      _showSnackbar(
+        title: 'Layanan Lokasi Dinonaktifkan',
+        message: 'Silakan aktifkan layanan lokasi',
+        contentType: ContentType.failure,
+      );
       return false;
     }
     locationPermission = await Geolocator.checkPermission();
     if (locationPermission == LocationPermission.denied) {
       locationPermission = await Geolocator.requestPermission();
       if (locationPermission == LocationPermission.denied) {
-        Get.snackbar(
-            'Location Permission Denied', 'Please allow location permission');
+        _showSnackbar(
+          title: 'Izin Lokasi Ditolak',
+          message: 'Silakan izinkan akses lokasi',
+          contentType: ContentType.failure,
+        );
         return false;
       }
     }
     if (locationPermission == LocationPermission.deniedForever) {
-      Get.snackbar('Location Permission Denied Permanently',
-          'Please enable location permission in device settings');
+      _showSnackbar(
+        title: 'Izin Lokasi Ditolak Permanen',
+        message: 'Silakan aktifkan izin lokasi di pengaturan perangkat',
+        contentType: ContentType.failure,
+      );
       return false;
     }
     return true;
@@ -146,7 +166,32 @@ class MapLitterController extends GetxController {
 
   void moveCamera(LatLng newLatLng) async {
     final GoogleMapController controller = await mcontroller.future;
-    await controller.animateCamera(CameraUpdate.newCameraPosition(
-        CameraPosition(target: newLatLng, zoom: 15)));
+    await controller.animateCamera(
+      CameraUpdate.newCameraPosition(
+        CameraPosition(
+          target: newLatLng,
+          zoom: 15,
+        ),
+      ),
+    );
+  }
+
+  void _showSnackbar({
+    required String title,
+    required String message,
+    required ContentType contentType,
+  }) {
+    Get.rawSnackbar(
+      backgroundColor: Colors.transparent,
+      snackPosition: SnackPosition.BOTTOM,
+      snackStyle: SnackStyle.FLOATING,
+      messageText: AwesomeSnackbarContent(
+        titleFontSize: 18,
+        messageFontSize: 14,
+        title: title,
+        message: message,
+        contentType: contentType,
+      ),
+    );
   }
 }

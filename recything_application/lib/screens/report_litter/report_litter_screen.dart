@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
@@ -42,6 +43,29 @@ class ReportLitterScreenState extends State<ReportLitterScreen> {
   }
 
   void _showConfirmationSheet() {
+    if (litterController.title.value.isEmpty ||
+        litterController.condition.value.isEmpty ||
+        litterController.imageFiles.isEmpty) {
+      Get.snackbar(
+        '',
+        '',
+        padding: const EdgeInsets.all(0),
+        margin: const EdgeInsets.all(12),
+        snackStyle: SnackStyle.FLOATING,
+        backgroundColor: Colors.transparent,
+        barBlur: 0.0,
+        overlayBlur: 0.0,
+        snackPosition: SnackPosition.BOTTOM,
+        messageText: AwesomeSnackbarContent(
+          title: 'Laporan Belum Lengkap',
+          message:
+              'Silakan isi form terlebih dahulu dan tambahkan minimal satu foto',
+          contentType: ContentType.failure,
+        ),
+      );
+      return;
+    }
+
     showModalBottomSheet(
       context: context,
       builder: (BuildContext context) {
@@ -57,7 +81,7 @@ class ReportLitterScreenState extends State<ReportLitterScreen> {
     );
   }
 
-  void _showEditLitterTypeSheet(String active) {
+  void _showEditLitterTypeSheet() {
     showModalBottomSheet(
       context: context,
       builder: (BuildContext context) {
@@ -91,7 +115,18 @@ class ReportLitterScreenState extends State<ReportLitterScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: ColorConstant.whiteColor,
       appBar: AppBar(
+        backgroundColor: ColorConstant.whiteColor,
+        leading: IconButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: const Icon(
+            Icons.arrow_back,
+            color: ColorConstant.netralColor700,
+          ),
+        ),
         title: Text(
           'Deskripsi Sampah',
           style: TextStyleConstant.boldHeading4,
@@ -100,6 +135,7 @@ class ReportLitterScreenState extends State<ReportLitterScreen> {
       ),
       body: Padding(
         padding: const EdgeInsets.only(
+          top: 8,
           left: 16,
           right: 16,
           bottom: 16,
@@ -121,7 +157,7 @@ class ReportLitterScreenState extends State<ReportLitterScreen> {
                         color: ColorConstant.netralColor50,
                         boxShadow: const [
                           BoxShadow(
-                            color: ColorConstant.netralColor900,
+                            color: Color.fromRGBO(0, 0, 0, 0.25),
                             offset: Offset(0, 4),
                             blurRadius: 4,
                           ),
@@ -181,8 +217,7 @@ class ReportLitterScreenState extends State<ReportLitterScreen> {
                                   ),
                                   SpacingConstant.horizontalSpacing100,
                                   GestureDetector(
-                                    onTap: () =>
-                                        _showEditLitterTypeSheet('organic'),
+                                    onTap: () => _showEditLitterTypeSheet(),
                                     child: const Icon(
                                       Icons.edit,
                                       color: ColorConstant.netralColor600,
@@ -236,55 +271,65 @@ class ReportLitterScreenState extends State<ReportLitterScreen> {
                           litterController.condition.value = value,
                     ),
                     SpacingConstant.verticalSpacing200,
-                    Obx(() => Wrap(
-                          alignment: WrapAlignment.start,
-                          runAlignment: WrapAlignment.start,
-                          spacing: 8.0,
-                          runSpacing: 8.0,
-                          children: [
-                            ...litterController.imageFiles
-                                .asMap()
-                                .entries
-                                .map((entry) {
-                              int index = entry.key;
-                              XFile? media = entry.value;
-                              return GestureDetector(
-                                onTap: () =>
-                                    _showEditPhotoBottomSheet(media!, index),
-                                child: Container(
-                                  width: 100,
-                                  height: 100,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(4),
-                                  ),
-                                  child: Image.file(
-                                    File(media?.path ?? ''),
-                                    fit: BoxFit.cover,
-                                  ),
+                    Obx(
+                      () => Wrap(
+                        alignment: WrapAlignment.start,
+                        runAlignment: WrapAlignment.start,
+                        spacing: 8.0,
+                        runSpacing: 8.0,
+                        children: [
+                          ...litterController.imageFiles
+                              .asMap()
+                              .entries
+                              .map((entry) {
+                            int index = entry.key;
+                            XFile? media = entry.value;
+                            return GestureDetector(
+                              onTap: () =>
+                                  _showEditPhotoBottomSheet(media!, index),
+                              child: Container(
+                                width: 100,
+                                height: 100,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(4),
                                 ),
-                              );
-                            }),
-                            GestureDetector(
-                              onTap: () => _pickMedia(true),
-                              child: DottedBorder(
-                                color: Colors.grey,
-                                strokeWidth: 2,
-                                dashPattern: const [4, 4],
-                                borderType: BorderType.RRect,
-                                radius: const Radius.circular(4),
-                                child: Container(
-                                  width: 100,
-                                  height: 100,
-                                  alignment: Alignment.center,
-                                  child: const Icon(
-                                    Icons.add_box_sharp,
-                                    color: ColorConstant.primaryColor500,
-                                  ),
+                                child: Image.file(
+                                  File(media?.path ?? ''),
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                            );
+                          }),
+                          GestureDetector(
+                            onTap: () => _pickMedia(true),
+                            child: DottedBorder(
+                              color: Colors.grey,
+                              strokeWidth: 2,
+                              dashPattern: const [4, 4],
+                              borderType: BorderType.RRect,
+                              radius: const Radius.circular(4),
+                              child: Container(
+                                width: 100,
+                                height: 100,
+                                alignment: Alignment.center,
+                                child: const Icon(
+                                  Icons.add_box_sharp,
+                                  color: ColorConstant.primaryColor500,
                                 ),
                               ),
                             ),
-                          ],
-                        )),
+                          ),
+                        ],
+                      ),
+                    ),
+                    SpacingConstant.verticalSpacing200,
+                    Text(
+                      'Maksimum file : 20 Mb',
+                      style: TextStyleConstant.regularSubtitle.copyWith(
+                        color: ColorConstant.netralColor600,
+                      ),
+                    ),
+                    SpacingConstant.verticalSpacing200,
                   ],
                 ),
               ),

@@ -36,6 +36,10 @@ class _PickLitterTypeScreenState extends State<PickLitterTypeScreen> {
       'image': 'danger',
     }
   ];
+  @override
+  void initState() {
+    super.initState();
+  }
 
   final ReportLitterController reportLitterController =
       Get.put(ReportLitterController());
@@ -47,7 +51,9 @@ class _PickLitterTypeScreenState extends State<PickLitterTypeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: ColorConstant.whiteColor,
       appBar: AppBar(
+        backgroundColor: ColorConstant.whiteColor,
         title: Text(
           'Pilih Kategori Sampah',
           style: TextStyleConstant.boldHeading4,
@@ -101,9 +107,7 @@ class _PickLitterTypeScreenState extends State<PickLitterTypeScreen> {
               onTap: _selectedType == null
                   ? () {}
                   : () {
-                      Get.to(
-                        () => const PickLitterLocationScreen(),
-                      );
+                      Get.to(const PickLitterLocationScreen());
                     },
               width: double.infinity,
               height: 48,
