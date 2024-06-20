@@ -43,104 +43,116 @@ class _HomePageScreenState extends State<HomePageScreen> {
     return Scaffold(
       backgroundColor: ColorConstant.whiteColor,
       body: Obx(() {
-          if (dataController.isLoading.value) {
-            return const Center(child: MyLoading());
-          } else {
-            return SingleChildScrollView(
-        child:  Column(
-              children: [
-                Stack(
-                  children: [
-                    const SizedBox(
-                      width: double.infinity,
-                      height: 280,
-                      child: Image(
-                        image: AssetImage(
-                          ImageConstant.headerImage,
-                        ),
-                        alignment: Alignment.bottomCenter,
+        if (dataController.isLoading.value) {
+          return const Center(child: MyLoading());
+        } else {
+          return SingleChildScrollView(
+              child: Column(
+            children: [
+              Stack(
+                children: [
+                  const SizedBox(
+                    width: double.infinity,
+                    height: 280,
+                    child: Image(
+                      image: AssetImage(
+                        ImageConstant.headerImage,
                       ),
+                      alignment: Alignment.bottomCenter,
                     ),
-                    SafeArea(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(
-                              top: 4,
-                              right: 8,
-                            ),
-                            child: Container(
-                              alignment: Alignment.centerRight,
-                              child: const Image(
-                                image: AssetImage(
-                                  ImageConstant.logoRecythng,
-                                ),
-                                width: 146,
-                                alignment: Alignment.bottomCenter,
+                  ),
+                  SafeArea(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(
+                            top: 4,
+                            right: 8,
+                          ),
+                          child: Container(
+                            alignment: Alignment.centerRight,
+                            child: const Image(
+                              image: AssetImage(
+                                ImageConstant.logoRecythng,
                               ),
+                              width: 146,
+                              alignment: Alignment.bottomCenter,
                             ),
                           ),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 16,
-                            ),
-                            child: Container(
-                              alignment: Alignment.topCenter,
-                              child: Row(
-                                children: [
-                                  ClipRRect(
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 16,
+                          ),
+                          child: Container(
+                            alignment: Alignment.topCenter,
+                            child: Row(
+                              children: [
+                                Container(
+                                  width: 32,
+                                  child: ClipRRect(
                                     borderRadius: BorderRadius.circular(100),
                                     child: Image.network(
                                       dataController.user['picture_url'],
                                       height: 32,
+                                      fit: BoxFit.cover,
                                     ),
                                   ),
-                                  const SizedBox(
-                                    width: 8,
+                                ),
+                                const SizedBox(
+                                  width: 8,
+                                ),
+                                Container(
+                                  width: 250,
+                                  child: Row(
+                                    children: [
+                                      Text(
+                                        'Hi, ${dataController.user['name']}',
+                                        style:
+                                            TextStyleConstant.regularHeading4,
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
+                                      const SizedBox(
+                                        width: 4,
+                                      ),
+                                      const Icon(
+                                        Icons.arrow_forward_ios_rounded,
+                                        size: 24,
+                                      ),
+                                    ],
                                   ),
-                                  Text(
-                                    'Hi, ${dataController.user['name']}',
-                                    style: TextStyleConstant.regularHeading4,
-                                  ),
-                                  const SizedBox(
-                                    width: 4,
-                                  ),
-                                  const Icon(
-                                    Icons.arrow_forward_ios_rounded,
-                                    size: 24,
-                                  ),
-                                ],
-                              ),
+                                ),
+                              ],
                             ),
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
-                    Padding(
-                      padding: const EdgeInsets.only(
-                        top: 180,
-                        right: 24,
-                        left: 24,
-                      ),
-                      child: PointsContainer(),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(
+                      top: 180,
+                      right: 24,
+                      left: 24,
                     ),
-                  ],
-                ),
-                const SizedBox(height: 24),
-                const SearchBarWidget(),
-                ReportSectionWidget(carouselData: carouselDataReport),
-                const SizedBox(height: 12),
-                ArticleSectionWidget(),
-                NewVideoSectionWidget(),
-                LeaderboardSectionWidget(),
-                const ChallengeSectionWidget(),
-                const SizedBox(height: 32),
-              ],
-            ));
-          }
-        }),
-      
+                    child: PointsContainer(),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 24),
+              const SearchBarWidget(),
+              ReportSectionWidget(carouselData: carouselDataReport),
+              const SizedBox(height: 12),
+              ArticleSectionWidget(),
+              NewVideoSectionWidget(),
+              LeaderboardSectionWidget(),
+              const ChallengeSectionWidget(),
+              const SizedBox(height: 32),
+            ],
+          ));
+        }
+      }),
     );
   }
 }
