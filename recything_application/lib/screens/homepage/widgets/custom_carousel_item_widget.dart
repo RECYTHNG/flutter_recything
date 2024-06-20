@@ -48,7 +48,7 @@ class CustomCarouselItem extends StatelessWidget {
                     color: ColorConstant.primaryColor400,
                     borderRadius: BorderRadius.circular(8),
                     image: DecorationImage(
-                      alignment: Alignment.centerRight,
+                      alignment: Alignment.bottomRight,
                       image: AssetImage(imagePath),
                     ),
                   ),
@@ -58,7 +58,7 @@ class CustomCarouselItem extends StatelessWidget {
                     children: [
                       Padding(
                         padding: const EdgeInsets.symmetric(
-                            horizontal: 8, vertical: 24),
+                            horizontal: 8, vertical: 16),
                         child: Container(
                           alignment: Alignment.centerLeft,
                           child: Column(
@@ -81,9 +81,9 @@ class CustomCarouselItem extends StatelessWidget {
                       Container(
                         alignment: Alignment.centerLeft,
                         width: double.infinity,
-                        height: 48,
+                        height: 40,
                         decoration: const BoxDecoration(
-                          color: ColorConstant.primaryColor200,
+                          color: Color.fromARGB(187, 138, 170, 188),
                           borderRadius: BorderRadius.vertical(
                             bottom: Radius.circular(8),
                           ),
