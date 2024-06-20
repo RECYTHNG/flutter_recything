@@ -42,12 +42,12 @@ class _HomePageScreenState extends State<HomePageScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: ColorConstant.whiteColor,
-      body: SingleChildScrollView(
-        child: Obx(() {
+      body: Obx(() {
           if (dataController.isLoading.value) {
             return const Center(child: MyLoading());
           } else {
-            return Column(
+            return SingleChildScrollView(
+        child:  Column(
               children: [
                 Stack(
                   children: [
@@ -137,10 +137,10 @@ class _HomePageScreenState extends State<HomePageScreen> {
                 const ChallengeSectionWidget(),
                 const SizedBox(height: 32),
               ],
-            );
+            ));
           }
         }),
-      ),
+      
     );
   }
 }

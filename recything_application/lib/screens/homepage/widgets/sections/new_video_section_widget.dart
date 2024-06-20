@@ -53,84 +53,77 @@ class NewVideoSectionWidget extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 12),
-          Obx(
-            () {
-              if (controller.isLoading.value) {
-                return const Center(child: MyLoading());
-              } else {
-                return Container(
-                  decoration: BoxDecoration(
-                    boxShadow: ShadowConstant.shadowLg,
-                  ),
-                  height: 234,
-                  child: ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    itemCount: controller.videos.length,
-                    itemBuilder: (context, index) {
-                      final item = controller.videos[index];
-                      final imagePath =
-                          item['url_thumbnail'] ?? 'default_image_path.png';
-                      final title = item['title'] ?? 'Default Title';
-                      final views = (item['viewer']);
+          Obx(() {
+            return Container(
+              decoration: BoxDecoration(
+                boxShadow: ShadowConstant.shadowLg,
+              ),
+              height: 234,
+              child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemCount: controller.videos.length,
+                itemBuilder: (context, index) {
+                  final item = controller.videos[index];
+                  final imagePath =
+                      item['url_thumbnail'] ?? 'default_image_path.png';
+                  final title = item['title'] ?? 'Default Title';
+                  final views = (item['viewer']);
 
-                      String formattedViews;
-                      if (views >= 1000) {
-                        formattedViews =
-                            '${(views / 1000).toStringAsFixed(0)} rb';
-                      } else {
-                        formattedViews = '$views';
-                      }
+                  String formattedViews;
+                  if (views >= 1000) {
+                    formattedViews = '${(views / 1000).toStringAsFixed(0)} rb';
+                  } else {
+                    formattedViews = '$views';
+                  }
 
-                      return Container(
-                        height: 234,
-                        width: 166,
-                        margin: const EdgeInsets.only(right: 8),
-                        decoration: BoxDecoration(
-                          color: ColorConstant.whiteColor,
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.all(12),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  return Container(
+                    height: 234,
+                    width: 166,
+                    margin: const EdgeInsets.only(right: 8),
+                    decoration: BoxDecoration(
+                      color: ColorConstant.whiteColor,
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(12),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Stack(
+                            alignment: Alignment.center,
                             children: [
-                              Stack(
-                                alignment: Alignment.center,
-                                children: [
-                                  AspectRatio(
-                                    aspectRatio: 1 / 1,
-                                    child: Image.network(
-                                      imagePath,
-                                      fit: BoxFit.cover,
-                                    ),
-                                  ),
-                                  const Icon(
-                                    Icons.play_circle,
-                                    size: 32,
-                                    color: ColorConstant.whiteColor,
-                                  ),
-                                ],
+                              AspectRatio(
+                                aspectRatio: 1 / 1,
+                                child: Image.network(
+                                  imagePath,
+                                  fit: BoxFit.cover,
+                                ),
                               ),
-                              Text(
-                                title,
-                                style: TextStyleConstant.semiboldParagraph,
-                                maxLines: 2,
-                              ),
-                              Text(
-                                '$formattedViews ditonton',
-                                style: TextStyleConstant.regularFooter,
+                              const Icon(
+                                Icons.play_circle,
+                                size: 32,
+                                color: ColorConstant.whiteColor,
                               ),
                             ],
                           ),
-                        ),
-                      );
-                    },
-                  ),
-                );
-              }
-            },
-          ),
+                          Text(
+                            title,
+                            style: TextStyleConstant.semiboldParagraph,
+                            maxLines: 2,
+                          ),
+                          Text(
+                            '$formattedViews ditonton',
+                            style: TextStyleConstant.regularFooter,
+                          ),
+                        ],
+                      ),
+                    ),
+                  );
+                },
+              ),
+            );
+          }),
         ],
       ),
     );
