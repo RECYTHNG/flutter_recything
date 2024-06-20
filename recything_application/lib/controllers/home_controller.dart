@@ -19,7 +19,6 @@ class HomeController extends GetxController {
 
   void fetchData() async {
     try {
-      isLoading(true);
       var data = await _getDataHomepageService.fetchHomepageData();
       user.value = data['data']['user'];
       articles.value = data['data']['articles'];

@@ -121,6 +121,8 @@ class ImageConstant {
 
   static const leaderboardKosong = 'assets/images/home_images/gambar_4.png';
   static const gambarIkutiChallenge = 'assets/images/home_images/gambar_5.png';
+  static const articleImageEmpty =
+      'assets/images/home_images/article_image.png';
 
   // edit profil
   static const String medalEditProfil = 'assets/images/edit_profile/medal.png';

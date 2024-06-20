@@ -59,10 +59,6 @@ class LeaderboardSectionWidget extends StatelessWidget {
           const SizedBox(height: 12),
           Obx(
             () {
-              if (controller.isLoading.value) {
-                return const Center(child:  MyLoading());
-              }
-
               if (controller.leaderboard.isEmpty) {
                 return Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 24),
