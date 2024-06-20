@@ -7,30 +7,22 @@ import 'package:recything_application/services/report_litter/report_litter_servi
 
 class ReportLitterController extends GetxController {
   TextEditingController conditionController = TextEditingController();
-  RxString title = RxString('');
-  RxString condition = RxString('');
-  RxString litterType = RxString('');
-  RxString address = RxString('');
-  RxString city = RxString('');
-  RxString province = RxString('');
-  RxDouble lat = RxDouble(0.0);
-  RxDouble long = RxDouble(0.0);
+  RxString title = ''.obs;
+  RxString condition = ''.obs;
+  RxString litterType = ''.obs;
+  RxString address = ''.obs;
+  RxString city = ''.obs;
+  RxString province = ''.obs;
+  RxDouble lat = 0.0.obs;
+  RxDouble long = 0.0.obs;
   RxList<String> selectedMaterial = <String>[].obs;
   RxBool finishedStepOne = false.obs;
 
   final ImagePicker _picker = ImagePicker();
-  RxList<XFile?> imageFiles = RxList<XFile?>([]);
-
-  RxInt currentIndex = 0.obs;
+  RxList<XFile?> imageFiles = <XFile?>[].obs;
 
   bool isMaxImagesReached() {
     return imageFiles.length >= 9;
-  }
-
-  var tabIndex = 0.obs;
-
-  void changeTabIndex(int index) {
-    tabIndex.value = index;
   }
 
   Future<void> pickImage() async {
@@ -59,12 +51,10 @@ class ReportLitterController extends GetxController {
     province.value = provinceInput;
     condition.value = conditionController.text;
     selectedMaterial.value = [];
-
-    changeTabIndex(1);
   }
 
-  void sendLitterReport(ReportLitterController controller) async {
-    final response = await ReportLitterService().sendReport(controller);
+  Future<void> sendLitterReport() async {
+    final response = await ReportLitterService().sendReport(this);
     if (response == 201) {
       Get.offAll(const SuccessReportLitterScreen());
     } else {
@@ -81,10 +71,12 @@ class ReportLitterController extends GetxController {
     }
   }
 
-  void moveNextTab() {
-    if (currentIndex.value < 1) {
-      currentIndex.value++;
-    }
+  void removeImage(int index) {
+    imageFiles.removeAt(index);
+  }
+
+  void updateLitterType(String type) {
+    litterType.value = type;
   }
 
   Map<String, dynamic> toJson() {
@@ -98,7 +90,7 @@ class ReportLitterController extends GetxController {
       'waste_materials': [],
       'description': condition.value,
       'waste_type': litterType.value,
-      'report_type': 'rubbish',
+      'report_type': 'littering',
     };
   }
 

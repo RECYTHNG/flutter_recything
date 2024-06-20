@@ -1,13 +1,13 @@
 import 'dart:io';
 
 import 'package:dotted_border/dotted_border.dart';
+import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:get/get.dart';
-
 import 'package:recything_application/constants/color_constant.dart';
 import 'package:recything_application/constants/spacing_constant.dart';
 import 'package:recything_application/constants/text_style_constant.dart';
+import 'package:recything_application/controllers/map_litter_controller.dart';
 import 'package:recything_application/screens/report_litter/widget/bottomsheet/confirmation_bottom_sheet.dart';
 import 'package:recything_application/screens/report_litter/widget/bottomsheet/edit_photo_bottom_sheet.dart';
 import 'package:recything_application/screens/report_litter/widget/bottomsheet/litter_type_bottom_sheet.dart';
@@ -22,22 +22,23 @@ class ReportLitterScreen extends StatefulWidget {
 }
 
 class ReportLitterScreenState extends State<ReportLitterScreen> {
-  final ReportLitterController _controller = Get.put(ReportLitterController());
+  final ReportLitterController litterController = Get.find();
+  final MapLitterController mapLitterController = Get.find();
 
   @override
   void initState() {
     super.initState();
-    _controller.collectData(
-      37.4219983,
-      -122.084,
-      'Cibeureum, Kec. Cimahi Sel., Kota Cimahi, Jawa Barat 40535',
-      'Kota Cimahi',
-      'Jawa Barat',
+    litterController.collectData(
+      mapLitterController.lat.value,
+      mapLitterController.long.value,
+      mapLitterController.address.value,
+      mapLitterController.city.value,
+      mapLitterController.province.value,
     );
   }
 
   Future<void> _pickMedia(bool isImage) async {
-    await _controller.pickImage();
+    await litterController.pickImage();
   }
 
   void _showConfirmationSheet() {
@@ -46,7 +47,7 @@ class ReportLitterScreenState extends State<ReportLitterScreen> {
       builder: (BuildContext context) {
         return ConfirmationBottomSheet(
           onConfirm: () {
-            _controller.sendLitterReport(_controller);
+            litterController.sendLitterReport();
           },
           onCancel: () {
             Navigator.pop(context);
@@ -73,12 +74,12 @@ class ReportLitterScreenState extends State<ReportLitterScreen> {
           media: media,
           index: index,
           onReplaceImage: () {
-            _controller.replaceImage(index);
+            litterController.replaceImage(index);
             Navigator.pop(context);
           },
           onDelete: () {
             setState(() {
-              _controller.imageFiles.removeAt(index);
+              litterController.removeImage(index);
             });
             Navigator.pop(context);
           },
@@ -104,180 +105,189 @@ class ReportLitterScreenState extends State<ReportLitterScreen> {
           bottom: 16,
         ),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Container(
-                  padding: EdgeInsets.symmetric(
-                    horizontal: 16,
-                    vertical: 8,
-                  ),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
-                    color: ColorConstant.netralColor50,
-                    boxShadow: [
-                      BoxShadow(
-                        color: ColorConstant.netralColor900,
-                        offset: Offset(0, 4),
-                        blurRadius: 4,
+            Expanded(
+              child: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 16,
+                        vertical: 8,
                       ),
-                    ],
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Lokasi Sampah',
-                        style: TextStyleConstant.semiboldTitle,
-                      ),
-                      Row(
-                        children: [
-                          Icon(
-                            Icons.location_pin,
-                            color: ColorConstant.primaryColor500,
-                          ),
-                          SpacingConstant.horizontalSpacing200,
-                          Flexible(
-                            child: Text(
-                              _controller.address.value,
-                              softWrap: true,
-                              style: TextStyleConstant.regularSubtitle,
-                            ),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: ColorConstant.netralColor50,
+                        boxShadow: const [
+                          BoxShadow(
+                            color: ColorConstant.netralColor900,
+                            offset: Offset(0, 4),
+                            blurRadius: 4,
                           ),
                         ],
                       ),
-                      SpacingConstant.verticalSpacing200,
-                      Text(
-                        'Jenis Sampah',
-                        style: TextStyleConstant.semiboldTitle,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Row(
-                            children: [
-                              Icon(
-                                Icons.recycling,
-                                color: ColorConstant.secondaryColor500,
-                              ),
-                              SpacingConstant.horizontalSpacing100,
-                              Text(
-                                'Organik',
-                                style: TextStyleConstant.regularSubtitle,
-                              ),
-                            ],
+                          Text(
+                            'Lokasi Sampah',
+                            style: TextStyleConstant.semiboldTitle,
                           ),
                           Row(
                             children: [
-                              Container(
-                                width: 2,
-                                height: 36,
-                                color: ColorConstant.netralColor600,
+                              const Icon(
+                                Icons.location_pin,
+                                color: ColorConstant.primaryColor500,
                               ),
-                              SpacingConstant.horizontalSpacing100,
-                              GestureDetector(
-                                onTap: () =>
-                                    _showEditLitterTypeSheet('organic'),
-                                child: Icon(
-                                  Icons.edit,
-                                  color: ColorConstant.netralColor600,
-                                ),
+                              SpacingConstant.horizontalSpacing200,
+                              Flexible(
+                                child: Obx(() => Text(
+                                      litterController.address.value,
+                                      softWrap: true,
+                                      style: TextStyleConstant.regularSubtitle,
+                                    )),
                               ),
+                            ],
+                          ),
+                          SpacingConstant.verticalSpacing200,
+                          Text(
+                            'Jenis Sampah',
+                            style: TextStyleConstant.semiboldTitle,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Row(
+                                children: [
+                                  const Icon(
+                                    Icons.recycling,
+                                    color: ColorConstant.secondaryColor500,
+                                  ),
+                                  SpacingConstant.horizontalSpacing100,
+                                  Obx(() => Text(
+                                        litterController.litterType.value,
+                                        style:
+                                            TextStyleConstant.regularSubtitle,
+                                      )),
+                                ],
+                              ),
+                              Row(
+                                children: [
+                                  Container(
+                                    width: 2,
+                                    height: 36,
+                                    color: ColorConstant.netralColor600,
+                                  ),
+                                  SpacingConstant.horizontalSpacing100,
+                                  GestureDetector(
+                                    onTap: () =>
+                                        _showEditLitterTypeSheet('organic'),
+                                    child: const Icon(
+                                      Icons.edit,
+                                      color: ColorConstant.netralColor600,
+                                    ),
+                                  ),
+                                ],
+                              )
                             ],
                           )
                         ],
-                      )
-                    ],
-                  ),
-                ),
-                SpacingConstant.verticalSpacing400,
-                Row(
-                  children: [
-                    Text('Judul Laporan'),
-                    Text(
-                      '*',
-                      style: TextStyle(
-                        color: ColorConstant.dangerColor500,
                       ),
                     ),
-                  ],
-                ),
-                CustomTextFieldWidget(
-                  label: 'Judul Laporan',
-                  hint: 'Contoh: Sampah Pinggir Jalan',
-                  isFloatingLabel: false,
-                  onChanged: (value) => _controller.title.value = value,
-                ),
-                Row(
-                  children: [
-                    Text('Deskripsi Laporan'),
-                    Text(
-                      '*',
-                      style: TextStyle(
-                        color: ColorConstant.dangerColor500,
-                      ),
-                    ),
-                  ],
-                ),
-                CustomTextFieldWidget(
-                  label: 'Contoh : Sampah ini mengganggu lingkungan sekitar',
-                  hint: 'Laporan',
-                  isFloatingLabel: false,
-                  isTextArea: true,
-                  onChanged: (value) => _controller.condition.value = value,
-                ),
-                SpacingConstant.verticalSpacing200,
-                Wrap(
-                  alignment: WrapAlignment.start,
-                  runAlignment: WrapAlignment.start,
-                  spacing: 8.0,
-                  runSpacing: 8.0,
-                  children: [
-                    ..._controller.imageFiles.asMap().entries.map((entry) {
-                      int index = entry.key;
-                      XFile? media = entry.value;
-                      return GestureDetector(
-                        onTap: () => _showEditPhotoBottomSheet(media, index),
-                        child: Container(
-                          width: 100,
-                          height: 100,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(4),
+                    SpacingConstant.verticalSpacing400,
+                    const Row(
+                      children: [
+                        Text('Judul Laporan'),
+                        Text(
+                          '*',
+                          style: TextStyle(
+                            color: ColorConstant.dangerColor500,
                           ),
-                          child: media!.mimeType != null
-                              ? Icon(Icons.play_circle_fill,
-                                  size: 50, color: Colors.black)
-                              : Image.file(
-                                  File(media.path),
-                                  fit: BoxFit.cover,
+                        ),
+                      ],
+                    ),
+                    CustomTextFieldWidget(
+                      label: 'Judul Laporan',
+                      hint: 'Contoh: Sampah Pinggir Jalan',
+                      isFloatingLabel: false,
+                      onChanged: (value) =>
+                          litterController.title.value = value,
+                    ),
+                    SpacingConstant.verticalSpacing200,
+                    const Row(
+                      children: [
+                        Text('Deskripsi Laporan'),
+                        Text(
+                          '*',
+                          style: TextStyle(
+                            color: ColorConstant.dangerColor500,
+                          ),
+                        ),
+                      ],
+                    ),
+                    CustomTextFieldWidget(
+                      label:
+                          'Contoh : Sampah ini mengganggu lingkungan sekitar',
+                      hint: 'Laporan',
+                      isFloatingLabel: false,
+                      isTextArea: true,
+                      onChanged: (value) =>
+                          litterController.condition.value = value,
+                    ),
+                    SpacingConstant.verticalSpacing200,
+                    Obx(() => Wrap(
+                          alignment: WrapAlignment.start,
+                          runAlignment: WrapAlignment.start,
+                          spacing: 8.0,
+                          runSpacing: 8.0,
+                          children: [
+                            ...litterController.imageFiles
+                                .asMap()
+                                .entries
+                                .map((entry) {
+                              int index = entry.key;
+                              XFile? media = entry.value;
+                              return GestureDetector(
+                                onTap: () =>
+                                    _showEditPhotoBottomSheet(media!, index),
+                                child: Container(
+                                  width: 100,
+                                  height: 100,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(4),
+                                  ),
+                                  child: Image.file(
+                                    File(media?.path ?? ''),
+                                    fit: BoxFit.cover,
+                                  ),
                                 ),
-                        ),
-                      );
-                    }),
-                    GestureDetector(
-                      onTap: () => _pickMedia(true),
-                      child: DottedBorder(
-                        color: Colors.grey,
-                        strokeWidth: 2,
-                        dashPattern: [4, 4],
-                        borderType: BorderType.RRect,
-                        radius: Radius.circular(4),
-                        child: Container(
-                          width: 100,
-                          height: 100,
-                          alignment: Alignment.center,
-                          child: Icon(
-                            Icons.add_box_sharp,
-                            color: ColorConstant.primaryColor500,
-                          ),
-                        ),
-                      ),
-                    ),
+                              );
+                            }),
+                            GestureDetector(
+                              onTap: () => _pickMedia(true),
+                              child: DottedBorder(
+                                color: Colors.grey,
+                                strokeWidth: 2,
+                                dashPattern: const [4, 4],
+                                borderType: BorderType.RRect,
+                                radius: const Radius.circular(4),
+                                child: Container(
+                                  width: 100,
+                                  height: 100,
+                                  alignment: Alignment.center,
+                                  child: const Icon(
+                                    Icons.add_box_sharp,
+                                    color: ColorConstant.primaryColor500,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        )),
                   ],
                 ),
-              ],
+              ),
             ),
             Container(
               width: double.infinity,
@@ -288,7 +298,7 @@ class ReportLitterScreenState extends State<ReportLitterScreen> {
               ),
               child: TextButton(
                 onPressed: () => _showConfirmationSheet(),
-                child: Text(
+                child: const Text(
                   'Kirim Laporan',
                   style: TextStyle(
                     color: ColorConstant.netralColor50,

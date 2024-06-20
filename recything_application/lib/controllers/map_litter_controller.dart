@@ -25,12 +25,6 @@ class MapLitterController extends GetxController {
   RxDouble lat = 0.0.obs;
   RxDouble long = 0.0.obs;
 
-  // @override
-  // void onInit() {
-  //   super.onInit();
-  //   initializeData();
-  // }
-
   void initializeData() async {
     await getCurrentPosition();
   }
@@ -84,8 +78,7 @@ class MapLitterController extends GetxController {
       return;
     }
     currentPosition.value = await Geolocator.getCurrentPosition(
-      desiredAccuracy: LocationAccuracy.best,
-    );
+        desiredAccuracy: LocationAccuracy.best);
     if (currentPosition.value != null) {
       await getAddressByLatLong(currentPosition.value!);
       searchController.text = currentAddress.value;
@@ -108,10 +101,8 @@ class MapLitterController extends GetxController {
 
   Future<void> getAddressByLatLong(Position position) async {
     try {
-      final resultAddress = await placemarkFromCoordinates(
-        position.latitude,
-        position.longitude,
-      );
+      final resultAddress =
+          await placemarkFromCoordinates(position.latitude, position.longitude);
       Placemark placemark = resultAddress.first;
       currentAddress.value =
           '${placemark.street}, ${placemark.subLocality}, ${placemark.locality}, ${placemark.subAdministrativeArea}, ${placemark.administrativeArea}, ${placemark.postalCode}';
@@ -133,9 +124,7 @@ class MapLitterController extends GetxController {
     serviceEnabled = await Geolocator.isLocationServiceEnabled();
     if (!serviceEnabled) {
       Get.snackbar(
-        'Location Service Disabled',
-        'Please enable location service',
-      );
+          'Location Service Disabled', 'Please enable location service');
       return false;
     }
     locationPermission = await Geolocator.checkPermission();
@@ -143,17 +132,13 @@ class MapLitterController extends GetxController {
       locationPermission = await Geolocator.requestPermission();
       if (locationPermission == LocationPermission.denied) {
         Get.snackbar(
-          'Location Permission Denied',
-          'Please allow location permission',
-        );
+            'Location Permission Denied', 'Please allow location permission');
         return false;
       }
     }
     if (locationPermission == LocationPermission.deniedForever) {
-      Get.snackbar(
-        'Location Permission Denied Permanently',
-        'Please enable location permission in device settings',
-      );
+      Get.snackbar('Location Permission Denied Permanently',
+          'Please enable location permission in device settings');
       return false;
     }
     return true;
@@ -161,13 +146,7 @@ class MapLitterController extends GetxController {
 
   void moveCamera(LatLng newLatLng) async {
     final GoogleMapController controller = await mcontroller.future;
-    await controller.animateCamera(
-      CameraUpdate.newCameraPosition(
-        CameraPosition(
-          target: newLatLng,
-          zoom: 15,
-        ),
-      ),
-    );
+    await controller.animateCamera(CameraUpdate.newCameraPosition(
+        CameraPosition(target: newLatLng, zoom: 15)));
   }
 }

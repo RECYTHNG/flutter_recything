@@ -6,6 +6,7 @@ import 'package:recything_application/constants/text_style_constant.dart';
 import 'package:recything_application/controllers/map_litter_controller.dart';
 import 'package:recything_application/controllers/report_litter_controller.dart';
 import 'package:recything_application/screens/report_litter/pick_litter_location_screen.dart';
+import 'package:recything_application/widgets/global_button_widget.dart';
 
 class PickLitterTypeScreen extends StatefulWidget {
   const PickLitterTypeScreen({super.key});
@@ -36,9 +37,10 @@ class _PickLitterTypeScreenState extends State<PickLitterTypeScreen> {
     }
   ];
 
-  ReportLitterController reportLitterController =
+  final ReportLitterController reportLitterController =
       Get.put(ReportLitterController());
-  MapLitterController mapLitterController = Get.put(MapLitterController());
+  final MapLitterController mapLitterController =
+      Get.put(MapLitterController());
 
   String? _selectedType;
 
@@ -80,6 +82,7 @@ class _PickLitterTypeScreenState extends State<PickLitterTypeScreen> {
                         setState(() {
                           _selectedType = value;
                         });
+                        reportLitterController.updateLitterType(value!);
                       },
                     ),
                     Padding(
@@ -92,27 +95,25 @@ class _PickLitterTypeScreenState extends State<PickLitterTypeScreen> {
               },
             ),
           ),
-          TextButton(
-            onPressed: () {
-              Get.to(
-                () => const PickLitterLocationScreen(),
-              );
-            },
-            child: Container(
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: GlobalButtonWidget(
+              onTap: _selectedType == null
+                  ? () {}
+                  : () {
+                      Get.to(
+                        () => const PickLitterLocationScreen(),
+                      );
+                    },
               width: double.infinity,
-              padding: const EdgeInsets.symmetric(vertical: 8),
-              alignment: Alignment.center,
-              decoration: BoxDecoration(
-                color: ColorConstant.primaryColor500,
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: const Text(
-                'Selanjutnya',
-                style: TextStyle(
-                    color: ColorConstant.netralColor50,
-                    fontWeight: FontWeight.w600,
-                    fontSize: 20),
-              ),
+              height: 48,
+              backgroundColor: _selectedType == null
+                  ? ColorConstant.netralColor300
+                  : ColorConstant.primaryColor500,
+              isBorder: false,
+              title: 'Selanjutnya',
+              textColor: ColorConstant.whiteColor,
+              fontSize: 20,
             ),
           ),
         ],
