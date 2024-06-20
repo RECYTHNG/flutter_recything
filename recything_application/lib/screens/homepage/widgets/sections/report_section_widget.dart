@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_carousel_widget/flutter_carousel_widget.dart';
+import 'package:get/get.dart';
 import 'package:recything_application/constants/color_constant.dart';
 import 'package:recything_application/constants/text_style_constant.dart';
+import 'package:recything_application/screens/challenge/dashboard/challenge_dashboard_screen.dart';
 import 'package:recything_application/screens/homepage/widgets/custom_carousel_item_widget.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 

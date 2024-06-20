@@ -18,7 +18,8 @@ class VideoRecycleService {
       final jsonResponse = response.data as Map<String, dynamic>;
       return VideoRecycleModel.fromJson(jsonResponse);
     } on DioException catch (e) {
-      throw Exception('Error ${e.response?.statusCode} ${e.response?.statusMessage}');
+      throw Exception(
+          'Error ${e.response?.statusCode} ${e.response?.statusMessage}');
     }
   }
 }

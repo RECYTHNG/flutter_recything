@@ -4,6 +4,7 @@ import 'package:recything_application/constants/color_constant.dart';
 import 'package:recything_application/constants/text_style_constant.dart';
 import 'package:recything_application/controllers/home_controller.dart';
 import 'package:recything_application/screens/article/article_list_screen.dart';
+import 'package:recything_application/widgets/global_loading_widget.dart';
 
 class ArticleSectionWidget extends StatelessWidget {
   @override
@@ -55,7 +56,7 @@ class ArticleSectionWidget extends StatelessWidget {
               const SizedBox(height: 12),
               controller.isLoading.value
                   ? const Center(
-                      child: CircularProgressIndicator(),
+                      child:  MyLoading(),
                     )
                   : controller.articles.isEmpty
                       ? const Center(child: Text('Tidak ada artikel tersedia'))

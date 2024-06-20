@@ -9,6 +9,7 @@ import 'package:recything_application/controllers/home_controller.dart';
 import 'package:recything_application/screens/achievement_screen/achievement_screen.dart';
 import 'package:recything_application/screens/halaman_riwayat/point_history_screen.dart';
 import 'package:recything_application/widgets/global_button_widget.dart';
+import 'package:recything_application/widgets/global_loading_widget.dart';
 
 class PointsContainer extends StatelessWidget {
   PointsContainer({super.key});
@@ -50,7 +51,7 @@ class PointsContainer extends StatelessWidget {
                     width: 30,
                     height: 30,
                     placeholder: (context, url) =>
-                        const CircularProgressIndicator(),
+                        const  MyLoading(),
                     errorWidget: (context, url, error) =>
                         const Icon(Icons.error),
                   ),

@@ -24,7 +24,7 @@ class BottomNavItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isSelected = currentIndex == index;
-    return InkWell(
+    return GestureDetector(
       onTap: () => onTap(index),
       child: Column(
         mainAxisSize: MainAxisSize.min,
