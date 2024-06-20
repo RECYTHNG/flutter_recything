@@ -123,14 +123,12 @@ class ImageConstant {
   static const gambarIkutiChallenge = 'assets/images/home_images/gambar_5.png';
 
   // edit profil
-  static const String medalEditProfil =
-      'assets/images/edit_profile_images/medal.png';
-  static const String maleEditProfil =
-      'assets/images/edit_profile_images/male.png';
+  static const String medalEditProfil = 'assets/images/edit_profile/medal.png';
+  static const String maleEditProfil = 'assets/images/edit_profile/male.png';
   static const String femaleEditProfil =
-      'assets/images/edit_profile_images/female.png';
+      'assets/images/edit_profile/female.png';
   static const String backgroundImage =
-      'assets/images/edit_profile_images/background.png';
+      'assets/images/edit_profile/background.png';
 
   // Challenge Dashboard
   static String backgroundDashboard =

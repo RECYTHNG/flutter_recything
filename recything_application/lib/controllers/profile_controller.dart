@@ -23,7 +23,7 @@ class ProfileController extends GetxController {
     try {
       XFile? pickedImage = await _imagePicker.pickImage(source: imageSource);
       if (pickedImage != null) {
-        var response = await profileService.postProfile(pickedImage);
+        var response = await profileService.uploadAvatar(pickedImage);
         if (response.code == 200) {
           showSnackbar(
             title: "Succes",

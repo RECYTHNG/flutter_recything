@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:recything_application/constants/color_constant.dart';
 import 'package:recything_application/constants/image_constant.dart';
 import 'package:recything_application/constants/spacing_constant.dart';
-import 'package:recything_application/controllers/user/user_controller.dart';
+import 'package:recything_application/controllers/user_controller.dart';
 import 'package:recything_application/screens/edit_profile/content/gender_pick/gender_pick_screen.dart';
 import 'package:recything_application/screens/edit_profile/content/success/success_screen.dart';
 import 'package:recything_application/screens/edit_profile/widget/date_picker_widget.dart';

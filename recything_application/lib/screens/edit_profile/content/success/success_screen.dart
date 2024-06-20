@@ -4,8 +4,10 @@ import 'package:recything_application/constants/color_constant.dart';
 import 'package:recything_application/constants/lottie_constant.dart';
 import 'package:recything_application/constants/spacing_constant.dart';
 import 'package:recything_application/constants/text_style_constant.dart';
-import 'package:recything_application/controllers/user/user_controller.dart';
+import 'package:recything_application/controllers/user_controller.dart';
 import 'package:recything_application/screens/home.dart';
+import 'package:recything_application/screens/home_screen.dart';
+import 'package:recything_application/screens/profile/profile_screen.dart';
 import 'package:recything_application/widgets/global_button_widget.dart';
 import 'package:lottie/lottie.dart';
 
@@ -61,7 +63,7 @@ class SuccessScreen extends StatelessWidget {
             GlobalButtonWidget(
                 onTap: () {
                   Get.delete<UserController>();
-                  Get.offAll(() => const HomeAuthenticationScreen());
+                  Get.offAll(() => const HomeScreen());
                 },
                 width: double.infinity,
                 height: 60,
@@ -74,7 +76,7 @@ class SuccessScreen extends StatelessWidget {
             GlobalButtonWidget(
                 onTap: () {
                   Get.delete<UserController>();
-                  Get.offAll(() => const HomeAuthenticationScreen());
+                  Get.offAll(() => ProfileScreen());
                 },
                 width: double.infinity,
                 height: 60,

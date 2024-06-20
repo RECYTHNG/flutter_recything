@@ -82,7 +82,6 @@ class UserController extends GetxController {
         print("Response: ${response.message}");
         if (response.code == 200) {
           fetchUser();
-          userModel.value = response;
         } else {
           print("Error uploading avatar: ${response.message}");
         }
