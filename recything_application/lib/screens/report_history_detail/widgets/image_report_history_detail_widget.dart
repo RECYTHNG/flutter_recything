@@ -5,6 +5,7 @@ import 'package:recything_application/constants/spacing_constant.dart';
 import 'package:recything_application/constants/text_style_constant.dart';
 import 'package:recything_application/controllers/report_history_controller.dart';
 import 'package:recything_application/screens/report_history_detail/widgets/container_content_report_history_detail_widget.dart';
+import 'package:recything_application/widgets/global_loading_widget.dart';
 
 class ImageReportHistoryDetailWidget extends StatelessWidget {
   const ImageReportHistoryDetailWidget({super.key});
@@ -49,13 +50,8 @@ class ImageReportHistoryDetailWidget extends StatelessWidget {
                           loadingBuilder: (context, child, loadingProgress) {
                             if (loadingProgress != null) {
                               return const Padding(
-                                padding: EdgeInsets.all(20),
-                                child: CircularProgressIndicator(
-                                  backgroundColor:
-                                      ColorConstant.primaryColor500,
-                                  color: ColorConstant.primaryColor50,
-                                ),
-                              );
+                                  padding: EdgeInsets.all(20),
+                                  child: MyLoading());
                             } else {
                               return child;
                             }

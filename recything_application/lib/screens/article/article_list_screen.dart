@@ -1,6 +1,7 @@
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:recything_application/constants/color_constant.dart';
 import 'package:recything_application/constants/image_constant.dart';
 import 'package:recything_application/constants/spacing_constant.dart';
@@ -36,6 +37,10 @@ class _ArticleListScreenState extends State<ArticleListScreen> {
   final ArticleSearchController articleSearchController = Get.put(
     ArticleSearchController(),
   );
+
+  String formatDate(DateTime date) {
+    return DateFormat('dd MMMM yyyy', 'id_ID').format(date);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -212,7 +217,8 @@ class _ArticleListScreenState extends State<ArticleListScreen> {
                                             ),
                                             Text(
                                               article.createdAt != null
-                                                  ? article.createdAt!
+                                                  ? formatDate(
+                                                          article.createdAt!)
                                                       .toString()
                                                   : '',
                                               style: TextStyleConstant

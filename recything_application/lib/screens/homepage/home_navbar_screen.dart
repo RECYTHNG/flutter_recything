@@ -77,7 +77,7 @@ class _HomeScreenState extends State<HomeNavBarScreen> {
             const SizedBox(width: 48),
             BottomNavItem(
               iconPath: IconConstant.iconChallenge,
-              label: 'Recycle',
+              label: 'Challenge',
               index: 3,
               currentIndex: widget.currentIndex,
               onTap: _onItemTapped,

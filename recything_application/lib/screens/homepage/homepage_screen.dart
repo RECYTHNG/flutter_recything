@@ -11,6 +11,7 @@ import 'package:recything_application/screens/homepage/widgets/sections/new_vide
 import 'package:recything_application/screens/homepage/widgets/point/point_container_widget.dart';
 import 'package:recything_application/screens/homepage/widgets/sections/report_section_widget.dart';
 import 'package:recything_application/screens/homepage/widgets/search_bar_widget.dart';
+import 'package:recything_application/widgets/global_loading_widget.dart';
 
 class HomePageScreen extends StatefulWidget {
   const HomePageScreen({super.key});
@@ -44,7 +45,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
       body: SingleChildScrollView(
         child: Obx(() {
           if (dataController.isLoading.value) {
-            return const Center(child: CircularProgressIndicator());
+            return const Center(child: MyLoading());
           } else {
             return Column(
               children: [

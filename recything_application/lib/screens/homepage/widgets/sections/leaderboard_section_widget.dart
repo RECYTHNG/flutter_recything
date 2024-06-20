@@ -6,13 +6,12 @@ import 'package:recything_application/controllers/home_controller.dart';
 import 'package:recything_application/controllers/leaderboard_controller.dart';
 import 'package:recything_application/screens/homepage/widgets/top_three_leaderboard_widget.dart';
 import 'package:recything_application/screens/leaderboard/leaderboard_screen.dart';
+import 'package:recything_application/widgets/global_loading_widget.dart';
 
 class LeaderboardSectionWidget extends StatelessWidget {
   LeaderboardSectionWidget({super.key});
 
   final HomeController controller = Get.put(HomeController());
-  final LeaderboardController controllerLeaderboard =
-      Get.put(LeaderboardController());
 
   @override
   Widget build(BuildContext context) {
@@ -61,7 +60,7 @@ class LeaderboardSectionWidget extends StatelessWidget {
           Obx(
             () {
               if (controller.isLoading.value) {
-                return const Center(child: CircularProgressIndicator());
+                return const Center(child:  MyLoading());
               }
 
               if (controller.leaderboard.isEmpty) {
@@ -153,16 +152,14 @@ class LeaderboardSectionWidget extends StatelessWidget {
                             name: controller.leaderboard[1]['name']!,
                             score: controller.leaderboard[1]['point']!,
                             rank: 2,
-                            badgeUrl: controllerLeaderboard.leaderboardList[1]
-                                ['badge']!,
+                            badgeUrl: controller.leaderboard[1]['badge']!,
                           ),
                         TopThreeLeaderboardItem(
                           imageUrl: controller.leaderboard[0]['picture_url']!,
                           name: controller.leaderboard[0]['name']!,
                           score: controller.leaderboard[0]['point']!,
                           rank: 1,
-                          badgeUrl: controllerLeaderboard.leaderboardList[1]
-                              ['badge']!,
+                          badgeUrl: controller.leaderboard[0]['badge']!,
                         ),
                         if (controller.leaderboard.length > 2)
                           TopThreeLeaderboardItem(
@@ -170,8 +167,7 @@ class LeaderboardSectionWidget extends StatelessWidget {
                             name: controller.leaderboard[2]['name']!,
                             score: controller.leaderboard[2]['point']!,
                             rank: 3,
-                            badgeUrl: controllerLeaderboard.leaderboardList[1]
-                                ['badge']!,
+                            badgeUrl: controller.leaderboard[2]['badge']!,
                           ),
                       ],
                     ),
