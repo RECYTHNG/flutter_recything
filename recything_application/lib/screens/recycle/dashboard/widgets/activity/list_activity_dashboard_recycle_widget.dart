@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:recything_application/constants/image_constant.dart';
 import 'package:recything_application/constants/spacing_constant.dart';
+import 'package:recything_application/screens/challenge/onboarding/challenge_onboarding_screen.dart';
+import 'package:recything_application/screens/homepage/home_navbar_screen.dart';
 import 'package:recything_application/screens/recycle/dashboard/widgets/activity/item_activity_dashboard_recycle_widget.dart';
 import 'package:recything_application/screens/recycle/dashboard/widgets/activity/subheader_activity_dashboard_recycle_widget.dart';
 
@@ -29,8 +32,7 @@ class ListActivityDashboardRecycleWidget extends StatelessWidget {
         SizedBox(
           height: 105,
           child: ListView.separated(
-            separatorBuilder: (context, index) =>
-                SpacingConstant.horizontalSpacing200,
+            separatorBuilder: (context, index) => SpacingConstant.horizontalSpacing200,
             scrollDirection: Axis.horizontal,
             itemCount: items.length,
             clipBehavior: Clip.none,
@@ -42,7 +44,11 @@ class ListActivityDashboardRecycleWidget extends StatelessWidget {
                     image: item['image']!,
                     title: item['title']!,
                     desc: item['desc']!,
-                    onTap: () {},
+                    onTap: () {
+                      index == 0
+                          ? Get.to(() => const ChallengeOnboardingScreen())
+                          : Get.offAll(() => HomeNavBarScreen(currentIndex: 2));
+                    },
                   ),
                 ],
               );

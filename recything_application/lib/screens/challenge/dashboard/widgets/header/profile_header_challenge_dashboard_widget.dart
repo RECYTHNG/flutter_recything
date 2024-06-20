@@ -6,6 +6,7 @@ import 'package:recything_application/constants/icon_constant.dart';
 import 'package:recything_application/constants/spacing_constant.dart';
 import 'package:recything_application/constants/text_style_constant.dart';
 import 'package:recything_application/controllers/challenge_dashboard_controller.dart';
+import 'package:recything_application/screens/edit_profile/edit_profile_screen.dart';
 
 class ProfileHeaderChallengeDashboardWidget extends StatelessWidget {
   const ProfileHeaderChallengeDashboardWidget({super.key});
@@ -19,7 +20,9 @@ class ProfileHeaderChallengeDashboardWidget extends StatelessWidget {
           top: 55,
           left: 16,
           child: GestureDetector(
-            onTap: () {},
+            onTap: () {
+              Get.to(() => const EditProfileScreen());
+            },
             child: Row(
               children: [
                 SvgPicture.asset(IconConstant.profileChallenge),
