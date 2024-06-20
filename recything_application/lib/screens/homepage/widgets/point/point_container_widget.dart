@@ -4,9 +4,11 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:recything_application/constants/color_constant.dart';
 import 'package:recything_application/constants/icon_constant.dart';
+import 'package:recything_application/constants/spacing_constant.dart';
 import 'package:recything_application/constants/text_style_constant.dart';
 import 'package:recything_application/controllers/home_controller.dart';
 import 'package:recything_application/screens/achievement_screen/achievement_screen.dart';
+import 'package:recything_application/screens/challenge/challenge_list/challenge_list_screen.dart';
 import 'package:recything_application/screens/halaman_riwayat/point_history_screen.dart';
 import 'package:recything_application/widgets/global_button_widget.dart';
 import 'package:recything_application/widgets/global_loading_widget.dart';
@@ -50,8 +52,7 @@ class PointsContainer extends StatelessWidget {
                     imageUrl: controller.user['badge'] ?? '',
                     width: 30,
                     height: 30,
-                    placeholder: (context, url) =>
-                        const  MyLoading(),
+                    placeholder: (context, url) => const MyLoading(),
                     errorWidget: (context, url, error) =>
                         const Icon(Icons.error),
                   ),
@@ -69,35 +70,66 @@ class PointsContainer extends StatelessWidget {
               ),
             ),
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                GlobalButtonWidget(
-                  onTap: () {},
-                  width: 150,
-                  height: 40,
-                  backgroundColor: ColorConstant.primaryColor500,
-                  isBorder: false,
-                  title: "Tambah Poin",
-                  textColor: ColorConstant.whiteColor,
-                  fontSize: 16,
+                Expanded(
+                  child: GestureDetector(
+                    onTap: () => Get.to(() => const ChallengeListScreen()),
+                    child: Container(
+                      width: double.infinity,
+                      padding: const EdgeInsets.symmetric(
+                        vertical: 11,
+                        horizontal: 30,
+                      ),
+                      decoration: const BoxDecoration(
+                        color: ColorConstant.primaryColor500,
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(12),
+                        ),
+                      ),
+                      child: Center(
+                        child: Text(
+                          'Tambah Poin',
+                          style: TextStyleConstant.semiboldParagraph.copyWith(
+                            color: ColorConstant.whiteColor,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
                 ),
-                GlobalButtonWidget(
-                  onTap: () {
-                    Get.to(
-                      () => PointHisstoryScreen(),
-                      arguments: controller.user['id'].toString(),
-                    );
-                  },
-                  width: 150,
-                  height: 40,
-                  backgroundColor: ColorConstant.whiteColor,
-                  isBorder: false,
-                  title: "Riwayat",
-                  textColor: ColorConstant.primaryColor500,
-                  fontSize: 16,
+                SpacingConstant.horizontalSpacing100,
+                Expanded(
+                  child: GestureDetector(
+                    onTap: () => Get.to(() => PointHisstoryScreen()),
+                    child: Container(
+                      width: double.infinity,
+                      padding: const EdgeInsets.symmetric(
+                        vertical: 11,
+                        horizontal: 30,
+                      ),
+                      decoration: BoxDecoration(
+                        color: ColorConstant.whiteColor,
+                        borderRadius: const BorderRadius.all(
+                          Radius.circular(12),
+                        ),
+                        border: Border.all(
+                          color: ColorConstant.primaryColor500,
+                        ),
+                      ),
+                      child: Center(
+                        child: Text(
+                          'Riwayat',
+                          style: TextStyleConstant.semiboldParagraph.copyWith(
+                            color: ColorConstant.primaryColor500,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
                 ),
               ],
-            )
+            ),
           ],
         ),
       ),
