@@ -18,7 +18,11 @@ class UserService {
         ),
       );
       if (response.statusCode == 200) {
-        return UserModel.fromJson(response.data);
+        return UserModel(
+          code: response.statusCode,
+          data: Data.fromJson(response.data["data"]),
+          message: response.data["message"],
+        );
       } else {
         return UserModel(
           code: response.statusCode,

@@ -8,7 +8,30 @@ import 'package:recything_application/utils/shared_pref.dart';
 
 class ProfileService {
   var baseUrl = Env.recythingBaseUrl;
-  Future<ProfileModel> postProfile(XFile pickedImage) async {
+  Future<Map<String, dynamic>> putUser(Map<String, dynamic> userData) async {
+    try {
+      String? authToken = await SharedPref.getToken();
+      var url = "$baseUrl/user/profile";
+      var response = await Dio().put(
+        url,
+        data: userData,
+        options: Options(
+          headers: {
+            'Authorization': 'Bearer $authToken',
+          },
+        ),
+      );
+
+      return {'code': response.statusCode, 'message': response.data["message"]};
+    } on DioException catch (e) {
+      return {
+        'code': e.response?.statusCode ?? 500,
+        'message': e.response?.data["message"] ?? "Unknown error"
+      };
+    }
+  }
+
+  Future<ProfileModel> uploadAvatar(XFile pickedImage) async {
     try {
       var url = "$baseUrl/user/uploadAvatar";
       String? authToken = await SharedPref.getToken();

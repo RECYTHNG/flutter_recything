@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:recything_application/constants/color_constant.dart';
 import 'package:recything_application/constants/spacing_constant.dart';
 import 'package:recything_application/constants/text_style_constant.dart';
-import 'package:recything_application/controllers/article/article_controller.dart';
+import 'package:recything_application/controllers/article_controller.dart';
 import 'package:recything_application/controllers/recycle_controller.dart';
 import 'package:recything_application/models/recycle/article_recycle_model.dart';
 import 'package:recything_application/screens/article/article_detail/article_detail_screen.dart';
@@ -39,7 +39,8 @@ class ArticleCurrentSearchRecycleWidget extends StatelessWidget {
         SpacingConstant.verticalSpacing150,
         Obx(
           () {
-            if (controller.isLoadingFetchSortedArticle.value || controller.articleSortedData.value == null) {
+            if (controller.isLoadingFetchSortedArticle.value ||
+                controller.articleSortedData.value == null) {
               return const SizedBox(
                 height: 250,
                 child: Center(
@@ -81,15 +82,15 @@ class ArticleCurrentSearchRecycleWidget extends StatelessWidget {
                     date: article.createdAt,
                     onTap: () {
                       articleController.fetchArticleById(id: article.id);
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const ArticleDetailScreen(),
-                            settings: RouteSettings(
-                              arguments: article.id,
-                            ),
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const ArticleDetailScreen(),
+                          settings: RouteSettings(
+                            arguments: article.id,
                           ),
-                        );
+                        ),
+                      );
                     },
                   );
                 },

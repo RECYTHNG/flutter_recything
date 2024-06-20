@@ -87,6 +87,7 @@ class ColorConstant {
 
   //Black
   static const Color blackColor = Color(0xFF000000);
+  static const Color blackColor10 = Color(0xFFEAE9EA);
 
   //White
   static const Color whiteColor = Color(0xFFFFFFFF);

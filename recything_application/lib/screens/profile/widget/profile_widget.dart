@@ -4,6 +4,7 @@ import 'package:recything_application/constants/color_constant.dart';
 import 'package:recything_application/constants/spacing_constant.dart';
 import 'package:recything_application/constants/text_style_constant.dart';
 import 'package:recything_application/controllers/profile_controller.dart';
+import 'package:recything_application/screens/edit_profile/edit_profile_screen.dart';
 import 'package:recything_application/screens/profile/widget/image_widget.dart';
 import 'package:recything_application/widgets/global_image_picker_dialog_widget.dart';
 import 'package:recything_application/widgets/global_loading_widget.dart';
@@ -83,10 +84,17 @@ class ProfileWidget extends StatelessWidget {
                         ),
                       ),
                       SpacingConstant.verticalSpacing100,
-                      Text(
-                        "Lengkapi Profil",
-                        style: TextStyleConstant.boldCaption.copyWith(
-                          color: ColorConstant.infoColor500,
+                      GestureDetector(
+                        onTap: () {
+                          Get.to(
+                            () => const EditProfileScreen(),
+                          );
+                        },
+                        child: Text(
+                          "Lengkapi Profil",
+                          style: TextStyleConstant.boldCaption.copyWith(
+                            color: ColorConstant.infoColor500,
+                          ),
                         ),
                       )
                     ],

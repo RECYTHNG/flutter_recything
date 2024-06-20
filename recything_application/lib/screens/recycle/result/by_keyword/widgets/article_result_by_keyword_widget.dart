@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:recything_application/constants/color_constant.dart';
 import 'package:recything_application/constants/spacing_constant.dart';
-import 'package:recything_application/controllers/article/article_controller.dart';
+import 'package:recything_application/controllers/article_controller.dart';
 import 'package:recything_application/controllers/recycle_controller.dart';
 import 'package:recything_application/models/recycle/category/article_category_recycle_model.dart';
 import 'package:recything_application/screens/article/article_detail/article_detail_screen.dart';
@@ -37,10 +37,13 @@ class ArticleResultByKeywordWidget extends StatelessWidget {
                       ],
                     ),
                   );
-                } else if (controller.resultArticleByKeyword.value?.data.isEmpty ?? true) {
+                } else if (controller
+                        .resultArticleByKeyword.value?.data.isEmpty ??
+                    true) {
                   return const EmptyStateArticleResultByKeywordWidget();
                 } else {
-                  final List<Article> data = controller.resultArticleByKeyword.value!.data;
+                  final List<Article> data =
+                      controller.resultArticleByKeyword.value!.data;
                   return ListView.separated(
                     separatorBuilder: (context, index) => const Padding(
                       padding: EdgeInsets.symmetric(vertical: 5),
@@ -63,15 +66,15 @@ class ArticleResultByKeywordWidget extends StatelessWidget {
                         date: article.createdAt,
                         onTap: () {
                           articleController.fetchArticleById(id: article.id);
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const ArticleDetailScreen(),
-                            settings: RouteSettings(
-                              arguments: article.id,
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const ArticleDetailScreen(),
+                              settings: RouteSettings(
+                                arguments: article.id,
+                              ),
                             ),
-                          ),
-                        );
+                          );
                         },
                       );
                     },

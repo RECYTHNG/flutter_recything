@@ -57,6 +57,7 @@ dependencies:
     timeago: ^3.6.1
     gallery_picker: ^0.5.1
     image_picker: ^1.1.2
+    mime: ^1.0.5
     http_parser: ^4.0.2
 
 dev_dependencies:
@@ -69,7 +70,6 @@ dev_dependencies:
     # package. See that file for information about deactivating specific lint
     # rules and activating additional ones.
     flutter_lints: ^3.0.0
-
     envied_generator: ^0.5.4+1
     build_runner: ^2.4.11
 
@@ -110,6 +110,7 @@ flutter:
         - assets/images/article/
         - assets/images/recycle/
         - assets/images/reporting_rubbish/
+        - assets/images/edit_profile/
         - assets/lotties/
         - assets/images/challenge_dashboard/
         - assets/icons/
@@ -139,12 +140,12 @@ flutter:
     #         weight: 700
 
     fonts:
-      - family: Nunito
-        fonts:
-          - asset: assets/fonts/Nunito-Bold.ttf
-          - asset: assets/fonts/Nunito-Medium.ttf
-          - asset: assets/fonts/Nunito-Regular.ttf
-          - asset: assets/fonts/Nunito-SemiBold.ttf
+        - family: Nunito
+          fonts:
+              - asset: assets/fonts/Nunito-Bold.ttf
+              - asset: assets/fonts/Nunito-Medium.ttf
+              - asset: assets/fonts/Nunito-Regular.ttf
+              - asset: assets/fonts/Nunito-SemiBold.ttf
 
     #
     # For details regarding fonts from package dependencies,
