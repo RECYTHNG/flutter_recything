@@ -7,7 +7,8 @@ import 'package:recything_application/utils/shared_pref.dart';
 class SearchByKeywordyRecycleService {
   final Dio _dio = Dio();
 
-  Future<ArticleCategoryRecycleModel> getArticleByKeyword(String keyword) async {
+  Future<ArticleCategoryRecycleModel> getArticleByKeyword(
+      String keyword) async {
     try {
       final token = await SharedPref.getToken();
       final response = await _dio.get(
@@ -30,7 +31,7 @@ class SearchByKeywordyRecycleService {
 
   Future<VideoCategoryRecycleModel> getVideoByKeyword(String keyword) async {
     try {
-      final token = SharedPref.getToken();
+      final token = await SharedPref.getToken();
       final response = await _dio.get(
         '$recythingBaseUrl/videos/search',
         queryParameters: {

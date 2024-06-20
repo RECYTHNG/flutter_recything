@@ -15,7 +15,7 @@ class VideoContentController extends GetxController {
   YoutubePlayerController? youtubePlayerController;
   final VideoContentService videoContentService = VideoContentService();
   RxBool isLoading = false.obs;
-  RxBool sortComment = false.obs;
+  RxBool sortComment = true.obs;
   Rxn<VideoContentModel> videoContentData = Rxn<VideoContentModel>();
   Rxn<DetailVideoContentModel> detailVideoContentData =
       Rxn<DetailVideoContentModel>();

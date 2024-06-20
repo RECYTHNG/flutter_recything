@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:recything_application/constants/color_constant.dart';
 import 'package:recything_application/constants/text_style_constant.dart';
 import 'package:recything_application/controllers/home_controller.dart';
+import 'package:recything_application/widgets/global_loading_widget.dart';
 
 class TopThreeLeaderboardItem extends StatelessWidget {
   final String imageUrl;
@@ -81,7 +82,7 @@ class TopThreeLeaderboardItem extends StatelessWidget {
                     width: 35,
                     height: 35,
                     placeholder: (context, url) =>
-                        const CircularProgressIndicator(),
+                        const  MyLoading(),
                     errorWidget: (context, url, error) =>
                         const Icon(Icons.error),
                   ),

@@ -9,13 +9,17 @@ import 'package:recything_application/screens/recycle/search/widgets/current/vid
 import 'package:recything_application/screens/recycle/search/widgets/history_search_recycle_widget.dart';
 import 'package:recything_application/screens/recycle/search/widgets/newest/newest_search_recycle_widget.dart';
 import 'package:recything_application/screens/recycle/search/widgets/recommendation_search_recycle_widget.dart';
+import 'package:recything_application/widgets/global_autocomplete_search_bar.dart';
 
 class SearchRecycleScreen extends StatelessWidget {
   const SearchRecycleScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final RecycleController controller = Get.find();
+    final RecycleController controller = Get.put(RecycleController());
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      controller.dataForAutocomplete();
+    });
     return Scaffold(
       backgroundColor: ColorConstant.whiteColor,
       body: Stack(
@@ -47,8 +51,41 @@ class SearchRecycleScreen extends StatelessWidget {
                     ),
                   );
                 },
-              )
+              ),
             ],
+          ),
+          Positioned(
+            top: 40,
+            left: 40,
+            right: 0,
+            child: Container(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+              color: Colors.transparent,
+              child: Obx(
+                () {
+                  return GlobalAutocompleteSearchBar(
+                    controller: controller.searchByKeywordController,
+                    hintText: 'Search',
+                    height: 40,
+                    width: MediaQuery.of(context).size.width,
+                    query: controller.searchQuery.value,
+                    matchedSearchData: controller.matchedData.value,
+                    onChanged: (value) {
+                      controller.onChangedQuerySearchBar(value);
+                    },
+                    onResultSelected: (value) {
+                      controller.onClickMatchedResult(value);
+                    },
+                    handleClearedController: () {
+                      controller.matchedData.clear();
+                    },
+                    onSubmitted: (value) {
+                      controller.onSubmittedSearch(value);
+                    },
+                  );
+                },
+              ),
+            ),
           ),
         ],
       ),

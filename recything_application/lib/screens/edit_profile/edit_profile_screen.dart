@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:recything_application/constants/color_constant.dart';
 import 'package:recything_application/constants/image_constant.dart';
 import 'package:recything_application/constants/spacing_constant.dart';
+import 'package:recything_application/constants/text_style_constant.dart';
 import 'package:recything_application/controllers/user_controller.dart';
 import 'package:recything_application/screens/edit_profile/content/gender_pick/gender_pick_screen.dart';
 import 'package:recything_application/screens/edit_profile/content/success/success_screen.dart';
@@ -57,12 +58,10 @@ class EditProfileScreenState extends State<EditProfileScreen> {
       backgroundColor: ColorConstant.whiteColor,
       appBar: AppBar(
         centerTitle: true,
-        title: const Text(
+        title: Text(
           'Edit Profil',
-          style: TextStyle(
-            fontSize: 24,
-            color: ColorConstant.netralColor50,
-            fontWeight: FontWeight.w700,
+          style: TextStyleConstant.boldSubtitle.copyWith(
+            color: ColorConstant.whiteColor,
           ),
         ),
         leading: GestureDetector(
@@ -73,6 +72,7 @@ class EditProfileScreenState extends State<EditProfileScreen> {
           child: const Icon(
             Icons.arrow_back_ios_new,
             color: ColorConstant.netralColor50,
+            size: 20,
           ),
         ),
         backgroundColor: ColorConstant.primaryColor500,
@@ -237,15 +237,16 @@ class EditProfileScreenState extends State<EditProfileScreen> {
                                     color: ColorConstant.primaryColor500,
                                     borderRadius: BorderRadius.circular(12),
                                   ),
-                                  child: const Text(
+                                  child: Text(
                                     'Simpan',
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 20,
+                                    style: TextStyleConstant.semiboldSubtitle
+                                        .copyWith(
+                                      color: ColorConstant.whiteColor,
                                     ),
                                   ),
                                 ),
                               ),
+                              SpacingConstant.verticalSpacing200,
                             ],
                           ),
                         ),

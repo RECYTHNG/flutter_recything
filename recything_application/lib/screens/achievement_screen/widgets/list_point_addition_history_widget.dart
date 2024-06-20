@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:recything_application/constants/color_constant.dart';
 import 'package:recything_application/constants/spacing_constant.dart';
 import 'package:recything_application/constants/text_style_constant.dart';
@@ -32,10 +33,8 @@ class ListPointAdditionHistoryWidget extends StatelessWidget {
             ),
             GestureDetector(
               onTap: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => PointHisstoryScreen(),
-                  ),
+                Get.to(
+                  () => PointHisstoryScreen(),
                 );
               },
               child: Text(
@@ -80,7 +79,8 @@ class ListPointAdditionHistoryWidget extends StatelessWidget {
                       var historyItem = historyUserPoint[index];
 
                       DateTime parsedDate = DateTime.parse(historyItem.date!);
-                      Duration difference =DateTime.now().difference(parsedDate);
+                      Duration difference =
+                          DateTime.now().difference(parsedDate);
                       int daysAgo = difference.inDays;
 
                       return Padding(

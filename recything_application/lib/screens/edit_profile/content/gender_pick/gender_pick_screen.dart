@@ -23,12 +23,10 @@ class _GenderPickScreenState extends State<GenderPickScreen> {
       backgroundColor: ColorConstant.whiteColor,
       appBar: AppBar(
         centerTitle: true,
-        title: const Text(
+        title: Text(
           'Pilih Jenis Kelamin',
-          style: TextStyle(
-            fontSize: 24,
-            color: ColorConstant.netralColor50,
-            fontWeight: FontWeight.w700,
+          style: TextStyleConstant.boldSubtitle.copyWith(
+            color: ColorConstant.whiteColor,
           ),
         ),
         leading: IconButton(
@@ -38,6 +36,7 @@ class _GenderPickScreenState extends State<GenderPickScreen> {
           icon: const Icon(
             Icons.arrow_back_ios_new,
             color: ColorConstant.netralColor50,
+            size: 20,
           ),
         ),
         backgroundColor: ColorConstant.primaryColor500,
@@ -169,11 +168,10 @@ class _GenderPickScreenState extends State<GenderPickScreen> {
                       ),
                       child: Text(
                         'Simpan',
-                        style: TextStyle(
+                        style: TextStyleConstant.semiboldSubtitle.copyWith(
                           color: selectedGender == ''
                               ? Colors.grey.shade600
                               : Colors.white,
-                          fontSize: 20,
                         ),
                       ),
                     ),

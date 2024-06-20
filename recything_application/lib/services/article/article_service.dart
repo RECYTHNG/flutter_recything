@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:recything_application/env/env.dart';
 import 'package:recything_application/models/article/article_model.dart';
 import 'package:recything_application/models/article/list_article_model.dart';
+import 'package:recything_application/utils/shared_pref.dart';
 
 class ArticleService {
   final String base = Env.recythingBaseUrl;
@@ -10,8 +11,10 @@ class ArticleService {
   Future<ListArticleModel> getAllArticles({String? keyword}) async {
     try {
       var url = "$base/article/search";
-      var authToken =
-          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiVVNSMDAwNCIsInJvbGUiOiJ1c2VyIiwiZXhwIjoxNzIwOTcyNjg0fQ.1gS0T0FXve-C6VnTtV1gUdVcqjY04_nfjkaww8yLNUg";
+      String? authToken = await SharedPref.getToken();
+      if (authToken == null) {
+        throw Exception('Tidak ada token yang ditemukan');
+      }
 
       if (keyword != null && keyword.isNotEmpty) {
         url += "?keyword=$keyword";
