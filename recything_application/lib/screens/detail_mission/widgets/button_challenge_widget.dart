@@ -10,12 +10,14 @@ class ButtonChallengeWidget extends StatelessWidget {
   final String userTaskId;
   final int buttonstepCount;
   final String statusProgress;
+  final String statusAccept;
 
   const ButtonChallengeWidget({
     super.key,
-    required this.buttonstepCount,
     required this.userTaskId,
+    required this.buttonstepCount,
     required this.statusProgress,
+    required this.statusAccept,
   });
 
   @override
@@ -27,7 +29,11 @@ class ButtonChallengeWidget extends StatelessWidget {
     print(buttonUpload);
 
     String getButtonText() {
-      if (buttonUpload && statusProgress == 'done') {
+      if (buttonUpload &&
+          statusProgress == 'done' &&
+          statusAccept == 'reject') {
+        return 'Perbaiki Bukti';
+      } else if (buttonUpload && statusProgress == 'done') {
         return 'Home';
       } else if (buttonUpload) {
         return 'Lanjutkan';
@@ -43,7 +49,19 @@ class ButtonChallengeWidget extends StatelessWidget {
       width: double.infinity,
       child: ElevatedButton(
         onPressed: () {
-          if (buttonUpload && statusProgress == 'done') {
+          if (buttonUpload &&
+              statusProgress == 'done' &&
+              statusAccept == 'reject') {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => ProofUploadScreen(
+                  userTaskId: userTaskId,
+                  statusAccept: statusAccept
+                ),
+              ),
+            );
+          } else if (buttonUpload && statusProgress == 'done') {
             Navigator.push(
               context,
               MaterialPageRoute(
@@ -56,6 +74,7 @@ class ButtonChallengeWidget extends StatelessWidget {
               MaterialPageRoute(
                 builder: (context) => ProofUploadScreen(
                   userTaskId: userTaskId,
+                  statusAccept: statusAccept
                 ),
               ),
             );

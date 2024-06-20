@@ -19,33 +19,64 @@ class MissionStepUploadWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Color _getContainerColor(String statusProgress, String statusAccepted) {
+    Map<String, dynamic> _getCase(
+        String statusProgress, String statusAccepted) {
       switch (statusProgress) {
         case 'done':
           switch (statusAccepted) {
             case 'need_review':
-              return ColorConstant.warningColor50;
+              return {
+                "title": 'Bukti Sudah Diunggah',
+                "description": 'Bukti Sedang Diverifikasi admin.',
+                "color": ColorConstant.warningColor50,
+                "icon": IconConstant.iconStatusWaitingAcc,
+              };
             case 'accept':
-              return ColorConstant
-                  .successColor50; // You might need to define this color
+              return {
+                "title": 'Bukti Terverifikasi',
+                "description": 'Bukti sudah disetujui admin',
+                'color': ColorConstant.successColor50,
+                "icon": IconConstant.iconStatusDone,
+              };
             case 'reject':
-              return ColorConstant
-                  .dangerColor50; // You might need to define this color
+              return {
+                "title": 'Bukti Ditolak',
+                "description":
+                    'Beberapa foto Bukti blur. Segera Perbaiki Bukti.',
+                'color': ColorConstant.dangerColor50,
+                "icon": IconConstant.iconStatusReject,
+              };
             default:
-              return ColorConstant.whiteColor;
+              return {
+                "title": 'Bukti Sudah Diunggah',
+                "description": 'Bukti Sedang Diverifikasi admin.',
+                'color': ColorConstant.warningColor50,
+                "icon": IconConstant.iconStatusWaitingAcc,
+              };
           }
         case 'in_progress':
-          return ColorConstant
-              .whiteColor; // You might need to define this color
+          return {
+            "title": 'Unggah Semua Bukti',
+            "description":
+                'Unggah foto sesuai step yang telah kamu kerjakan, isi deskripsi, tunggu verifikasi admin, dan dapatkan poin!',
+            'color': ColorConstant.whiteColor,
+            "icon": IconConstant.iconStatusProcess,
+          };
         default:
-          return ColorConstant.whiteColor;
+          return {
+            "title": 'Unggah Semua Bukti',
+            "description":
+                'Unggah foto sesuai step yang telah kamu kerjakan, isi deskripsi, tunggu verifikasi admin, dan dapatkan poin!',
+            'color': ColorConstant.whiteColor,
+            "icon": IconConstant.iconStatusProcess,
+          };
       }
     }
 
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 4),
       decoration: BoxDecoration(
-        color: _getContainerColor(statusProgress, statusAccepted),
+        color: _getCase(statusProgress, statusAccepted)['color'],
         borderRadius: BorderRadius.circular(12),
         boxShadow: ShadowConstant.shadowMd,
       ),
@@ -71,7 +102,7 @@ class MissionStepUploadWidget extends StatelessWidget {
                 ),
                 const SizedBox(width: 8),
                 Text(
-                  'Unggah Semua Bukti',
+                  _getCase(statusProgress, statusAccepted)['title'],
                   style: TextStyleConstant.semiboldSubtitle.copyWith(
                     color: ColorConstant.netralColor900,
                   ),
@@ -86,34 +117,12 @@ class MissionStepUploadWidget extends StatelessWidget {
                   padding: const EdgeInsets.only(left: 8),
                   width: 300,
                   child: Text(
-                    'Unggah foto sesuai step yang telah kamu kerjakan, isi deskripsi, tunggu verifikasi admin, dan dapatkan poin!',
+                    _getCase(statusProgress, statusAccepted)['description'],
                     style: TextStyleConstant.regularCaption,
                   ),
                 ),
-                Builder(
-                  builder: (context) {
-                    switch (statusProgress) {
-                      case 'done':
-                        switch (statusAccepted) {
-                          case 'need_rivew':
-                            return SvgPicture.asset(
-                                IconConstant.iconStatusWaitingAcc);
-                          case 'accept':
-                            return SvgPicture.asset(
-                                IconConstant.iconStatusProcess);
-                          case 'reject':
-                            return SvgPicture.asset(
-                                IconConstant.iconStatusReject);
-                          default:
-                            return SvgPicture.asset(
-                                IconConstant.iconStatusProcess);
-                        }
-                      case 'in_progress':
-                        return SvgPicture.asset(IconConstant.iconStatusProcess);
-                      default:
-                        return SvgPicture.asset(IconConstant.iconStatusProcess);
-                    }
-                  },
+                SvgPicture.asset(
+                  _getCase(statusProgress, statusAccepted)['icon'],
                 ),
               ],
             ),

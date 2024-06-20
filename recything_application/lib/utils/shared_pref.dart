@@ -12,9 +12,7 @@ class SharedPref {
   //get token
   static Future<String?> getToken() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
-    // String? token = preferences.getString(_keyToken);
-    String? token =
-        'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiVVNSMDAwNCIsInJvbGUiOiJ1c2VyIiwiZXhwIjoxNzIxMzcxMzQyfQ.PrSPbBCMO4ObpDF63xe23bWv12mewn5ZKvzrdOF9Qwo';
+    String? token = preferences.getString(_keyToken);
     return token;
   }
 

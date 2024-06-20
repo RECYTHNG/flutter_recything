@@ -11,7 +11,7 @@ class PostImageProofService {
   final Dio dio = Dio();
 
   Future<void> uploadFiles(
-      String taskId, List<String> imagePaths, String description) async {
+      String taskId, List<String> imagePaths, String description, String statusAccept) async {
     var url = '$baseUrl/user-current/tasks/$taskId';
 
     FormData formData = FormData();
@@ -37,17 +37,21 @@ class PostImageProofService {
         throw Exception('Tidak ada token yang ditemukan');
       }
 
-      var response = await dio.post(
-        url,
-        data: formData,
-        options: Options(
-          headers: {
-            HttpHeaders.authorizationHeader: 'Bearer $authToken',
-            HttpHeaders.acceptHeader: 'application/json',
-            HttpHeaders.contentTypeHeader: 'multipart/form-data',
-          },
-        ),
+      Options options = Options(
+        headers: {
+          HttpHeaders.authorizationHeader: 'Bearer $authToken',
+          HttpHeaders.acceptHeader: 'application/json',
+          HttpHeaders.contentTypeHeader: 'multipart/form-data',
+        },
       );
+
+      Response response;
+
+      if (statusAccept == 'rejected') {
+        response = await dio.put(url, data: formData, options: options);
+      } else {
+        response = await dio.post(url, data: formData, options: options);
+      }
 
       if (response.statusCode == 200) {
         print('Upload successful');

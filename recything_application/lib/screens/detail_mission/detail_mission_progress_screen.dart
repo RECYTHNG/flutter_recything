@@ -157,6 +157,7 @@ class DetailMissionProgressScreen extends StatelessWidget {
                       buttonstepCount: controller.stepCount,
                       userTaskId: data['id'],
                       statusProgress: data['status_progress'],
+                      statusAccept: data['status_accepted'],
                     ),
                   ],
                 ),

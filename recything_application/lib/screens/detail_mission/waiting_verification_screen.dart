@@ -5,6 +5,7 @@ import 'package:lottie/lottie.dart';
 import 'package:recything_application/constants/color_constant.dart';
 import 'package:recything_application/constants/icon_constant.dart';
 import 'package:recything_application/constants/image_constant.dart';
+import 'package:recything_application/constants/lottie_constant.dart';
 import 'package:recything_application/constants/text_style_constant.dart';
 import 'package:recything_application/controllers/doing_task_detail_mission_controller.dart';
 import 'package:recything_application/screens/home_screen.dart';
@@ -38,10 +39,7 @@ class WaitingVerificationScreen extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 40),
-                Lottie.asset(
-                    'assets/images/detail_mission_image/lottie/lottie_done.json',
-                    repeat: false,
-                    width: 328),
+                Lottie.asset(LottieConstant.verify, repeat: false, width: 328),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 64),
                   child: Column(

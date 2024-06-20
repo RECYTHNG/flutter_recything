@@ -16,7 +16,7 @@ class IconConstant {
       'assets/images/detail_mission_image/status_task/reject.svg';
 
   static const iconInputUseCamera =
-      'assets/images/detail_mission_image/proof_upload/input_camera.svg';
+      'assets/images/detail_mission_image/proof_upload/camera.png';
   static const iconInputUseGaleri =
-      'assets/images/detail_mission_image/proof_upload/input_galeri.svg';
+      'assets/images/detail_mission_image/proof_upload/gallery.png';
 }

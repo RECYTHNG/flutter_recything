@@ -7,7 +7,7 @@ class DoingTaskProofUploadController extends GetxController {
   final PostImageProofService _taskStepService = PostImageProofService();
   final List<String> selectedImages = [];
 
-  Future<void> uploadProof(String userTaskId, String description) async {
+  Future<void> uploadProof(String userTaskId, String description, String statusAccept) async {
     try {
       if (selectedImages.isEmpty) {
         print('Please select at least one image');
@@ -16,7 +16,7 @@ class DoingTaskProofUploadController extends GetxController {
 
       List<String> imagePaths = selectedImages.map((image) => image).toList();
 
-      await _taskStepService.uploadFiles(userTaskId, imagePaths, description);
+      await _taskStepService.uploadFiles(userTaskId, imagePaths, description, statusAccept);
       Get.to(
         () => WaitingVerificationScreen(),
       );

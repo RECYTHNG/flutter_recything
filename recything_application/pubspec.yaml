@@ -80,7 +80,7 @@ flutter:
     - assets/images/detail_mission_image/
     - assets/images/detail_mission_image/status_task/
     - assets/images/detail_mission_image/proof_upload/
-    - assets/images/detail_mission_image/lottie/
+    - assets/lotties/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
