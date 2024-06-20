@@ -10,6 +10,7 @@ import 'package:recything_application/services/video_content/video_content_servi
 import 'package:recything_application/widgets/global_loading_widget.dart';
 import 'package:recything_application/widgets/global_search_bar.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
+import 'package:timeago/timeago.dart' as timeago;
 
 class DetailVideoContentScreen extends StatelessWidget {
   DetailVideoContentScreen({super.key, required this.id});
@@ -79,7 +80,25 @@ class DetailVideoContentScreen extends StatelessWidget {
                               children: [
                                 AspectRatio(
                                   aspectRatio: 16 / 9,
-                                  child: player,
+                                  child: Stack(
+                                    children: [
+                                      player,
+                                      Positioned(
+                                        top: 8,
+                                        left: 8,
+                                        child: IconButton(
+                                          icon: const Icon(
+                                            Icons.arrow_back,
+                                            size: 24,
+                                            color: ColorConstant.netralColor800,
+                                          ),
+                                          onPressed: () {
+                                            Get.back();
+                                          },
+                                        ),
+                                      ),
+                                    ],
+                                  ),
                                 ),
                                 Expanded(
                                   child: SingleChildScrollView(
@@ -183,11 +202,22 @@ class DetailVideoContentScreen extends StatelessWidget {
                                               ),
                                               SpacingConstant
                                                   .verticalSpacing100,
-                                              detailVideoData.comments != null
+                                              detailVideoData.comments !=
+                                                          null &&
+                                                      detailVideoData
+                                                          .comments.isNotEmpty
                                                   ? ListView.separated(
                                                       shrinkWrap: true,
+                                                      physics:
+                                                          const BouncingScrollPhysics(),
                                                       itemBuilder:
                                                           (context, index) {
+                                                        if (index >=
+                                                            detailVideoData
+                                                                .comments
+                                                                .length) {
+                                                          return Container(); // Mencegah akses indeks di luar batas
+                                                        }
                                                         var commentsData =
                                                             detailVideoData
                                                                     .comments[
@@ -386,7 +416,7 @@ class DetailVideoContentScreen extends StatelessWidget {
                                                                                               ),
                                                                                             ),
                                                                                             Text(
-                                                                                              commentVideo["created_at"],
+                                                                                              timeago.format(DateTime.parse(commentVideo["created_at"])),
                                                                                               style: TextStyleConstant.regularFooter.copyWith(
                                                                                                 color: ColorConstant.netralColor600,
                                                                                               ),
@@ -443,9 +473,10 @@ class DetailVideoContentScreen extends StatelessWidget {
                                                                     videoContentController
                                                                         .commentController,
                                                                 prefixIcon:
-                                                                    const Padding(
-                                                                  padding: EdgeInsets
-                                                                      .only(
+                                                                    Padding(
+                                                                  padding:
+                                                                      const EdgeInsets
+                                                                          .only(
                                                                           left:
                                                                               2,
                                                                           top:
@@ -458,6 +489,9 @@ class DetailVideoContentScreen extends StatelessWidget {
                                                                     backgroundColor:
                                                                         Colors
                                                                             .amber,
+                                                                    child: Image
+                                                                        .asset(
+                                                                            "assets/images/video_content/Ellipse 339.png"),
                                                                   ),
                                                                 ),
                                                                 suffixIcon:

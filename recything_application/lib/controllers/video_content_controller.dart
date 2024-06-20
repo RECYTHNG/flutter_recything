@@ -111,7 +111,6 @@ class VideoContentController extends GetxController {
   void postComment(int videoId, String comment) async {
     try {
       videoContentService.postComment(videoId, comment);
-      // Add comment locally to the current comments list
       detailVideoContentData.value?.data?.comments?.add({
         "user_name": "Current User",
         "comment": comment,
@@ -120,7 +119,6 @@ class VideoContentController extends GetxController {
         "created_at": DateTime.now().toString(),
       });
       detailVideoContentData.refresh();
-      Get.snackbar("Success", "Comment posted successfully");
     } catch (e) {
       Get.snackbar("Error", "Failed to post comment: $e");
     }
