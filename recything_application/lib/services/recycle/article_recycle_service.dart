@@ -8,7 +8,7 @@ class ArticleRecycleService {
 
   Future<ArticleRecycleModel> getArticle({bool? isSorted}) async {
     try {
-      final token = SharedPref.getToken();
+      final token = await SharedPref.getToken();
       final Map<String, String> queryParams = {};
       if (isSorted == true) {
         queryParams['sort_by'] = 'created_at';
@@ -21,6 +21,7 @@ class ArticleRecycleService {
           headers: {'Authorization': 'Bearer $token'},
         ),
       );
+      print(response.data);
       final jsonResponse = response.data as Map<String, dynamic>;
       return ArticleRecycleModel.fromJson(jsonResponse);
     } on DioException catch (e) {

@@ -8,12 +8,14 @@ import 'package:recything_application/screens/recycle/dashboard/widgets/app_bar_
 import 'package:recything_application/screens/recycle/dashboard/widgets/article/list_article_dashboard_recycle_widget.dart';
 import 'package:recything_application/screens/recycle/dashboard/widgets/category/list_category_dashboard_recycle_widget.dart';
 import 'package:recything_application/screens/recycle/dashboard/widgets/video/list_video_dashboard_recycle_widget.dart';
+import 'package:recything_application/utils/system_ui_overlay_utils.dart';
 
 class DashboardRecycleScreen extends StatelessWidget {
   const DashboardRecycleScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    SystemUiOverlayUtils().setSystemUiOverlay(ColorConstant.whiteColor, false);
     Get.put(RecycleController());
     return Scaffold(
       backgroundColor: ColorConstant.whiteColor,

@@ -4,8 +4,10 @@ import 'package:recything_application/constants/color_constant.dart';
 import 'package:recything_application/constants/image_constant.dart';
 import 'package:recything_application/constants/spacing_constant.dart';
 import 'package:recything_application/constants/text_style_constant.dart';
+import 'package:recything_application/controllers/article/article_controller.dart';
 import 'package:recything_application/controllers/recycle_controller.dart';
 import 'package:recything_application/models/recycle/article_recycle_model.dart';
+import 'package:recything_application/screens/article/article_detail/article_detail_screen.dart';
 import 'package:recything_application/screens/recycle/widgets/item_article_recycle_widget.dart';
 import 'package:recything_application/widgets/global_loading_widget.dart';
 
@@ -15,6 +17,7 @@ class EmptyStateArticleResultByKeywordWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final RecycleController controller = Get.find();
+    final ArticleController articleController = Get.put(ArticleController());
     WidgetsBinding.instance.addPostFrameCallback((_) {
       controller.fetchSortedArticle();
     });
@@ -106,7 +109,18 @@ class EmptyStateArticleResultByKeywordWidget extends StatelessWidget {
                       title: article.title,
                       desc: article.description,
                       date: article.createdAt,
-                      onTap: () {},
+                      onTap: () {
+                        articleController.fetchArticleById(id: article.id);
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const ArticleDetailScreen(),
+                            settings: RouteSettings(
+                              arguments: article.id,
+                            ),
+                          ),
+                        );
+                      },
                     );
                   },
                 );

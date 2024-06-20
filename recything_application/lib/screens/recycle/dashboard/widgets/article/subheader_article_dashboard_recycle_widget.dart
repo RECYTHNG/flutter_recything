@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:recything_application/constants/color_constant.dart';
 import 'package:recything_application/constants/text_style_constant.dart';
+import 'package:recything_application/screens/article/article_list_screen.dart';
 
 class SubheaderArticleDashboardRecycleWidget extends StatelessWidget {
   const SubheaderArticleDashboardRecycleWidget({super.key});
@@ -8,7 +10,7 @@ class SubheaderArticleDashboardRecycleWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {},
+      onTap: () => Get.to(() => const ArticleListScreen()),
       child: Column(
         children: [
           Row(
