@@ -78,13 +78,16 @@ class PointsContainer extends StatelessWidget {
                     child: Container(
                       width: double.infinity,
                       padding: const EdgeInsets.symmetric(
-                        vertical: 11,
-                        horizontal: 30,
+                        vertical: 10,
+                        horizontal: 20,
                       ),
-                      decoration: const BoxDecoration(
+                      decoration: BoxDecoration(
                         color: ColorConstant.primaryColor500,
-                        borderRadius: BorderRadius.all(
+                        borderRadius: const BorderRadius.all(
                           Radius.circular(12),
+                        ),
+                        border: Border.all(
+                          color: ColorConstant.primaryColor500,
                         ),
                       ),
                       child: Center(
@@ -105,8 +108,8 @@ class PointsContainer extends StatelessWidget {
                     child: Container(
                       width: double.infinity,
                       padding: const EdgeInsets.symmetric(
-                        vertical: 11,
-                        horizontal: 30,
+                        vertical: 10,
+                        horizontal: 20,
                       ),
                       decoration: BoxDecoration(
                         color: ColorConstant.whiteColor,
