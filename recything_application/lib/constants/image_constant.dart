@@ -1,4 +1,18 @@
 class ImageConstant {
+  // Global - Image Picker Dialog
+  static String camera = 'assets/images/global/camera_image_dialog.png';
+  static String gallery = 'assets/images/global/gallery_image_dialog.png';
+
+  // Dashboard Reporting
+  static String emptyStateHistory = 'assets/images/reporting_rubbish/empty_history.png';
+  static String rubbishHistory = 'assets/images/reporting_rubbish/rubbish.jpg';
+  static String litteringHistory = 'assets/images/reporting_rubbish/littering.jpg';
+  static String rubbishCarousel = 'assets/images/reporting_rubbish/penumpukan_sampah.jpeg';
+  static String litteringCarousel = 'assets/images/reporting_rubbish/pembuangan_sampah_sembarangan.jpeg';
+
+  // Rubbish
+  static String locationResult = 'assets/images/reporting_rubbish/location_result.png';
+
   // Recycle
   static String play = 'assets/images/recycle/play.png';
   static String challenge = 'assets/images/recycle/challenge.png';
@@ -21,10 +35,6 @@ class ImageConstant {
   static String emptyStateKeyword = 'assets/images/recycle/not_found.png';
 
   static String notFound = 'assets/images/article/not_found.png';
-
-  // Global - Image Picker Dialog
-  static String camera = 'assets/images/global/camera_image_dialog.png';
-  static String gallery = 'assets/images/global/gallery_image_dialog.png';
 
   //Achievement
   static const String cardImage = 'assets/images/achievement/card_images.png';
@@ -91,7 +101,19 @@ class ImageConstant {
 
   static const leaderboardKosong = 'assets/images/home_images/gambar_4.png';
   static const gambarIkutiChallenge = 'assets/images/home_images/gambar_5.png';
+
+  // Challenge Dashboard
+  static String backgroundDashboard = 'assets/images/challenge_dashboard/dashboard.png';
+  static String logoBackgroundDashboard = 'assets/images/logo/logo_complete_recything.png';
+  static String exampleItemMyChallenge = 'assets/images/challenge_dashboard/my_challenge_1.png';
+  static String points = 'assets/images/challenge_dashboard/points.png';
+  static String backgroundOnboarding = 'assets/images/challenge_dashboard/onboarding_background.png';
+  static String animationOnboarding = 'assets/images/challenge_dashboard/animation_dashboard.png';
+  static String emptyStateChallenge = 'assets/images/challenge_dashboard/empty_state.png';
+  static String profileDashboard = 'assets/images/challenge_dashboard/profile.png';
 }
+
+
 
 
 

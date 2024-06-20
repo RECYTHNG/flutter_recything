@@ -4,7 +4,11 @@ import 'package:recything_application/constants/color_constant.dart';
 import 'package:recything_application/constants/icon_constant.dart';
 
 class RoundedFloatingActionButton extends StatelessWidget {
-  const RoundedFloatingActionButton({super.key});
+  final Function() onTap;
+  const RoundedFloatingActionButton({
+    super.key,
+    required this.onTap,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +30,7 @@ class RoundedFloatingActionButton extends StatelessWidget {
         child: FloatingActionButton(
           shape: const CircleBorder(),
           backgroundColor: ColorConstant.whiteColor,
-          onPressed: () {},
+          onPressed: onTap,
           child: SvgPicture.asset(
             IconConstant.iconReport,
             width: 32,

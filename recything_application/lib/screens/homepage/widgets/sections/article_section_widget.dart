@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:recything_application/constants/color_constant.dart';
 import 'package:recything_application/constants/text_style_constant.dart';
 import 'package:recything_application/controllers/home_controller.dart';
+import 'package:recything_application/screens/article/article_list_screen.dart';
 
 class ArticleSectionWidget extends StatelessWidget {
   @override
@@ -38,7 +39,9 @@ class ArticleSectionWidget extends StatelessWidget {
                   ),
                   TextButton(
                     onPressed: () {
-                      // Add navigation or action when "Lihat Semua" is pressed
+                      Get.to(
+                        () => const ArticleListScreen(),
+                      );
                     },
                     child: Text(
                       'Lihat Semua',

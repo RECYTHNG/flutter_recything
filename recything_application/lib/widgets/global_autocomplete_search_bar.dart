@@ -38,6 +38,7 @@ class GlobalAutocompleteSearchBar extends StatelessWidget {
         if (query != '')
           Container(
             width: width,
+            height: matchedSearchData!.length > 5 ? 250 : null,
             decoration: BoxDecoration(
               color: ColorConstant.whiteColor,
               boxShadow: [

@@ -127,8 +127,7 @@ class LeaderboardScreen extends StatelessWidget {
                               name: controller.leaderboardList[1]['name']!,
                               score: controller.leaderboardList[1]['point']!,
                               rank: 2,
-                              medalAsset:
-                                  'assets/images/leaderboard/medal/gold.svg',
+                              badgeUrl: controller.leaderboardList[1]['badge']!,
                             ),
                           TopThreeLeaderboardItem(
                             imageUrl: controller.leaderboardList[0]
@@ -136,8 +135,7 @@ class LeaderboardScreen extends StatelessWidget {
                             name: controller.leaderboardList[0]['name']!,
                             score: controller.leaderboardList[0]['point']!,
                             rank: 1,
-                            medalAsset:
-                                'assets/images/leaderboard/medal/gold.svg',
+                            badgeUrl: controller.leaderboardList[0]['badge']!,
                           ),
                           if (controller.leaderboardList.length > 2)
                             TopThreeLeaderboardItem(
@@ -146,8 +144,7 @@ class LeaderboardScreen extends StatelessWidget {
                               name: controller.leaderboardList[2]['name']!,
                               score: controller.leaderboardList[2]['point']!,
                               rank: 3,
-                              medalAsset:
-                                  'assets/images/leaderboard/medal/silver.svg',
+                              badgeUrl: controller.leaderboardList[2]['badge']!,
                             ),
                         ],
                       ),

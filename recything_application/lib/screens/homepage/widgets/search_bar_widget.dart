@@ -26,7 +26,7 @@ class SearchBarWidget extends StatelessWidget {
                 const Icon(Icons.search),
                 const SizedBox(width: 8),
                 Text(
-                  'cari artiker, video',
+                  'cari artikel, video',
                   style: TextStyleConstant.regularSubtitle.copyWith(
                     color: ColorConstant.netralColor700,
                   ),

@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:recything_application/constants/color_constant.dart';
 import 'package:recything_application/constants/icon_constant.dart';
+import 'package:recything_application/screens/challenge/dashboard/challenge_dashboard_screen.dart';
+import 'package:recything_application/screens/dashboard_reporting/dashboard_reporting_screen.dart';
 import 'package:recything_application/screens/homepage/homepage_screen.dart';
 import 'package:recything_application/screens/homepage/widgets/bottom_navbar/buttom_nav_item_widget.dart';
 import 'package:recything_application/screens/homepage/widgets/bottom_navbar/rounded_floating_action_button_widget.dart';
+import 'package:recything_application/screens/recycle/dashboard/dashboard_recycle_screen.dart';
 
 class HomeNavBarScreen extends StatefulWidget {
   int currentIndex = 0;
@@ -16,9 +21,9 @@ class HomeNavBarScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeNavBarScreen> {
   final List<Widget> _pages = [
     const HomePageScreen(),
-    const HomePageScreen(),
-    const HomePageScreen(),
-    const HomePageScreen(),
+    const DashboardRecycleScreen(),
+    const DashboardReportingScreen(),
+    const ChallengeDashboardScreen(),
     const HomePageScreen(),
   ];
 
@@ -28,6 +33,12 @@ class _HomeScreenState extends State<HomeNavBarScreen> {
         widget.currentIndex = index;
       },
     );
+  }
+
+  void _onCenterMenuTapped() {
+    setState(() {
+      widget.currentIndex = 2;
+    });
   }
 
   @override
@@ -85,7 +96,7 @@ class _HomeScreenState extends State<HomeNavBarScreen> {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       resizeToAvoidBottomInset: false,
-      floatingActionButton: const RoundedFloatingActionButton(),
+      floatingActionButton: RoundedFloatingActionButton(onTap: _onCenterMenuTapped),
     );
   }
 }
