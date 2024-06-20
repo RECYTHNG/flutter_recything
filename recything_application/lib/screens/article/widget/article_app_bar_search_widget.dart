@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:recything_application/constants/color_constant.dart';
-import 'package:recything_application/controllers/article/article_search_controller.dart';
+import 'package:recything_application/controllers/article_search_controller.dart';
 import 'package:recything_application/widgets/global_autocomplete_search_bar.dart';
 
 class ArticleAppBarSearchWidget extends StatelessWidget {

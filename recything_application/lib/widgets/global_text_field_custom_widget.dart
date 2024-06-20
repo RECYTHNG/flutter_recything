@@ -25,6 +25,8 @@ class CustomTextFieldWidget extends StatelessWidget {
   final bool isInputForPassword;
   final IconButton? suffixIconButton;
   final bool obscureText;
+  final bool isTextArea;
+  final bool isFloatingLabel;
 
   const CustomTextFieldWidget({
     super.key,
@@ -49,6 +51,8 @@ class CustomTextFieldWidget extends StatelessWidget {
     this.isInputForPassword = false,
     this.suffixIconButton,
     this.obscureText = false,
+    this.isTextArea = false,
+    this.isFloatingLabel = true,
   });
 
   @override
@@ -71,6 +75,8 @@ class CustomTextFieldWidget extends StatelessWidget {
           LengthLimitingTextInputFormatter(13),
         ]
       ],
+      maxLines: isTextArea ? null : 1,
+      minLines: isTextArea ? 5 : null,
       decoration: InputDecoration(
         errorText: error,
         enabled: isEnable,
@@ -88,7 +94,9 @@ class CustomTextFieldWidget extends StatelessWidget {
         ),
         //label
         labelText: label,
-        floatingLabelBehavior: FloatingLabelBehavior.always,
+        floatingLabelBehavior: isFloatingLabel
+            ? FloatingLabelBehavior.always
+            : FloatingLabelBehavior.never,
         floatingLabelStyle: TextStyleConstant.semiboldCaption.copyWith(
           color: floatingLabelColor ?? ColorConstant.primaryColor500,
           fontWeight: labelFontWeight ?? FontWeight.w600,

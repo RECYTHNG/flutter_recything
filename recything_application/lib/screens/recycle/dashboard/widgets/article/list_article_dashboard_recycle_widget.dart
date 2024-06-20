@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:recything_application/constants/spacing_constant.dart';
+import 'package:recything_application/controllers/article_controller.dart';
 import 'package:recything_application/controllers/recycle_controller.dart';
 import 'package:recything_application/models/recycle/article_recycle_model.dart';
+import 'package:recything_application/screens/article/article_detail/article_detail_screen.dart';
 import 'package:recything_application/screens/recycle/dashboard/widgets/article/subheader_article_dashboard_recycle_widget.dart';
 import 'package:recything_application/screens/recycle/widgets/item_simple_article_recycle_widget.dart';
 import 'package:recything_application/utils/date_time_utils.dart';
@@ -14,6 +16,7 @@ class ListArticleDashboardRecycleWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final RecycleController controller = Get.find();
+    final ArticleController articleController = Get.put(ArticleController());
     WidgetsBinding.instance.addPostFrameCallback((_) {
       controller.fetchArticle();
     });
@@ -51,7 +54,18 @@ class ListArticleDashboardRecycleWidget extends StatelessWidget {
                   itemBuilder: (context, index) {
                     final article = dataToShow[index];
                     return ItemSimpleArticleRecycleWidget(
-                      onTap: () {},
+                      onTap: () {
+                        articleController.fetchArticleById(id: article.id);
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const ArticleDetailScreen(),
+                            settings: RouteSettings(
+                              arguments: article.id,
+                            ),
+                          ),
+                        );
+                      },
                       authorImage: article.author.imageUrl,
                       authorName: article.author.name,
                       thumbnail: article.thumbnailUrl,

@@ -19,36 +19,38 @@ class SearchRecycleScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: ColorConstant.whiteColor,
       body: Stack(
-        children: [Column(
-          children: [
-            const AppBarSearchRecycleWidget(),
-            Obx(
-              () {
-                return Expanded(
-                  child: SingleChildScrollView(
-                    child: Column(
-                      children: [
-                        SpacingConstant.verticalSpacing150,
-                        const HistorySearchRecycleWidget(),
-                        SpacingConstant.verticalSpacing250,
-                        if (controller.searchHistory.isEmpty) ...[
-                          const RecommendationSearchRecycleWidget(),
+        children: [
+          Column(
+            children: [
+              const AppBarSearchRecycleWidget(),
+              Obx(
+                () {
+                  return Expanded(
+                    child: SingleChildScrollView(
+                      child: Column(
+                        children: [
+                          SpacingConstant.verticalSpacing150,
+                          const HistorySearchRecycleWidget(),
                           SpacingConstant.verticalSpacing250,
-                          const NewestSearchRecycleWidget(),
-                        ] else ...[
-                          const VideoCurrentSearchRecycleWidget(),
-                          SpacingConstant.verticalSpacing250,
-                          const ArticleCurrentSearchRecycleWidget(),
+                          if (controller.searchHistory.isEmpty) ...[
+                            const RecommendationSearchRecycleWidget(),
+                            SpacingConstant.verticalSpacing250,
+                            const NewestSearchRecycleWidget(),
+                          ] else ...[
+                            const VideoCurrentSearchRecycleWidget(),
+                            SpacingConstant.verticalSpacing250,
+                            const ArticleCurrentSearchRecycleWidget(),
+                          ],
+                          SpacingConstant.verticalSpacing150,
                         ],
-                        SpacingConstant.verticalSpacing150,
-                      ],
+                      ),
                     ),
-                  ),
-                );
-              },
-            )
-          ],
-        ),],
+                  );
+                },
+              )
+            ],
+          ),
+        ],
       ),
     );
   }

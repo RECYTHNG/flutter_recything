@@ -4,7 +4,7 @@ import 'package:recything_application/constants/color_constant.dart';
 import 'package:recything_application/constants/text_style_constant.dart';
 import 'package:recything_application/controllers/doing_task_detail_mission_controller.dart';
 import 'package:recything_application/screens/detail_mission/proof_upload_screen.dart';
-import 'package:recything_application/screens/home_screen.dart';
+import 'package:recything_application/screens/homepage/homepage_screen.dart';
 
 class ButtonChallengeWidget extends StatelessWidget {
   final String userTaskId;
@@ -56,16 +56,14 @@ class ButtonChallengeWidget extends StatelessWidget {
               context,
               MaterialPageRoute(
                 builder: (context) => ProofUploadScreen(
-                  userTaskId: userTaskId,
-                  statusAccept: statusAccept
-                ),
+                    userTaskId: userTaskId, statusAccept: statusAccept),
               ),
             );
           } else if (buttonUpload && statusProgress == 'done') {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => const HomeScreen(),
+                builder: (context) => const HomePageScreen(),
               ),
             );
           } else if (buttonUpload) {
@@ -73,9 +71,7 @@ class ButtonChallengeWidget extends StatelessWidget {
               context,
               MaterialPageRoute(
                 builder: (context) => ProofUploadScreen(
-                  userTaskId: userTaskId,
-                  statusAccept: statusAccept
-                ),
+                    userTaskId: userTaskId, statusAccept: statusAccept),
               ),
             );
           } else {

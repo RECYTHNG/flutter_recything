@@ -4,6 +4,7 @@ import 'package:recything_application/constants/color_constant.dart';
 import 'package:recything_application/constants/shadow_constant.dart';
 import 'package:recything_application/constants/text_style_constant.dart';
 import 'package:recything_application/controllers/home_controller.dart';
+import 'package:recything_application/widgets/global_loading_widget.dart';
 
 class NewVideoSectionWidget extends StatelessWidget {
   NewVideoSectionWidget({super.key});
@@ -51,9 +52,8 @@ class NewVideoSectionWidget extends StatelessWidget {
           const SizedBox(height: 12),
           Obx(
             () {
-              // Gunakan Obx untuk memantau perubahan pada controller.isLoading dan controller.videos
               if (controller.isLoading.value) {
-                return Center(child: CircularProgressIndicator());
+                return const Center(child: MyLoading());
               } else {
                 return Container(
                   decoration: BoxDecoration(

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:recything_application/constants/spacing_constant.dart';
+import 'package:recything_application/controllers/article_controller.dart';
 import 'package:recything_application/controllers/recycle_controller.dart';
 import 'package:recything_application/models/recycle/article_recycle_model.dart';
+import 'package:recything_application/screens/article/article_detail/article_detail_screen.dart';
 import 'package:recything_application/screens/recycle/widgets/item_simple_article_recycle_widget.dart';
 import 'package:recything_application/utils/date_time_utils.dart';
 import 'package:recything_application/widgets/global_loading_widget.dart';
@@ -13,6 +15,7 @@ class ArticleNewestSearchRecycleWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final RecycleController controller = Get.find();
+    final ArticleController articleController = Get.put(ArticleController());
     WidgetsBinding.instance.addPostFrameCallback((_) {
       controller.fetchSortedArticle();
     });
@@ -20,7 +23,8 @@ class ArticleNewestSearchRecycleWidget extends StatelessWidget {
       children: [
         Obx(
           () {
-            if (controller.isLoadingFetchSortedArticle.value || controller.articleSortedData.value == null) {
+            if (controller.isLoadingFetchSortedArticle.value ||
+                controller.articleSortedData.value == null) {
               return const SizedBox(
                 height: 142,
                 child: Center(
@@ -33,18 +37,33 @@ class ArticleNewestSearchRecycleWidget extends StatelessWidget {
                 ),
               );
             } else {
-              final List<Article> dataToShow = controller.articleSortedData.value!.data.articles.take(3).toList();
+              final List<Article> dataToShow = controller
+                  .articleSortedData.value!.data.articles
+                  .take(3)
+                  .toList();
               return SizedBox(
                 height: 142,
                 child: ListView.separated(
-                  separatorBuilder: (context, index) => SpacingConstant.horizontalSpacing200,
+                  separatorBuilder: (context, index) =>
+                      SpacingConstant.horizontalSpacing200,
                   scrollDirection: Axis.horizontal,
                   itemCount: dataToShow.length,
                   clipBehavior: Clip.none,
                   itemBuilder: (context, index) {
                     final article = dataToShow[index];
                     return ItemSimpleArticleRecycleWidget(
-                      onTap: () {},
+                      onTap: () {
+                        articleController.fetchArticleById(id: article.id);
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const ArticleDetailScreen(),
+                            settings: RouteSettings(
+                              arguments: article.id,
+                            ),
+                          ),
+                        );
+                      },
                       authorImage: article.author.imageUrl,
                       authorName: article.author.name,
                       thumbnail: article.thumbnailUrl,

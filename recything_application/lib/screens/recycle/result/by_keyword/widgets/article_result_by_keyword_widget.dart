@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:recything_application/constants/color_constant.dart';
 import 'package:recything_application/constants/spacing_constant.dart';
+import 'package:recything_application/controllers/article_controller.dart';
 import 'package:recything_application/controllers/recycle_controller.dart';
 import 'package:recything_application/models/recycle/category/article_category_recycle_model.dart';
+import 'package:recything_application/screens/article/article_detail/article_detail_screen.dart';
 import 'package:recything_application/screens/recycle/result/by_keyword/widgets/empty_state_article_result_by_keyword_widget.dart';
 import 'package:recything_application/screens/recycle/widgets/item_article_recycle_widget.dart';
 import 'package:recything_application/widgets/global_loading_widget.dart';
@@ -14,6 +16,7 @@ class ArticleResultByKeywordWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final RecycleController controller = Get.find();
+    final ArticleController articleController = Get.put(ArticleController());
     WidgetsBinding.instance.addPostFrameCallback((_) {
       controller.fetchArticleByKeyword();
     });
@@ -34,10 +37,13 @@ class ArticleResultByKeywordWidget extends StatelessWidget {
                       ],
                     ),
                   );
-                } else if (controller.resultArticleByKeyword.value!.data.isEmpty) {
+                } else if (controller
+                        .resultArticleByKeyword.value?.data.isEmpty ??
+                    true) {
                   return const EmptyStateArticleResultByKeywordWidget();
                 } else {
-                  final List<Article> data = controller.resultArticleByKeyword.value!.data;
+                  final List<Article> data =
+                      controller.resultArticleByKeyword.value!.data;
                   return ListView.separated(
                     separatorBuilder: (context, index) => const Padding(
                       padding: EdgeInsets.symmetric(vertical: 5),
@@ -58,7 +64,18 @@ class ArticleResultByKeywordWidget extends StatelessWidget {
                         title: article.title,
                         desc: article.description,
                         date: article.createdAt,
-                        onTap: () {},
+                        onTap: () {
+                          articleController.fetchArticleById(id: article.id);
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const ArticleDetailScreen(),
+                              settings: RouteSettings(
+                                arguments: article.id,
+                              ),
+                            ),
+                          );
+                        },
                       );
                     },
                   );

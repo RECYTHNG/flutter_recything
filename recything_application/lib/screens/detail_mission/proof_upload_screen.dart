@@ -3,7 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:recything_application/constants/color_constant.dart';
-import 'package:recything_application/constants/icon_constant.dart';
+import 'package:recything_application/constants/image_constant.dart';
 import 'package:recything_application/constants/text_style_constant.dart';
 import 'package:recything_application/controllers/doing_task_proof_upload_controller.dart';
 import 'package:recything_application/screens/detail_mission/widgets/bukti_satu_widget.dart';
@@ -72,7 +72,7 @@ class _ProofUploadScreenState extends State<ProofUploadScreen> {
                       child: Padding(
                         padding: const EdgeInsets.all(12),
                         child: Image.asset(
-                          IconConstant.iconInputUseCamera,
+                          ImageConstant.camera,
                           width: 92,
                         ),
                       ),
@@ -102,7 +102,7 @@ class _ProofUploadScreenState extends State<ProofUploadScreen> {
                       child: Padding(
                         padding: const EdgeInsets.all(12),
                         child: Image.asset(
-                          IconConstant.iconInputUseGaleri,
+                          ImageConstant.gallery,
                           width: 92,
                         ),
                       ),

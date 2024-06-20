@@ -57,6 +57,7 @@ dependencies:
     timeago: ^3.6.1
     gallery_picker: ^0.5.1
     image_picker: ^1.1.2
+    mime: ^1.0.5
     http_parser: ^4.0.2
 
 dev_dependencies:
@@ -69,13 +70,11 @@ dev_dependencies:
     # package. See that file for information about deactivating specific lint
     # rules and activating additional ones.
     flutter_lints: ^3.0.0
-
     envied_generator: ^0.5.4+1
     build_runner: ^2.4.11
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
-
 # The following section is specific to Flutter packages.
 flutter:
     # The following line ensures that the Material Icons font is
@@ -90,6 +89,7 @@ flutter:
     #   - images/a_dot_ham.jpeg
     assets:
         - assets/images/global/
+        - assets/images/profile/
         - assets/images/home_images/
         - assets/images/home_images/badges/
         - assets/images/home_images/icons/
@@ -110,9 +110,11 @@ flutter:
         - assets/images/article/
         - assets/images/recycle/
         - assets/images/reporting_rubbish/
+        - assets/images/edit_profile/
         - assets/lotties/
         - assets/images/challenge_dashboard/
         - assets/icons/
+        - assets/icons/search/
         - assets/images/detail_mission_image/
         - assets/images/detail_mission_image/status_task/
         - assets/images/detail_mission_image/proof_upload/
@@ -141,12 +143,12 @@ flutter:
     #         weight: 700
 
     fonts:
-      - family: Nunito
-        fonts:
-          - asset: assets/fonts/Nunito-Bold.ttf
-          - asset: assets/fonts/Nunito-Medium.ttf
-          - asset: assets/fonts/Nunito-Regular.ttf
-          - asset: assets/fonts/Nunito-SemiBold.ttf
+        - family: Nunito
+          fonts:
+              - asset: assets/fonts/Nunito-Bold.ttf
+              - asset: assets/fonts/Nunito-Medium.ttf
+              - asset: assets/fonts/Nunito-Regular.ttf
+              - asset: assets/fonts/Nunito-SemiBold.ttf
 
     #
     # For details regarding fonts from package dependencies,

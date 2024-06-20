@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:recything_application/constants/color_constant.dart';
 import 'package:recything_application/constants/icon_constant.dart';
 import 'package:recything_application/screens/challenge/dashboard/challenge_dashboard_screen.dart';
@@ -8,6 +6,7 @@ import 'package:recything_application/screens/dashboard_reporting/dashboard_repo
 import 'package:recything_application/screens/homepage/homepage_screen.dart';
 import 'package:recything_application/screens/homepage/widgets/bottom_navbar/buttom_nav_item_widget.dart';
 import 'package:recything_application/screens/homepage/widgets/bottom_navbar/rounded_floating_action_button_widget.dart';
+import 'package:recything_application/screens/profile/profile_screen.dart';
 import 'package:recything_application/screens/recycle/dashboard/dashboard_recycle_screen.dart';
 
 class HomeNavBarScreen extends StatefulWidget {
@@ -24,7 +23,7 @@ class _HomeScreenState extends State<HomeNavBarScreen> {
     const DashboardRecycleScreen(),
     const DashboardReportingScreen(),
     const ChallengeDashboardScreen(),
-    const HomePageScreen(),
+    ProfileScreen(),
   ];
 
   void _onItemTapped(int index) {
@@ -40,6 +39,7 @@ class _HomeScreenState extends State<HomeNavBarScreen> {
       widget.currentIndex = 2;
     });
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -77,7 +77,7 @@ class _HomeScreenState extends State<HomeNavBarScreen> {
             const SizedBox(width: 48),
             BottomNavItem(
               iconPath: IconConstant.iconChallenge,
-              label: 'Recycle',
+              label: 'Challenge',
               index: 3,
               currentIndex: widget.currentIndex,
               onTap: _onItemTapped,
@@ -96,8 +96,7 @@ class _HomeScreenState extends State<HomeNavBarScreen> {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       resizeToAvoidBottomInset: false,
-      floatingActionButton:
-          RoundedFloatingActionButton(onTap: _onCenterMenuTapped),
+      floatingActionButton: RoundedFloatingActionButton(onTap: _onCenterMenuTapped, isMenuActive: widget.currentIndex == 2)
     );
   }
 }
