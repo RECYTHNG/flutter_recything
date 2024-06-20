@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:recything_application/constants/color_constant.dart';
 import 'package:recything_application/constants/spacing_constant.dart';
+import 'package:recything_application/screens/about_us/about_us_screen.dart';
 import 'package:recything_application/screens/authentication/login/login_screen.dart';
 import 'package:recything_application/screens/customer_service/cutomer_service_faq_main/customer_service_screen.dart';
 import 'package:recything_application/screens/profile/widget/menu_widget.dart';
@@ -31,7 +32,9 @@ class ListMenuWidget extends StatelessWidget {
         ),
         SpacingConstant.verticalSpacing200,
         GestureDetector(
-          onTap: () {},
+          onTap: () {
+            Get.to(() => AboutUsScreen());
+          },
           child: const MenuWidget(
             assetName2: "assets/images/profile/navigate_next.png",
             assetName: "assets/images/profile/for_you.png",
