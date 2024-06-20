@@ -8,6 +8,7 @@ import 'package:recything_application/screens/dashboard_reporting/dashboard_repo
 import 'package:recything_application/screens/homepage/homepage_screen.dart';
 import 'package:recything_application/screens/homepage/widgets/bottom_navbar/buttom_nav_item_widget.dart';
 import 'package:recything_application/screens/homepage/widgets/bottom_navbar/rounded_floating_action_button_widget.dart';
+import 'package:recything_application/screens/profile/profile_screen.dart';
 import 'package:recything_application/screens/recycle/dashboard/dashboard_recycle_screen.dart';
 
 class HomeNavBarScreen extends StatefulWidget {
@@ -24,7 +25,7 @@ class _HomeScreenState extends State<HomeNavBarScreen> {
     const DashboardRecycleScreen(),
     const DashboardReportingScreen(),
     const ChallengeDashboardScreen(),
-    const HomePageScreen(),
+    ProfileScreen(),
   ];
 
   void _onItemTapped(int index) {
@@ -96,7 +97,8 @@ class _HomeScreenState extends State<HomeNavBarScreen> {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       resizeToAvoidBottomInset: false,
-      floatingActionButton: RoundedFloatingActionButton(onTap: _onCenterMenuTapped),
+      floatingActionButton:
+          RoundedFloatingActionButton(onTap: _onCenterMenuTapped),
     );
   }
 }
