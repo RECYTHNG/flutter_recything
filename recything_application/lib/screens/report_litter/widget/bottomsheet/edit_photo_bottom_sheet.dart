@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:recything_application/constants/color_constant.dart';
 import 'package:recything_application/constants/text_style_constant.dart';
+import 'package:recything_application/widgets/global_button_widget.dart';
 
 class EditPhotoBottomSheet extends StatelessWidget {
   final XFile media;
@@ -50,38 +51,24 @@ class EditPhotoBottomSheet extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              GestureDetector(
-                onTap: onReplaceImage,
-                child: Column(
-                  children: [
-                    Icon(
-                      Icons.edit,
-                      color: ColorConstant.primaryColor500,
-                    ),
-                    SizedBox(height: 8),
-                    Text(
-                      'Ganti Foto',
-                      style: TextStyleConstant.regularSubtitle,
-                    ),
-                  ],
-                ),
-              ),
-              GestureDetector(
-                onTap: onDelete,
-                child: Column(
-                  children: [
-                    Icon(
-                      Icons.delete,
-                      color: ColorConstant.primaryColor500,
-                    ),
-                    SizedBox(height: 8),
-                    Text(
-                      'Hapus',
-                      style: TextStyleConstant.regularSubtitle,
-                    ),
-                  ],
-                ),
-              ),
+              GlobalButtonWidget(
+                  onTap: onReplaceImage,
+                  width: 144,
+                  height: 48,
+                  backgroundColor: ColorConstant.primaryColor500,
+                  isBorder: false,
+                  title: 'Ganti Foto',
+                  textColor: ColorConstant.whiteColor,
+                  fontSize: 20),
+              GlobalButtonWidget(
+                  onTap: onDelete,
+                  width: 144,
+                  height: 48,
+                  backgroundColor: ColorConstant.netralColor500,
+                  isBorder: false,
+                  title: 'Hapus',
+                  textColor: ColorConstant.primaryColor500,
+                  fontSize: 20),
             ],
           ),
         ],

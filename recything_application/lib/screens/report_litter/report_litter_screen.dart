@@ -67,6 +67,7 @@ class ReportLitterScreenState extends State<ReportLitterScreen> {
     }
 
     showModalBottomSheet(
+      backgroundColor: ColorConstant.whiteColor,
       context: context,
       builder: (BuildContext context) {
         return ConfirmationBottomSheet(
@@ -83,6 +84,7 @@ class ReportLitterScreenState extends State<ReportLitterScreen> {
 
   void _showEditLitterTypeSheet() {
     showModalBottomSheet(
+      backgroundColor: ColorConstant.whiteColor,
       context: context,
       builder: (BuildContext context) {
         return LitterTypeBottomSheet();
@@ -92,6 +94,7 @@ class ReportLitterScreenState extends State<ReportLitterScreen> {
 
   void _showEditPhotoBottomSheet(XFile media, int index) {
     showModalBottomSheet(
+      backgroundColor: ColorConstant.whiteColor,
       context: context,
       builder: (BuildContext context) {
         return EditPhotoBottomSheet(
