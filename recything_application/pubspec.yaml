@@ -112,6 +112,8 @@ flutter:
         - assets/images/reporting_rubbish/
         - assets/lotties/
         - assets/images/challenge_dashboard/
+        - assets/icons/
+        - assets/icons/search/
 
     # An image asset can refer to one or more resolution-specific "variants", see
     # https://flutter.dev/assets-and-images/#resolution-aware

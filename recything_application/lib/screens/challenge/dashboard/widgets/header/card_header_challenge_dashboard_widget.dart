@@ -4,6 +4,9 @@ import 'package:recything_application/constants/color_constant.dart';
 import 'package:recything_application/constants/spacing_constant.dart';
 import 'package:recything_application/constants/text_style_constant.dart';
 import 'package:recything_application/controllers/challenge_dashboard_controller.dart';
+import 'package:recything_application/screens/achievement_screen/achievement_screen.dart';
+import 'package:recything_application/screens/challenge/challenge_list/challenge_list_screen.dart';
+import 'package:recything_application/screens/halaman_riwayat/point_history_screen.dart';
 import 'package:recything_application/utils/user_level_utils.dart';
 
 class CardHeaderMissionDashboardWidget extends StatelessWidget {
@@ -43,45 +46,48 @@ class CardHeaderMissionDashboardWidget extends StatelessWidget {
                       color: ColorConstant.netralColor50,
                     ),
                   ),
-                  Container(
-                    padding: const EdgeInsets.symmetric(
-                      vertical: 5,
-                      horizontal: 17,
-                    ),
-                    height: 29,
-                    decoration: BoxDecoration(
-                      color: const Color(0xffEFEFEF),
-                      border: Border.all(
-                        width: 1,
-                        color: ColorConstant.primaryColor500,
+                  GestureDetector(
+                    onTap: () => Get.to(() => const AchievementScreen()),
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(
+                        vertical: 5,
+                        horizontal: 17,
                       ),
-                      borderRadius: const BorderRadius.all(
-                        Radius.circular(11),
-                      ),
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        if (controller.userAchievementData.value != null)
-                          Image.network(
-                            controller
-                                .userAchievementData.value!.data.dataUser.badge,
-                          ),
-                        SpacingConstant.horizontalSpacing050,
-                        Text(
-                          controller.userAchievementData.value?.data != null
-                              ? UserLevelUtils.getLevel(controller
-                                  .userAchievementData
-                                  .value!
-                                  .data
-                                  .dataUser
-                                  .point)
-                              : 'Classic',
-                          style: TextStyleConstant.semiboldCaption.copyWith(
-                            color: ColorConstant.primaryColor500,
-                          ),
+                      height: 29,
+                      decoration: BoxDecoration(
+                        color: const Color(0xffEFEFEF),
+                        border: Border.all(
+                          width: 1,
+                          color: ColorConstant.primaryColor500,
                         ),
-                      ],
+                        borderRadius: const BorderRadius.all(
+                          Radius.circular(11),
+                        ),
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          if (controller.userAchievementData.value != null)
+                            Image.network(
+                              controller
+                                  .userAchievementData.value!.data.dataUser.badge,
+                            ),
+                          SpacingConstant.horizontalSpacing050,
+                          Text(
+                            controller.userAchievementData.value?.data != null
+                                ? UserLevelUtils.getLevel(controller
+                                    .userAchievementData
+                                    .value!
+                                    .data
+                                    .dataUser
+                                    .point)
+                                : 'Classic',
+                            style: TextStyleConstant.semiboldCaption.copyWith(
+                              color: ColorConstant.primaryColor500,
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ],
@@ -106,7 +112,7 @@ class CardHeaderMissionDashboardWidget extends StatelessWidget {
                 children: [
                   Expanded(
                     child: GestureDetector(
-                      onTap: () {},
+                      onTap: () => Get.to(() => const ChallengeListScreen()),
                       child: Container(
                         width: double.infinity,
                         padding: const EdgeInsets.symmetric(
@@ -133,7 +139,7 @@ class CardHeaderMissionDashboardWidget extends StatelessWidget {
                   SpacingConstant.horizontalSpacing100,
                   Expanded(
                     child: GestureDetector(
-                      onTap: () {},
+                      onTap: () => Get.to(() => PointHisstoryScreen()),
                       child: Container(
                         width: double.infinity,
                         padding: const EdgeInsets.symmetric(
