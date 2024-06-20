@@ -11,7 +11,7 @@ import 'package:recything_application/screens/homepage/widgets/bottom_navbar/rou
 import 'package:recything_application/screens/recycle/dashboard/dashboard_recycle_screen.dart';
 
 class HomeNavBarScreen extends StatefulWidget {
-  int currentIndex = 0;
+  int currentIndex;
   HomeNavBarScreen({super.key, required this.currentIndex});
 
   @override
@@ -96,7 +96,8 @@ class _HomeScreenState extends State<HomeNavBarScreen> {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       resizeToAvoidBottomInset: false,
-      floatingActionButton: RoundedFloatingActionButton(onTap: _onCenterMenuTapped),
+      floatingActionButton:
+          RoundedFloatingActionButton(onTap: _onCenterMenuTapped),
     );
   }
 }
