@@ -4,7 +4,6 @@ import 'package:recything_application/constants/color_constant.dart';
 import 'package:recything_application/constants/spacing_constant.dart';
 import 'package:recything_application/controllers/recycle_controller.dart';
 import 'package:recything_application/widgets/global_autocomplete_search_bar.dart';
-import 'package:recything_application/widgets/global_search_bar.dart';
 
 class AppBarResultByKeywordWidget extends StatelessWidget implements PreferredSizeWidget {
   const AppBarResultByKeywordWidget({super.key});
@@ -58,7 +57,7 @@ class AppBarResultByKeywordWidget extends StatelessWidget implements PreferredSi
                             controller.matchedData.clear();
                           },
                           onSubmitted: (value) {
-                            controller.onSubmittedSearch(value);
+                            controller.onSubmittedSearchResultPage(value);
                           },
                         );
                       },

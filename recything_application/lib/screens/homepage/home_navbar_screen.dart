@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:recything_application/constants/color_constant.dart';
 import 'package:recything_application/constants/icon_constant.dart';
 import 'package:recything_application/screens/challenge/dashboard/challenge_dashboard_screen.dart';
@@ -42,6 +40,7 @@ class _HomeScreenState extends State<HomeNavBarScreen> {
     });
   }
 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -78,7 +77,7 @@ class _HomeScreenState extends State<HomeNavBarScreen> {
             const SizedBox(width: 48),
             BottomNavItem(
               iconPath: IconConstant.iconChallenge,
-              label: 'Recycle',
+              label: 'Challenge',
               index: 3,
               currentIndex: widget.currentIndex,
               onTap: _onItemTapped,
@@ -97,8 +96,7 @@ class _HomeScreenState extends State<HomeNavBarScreen> {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       resizeToAvoidBottomInset: false,
-      floatingActionButton:
-          RoundedFloatingActionButton(onTap: _onCenterMenuTapped),
+      floatingActionButton: RoundedFloatingActionButton(onTap: _onCenterMenuTapped, isMenuActive: widget.currentIndex == 2)
     );
   }
 }

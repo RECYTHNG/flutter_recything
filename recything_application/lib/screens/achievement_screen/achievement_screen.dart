@@ -19,7 +19,9 @@ class _AchievementScreenState extends State<AchievementScreen> {
     return DefaultTabController(
       length: 4,
       child: Scaffold(
+        backgroundColor: ColorConstant.whiteColor,
         appBar: AppBar(
+          backgroundColor: ColorConstant.whiteColor,
           bottom: TabBar(
               tabs: const [
                 Tab(text: 'Classic'),
@@ -29,11 +31,12 @@ class _AchievementScreenState extends State<AchievementScreen> {
               ],
               labelStyle: TextStyleConstant.boldParagraph.copyWith(
                 color: ColorConstant.netralColor900,
+                fontFamily: 'Nunito',
               ),
               unselectedLabelColor: ColorConstant.netralColor600,
               indicatorColor: ColorConstant.primaryColor500,
               dividerColor: ColorConstant.netralColor500,
-              overlayColor: MaterialStateProperty.all<Color>(
+              overlayColor: WidgetStateProperty.all<Color>(
                 Colors.transparent,
               )),
           title: Text(

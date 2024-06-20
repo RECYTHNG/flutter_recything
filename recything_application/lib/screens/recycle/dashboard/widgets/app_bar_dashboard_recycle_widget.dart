@@ -73,5 +73,5 @@ class AppBarDashboardRecycleWidget extends StatelessWidget implements PreferredS
   }
 
   @override
-  Size get preferredSize => const Size.fromHeight(150);
+  Size get preferredSize => const Size.fromHeight(120);
 }
