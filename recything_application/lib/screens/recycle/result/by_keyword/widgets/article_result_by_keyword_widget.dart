@@ -55,6 +55,7 @@ class ArticleResultByKeywordWidget extends StatelessWidget {
                     scrollDirection: Axis.vertical,
                     itemCount: data.length,
                     clipBehavior: Clip.none,
+                    padding: const EdgeInsets.only(top: 0),
                     itemBuilder: (context, index) {
                       final article = data[index];
                       return ItemArticleRecycleWidget(

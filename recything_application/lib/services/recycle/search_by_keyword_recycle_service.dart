@@ -31,7 +31,7 @@ class SearchByKeywordyRecycleService {
 
   Future<VideoCategoryRecycleModel> getVideoByKeyword(String keyword) async {
     try {
-      final token = SharedPref.getToken();
+      final token = await SharedPref.getToken();
       final response = await _dio.get(
         '$recythingBaseUrl/videos/search',
         queryParameters: {
