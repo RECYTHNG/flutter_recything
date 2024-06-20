@@ -21,7 +21,6 @@ class ArticleRecycleService {
           headers: {'Authorization': 'Bearer $token'},
         ),
       );
-      print(response.data);
       final jsonResponse = response.data as Map<String, dynamic>;
       return ArticleRecycleModel.fromJson(jsonResponse);
     } on DioException catch (e) {

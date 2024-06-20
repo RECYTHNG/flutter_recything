@@ -58,9 +58,6 @@ class GlobalAutocompleteSearchBar extends StatelessWidget {
             child: ListView(
               shrinkWrap: true,
               children: [
-                SizedBox.fromSize(
-                  size: Size.fromHeight(height - 1),
-                ),
                 ...matchedSearchData!.map((element) {
                   return Material(
                     shape: const RoundedRectangleBorder(
