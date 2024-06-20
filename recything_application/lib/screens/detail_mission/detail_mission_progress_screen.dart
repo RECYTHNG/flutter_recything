@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:recything_application/constants/color_constant.dart';
 import 'package:recything_application/constants/text_style_constant.dart';
 import 'package:recything_application/controllers/doing_task_detail_mission_controller.dart';
+import 'package:recything_application/screens/challenge/my_challenge/my_challenge_screen.dart';
 import 'package:recything_application/screens/detail_mission/widgets/mission_header_widget.dart';
 import 'package:recything_application/screens/detail_mission/widgets/mission_step_upload_widget%20.dart';
 import 'package:recything_application/screens/detail_mission/widgets/mission_step_widget.dart';
@@ -50,6 +51,7 @@ class DetailMissionProgressScreen extends StatelessWidget {
           if (data.isEmpty) {
             return Scaffold(
               appBar: AppBar(
+                leading: Text('2'),
                 title: Text(
                   'Detail Challenge',
                   style: TextStyleConstant.semiboldTitle.copyWith(
@@ -62,7 +64,7 @@ class DetailMissionProgressScreen extends StatelessWidget {
               ),
               body: Center(
                 child: Text(
-                  'Data not available.',
+                  '',
                   style: TextStyleConstant.semiboldTitle,
                 ),
               ),
@@ -76,6 +78,14 @@ class DetailMissionProgressScreen extends StatelessWidget {
 
           return Scaffold(
             appBar: AppBar(
+              leading: IconButton(
+                onPressed: () {
+                  Get.off(
+                    const MyChallengeScreen(),
+                  );
+                },
+                icon: const Icon(Icons.arrow_back),
+              ),
               title: Text(
                 'Detail Challenge',
                 style: TextStyleConstant.semiboldTitle.copyWith(
