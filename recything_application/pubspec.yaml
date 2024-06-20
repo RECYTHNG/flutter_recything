@@ -120,6 +120,9 @@ flutter:
     - assets/icons/
     - assets/icons/search/
     - assets/images/video_content/
+    - assets/images/detail_mission_image/
+    - assets/images/detail_mission_image/status_task/
+    - assets/images/detail_mission_image/proof_upload/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

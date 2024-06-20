@@ -10,7 +10,7 @@ import 'package:recything_application/screens/profile/profile_screen.dart';
 import 'package:recything_application/screens/recycle/dashboard/dashboard_recycle_screen.dart';
 
 class HomeNavBarScreen extends StatefulWidget {
-  int currentIndex = 0;
+  int currentIndex;
   HomeNavBarScreen({super.key, required this.currentIndex});
 
   @override
