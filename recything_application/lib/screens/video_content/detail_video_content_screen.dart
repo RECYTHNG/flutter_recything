@@ -443,9 +443,22 @@ class DetailVideoContentScreen extends StatelessWidget {
                                                                     videoContentController
                                                                         .commentController,
                                                                 prefixIcon:
-                                                                    const Icon(
-                                                                  Icons.person,
-                                                                  size: 24,
+                                                                    const Padding(
+                                                                  padding: EdgeInsets
+                                                                      .only(
+                                                                          left:
+                                                                              2,
+                                                                          top:
+                                                                              5,
+                                                                          bottom:
+                                                                              5),
+                                                                  child:
+                                                                      CircleAvatar(
+                                                                    radius: 24,
+                                                                    backgroundColor:
+                                                                        Colors
+                                                                            .amber,
+                                                                  ),
                                                                 ),
                                                                 suffixIcon:
                                                                     IconButton(

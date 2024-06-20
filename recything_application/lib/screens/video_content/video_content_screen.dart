@@ -322,7 +322,7 @@ class SearchContentWidget extends StatelessWidget {
                                 ),
                                 SpacingConstant.verticalSpacing100,
                                 Text(
-                                  "${videoData?.viewer ?? 0} ditonton",
+                                  "${videoContentController.formatNumber(videoData?.viewer ?? 0)} ditonton",
                                   style:
                                       TextStyleConstant.regularFooter.copyWith(
                                     color: ColorConstant.netralColor900,
