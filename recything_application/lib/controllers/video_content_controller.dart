@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:get/get_rx/get_rx.dart';
 import 'package:get/get_rx/src/rx_types/rx_types.dart';
 import 'package:get/state_manager.dart';
+import 'package:recything_application/controllers/profile_controller.dart';
 import 'package:recything_application/models/video_content/detail_video_content_model.dart';
 import 'package:recything_application/models/video_content/response_category_model.dart';
 import 'package:recything_application/models/video_content/response_search_model.dart';
@@ -26,6 +27,8 @@ class VideoContentController extends GetxController {
 
   TextEditingController commentController = TextEditingController();
   RxList<Map<String, dynamic>> idAndTitle = <Map<String, dynamic>>[].obs;
+
+  final ProfileController profileController = Get.put(ProfileController());
 
   @override
   void dispose() {
@@ -112,10 +115,9 @@ class VideoContentController extends GetxController {
     try {
       videoContentService.postComment(videoId, comment);
       detailVideoContentData.value?.data?.comments?.add({
-        "user_name": "Current User",
+        "user_name": profileController.userData.value?.name,
         "comment": comment,
-        "user_profile":
-            "https://res.cloudinary.com/dymhvau8n/image/upload/v1718189121/user_badge/htaemsjtlhfof7ww01ss.png",
+        "user_profile": profileController.userData.value?.pictureUrl,
         "created_at": DateTime.now().toString(),
       });
       detailVideoContentData.refresh();

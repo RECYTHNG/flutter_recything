@@ -101,9 +101,14 @@ class _BackAndSearchWidgetState extends State<BackAndSearchWidget> {
       width: double.infinity,
       child: Row(
         children: [
-          const Icon(
-            Icons.arrow_back,
-            size: 24,
+          InkWell(
+            onTap: () {
+              Get.back();
+            },
+            child: const Icon(
+              Icons.arrow_back,
+              size: 24,
+            ),
           ),
           SpacingConstant.horizontalSpacing300,
           Expanded(

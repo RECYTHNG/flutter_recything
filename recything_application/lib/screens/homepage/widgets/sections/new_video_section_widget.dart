@@ -4,6 +4,7 @@ import 'package:recything_application/constants/color_constant.dart';
 import 'package:recything_application/constants/shadow_constant.dart';
 import 'package:recything_application/constants/text_style_constant.dart';
 import 'package:recything_application/controllers/home_controller.dart';
+import 'package:recything_application/screens/video_content/video_content_screen.dart';
 
 class NewVideoSectionWidget extends StatelessWidget {
   NewVideoSectionWidget({super.key});
@@ -38,7 +39,9 @@ class NewVideoSectionWidget extends StatelessWidget {
                 ],
               ),
               TextButton(
-                onPressed: () {},
+                onPressed: () {
+                  Get.to(VideoContentScreen());
+                },
                 child: Text(
                   'Lihat Semua',
                   style: TextStyleConstant.semiboldCaption.copyWith(

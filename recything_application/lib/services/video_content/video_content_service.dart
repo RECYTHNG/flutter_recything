@@ -4,12 +4,12 @@ import 'package:recything_application/models/video_content/detail_video_content_
 import 'package:recything_application/models/video_content/response_category_model.dart';
 import 'package:recything_application/models/video_content/response_search_model.dart';
 import 'package:recything_application/models/video_content/video_content_model.dart';
+import 'package:recything_application/utils/shared_pref.dart';
 
 class VideoContentService {
   var baseUrl = Env.recythingBaseUrl;
-  var authToken =
-      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiVVNSMDAwMyIsInJvbGUiOiJ1c2VyIiwiZXhwIjoxNzIwOTI2NDExfQ.NIBgmfUIoUAMPmBVgZZLriRvXTXf_oLkzbVEilfkCOY";
   Future<VideoContentModel> getVideoContent() async {
+    String? authToken = await SharedPref.getToken();
     try {
       final response = await Dio().get(
         "$baseUrl/videos",
@@ -50,6 +50,7 @@ class VideoContentService {
 
   Future<DetailVideoContentModel> getDetailVideoContent(
       int id, bool sortCommet) async {
+    String? authToken = await SharedPref.getToken();
     try {
       final response = await Dio().get(
         queryParameters: {
@@ -86,6 +87,7 @@ class VideoContentService {
   }
 
   Future<void> postComment(int id, String comment) async {
+    String? authToken = await SharedPref.getToken();
     try {
       final response = await Dio().post(
         "$baseUrl/videos/comment",
@@ -110,6 +112,7 @@ class VideoContentService {
   }
 
   Future<ResponseGetCategoryModel> getCategoryVideoContent(String name) async {
+    String? authToken = await SharedPref.getToken();
     try {
       final response = await Dio().get(
         "$baseUrl/videos/category",
@@ -149,6 +152,7 @@ class VideoContentService {
 
   Future<VideoContentSearchResponseModel> getSearchVideoContent(
       String keyword) async {
+    String? authToken = await SharedPref.getToken();
     try {
       final response = await Dio().get(
         "$baseUrl/videos/search",

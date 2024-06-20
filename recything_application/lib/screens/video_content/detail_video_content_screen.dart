@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:recything_application/constants/color_constant.dart';
 import 'package:recything_application/constants/spacing_constant.dart';
 import 'package:recything_application/constants/text_style_constant.dart';
+import 'package:recything_application/controllers/profile_controller.dart';
 import 'package:recything_application/controllers/video_content_controller.dart';
 import 'package:recything_application/screens/video_content/widgets/komentar_widget.dart';
 import 'package:recything_application/services/video_content/video_content_service.dart';
@@ -21,6 +22,7 @@ class DetailVideoContentScreen extends StatelessWidget {
       Get.put(VideoContentController());
 
   VideoContentService videoContentService = VideoContentService();
+  final ProfileController profileController = Get.put(ProfileController());
 
   @override
   Widget build(BuildContext context) {
@@ -474,26 +476,34 @@ class DetailVideoContentScreen extends StatelessWidget {
                                                                         .commentController,
                                                                 prefixIcon:
                                                                     Padding(
-                                                                  padding:
-                                                                      const EdgeInsets
-                                                                          .only(
-                                                                          left:
-                                                                              2,
-                                                                          top:
-                                                                              5,
-                                                                          bottom:
-                                                                              5),
-                                                                  child:
-                                                                      CircleAvatar(
-                                                                    radius: 24,
-                                                                    backgroundColor:
-                                                                        Colors
-                                                                            .amber,
-                                                                    child: Image
-                                                                        .asset(
-                                                                            "assets/images/video_content/Ellipse 339.png"),
-                                                                  ),
-                                                                ),
+                                                                        padding: const EdgeInsets
+                                                                            .only(
+                                                                            left:
+                                                                                8,
+                                                                            top:
+                                                                                5,
+                                                                            bottom:
+                                                                                5,
+                                                                            right:
+                                                                                8),
+                                                                        child:
+                                                                            Container(
+                                                                          height:
+                                                                              24,
+                                                                          width:
+                                                                              24,
+                                                                          decoration:
+                                                                              BoxDecoration(
+                                                                            shape:
+                                                                                BoxShape.circle,
+                                                                            color:
+                                                                                Colors.amber,
+                                                                            image:
+                                                                                DecorationImage(
+                                                                              image: NetworkImage("${profileController.userData.value?.pictureUrl}"),
+                                                                            ),
+                                                                          ),
+                                                                        )),
                                                                 suffixIcon:
                                                                     IconButton(
                                                                   onPressed:
