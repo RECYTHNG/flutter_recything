@@ -63,7 +63,7 @@ class _PickLitterTypeScreenState extends State<PickLitterTypeScreen> {
       body: Column(
         children: [
           Expanded(
-            child: ListView.builder(
+            child: ListView.separated(
               itemCount: listSampah.length,
               itemBuilder: (BuildContext context, int index) {
                 return Column(
@@ -71,6 +71,7 @@ class _PickLitterTypeScreenState extends State<PickLitterTypeScreen> {
                     RadioListTile<String>(
                       activeColor: ColorConstant.primaryColor500,
                       title: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Image.asset(
                             'assets/images/report_litter/${listSampah[index]['image']}.png',
@@ -79,7 +80,8 @@ class _PickLitterTypeScreenState extends State<PickLitterTypeScreen> {
                             fit: BoxFit.cover,
                           ),
                           const SizedBox(width: 8),
-                          Text(listSampah[index]['name']!),
+                          Text(listSampah[index]['name']!,
+                              style: TextStyleConstant.regularTitle),
                         ],
                       ),
                       value: listSampah[index]['name'] ?? '',
@@ -93,11 +95,16 @@ class _PickLitterTypeScreenState extends State<PickLitterTypeScreen> {
                     ),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 24),
-                      child: Text(listSampah[index]['desc']!),
+                      child: Text(
+                        listSampah[index]['desc']!,
+                        style: TextStyleConstant.regularParagraph,
+                      ),
                     ),
-                    SpacingConstant.verticalSpacing300,
                   ],
                 );
+              },
+              separatorBuilder: (BuildContext context, int index) {
+                return SpacingConstant.verticalSpacing300;
               },
             ),
           ),

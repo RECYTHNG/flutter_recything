@@ -1,9 +1,11 @@
 import 'dart:convert';
+import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:recything_application/screens/report_litter/success_report_litter_screen.dart';
 import 'package:recything_application/services/report_litter/report_litter_service.dart';
+import 'package:recything_application/widgets/global_image_picker_dialog_widget.dart';
 
 class ReportLitterController extends GetxController {
   TextEditingController conditionController = TextEditingController();
@@ -25,16 +27,24 @@ class ReportLitterController extends GetxController {
     return imageFiles.length >= 9;
   }
 
-  Future<void> pickImage() async {
+  Future<void> pickImage(ImageSource source) async {
     if (!isMaxImagesReached()) {
-      final XFile? pickedFile =
-          await _picker.pickImage(source: ImageSource.gallery);
+      final XFile? pickedFile = await _picker.pickImage(source: source);
       if (pickedFile != null) {
         imageFiles.add(pickedFile);
       }
     } else {
-      Get.snackbar("Limit", "Maksimal 9 foto");
+      _showSnackbar(
+          title: 'Upload Gagal',
+          message: 'Jumlah maksimal foto adalah 9',
+          contentType: ContentType.failure);
     }
+  }
+
+  Future<void> showImageSourceDialog(
+      Function(ImageSource) onImageSourceSelected) async {
+    return Get.dialog(GlobalImagePickerDialogWidget(
+        onImageSourceSelected: onImageSourceSelected));
   }
 
   void collectData(
@@ -97,4 +107,23 @@ class ReportLitterController extends GetxController {
   String toJsonString() {
     return jsonEncode(toJson());
   }
+}
+
+void _showSnackbar({
+  required String title,
+  required String message,
+  required ContentType contentType,
+}) {
+  Get.rawSnackbar(
+    backgroundColor: Colors.transparent,
+    snackPosition: SnackPosition.BOTTOM,
+    snackStyle: SnackStyle.FLOATING,
+    messageText: AwesomeSnackbarContent(
+      titleFontSize: 18,
+      messageFontSize: 14,
+      title: title,
+      message: message,
+      contentType: contentType,
+    ),
+  );
 }

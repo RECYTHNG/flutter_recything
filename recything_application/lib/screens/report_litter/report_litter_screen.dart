@@ -25,6 +25,8 @@ class ReportLitterScreen extends StatefulWidget {
 class ReportLitterScreenState extends State<ReportLitterScreen> {
   final ReportLitterController litterController = Get.find();
   final MapLitterController mapLitterController = Get.find();
+  bool isTitleEmpty = false;
+  bool isDescriptionEmpty = false;
 
   @override
   void initState() {
@@ -38,13 +40,13 @@ class ReportLitterScreenState extends State<ReportLitterScreen> {
     );
   }
 
-  Future<void> _pickMedia(bool isImage) async {
-    await litterController.pickImage();
-  }
-
   void _showConfirmationSheet() {
-    if (litterController.title.value.isEmpty ||
-        litterController.condition.value.isEmpty ||
+    setState(() {
+      isTitleEmpty = litterController.title.value.isEmpty;
+      isDescriptionEmpty = litterController.condition.value.isEmpty;
+    });
+    if (isTitleEmpty ||
+        isDescriptionEmpty ||
         litterController.imageFiles.isEmpty) {
       Get.snackbar(
         '',
@@ -173,7 +175,9 @@ class ReportLitterScreenState extends State<ReportLitterScreen> {
                             'Lokasi Sampah',
                             style: TextStyleConstant.semiboldTitle,
                           ),
+                          SpacingConstant.verticalSpacing100,
                           Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               const Icon(
                                 Icons.location_pin,
@@ -182,8 +186,10 @@ class ReportLitterScreenState extends State<ReportLitterScreen> {
                               SpacingConstant.horizontalSpacing200,
                               Flexible(
                                 child: Obx(() => Text(
-                                      litterController.address.value,
+                                      '${litterController.address.value}, ${litterController.city.value}, ${litterController.province.value}',
                                       softWrap: true,
+                                      maxLines: 2,
+                                      overflow: TextOverflow.ellipsis,
                                       style: TextStyleConstant.regularSubtitle,
                                     )),
                               ),
@@ -194,6 +200,7 @@ class ReportLitterScreenState extends State<ReportLitterScreen> {
                             'Jenis Sampah',
                             style: TextStyleConstant.semiboldTitle,
                           ),
+                          SpacingConstant.verticalSpacing100,
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
@@ -234,10 +241,17 @@ class ReportLitterScreenState extends State<ReportLitterScreen> {
                       ),
                     ),
                     SpacingConstant.verticalSpacing400,
-                    const Row(
+                    Row(
                       children: [
-                        Text('Judul Laporan'),
                         Text(
+                          'Judul Laporan',
+                          style: TextStyleConstant.semiboldParagraph.copyWith(
+                            color: isTitleEmpty
+                                ? ColorConstant.dangerColor500
+                                : ColorConstant.netralColor900,
+                          ),
+                        ),
+                        const Text(
                           '*',
                           style: TextStyle(
                             color: ColorConstant.dangerColor500,
@@ -245,18 +259,32 @@ class ReportLitterScreenState extends State<ReportLitterScreen> {
                         ),
                       ],
                     ),
+                    SpacingConstant.verticalSpacing100,
                     CustomTextFieldWidget(
                       label: 'Judul Laporan',
                       hint: 'Contoh: Sampah Pinggir Jalan',
                       isFloatingLabel: false,
-                      onChanged: (value) =>
-                          litterController.title.value = value,
+                      onChanged: (value) {
+                        litterController.title.value = value;
+                        if (value.isNotEmpty) {
+                          setState(() {
+                            isTitleEmpty = false;
+                          });
+                        }
+                      },
                     ),
                     SpacingConstant.verticalSpacing200,
-                    const Row(
+                    Row(
                       children: [
-                        Text('Deskripsi Laporan'),
                         Text(
+                          'Deskripsi Laporan',
+                          style: TextStyleConstant.semiboldParagraph.copyWith(
+                            color: isDescriptionEmpty
+                                ? ColorConstant.dangerColor500
+                                : ColorConstant.netralColor900,
+                          ),
+                        ),
+                        const Text(
                           '*',
                           style: TextStyle(
                             color: ColorConstant.dangerColor500,
@@ -264,22 +292,29 @@ class ReportLitterScreenState extends State<ReportLitterScreen> {
                         ),
                       ],
                     ),
+                    SpacingConstant.verticalSpacing100,
                     CustomTextFieldWidget(
                       label:
                           'Contoh : Sampah ini mengganggu lingkungan sekitar',
                       hint: 'Laporan',
                       isFloatingLabel: false,
                       isTextArea: true,
-                      onChanged: (value) =>
-                          litterController.condition.value = value,
+                      onChanged: (value) {
+                        litterController.condition.value = value;
+                        if (value.isNotEmpty) {
+                          setState(() {
+                            isDescriptionEmpty = false;
+                          });
+                        }
+                      },
                     ),
-                    SpacingConstant.verticalSpacing200,
+                    SpacingConstant.verticalSpacing400,
                     Obx(
                       () => Wrap(
                         alignment: WrapAlignment.start,
                         runAlignment: WrapAlignment.start,
-                        spacing: 8.0,
-                        runSpacing: 8.0,
+                        spacing: 12.0,
+                        runSpacing: 12.0,
                         children: [
                           ...litterController.imageFiles
                               .asMap()
@@ -290,21 +325,20 @@ class ReportLitterScreenState extends State<ReportLitterScreen> {
                             return GestureDetector(
                               onTap: () =>
                                   _showEditPhotoBottomSheet(media!, index),
-                              child: Container(
-                                width: 100,
-                                height: 100,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(4),
-                                ),
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(4),
                                 child: Image.file(
                                   File(media?.path ?? ''),
                                   fit: BoxFit.cover,
+                                  width: 120,
+                                  height: 120,
                                 ),
                               ),
                             );
                           }),
                           GestureDetector(
-                            onTap: () => _pickMedia(true),
+                            onTap: () => litterController.showImageSourceDialog(
+                                litterController.pickImage),
                             child: DottedBorder(
                               color: Colors.grey,
                               strokeWidth: 2,
@@ -312,8 +346,8 @@ class ReportLitterScreenState extends State<ReportLitterScreen> {
                               borderType: BorderType.RRect,
                               radius: const Radius.circular(4),
                               child: Container(
-                                width: 100,
-                                height: 100,
+                                width: 120,
+                                height: 120,
                                 alignment: Alignment.center,
                                 child: const Icon(
                                   Icons.add_box_sharp,
