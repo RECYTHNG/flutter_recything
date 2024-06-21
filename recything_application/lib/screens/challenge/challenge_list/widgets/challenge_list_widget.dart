@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:recything_application/controllers/challenge_dashboard_controller.dart';
 import 'package:recything_application/screens/challenge/widgets/item_challenge_widget.dart';
+import 'package:recything_application/screens/detail_mission/detail_mission_start_screen.dart';
 import 'package:recything_application/widgets/global_loading_widget.dart';
 
 class ChallengeListWidget extends StatelessWidget {
@@ -34,7 +35,11 @@ class ChallengeListWidget extends StatelessWidget {
               return Padding(
                 padding: const EdgeInsets.only(bottom: 16),
                 child: ItemChallengeWidget(
-                  onTap: () {},
+                  onTap: () {
+                    Get.to(
+                      DetailMissionStartScreen(taskId: challenge.id),
+                    );
+                  },
                   point: challenge.point.toString(),
                   title: challenge.title,
                   index: index,

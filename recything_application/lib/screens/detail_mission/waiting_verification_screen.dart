@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 import 'package:recything_application/constants/color_constant.dart';
-import 'package:recything_application/constants/icon_constant.dart';
-import 'package:recything_application/constants/image_constant.dart';
 import 'package:recything_application/constants/lottie_constant.dart';
 import 'package:recything_application/constants/text_style_constant.dart';
 import 'package:recything_application/controllers/doing_task_detail_mission_controller.dart';
-import 'package:recything_application/screens/homepage/homepage_screen.dart';
+import 'package:recything_application/screens/homepage/home_navbar_screen.dart';
 
 class WaitingVerificationScreen extends StatelessWidget {
   WaitingVerificationScreen({super.key});
@@ -74,7 +71,10 @@ class WaitingVerificationScreen extends StatelessWidget {
                             Navigator.pushAndRemoveUntil(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => HomePageScreen()),
+                                builder: (context) => HomeNavBarScreen(
+                                  currentIndex: 0,
+                                ),
+                              ),
                               ModalRoute.withName('/'),
                             );
                           },
