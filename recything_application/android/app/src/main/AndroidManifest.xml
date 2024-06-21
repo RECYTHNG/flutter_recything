@@ -11,7 +11,7 @@
     <application
         android:label="recything_application"
         android:name="${applicationName}"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/launcher_icon">
         <meta-data android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyDyIO9UzX_LRye-t1Q_Zro1pHH6_VlvPnA"/>
         <activity
