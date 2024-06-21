@@ -16,7 +16,7 @@ class ItemVideoRecycleWidget extends StatelessWidget {
     required this.onTap,
   });
 
- @override
+  @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onTap,
@@ -45,6 +45,20 @@ class ItemVideoRecycleWidget extends StatelessWidget {
                 child: Image.network(
                   thumbnail,
                   fit: BoxFit.fitWidth,
+                  errorBuilder: (context, error, stackTrace) {
+                    return Container(
+                      width: double.infinity,
+                      height: 200,
+                      color: Colors.grey[300],
+                      child: const Center(
+                        child: Icon(
+                          Icons.error_outline,
+                          color: Colors.red,
+                          size: 48,
+                        ),
+                      ),
+                    );
+                  },
                 ),
               ),
             ),

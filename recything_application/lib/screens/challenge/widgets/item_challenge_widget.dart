@@ -26,13 +26,13 @@ class ItemChallengeWidget extends StatelessWidget {
     Color getBackgroundColor(int index) {
       switch (index % 3) {
         case 0:
-          return ColorConstant.primaryColor500;
+          return ColorConstant.primaryColor400;
         case 1:
           return ColorConstant.primaryColor300;
         case 2:
           return ColorConstant.secondaryColor500;
         default:
-          return ColorConstant.primaryColor500;
+          return ColorConstant.primaryColor400;
       }
     }
 

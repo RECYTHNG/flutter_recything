@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:recything_application/constants/color_constant.dart';
 import 'package:recything_application/controllers/map_litter_controller.dart';
+import 'package:recything_application/utils/system_ui_overlay_utils.dart';
 import 'package:recything_application/widgets/global_loading_widget.dart';
 
 class LocationMapsReportLitterWidget extends StatelessWidget {
@@ -12,6 +13,7 @@ class LocationMapsReportLitterWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    SystemUiOverlayUtils().setSystemUiOverlay(ColorConstant.whiteColor, true);
     final MapLitterController locationController = Get.find();
     locationController.mcontroller = Completer();
     return Scaffold(

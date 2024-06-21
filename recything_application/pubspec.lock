@@ -741,6 +741,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.3.1"
+  horizontal_stepper_flutter:
+    dependency: "direct main"
+    description:
+      name: horizontal_stepper_flutter
+      sha256: bd7f3c7efcffe3ce9336a4528def4f1e85b68c9de097fbff186ca54713253449
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.3"
   html:
     dependency: transitive
     description:

@@ -19,7 +19,8 @@ class ItemArticleRecycleWidget extends StatelessWidget {
     required this.title,
     required this.desc,
     required this.date,
-    required this.thumbnail, required this.onTap,
+    required this.thumbnail,
+    required this.onTap,
   });
 
   @override
@@ -89,7 +90,8 @@ class ItemArticleRecycleWidget extends StatelessWidget {
                         ),
                         SpacingConstant.verticalSpacing075,
                         Text(
-                          DateTimeUtils(dateTimeStringInput: date).convertDate(),
+                          DateTimeUtils(dateTimeStringInput: date)
+                              .convertDate(),
                           style: TextStyleConstant.mediumFooter.copyWith(
                             color: const Color(0XFF999999),
                           ),
@@ -106,6 +108,20 @@ class ItemArticleRecycleWidget extends StatelessWidget {
                       child: Image.network(
                         thumbnail,
                         fit: BoxFit.cover,
+                        errorBuilder: (context, error, stackTrace) {
+                          return Container(
+                            width: double.infinity,
+                            height: 200,
+                            color: Colors.grey[300],
+                            child: const Center(
+                              child: Icon(
+                                Icons.error_outline,
+                                color: Colors.red,
+                                size: 48,
+                              ),
+                            ),
+                          );
+                        },
                       ),
                     ),
                   ),

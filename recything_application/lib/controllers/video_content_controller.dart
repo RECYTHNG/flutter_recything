@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_rx/get_rx.dart';
-import 'package:get/get_rx/src/rx_types/rx_types.dart';
-import 'package:get/state_manager.dart';
 import 'package:recything_application/controllers/profile_controller.dart';
 import 'package:recything_application/models/video_content/detail_video_content_model.dart';
 import 'package:recything_application/models/video_content/response_category_model.dart';

@@ -200,6 +200,7 @@ class _ArticleDetailScreenState extends State<ArticleDetailScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: ColorConstant.whiteColor,
       body: SafeArea(
         child: Obx(() {
           if (articleController.isLoading.value) {
@@ -231,6 +232,7 @@ class _ArticleDetailScreenState extends State<ArticleDetailScreen> {
                       SpacingConstant.horizontalSpacing200,
                       const CircleAvatar(
                         radius: 24,
+                        backgroundColor: ColorConstant.netralColor500,
                         child: Icon(Icons.person),
                       ),
                       SpacingConstant.horizontalSpacing150,
@@ -238,13 +240,21 @@ class _ArticleDetailScreenState extends State<ArticleDetailScreen> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text(
-                              article.author?.name ?? 'full name',
-                              style: TextStyleConstant.mediumSubtitle,
+                            const Text(
+                              'Author',
+                              style: TextStyle(
+                                fontSize: 10,
+                                fontWeight: FontWeight.w500,
+                                color: ColorConstant.blackColor,
+                              ),
                             ),
                             Text(
-                              article.title ?? 'Job',
-                              style: TextStyleConstant.boldTitle,
+                              article.author?.name ?? 'Author',
+                              style: const TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w700,
+                                color: ColorConstant.blackColor,
+                              ),
                               overflow: TextOverflow.ellipsis,
                             ),
                           ],
@@ -273,7 +283,7 @@ class _ArticleDetailScreenState extends State<ArticleDetailScreen> {
                     );
                   },
                 ),
-                SpacingConstant.verticalSpacing100,
+                SpacingConstant.verticalSpacing250,
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16),
                   child: Column(
@@ -281,7 +291,7 @@ class _ArticleDetailScreenState extends State<ArticleDetailScreen> {
                     children: [
                       Text(
                         article.title ?? 'Title',
-                        style: TextStyleConstant.boldHeading1,
+                        style: TextStyleConstant.boldHeading3,
                       ),
                       SpacingConstant.verticalSpacing100,
                       Text(
@@ -290,6 +300,9 @@ class _ArticleDetailScreenState extends State<ArticleDetailScreen> {
                                 article.createdAt!.toLocal(),
                               )
                             : '',
+                        style: TextStyleConstant.mediumFooter.copyWith(
+                          color: const Color(0XFF999999),
+                        ),
                       ),
                       SpacingConstant.verticalSpacing300,
                       ...?article.sections?.map(
@@ -316,9 +329,9 @@ class _ArticleDetailScreenState extends State<ArticleDetailScreen> {
                                   ),
                                   child: Text(
                                     category.name!.capitalizeFirst!,
-                                    style: const TextStyle(
+                                    style: TextStyleConstant.semiboldParagraph
+                                        .copyWith(
                                       color: ColorConstant.whiteColor,
-                                      fontSize: 16,
                                     ),
                                     maxLines: 1,
                                     overflow: TextOverflow.ellipsis,

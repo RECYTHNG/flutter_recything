@@ -4,8 +4,10 @@ import 'package:recything_application/constants/color_constant.dart';
 import 'package:recything_application/constants/spacing_constant.dart';
 import 'package:recything_application/constants/text_style_constant.dart';
 import 'package:recything_application/controllers/recycle_controller.dart';
+import 'package:recything_application/controllers/video_content_controller.dart';
 import 'package:recything_application/models/recycle/video_recycle_model.dart';
 import 'package:recything_application/screens/recycle/widgets/item_video_recycle_widget.dart';
+import 'package:recything_application/screens/video_content/detail_video_content_screen.dart';
 import 'package:recything_application/widgets/global_loading_widget.dart';
 
 class VideoCurrentSearchRecycleWidget extends StatelessWidget {
@@ -14,6 +16,7 @@ class VideoCurrentSearchRecycleWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final RecycleController controller = Get.find();
+    final VideoContentController videoController = Get.put(VideoContentController());
     WidgetsBinding.instance.addPostFrameCallback((_) {
       controller.fetchVideo();
     });
@@ -64,7 +67,10 @@ class VideoCurrentSearchRecycleWidget extends StatelessWidget {
                       thumbnail: video.thumbnailUrl,
                       title: video.title,
                       views: video.viewer,
-                      onTap: () {},
+                      onTap: () {
+                        videoController.getDetailVideoContent(video.id);
+                        Get.to(() => DetailVideoContentScreen(id: video.id));
+                      },
                     );
                   },
                 );

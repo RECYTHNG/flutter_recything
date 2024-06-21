@@ -21,7 +21,7 @@ class ContentSectionWidget extends StatelessWidget {
       children: [
         Text(
           title,
-          style: TextStyleConstant.boldHeading3,
+          style: TextStyleConstant.boldSubtitle,
         ),
         if (imagePath != null)
           Padding(
@@ -48,7 +48,8 @@ class ContentSectionWidget extends StatelessWidget {
           ),
         Text(
           contentTexts,
-          style: TextStyleConstant.mediumSubtitle,
+          style: TextStyleConstant.regularParagraph,
+          textAlign: TextAlign.justify,
         ),
         SpacingConstant.verticalSpacing200,
       ],
