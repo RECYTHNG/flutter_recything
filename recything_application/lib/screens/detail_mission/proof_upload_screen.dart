@@ -25,6 +25,7 @@ class _ProofUploadScreenState extends State<ProofUploadScreen> {
   final ImagePicker _picker = ImagePicker();
   final TextEditingController descriptionController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
+  bool isTextValid = true;
 
   Future<void> _pickFiles(int bukti) async {
     showDialog(
@@ -234,38 +235,41 @@ class _ProofUploadScreenState extends State<ProofUploadScreen> {
                     border: const OutlineInputBorder(),
                     hintText: 'Tulis keterangan aksimu disini...',
                     hintStyle: TextStyleConstant.regularParagraph,
+                    errorText:
+                        isTextValid ? null : 'Keterangan tidak boleh kosong',
                   ),
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Keterangan tidak boleh kosong';
-                    }
-                    return null;
+                  onChanged: (value) {
+                    setState(() {
+                      isTextValid = value.isNotEmpty;
+                    });
                   },
                 ),
                 const SizedBox(height: 24),
                 SizedBox(
-                  width: double.infinity,
-                  child: ElevatedButton(
-                    onPressed: () {
-                      if (_formKey.currentState!.validate()) {
-                        controller.uploadProof(widget.userTaskId,
-                            descriptionController.text, widget.statusAccept);
-                      }
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: ColorConstant.primaryColor500,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
+                    width: double.infinity,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        if (_formKey.currentState!.validate()) {
+                          controller.uploadProof(widget.userTaskId,
+                              descriptionController.text, widget.statusAccept);
+                        }
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: controller.selectedImages.isNotEmpty &&
+                                descriptionController.text.isNotEmpty
+                            ? ColorConstant.primaryColor500
+                            : ColorConstant.netralColor700,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12),
+                        ),
                       ),
-                    ),
-                    child: Text(
-                      'Upload Bukti',
-                      style: TextStyleConstant.semiboldSubtitle.copyWith(
-                        color: ColorConstant.whiteColor,
+                      child: Text(
+                        'Upload Bukti',
+                        style: TextStyleConstant.semiboldSubtitle.copyWith(
+                          color: ColorConstant.whiteColor,
+                        ),
                       ),
-                    ),
-                  ),
-                )
+                    ))
               ],
             ),
           ),
