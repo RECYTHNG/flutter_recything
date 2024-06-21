@@ -144,16 +144,8 @@ class _ArticleListScreenState extends State<ArticleListScreen> {
                                   articleController.articles.value.data![index];
                               return GestureDetector(
                                 onTap: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) =>
-                                          const ArticleDetailScreen(),
-                                      settings: RouteSettings(
-                                        arguments: article.id,
-                                      ),
-                                    ),
-                                  );
+                                  articleController.setId(article.id ?? '');
+                                  Get.to(const ArticleDetailScreen());
                                 },
                                 child: Container(
                                   padding: const EdgeInsets.only(
@@ -187,8 +179,12 @@ class _ArticleListScreenState extends State<ArticleListScreen> {
                                                 ),
                                                 SpacingConstant
                                                     .horizontalSpacing100,
-                                                Text(article.author!.name ??
-                                                    'Unknown'),
+                                                Text(
+                                                  article.author!.name ??
+                                                      'Unknown',
+                                                  style: TextStyleConstant
+                                                      .semiboldParagraph,
+                                                ),
                                               ],
                                             ),
                                             SpacingConstant.verticalSpacing100,
@@ -203,7 +199,7 @@ class _ArticleListScreenState extends State<ArticleListScreen> {
                                               overflow: TextOverflow.ellipsis,
                                               maxLines: 2,
                                             ),
-                                            SpacingConstant.verticalSpacing100,
+                                            SpacingConstant.verticalSpacing050,
                                             Text(
                                               article.description ?? '',
                                               style: TextStyleConstant
@@ -215,6 +211,7 @@ class _ArticleListScreenState extends State<ArticleListScreen> {
                                               overflow: TextOverflow.ellipsis,
                                               maxLines: 1,
                                             ),
+                                            SpacingConstant.verticalSpacing050,
                                             Text(
                                               article.createdAt != null
                                                   ? formatDate(
@@ -222,7 +219,7 @@ class _ArticleListScreenState extends State<ArticleListScreen> {
                                                       .toString()
                                                   : '',
                                               style: TextStyleConstant
-                                                  .regularFooter
+                                                  .regularParagraph
                                                   .copyWith(
                                                 color: ColorConstant
                                                     .netralColor900,
@@ -233,21 +230,29 @@ class _ArticleListScreenState extends State<ArticleListScreen> {
                                       ),
                                       SpacingConstant.horizontalSpacing200,
                                       Expanded(
-                                        child: Container(
-                                          height: double.infinity,
-                                          decoration: const BoxDecoration(
-                                            color: ColorConstant.netralColor500,
+                                        child: ClipRRect(
+                                          borderRadius:
+                                              BorderRadius.circular(8),
+                                          child: Container(
+                                            height: double.infinity,
+                                            decoration: const BoxDecoration(
+                                              color:
+                                                  ColorConstant.netralColor500,
+                                            ),
+                                            child:
+                                                article.thumbnailUrl != null &&
+                                                        article.thumbnailUrl!
+                                                            .isNotEmpty
+                                                    ? Image.network(
+                                                        article.thumbnailUrl!,
+                                                        fit: BoxFit.cover,
+                                                      )
+                                                    : const Icon(
+                                                        Icons
+                                                            .image_not_supported_outlined,
+                                                        size: 40,
+                                                      ),
                                           ),
-                                          child: article.thumbnailUrl != null &&
-                                                  article
-                                                      .thumbnailUrl!.isNotEmpty
-                                              ? Image.network(
-                                                  article.thumbnailUrl!)
-                                              : const Icon(
-                                                  Icons
-                                                      .image_not_supported_outlined,
-                                                  size: 40,
-                                                ),
                                         ),
                                       ),
                                     ],
@@ -272,15 +277,10 @@ class _ArticleListScreenState extends State<ArticleListScreen> {
                     articleSearchController: articleSearchController,
                     onSubmitted: (value) {
                       if (value.isNotEmpty) {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const ArticleSearchScreen(),
-                            settings: RouteSettings(
-                              arguments: value,
-                            ),
-                          ),
-                        );
+                        WidgetsBinding.instance.addPostFrameCallback((_) {
+                          articleController.setKeyword(value);
+                          Get.to(const ArticleSearchScreen());
+                        });
                       } else {
                         Get.snackbar(
                           '',
