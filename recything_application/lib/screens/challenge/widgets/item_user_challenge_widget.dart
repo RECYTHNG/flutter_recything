@@ -30,7 +30,8 @@ class ItemUserChallengeWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final String finalStatus = StatusChallengeUtils.getStatus(statusProgress, statusAccept);
+    final String finalStatus =
+        StatusChallengeUtils.getStatus(statusProgress, statusAccept);
     String finalStatusMessage;
     Color finalColorInstruction;
     if (finalStatus == 'Proses') {
@@ -40,7 +41,8 @@ class ItemUserChallengeWidget extends StatelessWidget {
       finalStatusMessage = 'Menunggu verifikasi admin';
       finalColorInstruction = ColorConstant.primaryColor400;
     } else if (finalStatus == 'Ditolak') {
-      finalStatusMessage = 'Bukti foto tidak sesuai step. Segera Perbaiki Bukti!';
+      finalStatusMessage =
+          'Bukti foto tidak sesuai step. Segera Perbaiki Bukti!';
       finalColorInstruction = ColorConstant.dangerColor500;
     } else if (finalStatus == 'Terverifikasi') {
       finalStatusMessage = 'Selamat! Challenge Selesai';
@@ -164,7 +166,8 @@ class ItemUserChallengeWidget extends StatelessWidget {
                     children: [
                       Text(
                         finalStatusMessage,
-                        style: TextStyleConstant.regularFooter.copyWith(color: finalColorInstruction),
+                        style: TextStyleConstant.regularFooter
+                            .copyWith(color: finalColorInstruction),
                       ),
                     ],
                   ),

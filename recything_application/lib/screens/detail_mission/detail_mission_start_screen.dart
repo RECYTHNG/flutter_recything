@@ -71,6 +71,7 @@ class DetailMissionStartScreen extends StatelessWidget {
               DateTimeUtils(dateTimeStringInput: data['end_date']);
 
           return Scaffold(
+            backgroundColor: ColorConstant.whiteColor,
             appBar: AppBar(
               title: Text(
                 'Detail Challenge',

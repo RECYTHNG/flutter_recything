@@ -6,6 +6,7 @@ import 'package:recything_application/controllers/challenge_dashboard_controller
 import 'package:recything_application/screens/challenge/dashboard/challenge_dashboard_screen.dart';
 import 'package:recything_application/screens/challenge/my_challenge/widgets/active_challenge/list_active_challenge_widget.dart';
 import 'package:recything_application/screens/challenge/my_challenge/widgets/done_challenge/list_done_challenge_widgte.dart';
+import 'package:recything_application/screens/homepage/home_navbar_screen.dart';
 
 class MyChallengeScreen extends StatelessWidget {
   const MyChallengeScreen({super.key});
@@ -25,7 +26,9 @@ class MyChallengeScreen extends StatelessWidget {
           leading: IconButton(
             onPressed: () {
               Get.offAll(
-                const ChallengeDashboardScreen(),
+                HomeNavBarScreen(
+                  currentIndex: 3,
+                ),
               );
             },
             icon: const Icon(Icons.arrow_back),

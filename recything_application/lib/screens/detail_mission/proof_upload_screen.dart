@@ -245,31 +245,48 @@ class _ProofUploadScreenState extends State<ProofUploadScreen> {
                   },
                 ),
                 const SizedBox(height: 24),
-                SizedBox(
-                    width: double.infinity,
-                    child: ElevatedButton(
-                      onPressed: () {
-                        if (_formKey.currentState!.validate()) {
-                          controller.uploadProof(widget.userTaskId,
-                              descriptionController.text, widget.statusAccept);
-                        }
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: controller.selectedImages.isNotEmpty &&
-                                descriptionController.text.isNotEmpty
-                            ? ColorConstant.primaryColor500
-                            : ColorConstant.netralColor700,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
+                Obx(
+                  () {
+                    return Stack(
+                      children: [
+                        SizedBox(
+                          width: double.infinity,
+                          child: ElevatedButton(
+                            onPressed: () {
+                              if (_formKey.currentState!.validate()) {
+                                controller.uploadProof(
+                                    widget.userTaskId,
+                                    descriptionController.text,
+                                    widget.statusAccept);
+                              }
+                            },
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor:
+                                  controller.selectedImages.isNotEmpty &&
+                                          descriptionController.text.isNotEmpty
+                                      ? ColorConstant.primaryColor500
+                                      : ColorConstant.netralColor700,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                            ),
+                            child: Text(
+                              'Upload Bukti',
+                              style:
+                                  TextStyleConstant.semiboldSubtitle.copyWith(
+                                color: ColorConstant.whiteColor,
+                              ),
+                            ),
+                          ),
                         ),
-                      ),
-                      child: Text(
-                        'Upload Bukti',
-                        style: TextStyleConstant.semiboldSubtitle.copyWith(
-                          color: ColorConstant.whiteColor,
-                        ),
-                      ),
-                    ))
+                        if (controller.isLoading.value)
+                          const Center(
+                            child: CircularProgressIndicator(),
+                          ),
+                      ],
+                    );
+                  },
+                ),
               ],
             ),
           ),

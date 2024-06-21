@@ -51,7 +51,7 @@ class IconConstant {
   static const uploadButtonAfter =
       'assets/images/detail_mission_image/upload_area.svg';
 
-  static const iconPoint = 'assets/images/detail_mission_image/point.svg';
+  static const iconPoint = 'assets/images/detail_mission_image/points.svg';
 
   static const iconStatusProcess =
       'assets/images/detail_mission_image/status_task/process.svg';

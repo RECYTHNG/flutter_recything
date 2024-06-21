@@ -4,6 +4,7 @@ import 'package:recything_application/constants/spacing_constant.dart';
 import 'package:recything_application/controllers/challenge_dashboard_controller.dart';
 import 'package:recything_application/screens/challenge/widgets/empty_state_challenge_widget.dart';
 import 'package:recything_application/screens/challenge/widgets/item_user_challenge_widget.dart';
+import 'package:recything_application/screens/detail_mission/detail_mission_progress_screen.dart';
 import 'package:recything_application/widgets/global_loading_widget.dart';
 
 class ListDoneChallengeWidget extends StatelessWidget {
@@ -44,7 +45,12 @@ class ListDoneChallengeWidget extends StatelessWidget {
                         final challenge =
                             controller.doneChallengeSectionData.value!;
                         return ItemUserChallengeWidget(
-                          onTap: () {},
+                          onTap: () {
+                            Get.to(
+                              DetailMissionProgressScreen(
+                                  userTaskId: challenge[index].id),
+                            );
+                          },
                           datum: challenge[index],
                           title: challenge[index].taskChallenge.title,
                           statusAccept: challenge[index].statusAccept,
