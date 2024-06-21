@@ -47,6 +47,7 @@ class DetailMissionStartScreen extends StatelessWidget {
 
           if (data.isEmpty) {
             return Scaffold(
+              backgroundColor: ColorConstant.whiteColor,
               appBar: AppBar(
                 title: Text(
                   'Detail Challenge',

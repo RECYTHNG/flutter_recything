@@ -24,9 +24,7 @@ class MyChallengeScreen extends StatelessWidget {
         appBar: AppBar(
           leading: IconButton(
             onPressed: () {
-              Get.offAll(
-                const ChallengeDashboardScreen(),
-              );
+              Get.back();
             },
             icon: const Icon(Icons.arrow_back),
           ),

@@ -50,6 +50,7 @@ class DetailMissionProgressScreen extends StatelessWidget {
 
           if (data.isEmpty) {
             return Scaffold(
+              backgroundColor: ColorConstant.whiteColor,
               appBar: AppBar(
                 leading: Text('2'),
                 title: Text(
