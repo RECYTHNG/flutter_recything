@@ -52,7 +52,8 @@ class ListDoneChallengeWidget extends StatelessWidget {
                           title: challenge[index].taskChallenge.title,
                           statusAccept: challenge[index].statusAccept,
                           statusProgress: challenge[index].statusProgress,
-                          totalStep: challenge[index].taskChallenge.taskSteps.length,
+                          totalStep:
+                              challenge[index].taskChallenge.taskSteps.length,
                           image: challenge[index].taskChallenge.thumbnail,
                         );
                       },
