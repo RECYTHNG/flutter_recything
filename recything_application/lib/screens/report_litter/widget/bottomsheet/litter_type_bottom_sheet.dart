@@ -28,7 +28,7 @@ class LitterTypeBottomSheet extends StatelessWidget {
           SpacingConstant.verticalSpacing300,
           Text(
             'Ubah Jenis Sampah',
-            style: TextStyleConstant.semiboldHeading4,
+            style: TextStyleConstant.semiboldSubtitle,
             textAlign: TextAlign.center,
           ),
           SpacingConstant.verticalSpacing200,
@@ -65,7 +65,7 @@ class LitterTypeBottomSheet extends StatelessWidget {
         Get.back();
       },
       child: Container(
-        padding: const EdgeInsets.all(16),
+        padding: const EdgeInsets.all(12),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(12),
           color: isActive ? ColorConstant.netralColor500 : Colors.transparent,
@@ -77,14 +77,14 @@ class LitterTypeBottomSheet extends StatelessWidget {
               children: [
                 Image.asset(
                   imagePath,
-                  width: 50,
-                  height: 50,
+                  width: 40,
+                  height: 40,
                   fit: BoxFit.cover,
                 ),
                 SpacingConstant.horizontalSpacing100,
                 Text(
                   label,
-                  style: TextStyleConstant.regularSubtitle,
+                  style: TextStyleConstant.regularParagraph,
                 ),
               ],
             ),

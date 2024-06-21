@@ -12,6 +12,7 @@ import 'package:recything_application/controllers/map_litter_controller.dart';
 import 'package:recything_application/screens/report_litter/widget/bottomsheet/confirmation_bottom_sheet.dart';
 import 'package:recything_application/screens/report_litter/widget/bottomsheet/edit_photo_bottom_sheet.dart';
 import 'package:recything_application/screens/report_litter/widget/bottomsheet/litter_type_bottom_sheet.dart';
+import 'package:recything_application/widgets/global_button_widget.dart';
 import 'package:recything_application/widgets/global_text_field_custom_widget.dart';
 import 'package:recything_application/controllers/report_litter_controller.dart';
 
@@ -134,7 +135,7 @@ class ReportLitterScreenState extends State<ReportLitterScreen> {
         ),
         title: Text(
           'Deskripsi Sampah',
-          style: TextStyleConstant.boldHeading4,
+          style: TextStyleConstant.boldTitle,
         ),
         centerTitle: true,
       ),
@@ -173,7 +174,7 @@ class ReportLitterScreenState extends State<ReportLitterScreen> {
                         children: [
                           Text(
                             'Lokasi Sampah',
-                            style: TextStyleConstant.semiboldTitle,
+                            style: TextStyleConstant.semiboldSubtitle,
                           ),
                           SpacingConstant.verticalSpacing100,
                           Row(
@@ -182,6 +183,7 @@ class ReportLitterScreenState extends State<ReportLitterScreen> {
                               const Icon(
                                 Icons.location_pin,
                                 color: ColorConstant.primaryColor500,
+                                size: 32,
                               ),
                               SpacingConstant.horizontalSpacing200,
                               Flexible(
@@ -198,7 +200,7 @@ class ReportLitterScreenState extends State<ReportLitterScreen> {
                           SpacingConstant.verticalSpacing200,
                           Text(
                             'Jenis Sampah',
-                            style: TextStyleConstant.semiboldTitle,
+                            style: TextStyleConstant.semiboldSubtitle,
                           ),
                           SpacingConstant.verticalSpacing100,
                           Row(
@@ -330,8 +332,8 @@ class ReportLitterScreenState extends State<ReportLitterScreen> {
                                 child: Image.file(
                                   File(media?.path ?? ''),
                                   fit: BoxFit.cover,
-                                  width: 120,
-                                  height: 120,
+                                  width: 90,
+                                  height: 90,
                                 ),
                               ),
                             );
@@ -346,8 +348,8 @@ class ReportLitterScreenState extends State<ReportLitterScreen> {
                               borderType: BorderType.RRect,
                               radius: const Radius.circular(4),
                               child: Container(
-                                width: 120,
-                                height: 120,
+                                width: 90,
+                                height: 90,
                                 alignment: Alignment.center,
                                 child: const Icon(
                                   Icons.add_box_sharp,
@@ -362,7 +364,7 @@ class ReportLitterScreenState extends State<ReportLitterScreen> {
                     SpacingConstant.verticalSpacing200,
                     Text(
                       'Maksimum file : 20 Mb',
-                      style: TextStyleConstant.regularSubtitle.copyWith(
+                      style: TextStyleConstant.regularParagraph.copyWith(
                         color: ColorConstant.netralColor600,
                       ),
                     ),
@@ -371,25 +373,15 @@ class ReportLitterScreenState extends State<ReportLitterScreen> {
                 ),
               ),
             ),
-            Container(
-              width: double.infinity,
-              alignment: Alignment.center,
-              decoration: BoxDecoration(
-                color: ColorConstant.primaryColor500,
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: TextButton(
-                onPressed: () => _showConfirmationSheet(),
-                child: const Text(
-                  'Kirim Laporan',
-                  style: TextStyle(
-                    color: ColorConstant.netralColor50,
-                    fontWeight: FontWeight.w600,
-                    fontSize: 20,
-                  ),
-                ),
-              ),
-            ),
+            GlobalButtonWidget(
+                onTap: () => _showConfirmationSheet(),
+                width: double.infinity,
+                height: 40,
+                backgroundColor: ColorConstant.primaryColor500,
+                isBorder: false,
+                title: 'Kirim Laporan',
+                textColor: ColorConstant.whiteColor,
+                fontSize: 16),
           ],
         ),
       ),
