@@ -41,7 +41,7 @@ class DashboardChallengeService {
 
   Future<UserDashboardChallengeModel> getDoneChallenge() async {
     try {
-      final token = SharedPref.getToken();
+      final token = await SharedPref.getToken();
       final response = await _dio.get(
         '$recythingBaseUrl/user-current/tasks/done',
         options: Options(

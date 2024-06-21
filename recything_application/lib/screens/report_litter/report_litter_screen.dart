@@ -75,7 +75,7 @@ class ReportLitterScreenState extends State<ReportLitterScreen> {
             litterController.sendLitterReport();
           },
           onCancel: () {
-            Navigator.pop(context);
+            Get.back();
           },
         );
       },
@@ -102,13 +102,13 @@ class ReportLitterScreenState extends State<ReportLitterScreen> {
           index: index,
           onReplaceImage: () {
             litterController.replaceImage(index);
-            Navigator.pop(context);
+            Get.back();
           },
           onDelete: () {
             setState(() {
               litterController.removeImage(index);
             });
-            Navigator.pop(context);
+            Get.back();
           },
         );
       },
@@ -123,7 +123,7 @@ class ReportLitterScreenState extends State<ReportLitterScreen> {
         backgroundColor: ColorConstant.whiteColor,
         leading: IconButton(
           onPressed: () {
-            Navigator.pop(context);
+            Get.back();
           },
           icon: const Icon(
             Icons.arrow_back,

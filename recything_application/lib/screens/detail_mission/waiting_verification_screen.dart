@@ -17,9 +17,8 @@ class WaitingVerificationScreen extends StatelessWidget {
 
     final data = controller.dataGetProgress;
     int pointChallenge = data['task_challenge']['point'];
-    print(pointChallenge);
-    // final pointChallenge = '3000';
     return Scaffold(
+      backgroundColor: ColorConstant.whiteColor,
       body: SafeArea(
         child: Container(
           decoration: const BoxDecoration(),
@@ -50,7 +49,7 @@ class WaitingVerificationScreen extends StatelessWidget {
                       ),
                       const SizedBox(height: 8),
                       Text(
-                        'Tunggu Verifikasi Dari Admin dan Dapatkan Poin Sebesar 3000 poin',
+                        'Tunggu Verifikasi Dari Admin dan Dapatkan Poin Sebesar $pointChallenge poin',
                         style: TextStyleConstant.boldCaption.copyWith(
                           color: ColorConstant.netralColor600,
                         ),
@@ -79,7 +78,7 @@ class WaitingVerificationScreen extends StatelessWidget {
                             );
                           },
                           style: ElevatedButton.styleFrom(
-                            backgroundColor: ColorConstant.whiteColor,
+                            backgroundColor: ColorConstant.primaryColor500,
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(12),
                             ),
@@ -87,7 +86,7 @@ class WaitingVerificationScreen extends StatelessWidget {
                           child: Text(
                             'Home',
                             style: TextStyleConstant.semiboldButton.copyWith(
-                              color: ColorConstant.primaryColor500,
+                              color: ColorConstant.whiteColor,
                             ),
                           ),
                         ),
@@ -102,6 +101,9 @@ class WaitingVerificationScreen extends StatelessWidget {
                           onPressed: () {},
                           style: ElevatedButton.styleFrom(
                             backgroundColor: ColorConstant.whiteColor,
+                            side: const BorderSide(
+                              color: ColorConstant.primaryColor500,
+                            ),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(12),
                             ),

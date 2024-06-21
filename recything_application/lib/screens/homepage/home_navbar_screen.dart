@@ -45,63 +45,63 @@ class _HomeScreenState extends State<HomeNavBarScreen> {
     });
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _pages.elementAt(widget.currentIndex),
-      bottomNavigationBar: BottomAppBar(
-        shape: const AutomaticNotchedShape(
-          RoundedRectangleBorder(
-            borderRadius: BorderRadius.vertical(
-              top: Radius.circular(16),
+        body: _pages.elementAt(widget.currentIndex),
+        bottomNavigationBar: BottomAppBar(
+          shape: const AutomaticNotchedShape(
+            RoundedRectangleBorder(
+              borderRadius: BorderRadius.vertical(
+                top: Radius.circular(16),
+              ),
             ),
           ),
+          height: 72,
+          color: ColorConstant.primaryColor500,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              BottomNavItem(
+                iconPath: IconConstant.iconHome,
+                label: 'Home',
+                index: 0,
+                currentIndex: widget.currentIndex,
+                onTap: _onItemTapped,
+                isSvg: true,
+              ),
+              BottomNavItem(
+                iconPath: IconConstant.iconRecycling,
+                label: 'Recycle',
+                index: 1,
+                currentIndex: widget.currentIndex,
+                onTap: _onItemTapped,
+                isSvg: true,
+              ),
+              const SizedBox(width: 48),
+              BottomNavItem(
+                iconPath: IconConstant.iconChallenge,
+                label: 'Challenge',
+                index: 3,
+                currentIndex: widget.currentIndex,
+                onTap: _onItemTapped,
+                isSvg: true,
+              ),
+              BottomNavItem(
+                iconPath: IconConstant.iconUser,
+                label: 'Profile',
+                index: 4,
+                currentIndex: widget.currentIndex,
+                onTap: _onItemTapped,
+                isSvg: true,
+              ),
+            ],
+          ),
         ),
-        height: 72,
-        color: ColorConstant.primaryColor500,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            BottomNavItem(
-              iconPath: IconConstant.iconHome,
-              label: 'Home',
-              index: 0,
-              currentIndex: widget.currentIndex,
-              onTap: _onItemTapped,
-              isSvg: true,
-            ),
-            BottomNavItem(
-              iconPath: IconConstant.iconRecycling,
-              label: 'Recycle',
-              index: 1,
-              currentIndex: widget.currentIndex,
-              onTap: _onItemTapped,
-              isSvg: true,
-            ),
-            const SizedBox(width: 48),
-            BottomNavItem(
-              iconPath: IconConstant.iconChallenge,
-              label: 'Challenge',
-              index: 3,
-              currentIndex: widget.currentIndex,
-              onTap: _onItemTapped,
-              isSvg: true,
-            ),
-            BottomNavItem(
-              iconPath: IconConstant.iconUser,
-              label: 'Profile',
-              index: 4,
-              currentIndex: widget.currentIndex,
-              onTap: _onItemTapped,
-              isSvg: true,
-            ),
-          ],
-        ),
-      ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      resizeToAvoidBottomInset: false,
-      floatingActionButton: RoundedFloatingActionButton(onTap: _onCenterMenuTapped, isMenuActive: widget.currentIndex == 2)
-    );
+        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+        resizeToAvoidBottomInset: false,
+        floatingActionButton: RoundedFloatingActionButton(
+            onTap: _onCenterMenuTapped,
+            isMenuActive: widget.currentIndex == 2));
   }
 }

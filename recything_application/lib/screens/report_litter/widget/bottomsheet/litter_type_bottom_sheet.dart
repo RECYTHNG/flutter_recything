@@ -62,7 +62,7 @@ class LitterTypeBottomSheet extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         controller.litterType.value = label;
-        Navigator.pop(context);
+        Get.back();
       },
       child: Container(
         padding: const EdgeInsets.all(16),

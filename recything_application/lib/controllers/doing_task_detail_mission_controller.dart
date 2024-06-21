@@ -8,7 +8,7 @@ class DoingTaskDetailMissionController extends GetxController {
   var dataGetProgress = {}.obs;
   var dataStartTask = {}.obs;
   var dataPutStepTask = {}.obs;
-  var isLoading = false.obs;
+  var isLoading = true.obs;
 
   final TaskStepService _taskService = TaskStepService();
   int stepCount = 0;
@@ -19,7 +19,6 @@ class DoingTaskDetailMissionController extends GetxController {
   Map<int, bool> userStepCompletionMap = {};
 
   Future<void> getDataTaskStart(String taskId) async {
-    isLoading.value = true;
     try {
       final responseData = await _taskService.getTaskStart(taskId);
       if (responseData.containsKey('data')) {
@@ -51,7 +50,6 @@ class DoingTaskDetailMissionController extends GetxController {
   }
 
   Future<void> startTask(String taskId, RxMap<dynamic, dynamic> data) async {
-    isLoading.value = false;
     try {
       final response = await _taskService.postTaskById(taskId, data);
       if (response.containsKey('data')) {
@@ -66,11 +64,12 @@ class DoingTaskDetailMissionController extends GetxController {
       }
     } catch (e) {
       throw Exception('Failed to start task: $e');
-    } finally {}
+    } finally {
+      isLoading.value = false;
+    }
   }
 
   Future<void> putTaskStepCompletion(String userTaskId) async {
-    isLoading.value = true;
     try {
       final response =
           await _taskService.putTaskStepCompletion(userTaskId, taskStepId);
@@ -110,5 +109,6 @@ class DoingTaskDetailMissionController extends GetxController {
 
   bool isStepCompleted(int stepId) {
     return userStepCompletionMap[stepId] ?? false;
+    isLoading.value = false;
   }
 }

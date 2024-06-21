@@ -23,8 +23,7 @@ class HomePageScreen extends StatefulWidget {
 
 class _HomePageScreenState extends State<HomePageScreen> {
   final HomeController dataController = Get.put(HomeController());
-  final ChallengeDashboardController challengeController = Get.put(ChallengeDashboardController());
-  
+  final ChallengeDashboardController challengeDashboardController = Get.put(ChallengeDashboardController());
 
   final List<Map<String, String>> carouselDataReport = [
     {

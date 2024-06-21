@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 import 'package:recything_application/constants/color_constant.dart';
 import 'package:recything_application/constants/icon_constant.dart';
 import 'package:recything_application/constants/text_style_constant.dart';
@@ -31,7 +32,7 @@ class _FeedBackOptionCustomerServiceWidgetState
         setState(() {
           isSelected = !isSelected;
         });
-        Navigator.pop(context);
+        Get.back();
         widget.handleDissatisfied();
       },
       child: Container(

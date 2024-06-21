@@ -317,12 +317,9 @@ class SearchContentWidget extends StatelessWidget {
                           .searchVideoContentData.value?.data?[index];
                       return GestureDetector(
                         onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => DetailVideoContentScreen(
-                                id: videoData?.id ?? 0,
-                              ),
+                          Get.to(
+                            () => DetailVideoContentScreen(
+                              id: videoData?.id ?? 0,
                             ),
                           );
                           videoContentController
@@ -481,13 +478,9 @@ class _TabBarAndContentWidgetState extends State<TabBarAndContentWidget>
                                 .videoContentData.value?.data?[index];
                             return GestureDetector(
                               onTap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) =>
-                                        DetailVideoContentScreen(
-                                      id: videoData?.id ?? 0,
-                                    ),
+                                Get.to(
+                                  () => DetailVideoContentScreen(
+                                    id: videoData?.id ?? 0,
                                   ),
                                 );
                                 videoContentController
@@ -642,12 +635,9 @@ class BuildTabContent extends StatelessWidget {
                     .categoryVideoContentData.value?.data?[index];
                 return GestureDetector(
                   onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => DetailVideoContentScreen(
-                          id: videoData?.id ?? 0,
-                        ),
+                    Get.to(
+                      () => DetailVideoContentScreen(
+                        id: videoData?.id ?? 0,
                       ),
                     );
                     videoContentController

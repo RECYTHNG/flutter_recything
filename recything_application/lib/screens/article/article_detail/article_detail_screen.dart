@@ -172,7 +172,7 @@ class _ArticleDetailScreenState extends State<ArticleDetailScreen> {
                                 commentController.clear();
                                 articleController.fetchArticleById(
                                     id: articleId);
-                                Navigator.pop(context);
+                                Get.back();
                               },
                               child: const Icon(
                                 Icons.send,
@@ -222,7 +222,7 @@ class _ArticleDetailScreenState extends State<ArticleDetailScreen> {
                   child: Row(
                     children: [
                       GestureDetector(
-                        onTap: () => Navigator.pop(context),
+                        onTap: () => Get.back(),
                         child: const Icon(
                           Icons.arrow_back,
                           color: ColorConstant.netralColor900,

@@ -27,7 +27,7 @@ class ArticleAppBarSearchWidget extends StatelessWidget {
               height: 40,
               child: IconButton(
                 onPressed: () {
-                  Navigator.pop(context);
+                  Get.back();
                 },
                 icon: const Icon(
                   Icons.arrow_back_rounded,

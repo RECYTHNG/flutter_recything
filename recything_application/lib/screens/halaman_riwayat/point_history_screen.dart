@@ -5,7 +5,7 @@ import 'package:recything_application/constants/color_constant.dart';
 import 'package:recything_application/constants/spacing_constant.dart';
 import 'package:recything_application/constants/text_style_constant.dart';
 import 'package:recything_application/controllers/achievement_controller.dart';
-import 'package:recything_application/models/achievement_model.dart';
+import 'package:recything_application/models/achievement/achievement_model.dart';
 import 'package:recything_application/screens/halaman_riwayat/widgets/list_point_history_widget.dart';
 import 'package:recything_application/screens/halaman_riwayat/widgets/no_record_history_point_widget.dart';
 import 'package:recything_application/widgets/global_loading_widget.dart';
