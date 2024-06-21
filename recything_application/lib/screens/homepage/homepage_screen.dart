@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:recything_application/constants/color_constant.dart';
 import 'package:recything_application/constants/image_constant.dart';
 import 'package:recything_application/constants/text_style_constant.dart';
+import 'package:recything_application/controllers/challenge_dashboard_controller.dart';
 import 'package:recything_application/controllers/home_controller.dart';
 import 'package:recything_application/screens/homepage/widgets/sections/article_section_widget.dart';
 import 'package:recything_application/screens/homepage/widgets/sections/challenge_section_widget.dart';
@@ -22,6 +23,8 @@ class HomePageScreen extends StatefulWidget {
 
 class _HomePageScreenState extends State<HomePageScreen> {
   final HomeController dataController = Get.put(HomeController());
+  final ChallengeDashboardController challengeController = Get.put(ChallengeDashboardController());
+  
 
   final List<Map<String, String>> carouselDataReport = [
     {

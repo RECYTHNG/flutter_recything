@@ -79,7 +79,11 @@ class SuccessScreen extends StatelessWidget {
             GlobalButtonWidget(
               onTap: () {
                 Get.delete<UserController>();
-                Get.offAll(() => ProfileScreen());
+                Get.offAll(
+                  () => HomeNavBarScreen(
+                    currentIndex: 4,
+                  ),
+                );
               },
               width: double.infinity,
               height: 60,
