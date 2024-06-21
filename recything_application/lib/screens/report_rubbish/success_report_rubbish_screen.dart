@@ -9,6 +9,7 @@ import 'package:recything_application/controllers/map_rubbish_controller.dart';
 import 'package:recything_application/controllers/report_history_controller.dart';
 import 'package:recything_application/controllers/report_rubbish_controller.dart';
 import 'package:recything_application/screens/dashboard_reporting/dashboard_reporting_screen.dart';
+import 'package:recything_application/screens/homepage/home_navbar_screen.dart';
 import 'package:recything_application/utils/system_ui_overlay_utils.dart';
 import 'package:recything_application/widgets/global_app_bar.dart';
 import 'package:recything_application/widgets/global_button_widget.dart';
@@ -73,7 +74,7 @@ class SuccessReportRubbishScreen extends StatelessWidget {
                 Get.delete<MapRubbishController>();
                 Get.delete<ReportRubbishController>();
                 Get.delete<ReportHistoryController>();
-                Get.offAll(() => DashboardReportingScreen());
+                Get.offAll(() => HomeNavBarScreen(currentIndex: 2));
               },
               width: double.infinity,
               height: 40,
