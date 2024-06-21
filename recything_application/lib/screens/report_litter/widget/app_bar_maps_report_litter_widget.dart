@@ -23,7 +23,7 @@ class AppBarMapsReportLitterWidget extends StatelessWidget {
         ),
         const Spacer(),
         Text(
-          'Pilih Lokasi',
+          'Pilih Lokasi Sampah',
           style: TextStyleConstant.boldSubtitle.copyWith(
             color: ColorConstant.netralColor900,
           ),

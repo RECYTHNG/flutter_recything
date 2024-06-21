@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:recything_application/constants/color_constant.dart';
+import 'package:recything_application/controllers/article_controller.dart';
 import 'package:recything_application/controllers/article_search_controller.dart';
 import 'package:recything_application/widgets/global_autocomplete_search_bar.dart';
 
@@ -9,9 +10,11 @@ class ArticleAppBarSearchWidget extends StatelessWidget {
     super.key,
     required this.articleSearchController,
     required this.onSubmitted,
+    this.articleController,
   });
   final ArticleSearchController articleSearchController;
-  final dynamic Function(String)? onSubmitted;
+  final dynamic Function(String) onSubmitted;
+  final ArticleController? articleController;
 
   @override
   Widget build(BuildContext context) {
@@ -28,6 +31,8 @@ class ArticleAppBarSearchWidget extends StatelessWidget {
               child: IconButton(
                 onPressed: () {
                   Get.back();
+                  articleController?.setKeyword('');
+                  articleSearchController.clear();
                 },
                 icon: const Icon(
                   Icons.arrow_back_rounded,
