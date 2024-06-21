@@ -6,17 +6,20 @@ import 'package:recything_application/constants/color_constant.dart';
 import 'package:recything_application/constants/icon_constant.dart';
 import 'package:recything_application/constants/spacing_constant.dart';
 import 'package:recything_application/constants/text_style_constant.dart';
+import 'package:recything_application/controllers/challenge_dashboard_controller.dart';
 import 'package:recything_application/controllers/home_controller.dart';
 import 'package:recything_application/screens/achievement_screen/achievement_screen.dart';
 import 'package:recything_application/screens/challenge/challenge_list/challenge_list_screen.dart';
 import 'package:recything_application/screens/halaman_riwayat/point_history_screen.dart';
+import 'package:recything_application/utils/user_level_utils.dart';
 import 'package:recything_application/widgets/global_button_widget.dart';
 import 'package:recything_application/widgets/global_loading_widget.dart';
 
 class PointsContainer extends StatelessWidget {
   PointsContainer({super.key});
 
-  final HomeController controller = Get.put(HomeController());
+  final HomeController controllerHome = Get.put(HomeController());
+  final ChallengeDashboardController controller = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -43,18 +46,47 @@ class PointsContainer extends StatelessWidget {
                   ),
                 ),
                 GestureDetector(
-                  onTap: () {
-                    Get.to(
-                      () => const AchievementScreen(),
-                    );
-                  },
-                  child: CachedNetworkImage(
-                    imageUrl: controller.user['badge'] ?? '',
-                    width: 30,
-                    height: 30,
-                    placeholder: (context, url) => const MyLoading(),
-                    errorWidget: (context, url, error) =>
-                        const Icon(Icons.error),
+                  onTap: () => Get.to(() => const AchievementScreen()),
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 5,
+                      horizontal: 17,
+                    ),
+                    height: 29,
+                    decoration: BoxDecoration(
+                      color: const Color(0xffEFEFEF),
+                      border: Border.all(
+                        width: 1,
+                        color: ColorConstant.primaryColor500,
+                      ),
+                      borderRadius: const BorderRadius.all(
+                        Radius.circular(11),
+                      ),
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        if (controller.userAchievementData.value != null)
+                          Image.network(
+                            controller
+                                .userAchievementData.value!.data.dataUser.badge,
+                          ),
+                        SpacingConstant.horizontalSpacing050,
+                        Text(
+                          controller.userAchievementData.value?.data != null
+                              ? UserLevelUtils.getLevel(controller
+                                  .userAchievementData
+                                  .value!
+                                  .data
+                                  .dataUser
+                                  .point)
+                              : 'Classic',
+                          style: TextStyleConstant.semiboldCaption.copyWith(
+                            color: ColorConstant.primaryColor500,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ],
@@ -63,7 +95,7 @@ class PointsContainer extends StatelessWidget {
               width: double.infinity,
               alignment: Alignment.centerLeft,
               child: Text(
-                controller.user['point'].toString(),
+                controllerHome.user['point'].toString(),
                 style: TextStyleConstant.semiboldHeading3.copyWith(
                   color: ColorConstant.whiteColor,
                 ),
