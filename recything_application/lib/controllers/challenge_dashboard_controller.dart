@@ -2,22 +2,29 @@ import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:recything_application/models/challenge/dashboard/achievement_dashboard_challenge_model.dart';
 import 'package:recything_application/models/challenge/dashboard/all_dashboard_challenge_model.dart';
-import 'package:recything_application/models/challenge/dashboard/user_dashboard_challenge_model.dart' as user_challenge;
+import 'package:recything_application/models/challenge/dashboard/user_dashboard_challenge_model.dart'
+    as user_challenge;
 import 'package:recything_application/services/challenge/dashboard/achievement_dashboard_challenge_service.dart';
 import 'package:recything_application/services/challenge/dashboard/dashboard_challenge_service.dart';
 
 class ChallengeDashboardController extends GetxController {
-  Rxn<AchievementDashboardChallengeModel> userAchievementData = Rxn<AchievementDashboardChallengeModel>();
-  Rxn<AllDashboardChallengeModel> challengeData = Rxn<AllDashboardChallengeModel>();
-  Rxn<user_challenge.UserDashboardChallengeModel> onProgressChallengeData = Rxn<user_challenge.UserDashboardChallengeModel>();
-  Rxn<user_challenge.UserDashboardChallengeModel> doneChallengeData = Rxn<user_challenge.UserDashboardChallengeModel>();
-  Rxn<user_challenge.UserDashboardChallengeModel> historyChallengeData = Rxn<user_challenge.UserDashboardChallengeModel>();
+  Rxn<AchievementDashboardChallengeModel> userAchievementData =
+      Rxn<AchievementDashboardChallengeModel>();
+  Rxn<AllDashboardChallengeModel> challengeData =
+      Rxn<AllDashboardChallengeModel>();
+  Rxn<user_challenge.UserDashboardChallengeModel> onProgressChallengeData =
+      Rxn<user_challenge.UserDashboardChallengeModel>();
+  Rxn<user_challenge.UserDashboardChallengeModel> doneChallengeData =
+      Rxn<user_challenge.UserDashboardChallengeModel>();
+  Rxn<user_challenge.UserDashboardChallengeModel> historyChallengeData =
+      Rxn<user_challenge.UserDashboardChallengeModel>();
   RxBool isLoadingFetchOnProgressChallenge = RxBool(false);
   RxBool isLoadingFetchAllChallenge = RxBool(false);
   RxBool isLoadingFetchUserAchievement = RxBool(false);
   RxBool isLoadingFetchDoneChallenge = RxBool(false);
   RxBool isLoadingFetchHistoryChallenge = RxBool(false);
-  Rxn<List<user_challenge.Datum>> doneChallengeSectionData = Rxn<List<user_challenge.Datum>>([]);
+  Rxn<List<user_challenge.Datum>> doneChallengeSectionData =
+      Rxn<List<user_challenge.Datum>>([]);
 
   @override
   void onInit() {
@@ -41,14 +48,16 @@ class ChallengeDashboardController extends GetxController {
   }
 
   String getFirstName() {
-    List<String> name = userAchievementData.value!.data.dataUser.name.split(' ');
+    List<String> name =
+        userAchievementData.value!.data.dataUser.name.split(' ');
     return name[0];
   }
 
   Future<void> fetchUserAchievement() async {
     isLoadingFetchUserAchievement.value = true;
     try {
-      final response = await AchievementDashboardChallengeService().getAchievement();
+      final response =
+          await AchievementDashboardChallengeService().getAchievement();
       userAchievementData.value = response;
     } catch (e) {
       if (kDebugMode) {
@@ -105,7 +114,8 @@ class ChallengeDashboardController extends GetxController {
   Future<void> fetchOnProgressChallenge() async {
     isLoadingFetchOnProgressChallenge.value = true;
     try {
-      final response = await DashboardChallengeService().getOnProgressChallenge();
+      final response =
+          await DashboardChallengeService().getOnProgressChallenge();
       onProgressChallengeData.value = response;
     } catch (e) {
       if (kDebugMode) {

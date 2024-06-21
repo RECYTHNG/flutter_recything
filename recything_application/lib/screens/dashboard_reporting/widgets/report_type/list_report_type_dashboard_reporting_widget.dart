@@ -12,13 +12,13 @@ class ListReportTypeDashboardReportingWidget extends StatelessWidget {
 
   final List<Widget> reportTypeItems = [
     ItemReportTypeDashboardReportingWidget(
-      onTap: () => Get.to(const ReportRubbishScreen()),
+      onTap: () => Get.to(() => const ReportRubbishScreen()),
       title: 'Penumpukan Sampah',
       image: ImageConstant.rubbishCarousel,
     ),
     ItemReportTypeDashboardReportingWidget(
       onTap: () {
-        Get.to(const PickLitterTypeScreen());
+        Get.to(() => const PickLitterTypeScreen());
       },
       title: 'Pembuangan Sampah Sembarangan',
       image: ImageConstant.litteringCarousel,

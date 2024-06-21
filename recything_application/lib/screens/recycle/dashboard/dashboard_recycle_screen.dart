@@ -15,7 +15,7 @@ class DashboardRecycleScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    SystemUiOverlayUtils().setSystemUiOverlay(ColorConstant.whiteColor, false);
+    SystemUiOverlayUtils().setSystemUiOverlay(ColorConstant.whiteColor, true);
     Get.put(RecycleController());
     return Scaffold(
       backgroundColor: ColorConstant.whiteColor,

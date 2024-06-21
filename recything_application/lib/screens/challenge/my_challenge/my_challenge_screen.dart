@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:recything_application/constants/color_constant.dart';
 import 'package:recything_application/constants/text_style_constant.dart';
 import 'package:recything_application/controllers/challenge_dashboard_controller.dart';
+import 'package:recything_application/screens/challenge/dashboard/challenge_dashboard_screen.dart';
 import 'package:recything_application/screens/challenge/my_challenge/widgets/active_challenge/list_active_challenge_widget.dart';
 import 'package:recything_application/screens/challenge/my_challenge/widgets/done_challenge/list_done_challenge_widgte.dart';
 
@@ -12,7 +13,7 @@ class MyChallengeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final ChallengeDashboardController controller = Get.find();
-    WidgetsBinding.instance.addPostFrameCallback((_){
+    WidgetsBinding.instance.addPostFrameCallback((_) {
       controller.fetchOnProgressChallenge();
       controller.fetchDoneChallengeSection();
     });
@@ -21,6 +22,14 @@ class MyChallengeScreen extends StatelessWidget {
       child: Scaffold(
         backgroundColor: ColorConstant.primaryColor50,
         appBar: AppBar(
+          leading: IconButton(
+            onPressed: () {
+              Get.offAll(
+                const ChallengeDashboardScreen(),
+              );
+            },
+            icon: const Icon(Icons.arrow_back),
+          ),
           iconTheme: const IconThemeData(
             color: ColorConstant.netralColor50,
           ),

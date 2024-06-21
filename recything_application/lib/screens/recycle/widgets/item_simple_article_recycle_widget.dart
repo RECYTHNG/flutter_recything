@@ -113,6 +113,20 @@ class ItemSimpleArticleRecycleWidget extends StatelessWidget {
                       child: Image.network(
                         thumbnail,
                         fit: BoxFit.cover,
+                        errorBuilder: (context, error, stackTrace) {
+                          return Container(
+                            width: double.infinity,
+                            height: 200,
+                            color: Colors.grey[300],
+                            child: const Center(
+                              child: Icon(
+                                Icons.error_outline,
+                                color: Colors.red,
+                                size: 48,
+                              ),
+                            ),
+                          );
+                        },
                       ),
                     ),
                   ),
