@@ -29,14 +29,14 @@ class ProfileHeaderChallengeDashboardWidget extends StatelessWidget {
                 SpacingConstant.horizontalSpacing100,
                 if (controller.userAchievementData.value != null)
                   Text(
-                    'Hello, ${controller.getFirstName()}',
+                    'Hi, ${controller.getFirstName()}',
                     style: TextStyleConstant.semiboldSubtitle.copyWith(
                       color: ColorConstant.netralColor900,
                     ),
                   )
                 else
                   Text(
-                    'Hello, User',
+                    'Hi, User',
                     style: TextStyleConstant.semiboldSubtitle.copyWith(
                       color: ColorConstant.netralColor900,
                     ),
