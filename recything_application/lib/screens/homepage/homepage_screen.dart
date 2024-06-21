@@ -31,10 +31,10 @@ class _HomePageScreenState extends State<HomePageScreen> {
       'footerText': 'Reporting Rubbish',
     },
     {
-      'title': 'Kebersihan Lingkungan',
-      'subtitle': 'Jaga kebersihan lingkungan',
+      'title': 'Buang Sampah Sembarangan',
+      'subtitle': 'Laporkan pembuangan sampah sembarangan',
       'imagePath': 'assets/images/home_images/gambar_6.png',
-      'footerText': 'Environmental Cleanliness',
+      'footerText': 'Reporting Littering',
     },
   ];
 
@@ -58,6 +58,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
                       image: AssetImage(
                         ImageConstant.headerImage,
                       ),
+                      fit: BoxFit.fitHeight,
                       alignment: Alignment.bottomCenter,
                     ),
                   ),
@@ -91,12 +92,26 @@ class _HomePageScreenState extends State<HomePageScreen> {
                               children: [
                                 Container(
                                   width: 32,
+                                  height: 32,
                                   child: ClipRRect(
                                     borderRadius: BorderRadius.circular(100),
                                     child: Image.network(
                                       dataController.user['picture_url'],
                                       height: 32,
+                                      width: 32,
                                       fit: BoxFit.cover,
+                                      errorBuilder: (BuildContext context,
+                                          Object error,
+                                          StackTrace? stackTrace) {
+                                        return Container(
+                                          color: Colors.grey[200],
+                                          child: const Icon(
+                                            Icons.person,
+                                            color: ColorConstant.netralColor700,
+                                            size: 32,
+                                          ),
+                                        );
+                                      },
                                     ),
                                   ),
                                 ),
