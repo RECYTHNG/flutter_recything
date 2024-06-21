@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 import 'package:recything_application/controllers/profile_controller.dart';
 import 'package:recything_application/models/video_content/detail_video_content_model.dart';
 import 'package:recything_application/models/video_content/response_category_model.dart';
 import 'package:recything_application/models/video_content/response_search_model.dart';
 import 'package:recything_application/models/video_content/video_content_model.dart';
-import 'package:recything_application/services/Video_content/video_content_service.dart';
-import 'package:youtube_player_flutter/youtube_player_flutter.dart';
+import 'package:recything_application/services/video_content/video_content_service.dart';
 
 class VideoContentController extends GetxController {
   YoutubePlayerController? youtubePlayerController;
@@ -20,8 +20,6 @@ class VideoContentController extends GetxController {
       Rxn<ResponseGetCategoryModel>();
   Rxn<VideoContentSearchResponseModel> searchVideoContentData =
       Rxn<VideoContentSearchResponseModel>();
-  RxBool scrollable = true.obs;
-
   TextEditingController commentController = TextEditingController();
   RxList<Map<String, dynamic>> idAndTitle = <Map<String, dynamic>>[].obs;
 
@@ -59,7 +57,6 @@ class VideoContentController extends GetxController {
         for (var item in response.data!) {
           idAndTitle.add({"id": item.id, "title": item.title});
         }
-        print(idAndTitle[2]);
       } else {
         Get.snackbar("Error", response.message.toString());
       }
@@ -110,14 +107,20 @@ class VideoContentController extends GetxController {
 
   void postComment(int videoId, String comment) async {
     try {
-      videoContentService.postComment(videoId, comment);
-      detailVideoContentData.value?.data?.comments?.add({
+      await videoContentService.postComment(videoId, comment);
+      final newComment = {
         "user_name": profileController.userData.value?.name,
         "comment": comment,
         "user_profile": profileController.userData.value?.pictureUrl,
         "created_at": DateTime.now().toString(),
-      });
+      };
+      if (detailVideoContentData.value?.data?.comments != null) {
+        detailVideoContentData.value?.data?.comments?.insert(0, newComment);
+      } else {
+        detailVideoContentData.value?.data?.comments = [newComment];
+      }
       detailVideoContentData.refresh();
+      commentController.clear();
     } catch (e) {
       Get.snackbar("Error", "Failed to post comment: $e");
     }
@@ -129,7 +132,6 @@ class VideoContentController extends GetxController {
       final response = await videoContentService.getCategoryVideoContent(name);
       if (response.code == 200) {
         categoryVideoContentData.value = response;
-        print("Haloooooooo ${categoryVideoContentData.value}");
       } else {
         Get.snackbar("Error", response.message.toString());
       }
@@ -146,7 +148,6 @@ class VideoContentController extends GetxController {
       final response = await videoContentService.getSearchVideoContent(keyword);
       if (response.code == 200) {
         searchVideoContentData.value = response;
-        print("Haloooo search ${searchVideoContentData.value}");
       } else {
         Get.snackbar("Error", response.message.toString());
       }

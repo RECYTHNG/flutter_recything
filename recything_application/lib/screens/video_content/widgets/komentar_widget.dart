@@ -40,6 +40,7 @@ class KomentarWidget extends StatelessWidget {
               height: height,
               width: width,
               decoration: BoxDecoration(
+                color: Colors.black,
                 image: DecorationImage(
                   image: image,
                 ),

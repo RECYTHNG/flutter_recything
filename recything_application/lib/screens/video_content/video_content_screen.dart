@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:substring_highlight/substring_highlight.dart';
 import 'package:recything_application/constants/color_constant.dart';
 import 'package:recything_application/constants/spacing_constant.dart';
 import 'package:recything_application/constants/text_style_constant.dart';
@@ -91,6 +92,22 @@ class BackAndSearchWidget extends StatefulWidget {
 
 class _BackAndSearchWidgetState extends State<BackAndSearchWidget> {
   final VideoContentController videoContentController = Get.find();
+  late TextEditingController textEditingController;
+  late FocusNode focusNode;
+
+  @override
+  void initState() {
+    super.initState();
+    textEditingController = TextEditingController();
+    focusNode = FocusNode();
+  }
+
+  @override
+  void dispose() {
+    textEditingController.dispose();
+    focusNode.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -122,8 +139,10 @@ class _BackAndSearchWidgetState extends State<BackAndSearchWidget> {
                       .toList();
 
                   return Autocomplete<String>(
-                    fieldViewBuilder: (context, textEditingController,
-                        focusNode, onFieldSubmitted) {
+                    fieldViewBuilder:
+                        (context, controller, node, onFieldSubmitted) {
+                      textEditingController = controller;
+                      focusNode = node;
                       textEditingController.addListener(() {
                         String query = textEditingController.text;
                         widget.onSearch(query);
@@ -193,6 +212,10 @@ class _BackAndSearchWidgetState extends State<BackAndSearchWidget> {
                         alignment: Alignment.topLeft,
                         child: Material(
                           elevation: 4.0,
+                          borderRadius: const BorderRadius.only(
+                            bottomLeft: Radius.circular(8),
+                            bottomRight: Radius.circular(8),
+                          ),
                           child: Container(
                             decoration: const BoxDecoration(
                               color: ColorConstant.whiteColor,
@@ -202,35 +225,48 @@ class _BackAndSearchWidgetState extends State<BackAndSearchWidget> {
                               ),
                             ),
                             width: constraints.maxWidth,
-                            child: ConstrainedBox(
-                              constraints: BoxConstraints(
-                                maxHeight: options.length * 48.0,
+                            child: ClipRRect(
+                              borderRadius: const BorderRadius.only(
+                                bottomLeft: Radius.circular(8),
+                                bottomRight: Radius.circular(8),
                               ),
-                              child: ListView.builder(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 16, vertical: 8),
-                                shrinkWrap: true,
-                                itemCount: options.length,
-                                itemBuilder: (BuildContext context, int index) {
-                                  final String option =
-                                      options.elementAt(index);
-                                  return GestureDetector(
-                                    onTap: () {
-                                      onSelected(option);
-                                    },
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(8.0),
-                                      child: Text(
-                                        option,
-                                        style: TextStyleConstant
-                                            .regularParagraph
-                                            .copyWith(
-                                          color: ColorConstant.netralColor900,
+                              child: ConstrainedBox(
+                                constraints: BoxConstraints(
+                                  maxHeight: options.length * 48.0,
+                                ),
+                                child: ListView.builder(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 16, vertical: 8),
+                                  shrinkWrap: true,
+                                  itemCount: options.length,
+                                  itemBuilder:
+                                      (BuildContext context, int index) {
+                                    final String option =
+                                        options.elementAt(index);
+                                    return GestureDetector(
+                                      onTap: () {
+                                        onSelected(option);
+                                      },
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: SubstringHighlight(
+                                          text: option,
+                                          term: textEditingController.text,
+                                          textStyle: TextStyleConstant
+                                              .regularParagraph
+                                              .copyWith(
+                                            color: ColorConstant.netralColor600,
+                                          ),
+                                          textStyleHighlight: TextStyleConstant
+                                              .boldParagraph
+                                              .copyWith(
+                                            color: ColorConstant.netralColor900,
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                  );
-                                },
+                                    );
+                                  },
+                                ),
                               ),
                             ),
                           ),

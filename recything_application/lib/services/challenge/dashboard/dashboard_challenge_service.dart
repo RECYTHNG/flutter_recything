@@ -49,6 +49,7 @@ class DashboardChallengeService {
         ),
       );
       final jsonResponse = response.data as Map<String, dynamic>;
+      print(jsonResponse);
       return UserDashboardChallengeModel.fromJson(jsonResponse);
     } on DioException catch (e) {
       throw 'Error: ${e.response!.statusCode}';
