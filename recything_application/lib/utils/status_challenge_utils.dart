@@ -11,7 +11,7 @@ class StatusChallengeUtils {
         case 'reject':
           return 'Ditolak';
         default:
-          return 'Selesai';
+          return 'Unknown';
       }
     }
   }

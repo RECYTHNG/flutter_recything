@@ -33,6 +33,7 @@ class DashboardChallengeService {
         ),
       );
       final jsonResponse = response.data as Map<String, dynamic>;
+      print(response.data);
       return UserDashboardChallengeModel.fromJson(jsonResponse);
     } on DioException catch (e) {
       throw 'Error: ${e.response!.statusCode}';
@@ -49,7 +50,6 @@ class DashboardChallengeService {
         ),
       );
       final jsonResponse = response.data as Map<String, dynamic>;
-      print(jsonResponse);
       return UserDashboardChallengeModel.fromJson(jsonResponse);
     } on DioException catch (e) {
       throw 'Error: ${e.response!.statusCode}';
@@ -58,7 +58,7 @@ class DashboardChallengeService {
 
   Future<UserDashboardChallengeModel> getHistoryChallenge() async {
     try {
-      final token = SharedPref.getToken();
+      final token = await SharedPref.getToken();
       final response = await _dio.get(
         '$recythingBaseUrl/user-current/tasks/history',
         options: Options(

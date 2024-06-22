@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:horizontal_stepper_flutter/horizontal_stepper_flutter.dart';
 import 'package:recything_application/constants/color_constant.dart';
 import 'package:recything_application/constants/spacing_constant.dart';
 import 'package:recything_application/constants/text_style_constant.dart';
@@ -41,8 +40,7 @@ class ItemUserChallengeWidget extends StatelessWidget {
       finalStatusMessage = 'Menunggu verifikasi admin';
       finalColorInstruction = ColorConstant.primaryColor400;
     } else if (finalStatus == 'Ditolak') {
-      finalStatusMessage =
-          'Bukti foto tidak sesuai step. Segera Perbaiki Bukti!';
+      finalStatusMessage = 'Bukti foto tidak sesuai step. Segera Perbaiki Bukti!';
       finalColorInstruction = ColorConstant.dangerColor500;
     } else if (finalStatus == 'Terverifikasi') {
       finalStatusMessage = 'Selamat! Challenge Selesai';
@@ -129,9 +127,9 @@ class ItemUserChallengeWidget extends StatelessWidget {
                       vertical: 4,
                       horizontal: 8,
                     ),
-                    decoration: const BoxDecoration(
-                      color: ColorConstant.primaryColor500,
-                      borderRadius: BorderRadius.all(
+                    decoration: BoxDecoration(
+                      color: finalColorInstruction,
+                      borderRadius: const BorderRadius.all(
                         Radius.circular(8),
                       ),
                     ),
@@ -153,21 +151,20 @@ class ItemUserChallengeWidget extends StatelessWidget {
                 children: [
                   SpacingConstant.verticalSpacing200,
                   if (totalStep == 2)
-                    const TwoStepperWidget()
+                    TwoStepperWidget(datum: datum, finalStatus: finalStatus)
                   else if (totalStep == 3)
                     ThreeStepperWidget(datum: datum, finalStatus: finalStatus)
                   else if (totalStep == 4)
-                    const FourStepperWidget()
+                    FourStepperWidget(datum: datum, finalStatus: finalStatus)
                   else
-                    const FiveStepperWidget(),
+                    FiveStepperWidget(datum: datum, finalStatus: finalStatus),
                   SpacingConstant.verticalSpacing200,
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
                         finalStatusMessage,
-                        style: TextStyleConstant.regularFooter
-                            .copyWith(color: finalColorInstruction),
+                        style: TextStyleConstant.regularFooter.copyWith(color: finalColorInstruction),
                       ),
                     ],
                   ),

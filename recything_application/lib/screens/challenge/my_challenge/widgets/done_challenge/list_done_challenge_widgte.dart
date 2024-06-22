@@ -13,7 +13,7 @@ class ListDoneChallengeWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final ChallengeDashboardController controller = Get.find();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      controller.fetchDoneChallengeSection();
+      controller.fetchDoneChallenge();
     });
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -22,8 +22,7 @@ class ListDoneChallengeWidget extends StatelessWidget {
           SpacingConstant.verticalSpacing200,
           Obx(
             () {
-              if (controller.isLoadingFetchHistoryChallenge.value ||
-                  controller.isLoadingFetchDoneChallenge.value) {
+              if (controller.isLoadingFetchDoneChallenge.value) {
                 return Center(
                   child: SizedBox(
                     height: MediaQuery.of(context).size.height * 0.8,
@@ -36,31 +35,27 @@ class ListDoneChallengeWidget extends StatelessWidget {
                   ),
                 );
               } else {
-                if (controller.doneChallengeSectionData.value!.isNotEmpty) {
+                if (controller.doneChallengeData.value == null) {
+                  return const EmptyStateChallengeWidget();
+                } else {
                   return Expanded(
                     child: ListView.separated(
-                      itemCount:
-                          controller.doneChallengeSectionData.value!.length,
-                      separatorBuilder: (context, index) =>
-                          SpacingConstant.verticalSpacing100,
+                      itemCount: controller.doneChallengeData.value!.data.length,
+                      separatorBuilder: (context, index) => SpacingConstant.verticalSpacing100,
                       itemBuilder: (context, index) {
-                        final challenge =
-                            controller.doneChallengeSectionData.value!;
+                        final challenge = controller.doneChallengeData.value!.data[index];
                         return ItemUserChallengeWidget(
                           onTap: () {},
-                          datum: challenge[index],
-                          title: challenge[index].taskChallenge.title,
-                          statusAccept: challenge[index].statusAccept,
-                          statusProgress: challenge[index].statusProgress,
-                          totalStep:
-                              challenge[index].taskChallenge.taskSteps.length,
-                          image: challenge[index].taskChallenge.thumbnail,
+                          datum: challenge,
+                          title: challenge.taskChallenge.title,
+                          statusAccept: challenge.statusAccept,
+                          statusProgress: challenge.statusProgress,
+                          totalStep: challenge.taskChallenge.taskSteps.length,
+                          image: challenge.taskChallenge.thumbnail,
                         );
                       },
                     ),
                   );
-                } else {
-                  return const EmptyStateChallengeWidget();
                 }
               }
             },

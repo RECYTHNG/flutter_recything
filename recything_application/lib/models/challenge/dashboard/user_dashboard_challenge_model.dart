@@ -25,23 +25,60 @@ class Datum {
   final String id;
   final String statusProgress;
   final String statusAccept;
+  final int point;
+  final String reasonReject;
   final TaskChallenge taskChallenge;
+  List<UserStep> userSteps;
 
   Datum({
     required this.id,
     required this.statusProgress,
     required this.statusAccept,
+    required this.point,
+    required this.reasonReject,
     required this.taskChallenge,
+    required this.userSteps,
   });
 
   factory Datum.fromJson(Map<String, dynamic> json) {
+    var userStepsList = <UserStep>[];
+
+    if (json['user_steps'] != null && json['user_steps'] is List) {
+      var stepList = json['user_steps'] as List<dynamic>;
+      userStepsList = stepList.map((json) => UserStep.fromJson(json)).toList();
+    }
+
     return Datum(
       id: json['id'] ?? '',
       statusProgress: json['status_progress'] ?? '',
-      statusAccept: json['status_accept'] ?? '',
+      statusAccept: json['status_accepted'] ?? '',
+      point: json['point'] ?? 0,
+      reasonReject: json['reason_reject'] ?? '',
       taskChallenge: TaskChallenge.fromJson(json['task_challenge'] ?? {}),
+      userSteps: userStepsList,
     );
   }
+}
+
+class UserStep {
+  int id;
+  String userTaskChallengeId;
+  int taskStepId;
+  bool completed;
+
+  UserStep({
+    required this.id,
+    required this.userTaskChallengeId,
+    required this.taskStepId,
+    required this.completed,
+  });
+
+  factory UserStep.fromJson(Map<String, dynamic> json) => UserStep(
+        id: json["id"],
+        userTaskChallengeId: json["user_task_challenge_id"],
+        taskStepId: json["task_step_id"],
+        completed: json["completed"],
+      );
 }
 
 class TaskChallenge {
@@ -71,9 +108,11 @@ class TaskChallenge {
 
   factory TaskChallenge.fromJson(Map<String, dynamic> json) {
     var taskList = json['task_steps'] as List<dynamic>? ?? [];
-    List<TaskStep> taskStepsList = taskList.map((i) => TaskStep.fromJson(i)).toList();
+    List<TaskStep> taskStepsList =
+        taskList.map((i) => TaskStep.fromJson(i)).toList();
     var stepList = json['user_steps'] as List<dynamic>? ?? [];
-    List<UserStep> userStepsList = stepList.map((i) => UserStep.fromJson(i)).toList();
+    List<UserStep> userStepsList =
+        stepList.map((i) => UserStep.fromJson(i)).toList();
 
     return TaskChallenge(
       id: json['id'] ?? '',
@@ -106,29 +145,6 @@ class TaskStep {
       id: json['id'] ?? 0,
       title: json['title'] ?? '',
       description: json['description'] ?? '',
-    );
-  }
-}
-
-class UserStep {
-  final int id;
-  final String userTaskChallengeId;
-  final int taskStepId;
-  final bool completed;
-
-  UserStep({
-    required this.id,
-    required this.userTaskChallengeId,
-    required this.taskStepId,
-    required this.completed,
-  });
-
-  factory UserStep.fromJson(Map<String, dynamic> json) {
-    return UserStep(
-      id: json['id'] ?? 0,
-      userTaskChallengeId: json['user_task_challenge_id'] ?? '',
-      taskStepId: json['task_step_id'] ?? 0,
-      completed: json['completed'] ?? false,
     );
   }
 }
