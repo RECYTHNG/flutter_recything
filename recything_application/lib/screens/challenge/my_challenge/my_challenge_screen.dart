@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:recything_application/constants/color_constant.dart';
 import 'package:recything_application/constants/text_style_constant.dart';
 import 'package:recything_application/controllers/challenge_dashboard_controller.dart';
-import 'package:recything_application/screens/challenge/dashboard/challenge_dashboard_screen.dart';
 import 'package:recything_application/screens/challenge/my_challenge/widgets/active_challenge/list_active_challenge_widget.dart';
 import 'package:recything_application/screens/challenge/my_challenge/widgets/done_challenge/list_done_challenge_widgte.dart';
 
@@ -15,7 +14,7 @@ class MyChallengeScreen extends StatelessWidget {
     final ChallengeDashboardController controller = Get.find();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       controller.fetchOnProgressChallenge();
-      controller.fetchDoneChallengeSection();
+      controller.fetchDoneChallenge();
     });
     return DefaultTabController(
       length: 2,

@@ -50,6 +50,8 @@ class ListMenuWidget extends StatelessWidget {
         GestureDetector(
           onTap: () {
             SharedPref.removeToken();
+            SharedPref.deleteAllHistory();
+            Get.deleteAll();
             Get.off(
               () => LoginAuthenticationScreen(),
             );

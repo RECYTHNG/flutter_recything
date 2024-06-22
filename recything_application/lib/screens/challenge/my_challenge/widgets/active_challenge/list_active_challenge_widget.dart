@@ -41,18 +41,14 @@ class ListActiveChallengeWidget extends StatelessWidget {
                 } else {
                   return Expanded(
                     child: ListView.separated(
-                      itemCount:
-                          controller.onProgressChallengeData.value!.data.length,
-                      separatorBuilder: (context, index) =>
-                          SpacingConstant.verticalSpacing100,
+                      itemCount: controller.onProgressChallengeData.value!.data.length,
+                      separatorBuilder: (context, index) => SpacingConstant.verticalSpacing100,
                       itemBuilder: (context, index) {
-                        final challenge = controller
-                            .onProgressChallengeData.value!.data[index];
+                        final challenge = controller.onProgressChallengeData.value!.data[index];
                         return ItemUserChallengeWidget(
                           onTap: () {
                             Get.to(
-                              DetailMissionProgressScreen(
-                                  userTaskId: challenge.id),
+                              DetailMissionProgressScreen(userTaskId: challenge.id),
                             );
                           },
                           datum: challenge,
