@@ -78,6 +78,7 @@ class DetailMissionProgressScreen extends StatelessWidget {
           final statusProgress = data['status_progress'];
 
           return Scaffold(
+            backgroundColor: ColorConstant.whiteColor,
             appBar: AppBar(
               leading: IconButton(
                 onPressed: () {

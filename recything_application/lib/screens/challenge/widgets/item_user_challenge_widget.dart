@@ -30,7 +30,8 @@ class ItemUserChallengeWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final String finalStatus = StatusChallengeUtils.getStatus(statusProgress, statusAccept);
+    final String finalStatus =
+        StatusChallengeUtils.getStatus(statusProgress, statusAccept);
     String finalStatusMessage;
     Color finalColorInstruction;
     if (finalStatus == 'Proses') {

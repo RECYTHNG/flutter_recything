@@ -1,12 +1,15 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:recything_application/constants/color_constant.dart';
+import 'package:recything_application/constants/icon_constant.dart';
 import 'package:recything_application/constants/image_constant.dart';
 import 'package:recything_application/constants/text_style_constant.dart';
 import 'package:recything_application/controllers/doing_task_proof_upload_controller.dart';
-import 'package:recything_application/screens/detail_mission/widgets/bukti_satu_widget.dart';
+import 'package:recything_application/widgets/global_image_picker_dialog_widget.dart';
 
 class ProofUploadScreen extends StatefulWidget {
   final String userTaskId;
@@ -22,130 +25,18 @@ class ProofUploadScreen extends StatefulWidget {
 class _ProofUploadScreenState extends State<ProofUploadScreen> {
   final DoingTaskProofUploadController controller =
       Get.put(DoingTaskProofUploadController());
-  final ImagePicker _picker = ImagePicker();
   final TextEditingController descriptionController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
   bool isTextValid = true;
 
-  Future<void> _pickFiles(int bukti) async {
+  Future<void> _pickFiles() async {
     showDialog(
       context: context,
       builder: (context) {
-        return Dialog(
-          backgroundColor: Colors.black.withOpacity(0.5),
-          child: Container(
-            padding: const EdgeInsets.all(16.0),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(12.0),
-            ),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Container(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    'Pilih Unggahan',
-                    style: TextStyleConstant.boldParagraph
-                        .copyWith(color: ColorConstant.netralColor900),
-                  ),
-                ),
-                Row(
-                  mainAxisSize: MainAxisSize.min,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    GestureDetector(
-                      onTap: () async {
-                        Navigator.of(context).pop();
-                        if (controller.selectedImages.length < 12) {
-                          final XFile? photo = await _picker.pickImage(
-                              source: ImageSource.camera);
-                          if (photo != null) {
-                            setState(() {
-                              controller.selectedImages.add(photo.path);
-                            });
-                          }
-                        } else {
-                          _showMaxPhotosDialog(context);
-                        }
-                      },
-                      child: Padding(
-                        padding: const EdgeInsets.all(12),
-                        child: Image.asset(
-                          ImageConstant.camera,
-                          width: 92,
-                        ),
-                      ),
-                    ),
-                    GestureDetector(
-                      onTap: () async {
-                        Navigator.of(context).pop();
-                        if (controller.selectedImages.length < 12) {
-                          final List<XFile>? images =
-                              await _picker.pickMultiImage();
-                          if (images != null && images.isNotEmpty) {
-                            if (controller.selectedImages.length +
-                                    images.length <=
-                                12) {
-                              setState(() {
-                                controller.selectedImages.addAll(
-                                    images.map((image) => image.path).toList());
-                              });
-                            } else {
-                              _showMaxPhotosDialog(context);
-                            }
-                          }
-                        } else {
-                          _showMaxPhotosDialog(context);
-                        }
-                      },
-                      child: Padding(
-                        padding: const EdgeInsets.all(12),
-                        child: Image.asset(
-                          ImageConstant.gallery,
-                          width: 92,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                Container(
-                  alignment: Alignment.centerRight,
-                  child: TextButton(
-                    onPressed: () {
-                      Get.back();
-                    },
-                    child: Text(
-                      'Batalkan',
-                      style: TextStyleConstant.boldParagraph
-                          .copyWith(color: ColorConstant.netralColor900),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        );
-      },
-    );
-  }
-
-  void _showMaxPhotosDialog(BuildContext context) {
-    showDialog(
-      context: context,
-      builder: (context) {
-        return AlertDialog(
-          title: Text('Maximum Photos Reached'),
-          content: Text('You can only select up to 12 photos.'),
-          actions: [
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              child: Text('OK'),
-            ),
-          ],
+        return GlobalImagePickerDialogWidget(
+          onImageSourceSelected: (ImageSource source) {
+            controller.pickImage(source);
+          },
         );
       },
     );
@@ -163,6 +54,7 @@ class _ProofUploadScreenState extends State<ProofUploadScreen> {
   Widget build(BuildContext context) {
     print(widget.userTaskId);
     return Scaffold(
+      backgroundColor: ColorConstant.whiteColor,
       appBar: AppBar(
         title: Text(
           'Upload Bukti',
@@ -205,10 +97,41 @@ class _ProofUploadScreenState extends State<ProofUploadScreen> {
                   style: TextStyleConstant.semiboldParagraph,
                 ),
                 const SizedBox(height: 8),
-                BuktiSatuWidget(
-                  selectedBukti: controller.selectedImages,
-                  pickFiles: _pickFiles,
-                  removeBukti: removeBuktiSatu,
+                Obx(
+                  () {
+                    return GridView.builder(
+                      padding: const EdgeInsets.only(top: 16),
+                      physics: const NeverScrollableScrollPhysics(),
+                      shrinkWrap: true,
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 3,
+                        mainAxisSpacing: 15,
+                        crossAxisSpacing: 15,
+                      ),
+                      itemCount: controller.selectedImages.length < 12
+                          ? controller.selectedImages.length + 1
+                          : 12,
+                      itemBuilder: (context, index) {
+                        if (index == controller.selectedImages.length &&
+                            !controller.isMaxImagesReached()) {
+                          return _buildImageContainer(
+                            null,
+                            _pickFiles,
+                          );
+                        } else if (index < controller.selectedImages.length) {
+                          return _buildImageContainer(
+                            controller.selectedImages[index],
+                            () {
+                              controller.replaceImage(index);
+                            },
+                          );
+                        } else {
+                          return const SizedBox.shrink();
+                        }
+                      },
+                    );
+                  },
                 ),
                 const SizedBox(height: 8),
                 Text(
@@ -245,35 +168,73 @@ class _ProofUploadScreenState extends State<ProofUploadScreen> {
                   },
                 ),
                 const SizedBox(height: 24),
-                SizedBox(
-                    width: double.infinity,
-                    child: ElevatedButton(
-                      onPressed: () {
-                        if (_formKey.currentState!.validate()) {
-                          controller.uploadProof(widget.userTaskId,
-                              descriptionController.text, widget.statusAccept);
-                        }
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: controller.selectedImages.isNotEmpty &&
-                                descriptionController.text.isNotEmpty
-                            ? ColorConstant.primaryColor500
-                            : ColorConstant.netralColor700,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
+                Obx(
+                  () {
+                    return Stack(
+                      children: [
+                        SizedBox(
+                          width: double.infinity,
+                          child: ElevatedButton(
+                            onPressed: () {
+                              if (controller.selectedImages.isNotEmpty &&
+                                  descriptionController.text.isNotEmpty) {
+                                controller.uploadProof(
+                                    widget.userTaskId,
+                                    descriptionController.text,
+                                    widget.statusAccept);
+                              }
+                            },
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor:
+                                  controller.selectedImages.isNotEmpty &&
+                                          descriptionController.text.isNotEmpty
+                                      ? ColorConstant.primaryColor500
+                                      : ColorConstant.netralColor700,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                            ),
+                            child: Text(
+                              'Upload Bukti',
+                              style:
+                                  TextStyleConstant.semiboldSubtitle.copyWith(
+                                color: ColorConstant.whiteColor,
+                              ),
+                            ),
+                          ),
                         ),
-                      ),
-                      child: Text(
-                        'Upload Bukti',
-                        style: TextStyleConstant.semiboldSubtitle.copyWith(
-                          color: ColorConstant.whiteColor,
-                        ),
-                      ),
-                    ))
+                        if (controller.isLoading.value)
+                          const Center(
+                            child: CircularProgressIndicator(),
+                          ),
+                      ],
+                    );
+                  },
+                ),
               ],
             ),
           ),
         ),
+      ),
+    );
+  }
+
+  Widget _buildImageContainer(String? imagePath, VoidCallback onTap) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(12),
+          image: imagePath != null
+              ? DecorationImage(
+                  image: FileImage(File(imagePath)),
+                  fit: BoxFit.cover,
+                )
+              : null,
+        ),
+        child: imagePath == null
+            ? SvgPicture.asset(IconConstant.uploadButtonAfter)
+            : null,
       ),
     );
   }
