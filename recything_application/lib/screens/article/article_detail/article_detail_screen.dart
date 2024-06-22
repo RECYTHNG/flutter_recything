@@ -33,6 +33,7 @@ class _ArticleDetailScreenState extends State<ArticleDetailScreen> {
 
   void _showAllComments(BuildContext context) {
     showModalBottomSheet(
+      backgroundColor: ColorConstant.whiteColor,
       context: context,
       isScrollControlled: true,
       builder: (context) {
@@ -86,9 +87,12 @@ class _ArticleDetailScreenState extends State<ArticleDetailScreen> {
                                       color: ColorConstant.secondaryColor500,
                                     ),
                                     SpacingConstant.horizontalSpacing100,
-                                    Text(sortOldestFirst
-                                        ? 'Urut Komentar Terlama'
-                                        : 'Urut Komentar Terbaru'),
+                                    Text(
+                                      sortOldestFirst
+                                          ? 'Urut Komentar Terlama'
+                                          : 'Urut Komentar Terbaru',
+                                      style: TextStyleConstant.regularCaption,
+                                    ),
                                   ],
                                 ),
                               ),
@@ -125,7 +129,7 @@ class _ArticleDetailScreenState extends State<ArticleDetailScreen> {
 
                                     return ListTile(
                                       leading: CircleAvatar(
-                                        radius: 24,
+                                        radius: 22.5,
                                         backgroundImage: NetworkImage(
                                             comment.user?.imageUrl ?? ''),
                                         child: comment.user?.imageUrl == null
@@ -139,19 +143,23 @@ class _ArticleDetailScreenState extends State<ArticleDetailScreen> {
                                           Text(
                                             comment.user?.name ?? '',
                                             style:
-                                                TextStyleConstant.boldSubtitle,
+                                                TextStyleConstant.boldParagraph,
                                           ),
                                           Text(
                                             timeAgo,
-                                            style: const TextStyle(
+                                            style: TextStyleConstant
+                                                .regularFooter
+                                                .copyWith(
                                               color:
                                                   ColorConstant.netralColor600,
-                                              fontSize: 12,
                                             ),
                                           ),
                                         ],
                                       ),
-                                      subtitle: Text(comment.comment ?? ''),
+                                      subtitle: Text(
+                                        comment.comment ?? '',
+                                        style: TextStyleConstant.regularCaption,
+                                      ),
                                     );
                                   },
                                 );
@@ -364,10 +372,13 @@ class _ArticleDetailScreenState extends State<ArticleDetailScreen> {
                           children: [
                             Text(
                               'Komentar',
-                              style: TextStyleConstant.boldHeading4,
+                              style: TextStyleConstant.boldSubtitle,
                             ),
                             SpacingConstant.horizontalSpacing200,
-                            Text(article.comments!.length.toString()),
+                            Text(
+                              article.comments!.length.toString(),
+                              style: TextStyleConstant.semiboldCaption,
+                            ),
                           ],
                         ),
                       ),
@@ -399,15 +410,27 @@ class _ArticleDetailScreenState extends State<ArticleDetailScreen> {
                                     : article.comments!.length,
                                 itemBuilder: (context, index) {
                                   return ListTile(
-                                    leading: const CircleAvatar(
-                                      radius: 24,
-                                      child: Icon(Icons.person),
+                                    leading: CircleAvatar(
+                                      radius: 17.5,
+                                      backgroundImage: NetworkImage(article
+                                              .comments?[index]
+                                              .user
+                                              ?.imageUrl ??
+                                          ''),
+                                      child: article.comments?[index].user
+                                                  ?.imageUrl ==
+                                              null
+                                          ? const Icon(Icons.person)
+                                          : null,
                                     ),
                                     title: Text(
-                                        article.comments?[index].user?.name ??
-                                            ''),
+                                      article.comments?[index].user?.name ?? '',
+                                      style: TextStyleConstant.boldCaption,
+                                    ),
                                     subtitle: Text(
-                                        article.comments?[index].comment ?? ''),
+                                      article.comments?[index].comment ?? '',
+                                      style: TextStyleConstant.regularCaption,
+                                    ),
                                   );
                                 },
                               ),
@@ -415,12 +438,11 @@ class _ArticleDetailScreenState extends State<ArticleDetailScreen> {
                                 SpacingConstant.verticalSpacing100,
                                 GestureDetector(
                                   onTap: () => _showAllComments(context),
-                                  child: const Text(
+                                  child: Text(
                                     "Lihat Semua Komentar",
                                     textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: 20,
+                                    style: TextStyleConstant.boldParagraph
+                                        .copyWith(
                                       color: ColorConstant.infoColor500,
                                     ),
                                   ),
