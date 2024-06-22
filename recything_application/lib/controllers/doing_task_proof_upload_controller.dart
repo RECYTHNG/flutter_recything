@@ -1,40 +1,10 @@
-// import 'package:get/get.dart';
-// import 'package:recything_application/screens/detail_mission/waiting_verification_screen.dart';
-// import 'package:recything_application/services/detail_mission_service/post_image_proof_servide.dart';
-
-// class DoingTaskProofUploadController extends GetxController {
-//   final PostImageProofService _taskStepService = PostImageProofService();
-//   final List<String> selectedImages = [];
-//   var isLoading = false.obs; // Observable loading state
-
-//   Future<void> uploadProof(
-//       String userTaskId, String description, String statusAccept) async {
-//     isLoading.value = true;
-//     if (selectedImages.isEmpty) {
-//       Get.snackbar('Error', 'Please select at least one image');
-//       return;
-//     }
-
-//     try {
-//       List<String> imagePaths = selectedImages.map((image) => image).toList();
-
-//       await _taskStepService.uploadFiles(
-//           userTaskId, imagePaths, description, statusAccept);
-//       Get.to(() => WaitingVerificationScreen());
-//       print('Success: Proof uploaded successfully');
-//     } catch (e) {
-//       print('Error: Failed to upload proof: $e');
-//       Get.snackbar('Error', 'Failed to upload proof: $e');
-//     } finally {
-//       isLoading.value = false;
-//     }
-//   }
-// }
-
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:recything_application/screens/detail_mission/waiting_verification_screen.dart';
+import 'package:recything_application/services/detail_mission_service/post_image_proof_servide.dart';
 
 class DoingTaskProofUploadController extends GetxController {
+  final PostImageProofService _taskStepService = PostImageProofService();
   var selectedImages = <String>[].obs;
   var isLoading = false.obs;
   final ImagePicker _picker = ImagePicker();
@@ -70,15 +40,19 @@ class DoingTaskProofUploadController extends GetxController {
   Future<void> uploadProof(
       String userTaskId, String description, String statusAccept) async {
     isLoading.value = true;
-    try {
-      // Implement the upload logic here
-      // For example, you can use Dio or Http package to upload images and data to your server.
+    if (selectedImages.isEmpty) {
+      Get.snackbar('Error', 'Please select at least one image');
+      return;
+    }
 
-      // Simulating network request with a delay
-      await Future.delayed(const Duration(seconds: 2));
-      Get.snackbar('Success', 'Proof uploaded successfully');
+    try {
+      List<String> imagePaths = selectedImages.map((image) => image).toList();
+      await _taskStepService.uploadFiles(
+          userTaskId, imagePaths, description, statusAccept);
+      Get.to(() => WaitingVerificationScreen());
     } catch (e) {
-      Get.snackbar('Error', 'Failed to upload proof');
+      print('Error: Failed to upload proof: $e');
+      Get.snackbar('Error', 'Failed to upload proof: $e');
     } finally {
       isLoading.value = false;
     }

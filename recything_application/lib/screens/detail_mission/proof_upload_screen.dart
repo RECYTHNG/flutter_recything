@@ -109,9 +109,9 @@ class _ProofUploadScreenState extends State<ProofUploadScreen> {
                         mainAxisSpacing: 15,
                         crossAxisSpacing: 15,
                       ),
-                      itemCount: controller.selectedImages.length < 9
+                      itemCount: controller.selectedImages.length < 12
                           ? controller.selectedImages.length + 1
-                          : 9,
+                          : 12,
                       itemBuilder: (context, index) {
                         if (index == controller.selectedImages.length &&
                             !controller.isMaxImagesReached()) {

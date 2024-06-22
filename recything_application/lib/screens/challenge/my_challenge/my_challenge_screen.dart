@@ -16,7 +16,7 @@ class MyChallengeScreen extends StatelessWidget {
     final ChallengeDashboardController controller = Get.find();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       controller.fetchOnProgressChallenge();
-      controller.fetchDoneChallengeSection();
+      controller.fetchDoneChallenge();
     });
     return DefaultTabController(
       length: 2,
@@ -25,11 +25,7 @@ class MyChallengeScreen extends StatelessWidget {
         appBar: AppBar(
           leading: IconButton(
             onPressed: () {
-              Get.offAll(
-                HomeNavBarScreen(
-                  currentIndex: 3,
-                ),
-              );
+              Get.off(() => HomeNavBarScreen(currentIndex: 3));
             },
             icon: const Icon(Icons.arrow_back),
           ),

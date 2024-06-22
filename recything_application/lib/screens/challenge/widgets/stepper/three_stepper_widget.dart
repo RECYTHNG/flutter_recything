@@ -27,12 +27,16 @@ class ThreeStepperWidget extends StatelessWidget {
     } else {
       finalColor = const Color(0XFF9F9F9F);
     }
-    final data = datum.taskChallenge.userSteps;
+
+    List<bool> stepData = datum.taskChallenge.userSteps.map((item) => item.completed).toList();
+    stepData.sort((a, b) => (a == b ? 0 : (a ? -1 : 1)));
+
     return Stack(
       children: [
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
+            // NOTE: first step
             Column(
               children: [
                 Container(
@@ -41,21 +45,16 @@ class ThreeStepperWidget extends StatelessWidget {
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
                     border: Border.all(
-                      color: data[0].completed == false ? finalColor : Colors.transparent,
+                      color: stepData[0] ? Colors.transparent : finalColor,
                     ),
-                    color: data[0].completed == true ? finalColor : Colors.transparent,
+                    color: stepData[0] ? finalColor : ColorConstant.whiteColor,
                   ),
                   child: Center(
-                    child: data[0].completed == true ?
-                    const Icon(
-                      Icons.check,
-                      size: 12,
-                      color: ColorConstant.whiteColor,
-                    ) : Icon(
-                      Icons.circle,
-                      size: 5,
-                      color: finalColor,
-                    ),
+                    child: finalStatus == 'Ditolak'
+                        ? const Icon(Icons.close, size: 12, color: ColorConstant.whiteColor)
+                        : stepData[0]
+                            ? const Icon(Icons.check, size: 12, color: ColorConstant.whiteColor)
+                            : const Icon(Icons.circle,size: 7, color: ColorConstant.primaryColor500),
                   ),
                 ),
                 SpacingConstant.verticalSpacing050,
@@ -67,6 +66,7 @@ class ThreeStepperWidget extends StatelessWidget {
                 ),
               ],
             ),
+            // NOTE: first line
             Expanded(
               child: Padding(
                 padding: const EdgeInsets.only(
@@ -80,7 +80,7 @@ class ThreeStepperWidget extends StatelessWidget {
                         width: double.infinity,
                         height: 1,
                         decoration: BoxDecoration(
-                          color: data[0].completed == true ? finalColor : const Color(0XFF9F9F9F),
+                          color: stepData[0] ? finalColor : const Color(0XFF9F9F9F),
                         ),
                       ),
                     ),
@@ -88,6 +88,7 @@ class ThreeStepperWidget extends StatelessWidget {
                 ),
               ),
             ),
+            // NOTE: second line
             Expanded(
               child: Padding(
                 padding: const EdgeInsets.only(
@@ -101,7 +102,7 @@ class ThreeStepperWidget extends StatelessWidget {
                         width: double.infinity,
                         height: 1,
                         decoration: BoxDecoration(
-                          color: data[1].completed == true ? finalColor : const Color(0XFF9F9F9F),
+                          color: stepData[1] ? finalColor : const Color(0XFF9F9F9F),
                         ),
                       ),
                     ),
@@ -109,6 +110,7 @@ class ThreeStepperWidget extends StatelessWidget {
                 ),
               ),
             ),
+            // NOTE: third step
             Column(
               children: [
                 Container(
@@ -117,21 +119,16 @@ class ThreeStepperWidget extends StatelessWidget {
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
                     border: Border.all(
-                      color: data[2].completed == false ? finalColor : Colors.transparent,
+                      color: stepData[1] ? finalColor : stepData[2] ? Colors.transparent : const Color(0XFF9F9F9F),
                     ),
-                    color: data[2].completed == true ? finalColor : Colors.transparent,
+                    color: stepData[2] ? finalColor : ColorConstant.whiteColor,
                   ),
                   child: Center(
-                    child: data[2].completed == true ?
-                    const Icon(
-                      Icons.check,
-                      size: 12,
-                      color: ColorConstant.whiteColor,
-                    ) : Icon(
-                      Icons.circle,
-                      size: 5,
-                      color: finalColor,
-                    ),
+                    child: finalStatus == 'Ditolak'
+                        ? const Icon(Icons.close, size: 12, color: ColorConstant.whiteColor)
+                        : stepData[2]
+                            ? const Icon(Icons.check, size: 12, color: ColorConstant.whiteColor)
+                            : Icon(Icons.circle, size: 7, color: stepData[1] ? ColorConstant.primaryColor500 : const Color(0XFF9F9F9F)),
                   ),
                 ),
                 SpacingConstant.verticalSpacing050,
@@ -145,6 +142,7 @@ class ThreeStepperWidget extends StatelessWidget {
             ),
           ],
         ),
+        // NOTE: second stepper
         Positioned(
           left: 0,
           right: 0,
@@ -156,22 +154,17 @@ class ThreeStepperWidget extends StatelessWidget {
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   border: Border.all(
-                    color: data[1].completed == false ? finalColor : Colors.transparent,
+                    color: stepData[0] ? finalColor : stepData[1] ? Colors.transparent : const Color(0XFF9F9F9F),
                   ),
-                  color: data[1].completed == true ? finalColor : ColorConstant.whiteColor,
+                  color: stepData[1] ? finalColor : ColorConstant.whiteColor,
                 ),
                 child: Center(
-                    child: data[1].completed == true ?
-                    const Icon(
-                      Icons.check,
-                      size: 12,
-                      color: ColorConstant.whiteColor,
-                    ) : Icon(
-                      Icons.circle,
-                      size: 5,
-                      color: finalColor,
-                    ),
-                  ),
+                    child: finalStatus == 'Ditolak'
+                        ? const Icon(Icons.close, size: 12, color: ColorConstant.whiteColor)
+                        : stepData[1]
+                            ? const Icon(Icons.check, size: 12, color: ColorConstant.whiteColor)
+                            : Icon(Icons.circle, size: 7, color: stepData[0] ? ColorConstant.primaryColor500 : const Color(0XFF9F9F9F)),
+                ),
               ),
               SpacingConstant.verticalSpacing050,
               Text(

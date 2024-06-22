@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:recything_application/controllers/challenge_dashboard_controller.dart';
 import 'package:recything_application/screens/challenge/widgets/empty_state_challenge_widget.dart';
 import 'package:recything_application/screens/challenge/widgets/item_user_challenge_widget.dart';
+import 'package:recything_application/screens/detail_mission/detail_mission_progress_screen.dart';
 import 'package:recything_application/widgets/global_loading_widget.dart';
 
 class ItemMyChallengeWidget extends StatelessWidget {
@@ -35,7 +36,11 @@ class ItemMyChallengeWidget extends StatelessWidget {
           } else {
             final data = controller.onProgressChallengeData.value!.data[0];
             return ItemUserChallengeWidget(
-              onTap: () {},
+              onTap: () {
+                Get.to(
+                  DetailMissionProgressScreen(userTaskId: data.id),
+                );
+              },
               title: data.taskChallenge.title,
               statusAccept: data.statusAccept,
               statusProgress: data.statusProgress,

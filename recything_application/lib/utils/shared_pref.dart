@@ -55,4 +55,10 @@ class SharedPref {
       await preferences.setStringList(_keySearchHistory, listData);
     }
   }
+
+  // delete all search history
+  static Future<void> deleteAllHistory() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    await preferences.remove(_keySearchHistory);
+  }
 }

@@ -4,6 +4,7 @@ import 'package:recything_application/constants/spacing_constant.dart';
 import 'package:recything_application/controllers/challenge_dashboard_controller.dart';
 import 'package:recything_application/models/challenge/dashboard/all_dashboard_challenge_model.dart';
 import 'package:recything_application/screens/challenge/widgets/item_challenge_widget.dart';
+import 'package:recything_application/screens/detail_mission/detail_mission_start_screen.dart';
 import 'package:recything_application/widgets/global_loading_widget.dart';
 
 class ListChallengesWidget extends StatelessWidget {
@@ -39,7 +40,11 @@ class ListChallengesWidget extends StatelessWidget {
               itemBuilder: (context, index) {
                 final data = listChallenge[index];
                 return ItemChallengeWidget(
-                  onTap: () {},
+                  onTap: () {
+                    Get.to(
+                      DetailMissionStartScreen(taskId: data.id),
+                    );
+                  },
                   width: 390,
                   point: data.point.toString(),
                   title: data.title,
