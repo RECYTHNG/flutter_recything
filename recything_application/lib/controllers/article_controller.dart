@@ -53,6 +53,7 @@ class ArticleController extends GetxController {
     try {
       var response =
           await _articleService.postComment(id: id, comment: comment);
+      fetchArticleById(id: id);
       print("Response: ${response['message']}");
     } catch (e) {
       print("Error posting comment: $e");

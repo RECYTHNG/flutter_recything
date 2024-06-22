@@ -184,7 +184,6 @@ class _ArticleDetailScreenState extends State<ArticleDetailScreen> {
                               comment: commentController.text,
                             );
                             commentController.clear();
-                            articleController.fetchArticleById(id: articleId);
                             Get.back();
                           },
                           child: const Icon(
@@ -388,51 +387,67 @@ class _ArticleDetailScreenState extends State<ArticleDetailScreen> {
                           crossAxisAlignment: CrossAxisAlignment.stretch,
                           children: [
                             if (article.comments!.isEmpty) ...[
-                              const Text(
+                              SpacingConstant.verticalSpacing200,
+                              Text(
                                 'Belum Ada Komentar',
+                                style:
+                                    TextStyleConstant.semiboldCaption.copyWith(
+                                  color: ColorConstant.netralColor600,
+                                ),
+                                textAlign: TextAlign.center,
                               ),
                               SpacingConstant.verticalSpacing200,
                               GestureDetector(
                                 onTap: () => _showAllComments(context),
                                 child: Text(
                                   'Tambahkan Komentar',
-                                  style: TextStyleConstant.boldTitle.copyWith(
+                                  textAlign: TextAlign.center,
+                                  style: TextStyleConstant.semiboldParagraph
+                                      .copyWith(
                                     color: ColorConstant.infoColor500,
                                   ),
                                 ),
                               ),
                             ] else ...[
-                              ListView.builder(
-                                shrinkWrap: true,
-                                physics: const NeverScrollableScrollPhysics(),
-                                itemCount: article.comments!.length > 2
-                                    ? 2
-                                    : article.comments!.length,
-                                itemBuilder: (context, index) {
-                                  return ListTile(
-                                    leading: CircleAvatar(
-                                      radius: 17.5,
-                                      backgroundImage: NetworkImage(article
-                                              .comments?[index]
-                                              .user
-                                              ?.imageUrl ??
-                                          ''),
-                                      child: article.comments?[index].user
-                                                  ?.imageUrl ==
-                                              null
-                                          ? const Icon(Icons.person)
-                                          : null,
-                                    ),
-                                    title: Text(
-                                      article.comments?[index].user?.name ?? '',
-                                      style: TextStyleConstant.boldCaption,
-                                    ),
-                                    subtitle: Text(
-                                      article.comments?[index].comment ?? '',
-                                      style: TextStyleConstant.regularCaption,
-                                    ),
-                                  );
-                                },
+                              Column(
+                                children: [
+                                  ListView.builder(
+                                    shrinkWrap: true,
+                                    physics:
+                                        const NeverScrollableScrollPhysics(),
+                                    itemCount: article.comments!.length > 2
+                                        ? 2
+                                        : article.comments!.length,
+                                    itemBuilder: (context, index) {
+                                      return ListTile(
+                                        leading: CircleAvatar(
+                                          radius: 17.5,
+                                          backgroundImage: NetworkImage(article
+                                                  .comments?[index]
+                                                  .user
+                                                  ?.imageUrl ??
+                                              ''),
+                                          child: article.comments?[index].user
+                                                      ?.imageUrl ==
+                                                  null
+                                              ? const Icon(Icons.person)
+                                              : null,
+                                        ),
+                                        title: Text(
+                                          article.comments?[index].user?.name ??
+                                              '',
+                                          style: TextStyleConstant.boldCaption,
+                                        ),
+                                        subtitle: Text(
+                                          article.comments?[index].comment ??
+                                              '',
+                                          style:
+                                              TextStyleConstant.regularCaption,
+                                        ),
+                                      );
+                                    },
+                                  ),
+                                ],
                               ),
                               if (article.comments!.length > 2) ...[
                                 SpacingConstant.verticalSpacing100,
@@ -447,7 +462,19 @@ class _ArticleDetailScreenState extends State<ArticleDetailScreen> {
                                     ),
                                   ),
                                 ),
-                              ],
+                              ] else ...[
+                                GestureDetector(
+                                  onTap: () => _showAllComments(context),
+                                  child: Text(
+                                    'Tambahkan Komentar',
+                                    textAlign: TextAlign.center,
+                                    style: TextStyleConstant.boldParagraph
+                                        .copyWith(
+                                      color: ColorConstant.infoColor500,
+                                    ),
+                                  ),
+                                ),
+                              ]
                             ],
                           ],
                         ),
