@@ -32,7 +32,7 @@ class ConfirmationBottomSheet extends StatelessWidget {
           SpacingConstant.verticalSpacing300,
           Text(
             'Apakah Anda yakin untuk mengirimkan laporan tersebut?',
-            style: TextStyleConstant.semiboldHeading4,
+            style: TextStyleConstant.semiboldSubtitle,
             textAlign: TextAlign.center,
           ),
           SpacingConstant.verticalSpacing200,

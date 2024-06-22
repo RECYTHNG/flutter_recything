@@ -23,7 +23,7 @@ class NextButtonMapsReportLitterWidget extends StatelessWidget {
               ? ColorConstant.primaryColor500
               : ColorConstant.netralColor500,
           isBorder: false,
-          title: 'Selanjutnya',
+          title: 'Pilih Lokasi Yang Dipilih',
           textColor: ColorConstant.netralColor50,
           fontSize: 14,
         );

@@ -76,47 +76,49 @@ class NewVideoSectionWidget extends StatelessWidget {
                     formattedViews = '$views';
                   }
 
-                  return Container(
-                    height: 234,
-                    width: 166,
-                    margin: const EdgeInsets.only(right: 8),
-                    decoration: BoxDecoration(
-                      color: ColorConstant.whiteColor,
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(12),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Stack(
-                            alignment: Alignment.center,
-                            children: [
-                              AspectRatio(
-                                aspectRatio: 1 / 1,
-                                child: Image.network(
-                                  imagePath,
-                                  fit: BoxFit.cover,
+                  return GestureDetector(
+                    child: Container(
+                      height: 234,
+                      width: 166,
+                      margin: const EdgeInsets.only(right: 8),
+                      decoration: BoxDecoration(
+                        color: ColorConstant.whiteColor,
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(12),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Stack(
+                              alignment: Alignment.center,
+                              children: [
+                                AspectRatio(
+                                  aspectRatio: 1 / 1,
+                                  child: Image.network(
+                                    imagePath,
+                                    fit: BoxFit.cover,
+                                  ),
                                 ),
-                              ),
-                              const Icon(
-                                Icons.play_circle,
-                                size: 32,
-                                color: ColorConstant.whiteColor,
-                              ),
-                            ],
-                          ),
-                          Text(
-                            title,
-                            style: TextStyleConstant.semiboldParagraph,
-                            maxLines: 2,
-                          ),
-                          Text(
-                            '$formattedViews ditonton',
-                            style: TextStyleConstant.regularFooter,
-                          ),
-                        ],
+                                const Icon(
+                                  Icons.play_circle,
+                                  size: 32,
+                                  color: ColorConstant.whiteColor,
+                                ),
+                              ],
+                            ),
+                            Text(
+                              title,
+                              style: TextStyleConstant.semiboldParagraph,
+                              maxLines: 2,
+                            ),
+                            Text(
+                              '$formattedViews ditonton',
+                              style: TextStyleConstant.regularFooter,
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   );
