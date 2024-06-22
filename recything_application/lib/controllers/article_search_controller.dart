@@ -1,9 +1,7 @@
-import 'dart:async';
-
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:recything_application/services/article/article_service.dart';
+import 'package:recything_application/controllers/article_controller.dart';
 
 class ArticleSearchController extends GetxController {
   final formKey = GlobalKey<FormState>();
@@ -12,7 +10,8 @@ class ArticleSearchController extends GetxController {
   var matchData = <String>[].obs;
   RxString queryInput = ''.obs;
   var isLoading = false.obs;
-  Timer? _debounce;
+
+  final ArticleController articleController = Get.find();
 
   @override
   void dispose() {
@@ -20,17 +19,18 @@ class ArticleSearchController extends GetxController {
     super.dispose();
   }
 
-  Future<void> searchArticle(String query) async {
+  void onSearchChanged(String query) {
+    if (query.isNotEmpty) {
+      searchArticle(query);
+    }
+  }
+
+  void searchArticle(String query) {
     isLoading.value = true;
     try {
-      final data = await ArticleService().getAllArticles(keyword: query);
-      searchResults.value = data.data
-              ?.where((article) =>
-                  article.title?.toLowerCase().contains(query.toLowerCase()) ??
-                  false)
-              .map((article) => article.title ?? '')
-              .toList() ??
-          [];
+      searchResults.value = articleController.allArticleTitles
+          .where((title) => title.toLowerCase().contains(query.toLowerCase()))
+          .toList();
       isLoading.value = false;
     } catch (e) {
       searchResults.clear();
@@ -52,15 +52,6 @@ class ArticleSearchController extends GetxController {
         ),
       );
     }
-  }
-
-  void onSearchChanged(String query) {
-    if (_debounce?.isActive ?? false) _debounce?.cancel();
-    _debounce = Timer(const Duration(milliseconds: 500), () {
-      if (query.isNotEmpty) {
-        searchArticle(query);
-      }
-    });
   }
 
   void onChangedQuery(String value) {
