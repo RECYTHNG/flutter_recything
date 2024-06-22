@@ -15,36 +15,40 @@ class LoginButtonWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GlobalButtonWidget(
-      onTap: () {
-        if (loginController.validation()) {
-          loginController.login();
-        } else {
-          Get.snackbar(
-            '',
-            '',
-            padding: const EdgeInsets.all(0),
-            margin: const EdgeInsets.all(12),
-            snackStyle: SnackStyle.FLOATING,
-            backgroundColor: Colors.transparent,
-            barBlur: 0.0,
-            overlayBlur: 0.0,
-            snackPosition: SnackPosition.BOTTOM,
-            messageText: AwesomeSnackbarContent(
-              title: 'Gagal',
-              message: 'Silakan isi form terlebih dahulu',
-              contentType: ContentType.failure,
-            ),
-          );
-        }
+    return Obx(
+      () {
+        return GlobalButtonWidget(
+          onTap: () {
+            if (loginController.validation()) {
+              loginController.login();
+            } else {
+              Get.snackbar(
+                '',
+                '',
+                padding: const EdgeInsets.all(0),
+                margin: const EdgeInsets.all(12),
+                snackStyle: SnackStyle.FLOATING,
+                backgroundColor: Colors.transparent,
+                barBlur: 0.0,
+                overlayBlur: 0.0,
+                snackPosition: SnackPosition.BOTTOM,
+                messageText: AwesomeSnackbarContent(
+                  title: 'Gagal',
+                  message: 'Silakan isi form terlebih dahulu',
+                  contentType: ContentType.failure,
+                ),
+              );
+            }
+          },
+          width: double.infinity,
+          height: 40.0,
+          backgroundColor: ColorConstant.primaryColor500,
+          isBorder: false,
+          title: loginController.isLoading.value ? 'Loading...' : 'Login',
+          textColor: ColorConstant.whiteColor,
+          fontSize: 16.0,
+        );
       },
-      width: double.infinity,
-      height: 40.0,
-      backgroundColor: ColorConstant.primaryColor500,
-      isBorder: false,
-      title: 'Login',
-      textColor: ColorConstant.whiteColor,
-      fontSize: 16.0,
     );
   }
 }

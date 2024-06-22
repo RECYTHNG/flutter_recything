@@ -1,9 +1,9 @@
 import 'dart:async';
-import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:recything_application/screens/homepage/home_navbar_screen.dart';
 import 'package:recything_application/services/authentication/login_authentication_service.dart';
+import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 
 class LoginController extends GetxController {
   final formKey = GlobalKey<FormState>();
@@ -17,6 +17,8 @@ class LoginController extends GetxController {
   var errorPassword = RxnString();
 
   var isObscurePassword = false.obs;
+
+  var isLoading = false.obs;
 
   @override
   void dispose() {
@@ -44,17 +46,21 @@ class LoginController extends GetxController {
   Future<void> login() async {
     if (formKey.currentState?.validate() ?? false) {
       try {
+        isLoading(true);
+
         final response = await LoginAuthenticationService().postLogin(
           email: email.value,
           password: password.value,
         );
+
+        isLoading(false);
+
         if (response.code == 200 || response.code == 201) {
           Get.snackbar(
             '',
             '',
             padding: const EdgeInsets.all(0),
             margin: const EdgeInsets.all(12),
-            duration: const Duration(seconds: 2),
             snackStyle: SnackStyle.FLOATING,
             backgroundColor: Colors.transparent,
             barBlur: 0.0,
@@ -66,14 +72,8 @@ class LoginController extends GetxController {
               contentType: ContentType.success,
             ),
           );
-          Timer(
-            const Duration(seconds: 3),
-            () {
-              Get.off(
-                () => HomeNavBarScreen(currentIndex: 0,),
-              );
-            },
-          );
+
+          Get.off(() => HomeNavBarScreen(currentIndex: 0));
         } else if (response.code == 400) {
           resetVariable();
           Get.snackbar(
@@ -147,6 +147,8 @@ class LoginController extends GetxController {
             contentType: ContentType.failure,
           ),
         );
+      } finally {
+        isLoading(false);
       }
     }
   }

@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -21,6 +20,7 @@ class RegisterController extends GetxController {
   var errorPassword = RxnString();
 
   var isObscurePassword = false.obs;
+  var isLoading = false.obs;
 
   @override
   void dispose() {
@@ -53,6 +53,7 @@ class RegisterController extends GetxController {
 
   Future<void> register() async {
     if (formKey.currentState?.validate() ?? false) {
+      isLoading(true);
       try {
         final response = await RegisterAuthenticationService().postRegister(
           name: name.value,
@@ -78,15 +79,11 @@ class RegisterController extends GetxController {
               contentType: ContentType.success,
             ),
           );
-          Timer(
-            const Duration(seconds: 3),
-            () {
-              Get.to(
-                () => OneTimePasswordAuthenticationScreen(
-                  email: email.value,
-                ),
-              );
-            },
+
+          Get.to(
+            () => OneTimePasswordAuthenticationScreen(
+              email: email.value,
+            ),
           );
         } else if (response.code == 400) {
           resetVariable();
@@ -162,6 +159,8 @@ class RegisterController extends GetxController {
             contentType: ContentType.failure,
           ),
         );
+      } finally {
+        isLoading(false);
       }
     }
   }
