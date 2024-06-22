@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:recything_application/constants/spacing_constant.dart';
 import 'package:recything_application/constants/text_style_constant.dart';
+import 'package:recything_application/widgets/global_loading_widget.dart';
 
 class ContentSectionWidget extends StatelessWidget {
   final String title;
@@ -30,6 +31,17 @@ class ContentSectionWidget extends StatelessWidget {
               imagePath!,
               width: double.infinity,
               fit: BoxFit.cover,
+              loadingBuilder: (context, child, loadingProgress) {
+                if (loadingProgress == null) return child;
+                return Container(
+                  width: double.infinity,
+                  height: 200,
+                  color: Colors.grey[300],
+                  child: const Center(
+                    child: MyLoading(),
+                  ),
+                );
+              },
               errorBuilder: (context, error, stackTrace) {
                 return Container(
                   width: double.infinity,
