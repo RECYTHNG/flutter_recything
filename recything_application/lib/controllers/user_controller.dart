@@ -1,3 +1,5 @@
+import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:recything_application/services/profile/profile_service.dart';
@@ -54,7 +56,10 @@ class UserController extends GetxController {
         fetchUser();
         onSuccess();
       } else {
-        print("Error updating user profile: ${response['message']}");
+        _showSnackbar(
+            title: 'Error',
+            message: response['message'],
+            contentType: ContentType.failure);
       }
     } catch (e) {
       print("Error updating user profile: $e");
@@ -92,4 +97,23 @@ class UserController extends GetxController {
       isLoading.value = false;
     }
   }
+}
+
+void _showSnackbar({
+  required String title,
+  required String message,
+  required ContentType contentType,
+}) {
+  Get.rawSnackbar(
+    backgroundColor: Colors.transparent,
+    snackPosition: SnackPosition.BOTTOM,
+    snackStyle: SnackStyle.FLOATING,
+    messageText: AwesomeSnackbarContent(
+      titleFontSize: 18,
+      messageFontSize: 14,
+      title: title,
+      message: message,
+      contentType: contentType,
+    ),
+  );
 }

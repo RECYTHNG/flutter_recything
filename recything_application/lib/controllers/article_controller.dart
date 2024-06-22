@@ -6,6 +6,7 @@ import 'package:recything_application/services/article/article_service.dart';
 class ArticleController extends GetxController {
   var articles = ListArticleModel().obs;
   var article = ArticleModel().obs;
+  var allArticleTitles = <String>[].obs;
   var queryResults = <String>[].obs;
   var isLoading = false.obs;
   String keyword = '';
@@ -22,6 +23,9 @@ class ArticleController extends GetxController {
   void fetchArticles() async {
     isLoading.value = true;
     articles.value = await _articleService.getAllArticles(keyword: keyword);
+    allArticleTitles.value =
+        articles.value.data?.map((article) => article.title ?? '').toList() ??
+            [];
     isLoading.value = false;
   }
 
@@ -47,24 +51,17 @@ class ArticleController extends GetxController {
 
   void postComment({required String id, required String comment}) async {
     try {
-      var response = await _articleService.postComment(
-        id: id,
-        comment: comment,
-      );
+      var response =
+          await _articleService.postComment(id: id, comment: comment);
       print("Response: ${response['message']}");
     } catch (e) {
-      print("Error updating user profile: $e");
+      print("Error posting comment: $e");
     }
   }
 
-  void getqueryResults(String query) async {
-    var data = await _articleService.getAllArticles(keyword: query);
-    queryResults.value = data.data
-            ?.where((article) =>
-                article.title?.toLowerCase().contains(query.toLowerCase()) ??
-                false)
-            .map((article) => article.title ?? '')
-            .toList() ??
-        [];
+  void getqueryResults(String query) {
+    queryResults.value = allArticleTitles
+        .where((title) => title.toLowerCase().contains(query.toLowerCase()))
+        .toList();
   }
 }

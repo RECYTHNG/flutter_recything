@@ -6,12 +6,14 @@ class DatePickerWidget extends StatefulWidget {
   final String label;
   final String hint;
   final TextEditingController? controller;
+  final Function(String) onChanged;
 
   const DatePickerWidget({
     super.key,
     required this.label,
     required this.hint,
     this.controller,
+    required this.onChanged,
   });
 
   @override
@@ -56,6 +58,7 @@ class DatePickerWidgetState extends State<DatePickerWidget> {
         selectedDate = picked;
         _controller.text = "${picked.toLocal()}".split(' ')[0];
       });
+      widget.onChanged(_controller.text);
     }
   }
 

@@ -43,13 +43,18 @@ class _ArticleListScreenState extends State<ArticleListScreen> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  void initState() {
+    super.initState();
     articleSearchController.searchController.value.addListener(
       () {
         articleSearchController.onSearchChanged(
             articleSearchController.searchController.value.text);
       },
     );
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: ColorConstant.whiteColor,
       body: SafeArea(

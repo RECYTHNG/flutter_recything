@@ -62,7 +62,8 @@ class _ArticleSearchScreenState extends State<ArticleSearchScreen> {
                   Expanded(
                     child: Obx(
                       () {
-                        if (articleController.isLoading.value) {
+                        if (articleController.isLoading.value &&
+                            articleSearchController.isLoading.value) {
                           return const Center(
                             child: MyLoading(),
                           );
