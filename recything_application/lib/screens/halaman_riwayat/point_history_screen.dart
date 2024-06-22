@@ -4,8 +4,7 @@ import 'package:get/get.dart';
 import 'package:recything_application/constants/color_constant.dart';
 import 'package:recything_application/constants/spacing_constant.dart';
 import 'package:recything_application/constants/text_style_constant.dart';
-import 'package:recything_application/controllers/achievement_controller.dart';
-import 'package:recything_application/models/achievement/achievement_model.dart';
+import 'package:recything_application/controllers/point_history_controller.dart';
 import 'package:recything_application/screens/halaman_riwayat/widgets/list_point_history_widget.dart';
 import 'package:recything_application/screens/halaman_riwayat/widgets/no_record_history_point_widget.dart';
 import 'package:recything_application/widgets/global_loading_widget.dart';
@@ -13,8 +12,8 @@ import 'package:recything_application/widgets/global_loading_widget.dart';
 class PointHisstoryScreen extends StatelessWidget {
   PointHisstoryScreen({super.key});
 
-  final AchievementController achievementController = Get.put(
-    AchievementController(),
+  final PointHistoryController pointHistoryController = Get.put(
+    PointHistoryController(),
   );
 
   @override
@@ -34,18 +33,18 @@ class PointHisstoryScreen extends StatelessWidget {
       ),
       body: Obx(
         () {
-          if (achievementController.isLoading.value) {
+          if (pointHistoryController.isLoading.value) {
             return const Center(
               child: MyLoading(),
             );
           }
 
-          if (achievementController.isError.value) {
+          if (pointHistoryController.isError.value) {
             return const NoRecordHistoryPointWidget();
           }
 
           var userData =
-              achievementController.achievementResult.value.data?.dataUser;
+              pointHistoryController.achievementResult.value.data?.dataUser;
           int currentPoint = userData?.point ?? 0;
           String? badgeUrl = userData?.badge ?? '';
           return Column(
@@ -92,7 +91,7 @@ class PointHisstoryScreen extends StatelessWidget {
               ),
               SpacingConstant.verticalSpacing100,
               ListPointHistoryWidget(
-                achievementController: achievementController,
+                pointHistoryController: pointHistoryController,
               ),
             ],
           );

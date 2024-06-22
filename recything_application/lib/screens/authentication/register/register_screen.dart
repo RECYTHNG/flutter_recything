@@ -89,7 +89,9 @@ class RegisterAuthenticationScreen extends StatelessWidget {
                             ),
                             GestureDetector(
                               onTap: () {
-                                Get.off(() => LoginAuthenticationScreen());
+                                Get.offAll(
+                                  () => LoginAuthenticationScreen(),
+                                );
                               },
                               child: Text(
                                 'Login',
