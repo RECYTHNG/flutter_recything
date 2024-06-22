@@ -1,5 +1,7 @@
 import 'package:dio/dio.dart';
+import 'package:get/get.dart';
 import 'package:recything_application/constants/api_key_constant.dart';
+import 'package:recything_application/controllers/global_controller.dart';
 import 'package:recything_application/models/recycle/video_recycle_model.dart';
 import 'package:recything_application/utils/shared_pref.dart';
 
@@ -18,6 +20,9 @@ class VideoRecycleService {
       final jsonResponse = response.data as Map<String, dynamic>;
       return VideoRecycleModel.fromJson(jsonResponse);
     } on DioException catch (e) {
+      if (e.response?.statusCode == 401) {
+        Get.find<GlobalController>().showExpiredSessionDialog();
+      }
       throw Exception(
           'Error ${e.response?.statusCode} ${e.response?.statusMessage}');
     }

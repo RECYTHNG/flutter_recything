@@ -1,6 +1,8 @@
 import 'dart:convert';
 import 'package:dio/dio.dart';
+import 'package:get/get.dart';
 import 'package:recything_application/constants/api_key_constant.dart';
+import 'package:recything_application/controllers/global_controller.dart';
 import 'package:recything_application/utils/shared_pref.dart';
 // import 'package:recything_application/utils/shared_pref.dart';
 
@@ -33,6 +35,9 @@ class GetAllRLeaderboardService {
         throw Exception('Failed to get response from API');
       }
     } on DioException catch (e) {
+      if (e.response?.statusCode == 401) {
+        Get.find<GlobalController>().showExpiredSessionDialog();
+      }
       throw Exception('Failed to get response from API: ${e.message}');
     }
   }

@@ -1,4 +1,6 @@
 import 'package:dio/dio.dart';
+import 'package:get/get.dart';
+import 'package:recything_application/controllers/global_controller.dart';
 import 'package:recything_application/env/env.dart';
 import 'package:recything_application/models/article/article_model.dart';
 import 'package:recything_application/models/article/list_article_model.dart';
@@ -38,6 +40,9 @@ class ArticleService {
         );
       }
     } on DioException catch (e) {
+      if (e.response?.statusCode == 401) {
+        Get.find<GlobalController>().showExpiredSessionDialog();
+      }
       if (e.response != null) {
         return ListArticleModel(
           code: e.response!.statusCode!,
@@ -78,6 +83,9 @@ class ArticleService {
         );
       }
     } on DioException catch (e) {
+      if (e.response?.statusCode == 401) {
+        Get.find<GlobalController>().showExpiredSessionDialog();
+      }
       if (e.response != null) {
         return ArticleModel(
           code: e.response!.statusCode!,
@@ -113,6 +121,9 @@ class ArticleService {
 
       return {'code': response.statusCode, 'message': response.data["message"]};
     } on DioException catch (e) {
+      if (e.response?.statusCode == 401) {
+        Get.find<GlobalController>().showExpiredSessionDialog();
+      }
       return {
         'code': e.response?.statusCode ?? 500,
         'message': e.response?.data["message"] ?? "Unknown error"

@@ -1,5 +1,7 @@
 import 'package:dio/dio.dart';
+import 'package:get/get.dart';
 import 'package:recything_application/constants/api_key_constant.dart';
+import 'package:recything_application/controllers/global_controller.dart';
 import 'package:recything_application/models/faq/category_faq_model.dart';
 import 'package:recything_application/utils/shared_pref.dart';
 
@@ -32,6 +34,9 @@ class CategoryFaqService {
         throw Exception('Failed to load data');
       }
     } on DioException catch (e) {
+      if (e.response?.statusCode == 401) {
+        Get.find<GlobalController>().showExpiredSessionDialog();
+      }
       throw Exception('Failed to load FAQs: ${e.error}');
     }
   }

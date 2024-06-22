@@ -1,4 +1,6 @@
 import 'package:dio/dio.dart';
+import 'package:get/get.dart';
+import 'package:recything_application/controllers/global_controller.dart';
 import 'package:recything_application/env/env.dart';
 import 'package:recything_application/models/user/user_model.dart';
 import 'package:recything_application/utils/shared_pref.dart';
@@ -30,6 +32,9 @@ class UserService {
         );
       }
     } on DioException catch (e) {
+      if (e.response?.statusCode == 401) {
+        Get.find<GlobalController>().showExpiredSessionDialog();
+      }
       if (e.response != null) {
         return UserModel(
           code: e.response?.statusCode,

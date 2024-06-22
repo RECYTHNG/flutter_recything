@@ -1,5 +1,7 @@
 import 'package:dio/dio.dart';
+import 'package:get/get.dart';
 import 'package:recything_application/constants/api_key_constant.dart';
+import 'package:recything_application/controllers/global_controller.dart';
 import 'package:recything_application/models/challenge/dashboard/achievement_dashboard_challenge_model.dart';
 import 'package:recything_application/utils/shared_pref.dart';
 
@@ -19,6 +21,9 @@ class AchievementDashboardChallengeService {
       final jsonResponse = response.data as Map<String, dynamic>;
       return AchievementDashboardChallengeModel.fromJson(jsonResponse);
     } on DioException catch (e) {
+      if (e.response?.statusCode == 401) {
+        Get.find<GlobalController>().showExpiredSessionDialog();
+      }
       throw 'Error: ${e.response!.statusCode}';
     }
   }

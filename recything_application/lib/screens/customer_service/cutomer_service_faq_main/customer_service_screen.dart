@@ -9,6 +9,7 @@ import 'package:recything_application/screens/customer_service/cutomer_service_f
 import 'package:recything_application/screens/customer_service/cutomer_service_faq_main/content/cutomer_service_main_faq_content.dart';
 import 'package:recything_application/screens/customer_service/cutomer_service_faq_main/widgets/app_bar_search_widget.dart';
 import 'package:recything_application/screens/customer_service/cutomer_service_faq_main/widgets/container_remin_customer_service_widget.dart';
+import 'package:recything_application/utils/system_ui_overlay_utils.dart';
 
 class CustomerServiceScreen extends StatelessWidget {
   CustomerServiceScreen({super.key});
@@ -29,7 +30,7 @@ class CustomerServiceScreen extends StatelessWidget {
             customerServiceSearchController.searchController.value.text);
       },
     );
-
+    SystemUiOverlayUtils().setSystemUiOverlay(ColorConstant.whiteColor, true);
     return SafeArea(
       child: Scaffold(
         backgroundColor: ColorConstant.whiteColor,

@@ -1,5 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
+import 'package:get/get.dart';
+import 'package:recything_application/controllers/global_controller.dart';
 import 'package:recything_application/env/env.dart';
 import 'package:recything_application/models/video_content/detail_video_content_model.dart';
 import 'package:recything_application/models/video_content/response_category_model.dart';
@@ -33,6 +35,9 @@ class VideoContentService {
         );
       }
     } on DioException catch (e) {
+      if (e.response?.statusCode == 401) {
+        Get.find<GlobalController>().showExpiredSessionDialog();
+      }
       if (e.response != null) {
         return VideoContentModel(
           code: e.response?.statusCode,
@@ -73,6 +78,9 @@ class VideoContentService {
         );
       }
     } on DioException catch (e) {
+      if (e.response?.statusCode == 401) {
+        Get.find<GlobalController>().showExpiredSessionDialog();
+      }
       if (e.response != null) {
         return DetailVideoContentModel(
           code: e.response?.statusCode,
@@ -112,6 +120,9 @@ class VideoContentService {
         }
       }
     } on DioException catch (e) {
+      if (e.response?.statusCode == 401) {
+        Get.find<GlobalController>().showExpiredSessionDialog();
+      }
       if (kDebugMode) {
         print("Error posting comment: ${e.toString()}");
       }
@@ -143,6 +154,9 @@ class VideoContentService {
         );
       }
     } on DioException catch (e) {
+      if (e.response?.statusCode == 401) {
+        Get.find<GlobalController>().showExpiredSessionDialog();
+      }
       if (e.response != null) {
         return ResponseGetCategoryModel(
           code: e.response?.statusCode,
@@ -182,6 +196,9 @@ class VideoContentService {
         );
       }
     } on DioException catch (e) {
+      if (e.response?.statusCode == 401) {
+        Get.find<GlobalController>().showExpiredSessionDialog();
+      }
       if (e.response != null) {
         return VideoContentSearchResponseModel(
           code: e.response?.statusCode,
