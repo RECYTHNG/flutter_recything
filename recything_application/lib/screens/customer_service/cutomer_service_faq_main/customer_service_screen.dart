@@ -30,68 +30,72 @@ class CustomerServiceScreen extends StatelessWidget {
       },
     );
 
-    return Scaffold(
-      backgroundColor: ColorConstant.whiteColor,
-      body: Stack(
-        children: [
-          const SizedBox(
-            height: 200.0,
-          ),
-          SingleChildScrollView(
-            child: Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const SizedBox(
-                    height: 80.0,
-                  ),
-                  Text(
-                    'Kami Siap Membantu Anda',
-                    style: TextStyleConstant.boldSubtitle.copyWith(
-                      fontSize: 16.0,
-                      color: ColorConstant.netralColor900,
-                      fontWeight: FontWeight.w700,
+    return SafeArea(
+      child: Scaffold(
+        backgroundColor: ColorConstant.whiteColor,
+        body: Stack(
+          children: [
+            const SizedBox(
+              height: 200.0,
+            ),
+            SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const SizedBox(
+                      height: 80.0,
                     ),
-                  ),
-                  SpacingConstant.verticalSpacing400,
-                  const CustomerServiceMainCategoryContent(),
-                  SpacingConstant.verticalSpacing400,
-                  const Divider(
-                    color: ColorConstant.netralColor500,
-                    thickness: 1.0,
-                  ),
-                  SpacingConstant.verticalSpacing400,
-                  Text(
-                    'Pertanyaan yang sering diajukan',
-                    style: TextStyleConstant.semiboldParagraph.copyWith(
-                      fontSize: 14.0,
-                      color: ColorConstant.netralColor600,
-                      fontWeight: FontWeight.w700,
+                    Text(
+                      'Kami Siap Membantu Anda',
+                      style: TextStyleConstant.boldSubtitle.copyWith(
+                        fontSize: 16.0,
+                        color: ColorConstant.netralColor900,
+                        fontWeight: FontWeight.w700,
+                      ),
                     ),
-                  ),
-                  SpacingConstant.verticalSpacing200,
-                  CutomerServiceMainFaqContent(
-                    customerServiceFaqController: customerServiceFaqController,
-                  ),
-                  SpacingConstant.verticalSpacing300,
-                  const ReMinCustomerServiceWidget(),
-                ],
+                    SpacingConstant.verticalSpacing400,
+                    const CustomerServiceMainCategoryContent(),
+                    SpacingConstant.verticalSpacing400,
+                    const Divider(
+                      color: ColorConstant.netralColor500,
+                      thickness: 1.0,
+                    ),
+                    SpacingConstant.verticalSpacing400,
+                    Text(
+                      'Pertanyaan yang sering diajukan',
+                      style: TextStyleConstant.semiboldParagraph.copyWith(
+                        fontSize: 14.0,
+                        color: ColorConstant.netralColor600,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                    SpacingConstant.verticalSpacing200,
+                    CutomerServiceMainFaqContent(
+                      customerServiceFaqController:
+                          customerServiceFaqController,
+                    ),
+                    SpacingConstant.verticalSpacing300,
+                    const ReMinCustomerServiceWidget(),
+                  ],
+                ),
               ),
             ),
-          ),
-          Positioned(
-            top: 0.0,
-            left: 0.0,
-            right: 0.0,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0),
-              child: AppBarSearchWidget(
-                customerServiceSearchController: customerServiceSearchController,
+            Positioned(
+              top: 0.0,
+              left: 0.0,
+              right: 0.0,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                child: AppBarSearchWidget(
+                  customerServiceSearchController:
+                      customerServiceSearchController,
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
