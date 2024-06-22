@@ -182,6 +182,9 @@ class EditProfileScreenState extends State<EditProfileScreen> {
                                 controller: TextEditingController(
                                   text: controller.name.value,
                                 ),
+                                onChanged: (value) {
+                                  controller.name.value = value;
+                                },
                               ),
                               SpacingConstant.verticalSpacing200,
                               CustomTextFieldWidget(
@@ -200,6 +203,9 @@ class EditProfileScreenState extends State<EditProfileScreen> {
                                 controller: TextEditingController(
                                   text: controller.birthDate.value,
                                 ),
+                                onChanged: (value) {
+                                  controller.birthDate.value = value;
+                                },
                               ),
                               SpacingConstant.verticalSpacing200,
                               CustomTextFieldWidget(
@@ -208,6 +214,9 @@ class EditProfileScreenState extends State<EditProfileScreen> {
                                 controller: TextEditingController(
                                   text: controller.email.value,
                                 ),
+                                onChanged: (value) {
+                                  controller.email.value = value;
+                                },
                               ),
                               SpacingConstant.verticalSpacing200,
                               CustomTextFieldWidget(
@@ -217,6 +226,9 @@ class EditProfileScreenState extends State<EditProfileScreen> {
                                 controller: TextEditingController(
                                   text: controller.address.value,
                                 ),
+                                onChanged: (value) {
+                                  controller.address.value = value;
+                                },
                               ),
                               SpacingConstant.verticalSpacing200,
                               GestureDetector(
