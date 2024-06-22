@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:recything_application/constants/color_constant.dart';
 import 'package:recything_application/constants/image_constant.dart';
 import 'package:recything_application/constants/text_style_constant.dart';
@@ -79,9 +80,14 @@ class ArticleSectionWidget extends StatelessWidget {
                           itemCount: controller.articles.length,
                           itemBuilder: (context, index) {
                             var article = controller.articles[index];
+                            DateTime parsedDate = DateTime.parse(
+                                article['created_at'].toString().split(' ')[0]);
+                            DateFormat indonesianFormat =
+                                DateFormat.yMMMMd('id_ID');
                             return GestureDetector(
                               onTap: () {
-                                articleController.setId(controller.articles[index]['id']);
+                                articleController
+                                    .setId(controller.articles[index]['id']);
                                 Get.to(() => const ArticleDetailScreen());
                               },
                               child: Container(
@@ -109,8 +115,9 @@ class ArticleSectionWidget extends StatelessWidget {
                                               children: [
                                                 CircleAvatar(
                                                   backgroundImage: NetworkImage(
-                                                      article['author_profile'] ??
-                                                          ''),
+                                                    article['author_profile'] ??
+                                                        '',
+                                                  ),
                                                   radius: 12,
                                                 ),
                                                 const SizedBox(width: 8),
@@ -140,8 +147,8 @@ class ArticleSectionWidget extends StatelessWidget {
                                             ),
                                             const SizedBox(height: 4),
                                             Text(
-                                              article['created_at'] ??
-                                                  'Tanggal Tidak Diketahui',
+                                              indonesianFormat
+                                                  .format(parsedDate),
                                               style: TextStyleConstant
                                                   .mediumFooter,
                                             ),
