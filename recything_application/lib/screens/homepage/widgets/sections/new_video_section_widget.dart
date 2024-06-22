@@ -4,6 +4,8 @@ import 'package:recything_application/constants/color_constant.dart';
 import 'package:recything_application/constants/shadow_constant.dart';
 import 'package:recything_application/constants/text_style_constant.dart';
 import 'package:recything_application/controllers/home_controller.dart';
+import 'package:recything_application/controllers/video_content_controller.dart';
+import 'package:recything_application/screens/video_content/detail_video_content_screen.dart';
 import 'package:recything_application/screens/video_content/video_content_screen.dart';
 import 'package:recything_application/widgets/global_loading_widget.dart';
 
@@ -14,6 +16,7 @@ class NewVideoSectionWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final VideoContentController videoController = Get.put(VideoContentController());
     return Padding(
       padding: const EdgeInsets.only(
         right: 24,
@@ -77,6 +80,10 @@ class NewVideoSectionWidget extends StatelessWidget {
                   }
 
                   return GestureDetector(
+                    onTap: () {
+                      videoController.getDetailVideoContent(item['id']);
+                      Get.to(() => DetailVideoContentScreen(id: item['id']));
+                    },
                     child: Container(
                       height: 234,
                       width: 166,

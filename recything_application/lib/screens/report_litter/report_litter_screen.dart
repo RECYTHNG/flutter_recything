@@ -24,8 +24,8 @@ class ReportLitterScreen extends StatefulWidget {
 }
 
 class ReportLitterScreenState extends State<ReportLitterScreen> {
-  final ReportLitterController litterController = Get.find();
-  final MapLitterController mapLitterController = Get.find();
+  final ReportLitterController litterController = Get.put(ReportLitterController());
+  final MapLitterController mapLitterController = Get.put(MapLitterController());
   bool isTitleEmpty = false;
   bool isDescriptionEmpty = false;
 

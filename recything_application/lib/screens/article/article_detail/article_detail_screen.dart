@@ -18,7 +18,7 @@ class ArticleDetailScreen extends StatefulWidget {
 }
 
 class _ArticleDetailScreenState extends State<ArticleDetailScreen> {
-  final ArticleController articleController = Get.find();
+  final ArticleController articleController = Get.put(ArticleController());
   final TextEditingController commentController = TextEditingController();
   late String articleId;
 

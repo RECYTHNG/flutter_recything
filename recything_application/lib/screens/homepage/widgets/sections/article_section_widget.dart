@@ -3,13 +3,16 @@ import 'package:get/get.dart';
 import 'package:recything_application/constants/color_constant.dart';
 import 'package:recything_application/constants/image_constant.dart';
 import 'package:recything_application/constants/text_style_constant.dart';
+import 'package:recything_application/controllers/article_controller.dart';
 import 'package:recything_application/controllers/home_controller.dart';
+import 'package:recything_application/screens/article/article_detail/article_detail_screen.dart';
 import 'package:recything_application/screens/article/article_list_screen.dart';
 import 'package:recything_application/widgets/global_loading_widget.dart';
 
 class ArticleSectionWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final ArticleController articleController = Get.put(ArticleController());
     return GetBuilder<HomeController>(
       init: HomeController(),
       initState: (_) {
@@ -71,12 +74,16 @@ class ArticleSectionWidget extends StatelessWidget {
                       child: SizedBox(
                         height: 200,
                         child: ListView.builder(
+                          clipBehavior: Clip.none,
                           scrollDirection: Axis.horizontal,
                           itemCount: controller.articles.length,
                           itemBuilder: (context, index) {
                             var article = controller.articles[index];
                             return GestureDetector(
-                              onTap: () {},
+                              onTap: () {
+                                articleController.setId(controller.articles[index]['id']);
+                                Get.to(() => const ArticleDetailScreen());
+                              },
                               child: Container(
                                 width: 356,
                                 margin: const EdgeInsets.only(right: 8),

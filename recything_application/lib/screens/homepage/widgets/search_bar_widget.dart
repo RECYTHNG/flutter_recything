@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:get/get.dart';
 import 'package:recything_application/constants/color_constant.dart';
 import 'package:recything_application/constants/text_style_constant.dart';
+import 'package:recything_application/screens/homepage/home_navbar_screen.dart';
 
 class SearchBarWidget extends StatelessWidget {
   const SearchBarWidget({super.key});
@@ -11,7 +12,9 @@ class SearchBarWidget extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 24),
       child: GestureDetector(
-        onTap: () {},
+        onTap: () {
+          Get.offAll(() => HomeNavBarScreen(currentIndex: 1));
+        },
         child: Container(
           height: 48,
           width: double.infinity,

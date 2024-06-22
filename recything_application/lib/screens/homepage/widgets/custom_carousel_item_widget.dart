@@ -11,6 +11,7 @@ class CustomCarouselItem extends StatelessWidget {
   final String subtitle;
   final String imagePath;
   final String footerText;
+  final Function() onTap;
 
   const CustomCarouselItem({
     super.key,
@@ -19,87 +20,91 @@ class CustomCarouselItem extends StatelessWidget {
     required this.subtitle,
     required this.imagePath,
     required this.footerText,
+    required this.onTap,
   });
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Container(
-          margin: const EdgeInsets.symmetric(horizontal: 4),
-          alignment: Alignment.center,
-          width: 372,
-          height: 212,
-          decoration: BoxDecoration(
-            color: ColorConstant.whiteColor,
-            borderRadius: BorderRadius.circular(8),
-            boxShadow: ShadowConstant.shadowLg,
-          ),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 12),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Container(
-                  width: 348,
-                  height: 180,
-                  decoration: BoxDecoration(
-                    color: ColorConstant.primaryColor400,
-                    borderRadius: BorderRadius.circular(8),
-                    image: DecorationImage(
-                      alignment: Alignment.bottomRight,
-                      image: AssetImage(imagePath),
+        GestureDetector(
+          onTap: onTap,
+          child: Container(
+            margin: const EdgeInsets.symmetric(horizontal: 4),
+            alignment: Alignment.center,
+            width: 372,
+            height: 212,
+            decoration: BoxDecoration(
+              color: ColorConstant.whiteColor,
+              borderRadius: BorderRadius.circular(8),
+              boxShadow: ShadowConstant.shadowLg,
+            ),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 12),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Container(
+                    width: 348,
+                    height: 180,
+                    decoration: BoxDecoration(
+                      color: ColorConstant.primaryColor400,
+                      borderRadius: BorderRadius.circular(8),
+                      image: DecorationImage(
+                        alignment: Alignment.bottomRight,
+                        image: AssetImage(imagePath),
+                      ),
+                    ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 8, vertical: 16),
+                          child: Container(
+                            alignment: Alignment.centerLeft,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  title,
+                                  style: TextStyleConstant.boldSubtitle
+                                      .copyWith(color: ColorConstant.whiteColor),
+                                ),
+                                Text(
+                                  subtitle,
+                                  style: TextStyleConstant.regularCaption
+                                      .copyWith(color: ColorConstant.whiteColor),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                        Container(
+                          alignment: Alignment.centerLeft,
+                          width: double.infinity,
+                          height: 40,
+                          decoration: const BoxDecoration(
+                            color: Color.fromARGB(187, 138, 170, 188),
+                            borderRadius: BorderRadius.vertical(
+                              bottom: Radius.circular(8),
+                            ),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(8),
+                            child: Text(
+                              footerText,
+                              style: TextStyleConstant.boldSubtitle,
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 8, vertical: 16),
-                        child: Container(
-                          alignment: Alignment.centerLeft,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                title,
-                                style: TextStyleConstant.boldSubtitle
-                                    .copyWith(color: ColorConstant.whiteColor),
-                              ),
-                              Text(
-                                subtitle,
-                                style: TextStyleConstant.regularCaption
-                                    .copyWith(color: ColorConstant.whiteColor),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                      Container(
-                        alignment: Alignment.centerLeft,
-                        width: double.infinity,
-                        height: 40,
-                        decoration: const BoxDecoration(
-                          color: Color.fromARGB(187, 138, 170, 188),
-                          borderRadius: BorderRadius.vertical(
-                            bottom: Radius.circular(8),
-                          ),
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.all(8),
-                          child: Text(
-                            footerText,
-                            style: TextStyleConstant.boldSubtitle,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),
