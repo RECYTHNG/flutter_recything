@@ -16,9 +16,8 @@ class GlobalAppBar extends StatelessWidget implements PreferredSizeWidget {
       backgroundColor: backgroundColor,
       title: title,
       centerTitle: true,
-      titleTextStyle: TextStyleConstant.boldSubtitle.copyWith(
-        color: ColorConstant.netralColor900,
-      ),
+      titleTextStyle: TextStyleConstant.boldSubtitle
+          .copyWith(color: ColorConstant.netralColor900, fontFamily: 'Nunito'),
     );
   }
 

@@ -421,9 +421,12 @@ class _TabBarAndContentWidgetState extends State<TabBarAndContentWidget>
               controller: _tabController,
               labelStyle: TextStyleConstant.boldParagraph.copyWith(
                 fontSize: 16,
+                fontFamily: 'Nunito',
               ),
-              unselectedLabelStyle: TextStyleConstant.boldParagraph
-                  .copyWith(fontWeight: FontWeight.w400),
+              unselectedLabelStyle: TextStyleConstant.boldParagraph.copyWith(
+                fontWeight: FontWeight.w400,
+                fontFamily: 'Nunito',
+              ),
               unselectedLabelColor: ColorConstant.netralColor900,
               labelColor: ColorConstant.secondaryColor500,
               indicatorColor: ColorConstant.secondaryColor500,
@@ -432,7 +435,7 @@ class _TabBarAndContentWidgetState extends State<TabBarAndContentWidget>
               tabs: menuWidget
                   .map(
                     (String title) => Padding(
-                      padding: const EdgeInsets.all(10),
+                      padding: const EdgeInsets.all(9),
                       child: Tab(text: title),
                     ),
                   )

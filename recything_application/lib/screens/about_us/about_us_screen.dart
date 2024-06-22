@@ -54,11 +54,14 @@ class AboutUsScreen extends StatelessWidget {
                 background: Container(
                   color: ColorConstant.whiteColor,
                 ),
-                labelStyle: TextStyleConstant.boldParagraph
-                    .copyWith(color: ColorConstant.netralColor900),
+                labelStyle: TextStyleConstant.boldParagraph.copyWith(
+                  color: ColorConstant.netralColor900,
+                  fontFamily: 'Nunito',
+                ),
                 indicatorColor: ColorConstant.primaryColor500,
                 unselectedLabelStyle: TextStyleConstant.boldParagraph.copyWith(
                   color: ColorConstant.netralColor600,
+                  fontFamily: 'Nunito',
                 ),
               ),
               tabs: const [

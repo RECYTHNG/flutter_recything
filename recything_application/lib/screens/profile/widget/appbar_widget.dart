@@ -9,8 +9,10 @@ class AppbarWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       "Profil Pengguna",
-      style: TextStyleConstant.boldSubtitle
-          .copyWith(color: ColorConstant.netralColor900),
+      style: TextStyleConstant.boldSubtitle.copyWith(
+        color: ColorConstant.netralColor900,
+        fontFamily: 'Nunito',
+      ),
     );
   }
 }

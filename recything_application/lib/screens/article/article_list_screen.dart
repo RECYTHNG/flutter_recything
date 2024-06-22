@@ -80,9 +80,13 @@ class _ArticleListScreenState extends State<ArticleListScreen> {
                       child: TabBar(
                         labelStyle: TextStyleConstant.boldParagraph.copyWith(
                           fontSize: 16,
+                          fontFamily: 'Nunito',
                         ),
-                        unselectedLabelStyle: TextStyleConstant.boldParagraph
-                            .copyWith(fontWeight: FontWeight.w400),
+                        unselectedLabelStyle:
+                            TextStyleConstant.boldParagraph.copyWith(
+                          fontWeight: FontWeight.w400,
+                          fontFamily: 'Nunito',
+                        ),
                         unselectedLabelColor: ColorConstant.netralColor900,
                         tabAlignment: TabAlignment.start,
                         labelColor: ColorConstant.secondaryColor500,
