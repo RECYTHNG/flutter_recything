@@ -1,16 +1,18 @@
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:timeago/timeago.dart' as timeago;
+
 import 'package:recything_application/constants/color_constant.dart';
 import 'package:recything_application/constants/image_constant.dart';
 import 'package:recything_application/constants/spacing_constant.dart';
 import 'package:recything_application/constants/text_style_constant.dart';
 import 'package:recything_application/controllers/article_controller.dart';
 import 'package:recything_application/controllers/article_search_controller.dart';
+import 'package:recything_application/models/article/list_article_model.dart';
 import 'package:recything_application/screens/article/article_detail/article_detail_screen.dart';
 import 'package:recything_application/screens/article/widget/article_app_bar_search_widget.dart';
 import 'package:recything_application/widgets/global_loading_widget.dart';
-import 'package:recything_application/models/article/list_article_model.dart';
 
 class ArticleSearchScreen extends StatefulWidget {
   const ArticleSearchScreen({super.key});
@@ -20,19 +22,14 @@ class ArticleSearchScreen extends StatefulWidget {
 }
 
 class _ArticleSearchScreenState extends State<ArticleSearchScreen> {
-  late String query;
-  final ArticleController articleController = Get.put(ArticleController());
+  final ArticleController articleController = Get.find();
   final TextEditingController searchController = TextEditingController();
 
-  final ArticleSearchController articleSearchController = Get.put(
-    ArticleSearchController(),
-  );
+  final ArticleSearchController articleSearchController = Get.find();
 
   @override
-  void didChangeDependencies() {
+  Future<void> didChangeDependencies() async {
     super.didChangeDependencies();
-    query = ModalRoute.of(context)!.settings.arguments as String;
-    articleController.setKeyword(query);
     WidgetsBinding.instance.addPostFrameCallback((_) {
       articleController.fetchArticles();
     });
@@ -104,16 +101,8 @@ class _ArticleSearchScreenState extends State<ArticleSearchScreen> {
                                   articleController.articles.value.data![index];
                               return GestureDetector(
                                 onTap: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) =>
-                                          const ArticleDetailScreen(),
-                                      settings: RouteSettings(
-                                        arguments: article.id,
-                                      ),
-                                    ),
-                                  );
+                                  articleController.setId(article.id ?? '');
+                                  Get.to(const ArticleDetailScreen());
                                 },
                                 child: Container(
                                   padding: const EdgeInsets.only(
@@ -122,7 +111,7 @@ class _ArticleSearchScreenState extends State<ArticleSearchScreen> {
                                     right: 16,
                                     left: 16,
                                   ),
-                                  height: 180,
+                                  height: 200,
                                   width: double.infinity,
                                   decoration: const BoxDecoration(
                                     border: Border(
@@ -147,11 +136,62 @@ class _ArticleSearchScreenState extends State<ArticleSearchScreen> {
                                                 ),
                                                 SpacingConstant
                                                     .horizontalSpacing100,
-                                                Text(article.author!.name ??
-                                                    'Unknown'),
+                                                Text(
+                                                    article.author!.name ??
+                                                        'Unknown',
+                                                    style: TextStyleConstant
+                                                        .regularParagraph),
                                               ],
                                             ),
                                             SpacingConstant.verticalSpacing100,
+                                            Row(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.center,
+                                              children: [
+                                                Flexible(
+                                                  child: Text(
+                                                    articleController.keyword,
+                                                    style: TextStyleConstant
+                                                        .boldSubtitle
+                                                        .copyWith(
+                                                      color: ColorConstant
+                                                          .secondaryColor500,
+                                                      overflow:
+                                                          TextOverflow.ellipsis,
+                                                    ),
+                                                    maxLines: 1,
+                                                  ),
+                                                ),
+                                                SpacingConstant
+                                                    .horizontalSpacing100,
+                                                Container(
+                                                  width: 4,
+                                                  height: 4,
+                                                  decoration: BoxDecoration(
+                                                    color: ColorConstant
+                                                        .netralColor600,
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            2),
+                                                  ),
+                                                ),
+                                                SpacingConstant
+                                                    .horizontalSpacing100,
+                                                Text(
+                                                  article.createdAt != null
+                                                      ? timeago.format(
+                                                          article.createdAt!)
+                                                      : '',
+                                                  style: TextStyleConstant
+                                                      .semiboldFooter
+                                                      .copyWith(
+                                                    color: ColorConstant
+                                                        .netralColor900,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                            SpacingConstant.verticalSpacing050,
                                             Text(
                                               article.title ?? '',
                                               style: TextStyleConstant
@@ -163,7 +203,6 @@ class _ArticleSearchScreenState extends State<ArticleSearchScreen> {
                                               overflow: TextOverflow.ellipsis,
                                               maxLines: 2,
                                             ),
-                                            SpacingConstant.verticalSpacing100,
                                             Text(
                                               article.description ?? '',
                                               style: TextStyleConstant
@@ -173,40 +212,34 @@ class _ArticleSearchScreenState extends State<ArticleSearchScreen> {
                                                     .netralColor900,
                                               ),
                                               overflow: TextOverflow.ellipsis,
-                                              maxLines: 1,
-                                            ),
-                                            Text(
-                                              article.createdAt != null
-                                                  ? article.createdAt!
-                                                      .toString()
-                                                  : '',
-                                              style: TextStyleConstant
-                                                  .regularFooter
-                                                  .copyWith(
-                                                color: ColorConstant
-                                                    .netralColor900,
-                                              ),
+                                              maxLines: 2,
                                             ),
                                           ],
                                         ),
                                       ),
                                       SpacingConstant.horizontalSpacing200,
                                       Expanded(
-                                        child: Container(
-                                          height: double.infinity,
-                                          decoration: const BoxDecoration(
-                                            color: ColorConstant.netralColor500,
+                                        child: ClipRRect(
+                                          borderRadius:
+                                              BorderRadius.circular(8),
+                                          child: Container(
+                                            height: double.infinity,
+                                            decoration: const BoxDecoration(
+                                              color:
+                                                  ColorConstant.netralColor500,
+                                            ),
+                                            child:
+                                                article.thumbnailUrl != null &&
+                                                        article.thumbnailUrl!
+                                                            .isNotEmpty
+                                                    ? Image.network(
+                                                        article.thumbnailUrl!)
+                                                    : const Icon(
+                                                        Icons
+                                                            .image_not_supported_outlined,
+                                                        size: 40,
+                                                      ),
                                           ),
-                                          child: article.thumbnailUrl != null &&
-                                                  article
-                                                      .thumbnailUrl!.isNotEmpty
-                                              ? Image.network(
-                                                  article.thumbnailUrl!)
-                                              : const Icon(
-                                                  Icons
-                                                      .image_not_supported_outlined,
-                                                  size: 40,
-                                                ),
                                         ),
                                       ),
                                     ],
@@ -229,6 +262,7 @@ class _ArticleSearchScreenState extends State<ArticleSearchScreen> {
                   padding: const EdgeInsets.symmetric(horizontal: 16.0),
                   child: ArticleAppBarSearchWidget(
                     articleSearchController: articleSearchController,
+                    articleController: articleController,
                     onSubmitted: (value) {
                       if (value.isNotEmpty) {
                         articleController.setKeyword(value);

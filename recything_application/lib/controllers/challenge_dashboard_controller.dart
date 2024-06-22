@@ -46,6 +46,8 @@ class ChallengeDashboardController extends GetxController {
       listData.addAll(historyChallengeData.value!.data);
     }
     doneChallengeSectionData.value = listData;
+    print(doneChallengeData);
+    print(doneChallengeSectionData);
   }
 
   String getFirstName() {

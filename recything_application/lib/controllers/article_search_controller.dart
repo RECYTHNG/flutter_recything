@@ -1,9 +1,9 @@
 import 'dart:async';
 
+import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:recything_application/services/article/article_service.dart';
-import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 
 class ArticleSearchController extends GetxController {
   final formKey = GlobalKey<FormState>();
@@ -34,6 +34,7 @@ class ArticleSearchController extends GetxController {
       isLoading.value = false;
     } catch (e) {
       searchResults.clear();
+      isLoading.value = false;
       Get.snackbar(
         '',
         '',
@@ -50,15 +51,15 @@ class ArticleSearchController extends GetxController {
           contentType: ContentType.failure,
         ),
       );
-    } finally {
-      isLoading.value = false;
     }
   }
 
   void onSearchChanged(String query) {
     if (_debounce?.isActive ?? false) _debounce?.cancel();
     _debounce = Timer(const Duration(milliseconds: 500), () {
-      searchArticle(query);
+      if (query.isNotEmpty) {
+        searchArticle(query);
+      }
     });
   }
 
@@ -79,5 +80,12 @@ class ArticleSearchController extends GetxController {
     searchController.value.text = newValue;
     matchData.value = [newValue];
     matchData.clear();
+  }
+
+  void clear() {
+    searchController.value.clear();
+    searchResults.clear();
+    matchData.clear();
+    queryInput.value = '';
   }
 }

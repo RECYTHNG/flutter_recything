@@ -1,6 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:recything_application/constants/api_key_constant.dart';
-import 'package:recything_application/models/achievement_model.dart';
+import 'package:recything_application/models/achievement/achievement_model.dart';
 import 'package:recything_application/utils/shared_pref.dart';
 
 class AchievementService {

@@ -12,6 +12,7 @@ import 'package:recything_application/controllers/map_litter_controller.dart';
 import 'package:recything_application/screens/report_litter/widget/bottomsheet/confirmation_bottom_sheet.dart';
 import 'package:recything_application/screens/report_litter/widget/bottomsheet/edit_photo_bottom_sheet.dart';
 import 'package:recything_application/screens/report_litter/widget/bottomsheet/litter_type_bottom_sheet.dart';
+import 'package:recything_application/widgets/global_button_widget.dart';
 import 'package:recything_application/widgets/global_text_field_custom_widget.dart';
 import 'package:recything_application/controllers/report_litter_controller.dart';
 
@@ -25,6 +26,8 @@ class ReportLitterScreen extends StatefulWidget {
 class ReportLitterScreenState extends State<ReportLitterScreen> {
   final ReportLitterController litterController = Get.find();
   final MapLitterController mapLitterController = Get.find();
+  bool isTitleEmpty = false;
+  bool isDescriptionEmpty = false;
 
   @override
   void initState() {
@@ -38,13 +41,13 @@ class ReportLitterScreenState extends State<ReportLitterScreen> {
     );
   }
 
-  Future<void> _pickMedia(bool isImage) async {
-    await litterController.pickImage();
-  }
-
   void _showConfirmationSheet() {
-    if (litterController.title.value.isEmpty ||
-        litterController.condition.value.isEmpty ||
+    setState(() {
+      isTitleEmpty = litterController.title.value.isEmpty;
+      isDescriptionEmpty = litterController.condition.value.isEmpty;
+    });
+    if (isTitleEmpty ||
+        isDescriptionEmpty ||
         litterController.imageFiles.isEmpty) {
       Get.snackbar(
         '',
@@ -75,7 +78,7 @@ class ReportLitterScreenState extends State<ReportLitterScreen> {
             litterController.sendLitterReport();
           },
           onCancel: () {
-            Navigator.pop(context);
+            Get.back();
           },
         );
       },
@@ -102,13 +105,13 @@ class ReportLitterScreenState extends State<ReportLitterScreen> {
           index: index,
           onReplaceImage: () {
             litterController.replaceImage(index);
-            Navigator.pop(context);
+            Get.back();
           },
           onDelete: () {
             setState(() {
               litterController.removeImage(index);
             });
-            Navigator.pop(context);
+            Get.back();
           },
         );
       },
@@ -123,7 +126,7 @@ class ReportLitterScreenState extends State<ReportLitterScreen> {
         backgroundColor: ColorConstant.whiteColor,
         leading: IconButton(
           onPressed: () {
-            Navigator.pop(context);
+            Get.back();
           },
           icon: const Icon(
             Icons.arrow_back,
@@ -132,7 +135,7 @@ class ReportLitterScreenState extends State<ReportLitterScreen> {
         ),
         title: Text(
           'Deskripsi Sampah',
-          style: TextStyleConstant.boldHeading4,
+          style: TextStyleConstant.boldTitle,
         ),
         centerTitle: true,
       ),
@@ -171,19 +174,24 @@ class ReportLitterScreenState extends State<ReportLitterScreen> {
                         children: [
                           Text(
                             'Lokasi Sampah',
-                            style: TextStyleConstant.semiboldTitle,
+                            style: TextStyleConstant.semiboldSubtitle,
                           ),
+                          SpacingConstant.verticalSpacing100,
                           Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               const Icon(
                                 Icons.location_pin,
                                 color: ColorConstant.primaryColor500,
+                                size: 32,
                               ),
                               SpacingConstant.horizontalSpacing200,
                               Flexible(
                                 child: Obx(() => Text(
-                                      litterController.address.value,
+                                      '${litterController.address.value}, ${litterController.city.value}, ${litterController.province.value}',
                                       softWrap: true,
+                                      maxLines: 2,
+                                      overflow: TextOverflow.ellipsis,
                                       style: TextStyleConstant.regularSubtitle,
                                     )),
                               ),
@@ -192,8 +200,9 @@ class ReportLitterScreenState extends State<ReportLitterScreen> {
                           SpacingConstant.verticalSpacing200,
                           Text(
                             'Jenis Sampah',
-                            style: TextStyleConstant.semiboldTitle,
+                            style: TextStyleConstant.semiboldSubtitle,
                           ),
+                          SpacingConstant.verticalSpacing100,
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
@@ -234,10 +243,17 @@ class ReportLitterScreenState extends State<ReportLitterScreen> {
                       ),
                     ),
                     SpacingConstant.verticalSpacing400,
-                    const Row(
+                    Row(
                       children: [
-                        Text('Judul Laporan'),
                         Text(
+                          'Judul Laporan',
+                          style: TextStyleConstant.semiboldParagraph.copyWith(
+                            color: isTitleEmpty
+                                ? ColorConstant.dangerColor500
+                                : ColorConstant.netralColor900,
+                          ),
+                        ),
+                        const Text(
                           '*',
                           style: TextStyle(
                             color: ColorConstant.dangerColor500,
@@ -245,18 +261,32 @@ class ReportLitterScreenState extends State<ReportLitterScreen> {
                         ),
                       ],
                     ),
+                    SpacingConstant.verticalSpacing100,
                     CustomTextFieldWidget(
                       label: 'Judul Laporan',
                       hint: 'Contoh: Sampah Pinggir Jalan',
                       isFloatingLabel: false,
-                      onChanged: (value) =>
-                          litterController.title.value = value,
+                      onChanged: (value) {
+                        litterController.title.value = value;
+                        if (value.isNotEmpty) {
+                          setState(() {
+                            isTitleEmpty = false;
+                          });
+                        }
+                      },
                     ),
                     SpacingConstant.verticalSpacing200,
-                    const Row(
+                    Row(
                       children: [
-                        Text('Deskripsi Laporan'),
                         Text(
+                          'Deskripsi Laporan',
+                          style: TextStyleConstant.semiboldParagraph.copyWith(
+                            color: isDescriptionEmpty
+                                ? ColorConstant.dangerColor500
+                                : ColorConstant.netralColor900,
+                          ),
+                        ),
+                        const Text(
                           '*',
                           style: TextStyle(
                             color: ColorConstant.dangerColor500,
@@ -264,22 +294,29 @@ class ReportLitterScreenState extends State<ReportLitterScreen> {
                         ),
                       ],
                     ),
+                    SpacingConstant.verticalSpacing100,
                     CustomTextFieldWidget(
                       label:
                           'Contoh : Sampah ini mengganggu lingkungan sekitar',
                       hint: 'Laporan',
                       isFloatingLabel: false,
                       isTextArea: true,
-                      onChanged: (value) =>
-                          litterController.condition.value = value,
+                      onChanged: (value) {
+                        litterController.condition.value = value;
+                        if (value.isNotEmpty) {
+                          setState(() {
+                            isDescriptionEmpty = false;
+                          });
+                        }
+                      },
                     ),
-                    SpacingConstant.verticalSpacing200,
+                    SpacingConstant.verticalSpacing400,
                     Obx(
                       () => Wrap(
                         alignment: WrapAlignment.start,
                         runAlignment: WrapAlignment.start,
-                        spacing: 8.0,
-                        runSpacing: 8.0,
+                        spacing: 12.0,
+                        runSpacing: 12.0,
                         children: [
                           ...litterController.imageFiles
                               .asMap()
@@ -290,21 +327,20 @@ class ReportLitterScreenState extends State<ReportLitterScreen> {
                             return GestureDetector(
                               onTap: () =>
                                   _showEditPhotoBottomSheet(media!, index),
-                              child: Container(
-                                width: 100,
-                                height: 100,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(4),
-                                ),
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(4),
                                 child: Image.file(
                                   File(media?.path ?? ''),
                                   fit: BoxFit.cover,
+                                  width: 90,
+                                  height: 90,
                                 ),
                               ),
                             );
                           }),
                           GestureDetector(
-                            onTap: () => _pickMedia(true),
+                            onTap: () => litterController.showImageSourceDialog(
+                                litterController.pickImage),
                             child: DottedBorder(
                               color: Colors.grey,
                               strokeWidth: 2,
@@ -312,8 +348,8 @@ class ReportLitterScreenState extends State<ReportLitterScreen> {
                               borderType: BorderType.RRect,
                               radius: const Radius.circular(4),
                               child: Container(
-                                width: 100,
-                                height: 100,
+                                width: 90,
+                                height: 90,
                                 alignment: Alignment.center,
                                 child: const Icon(
                                   Icons.add_box_sharp,
@@ -328,7 +364,7 @@ class ReportLitterScreenState extends State<ReportLitterScreen> {
                     SpacingConstant.verticalSpacing200,
                     Text(
                       'Maksimum file : 20 Mb',
-                      style: TextStyleConstant.regularSubtitle.copyWith(
+                      style: TextStyleConstant.regularParagraph.copyWith(
                         color: ColorConstant.netralColor600,
                       ),
                     ),
@@ -337,25 +373,15 @@ class ReportLitterScreenState extends State<ReportLitterScreen> {
                 ),
               ),
             ),
-            Container(
-              width: double.infinity,
-              alignment: Alignment.center,
-              decoration: BoxDecoration(
-                color: ColorConstant.primaryColor500,
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: TextButton(
-                onPressed: () => _showConfirmationSheet(),
-                child: const Text(
-                  'Kirim Laporan',
-                  style: TextStyle(
-                    color: ColorConstant.netralColor50,
-                    fontWeight: FontWeight.w600,
-                    fontSize: 20,
-                  ),
-                ),
-              ),
-            ),
+            GlobalButtonWidget(
+                onTap: () => _showConfirmationSheet(),
+                width: double.infinity,
+                height: 40,
+                backgroundColor: ColorConstant.primaryColor500,
+                isBorder: false,
+                title: 'Kirim Laporan',
+                textColor: ColorConstant.whiteColor,
+                fontSize: 16),
           ],
         ),
       ),

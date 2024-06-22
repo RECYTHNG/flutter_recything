@@ -103,13 +103,6 @@ class _BackAndSearchWidgetState extends State<BackAndSearchWidget> {
   }
 
   @override
-  void dispose() {
-    textEditingController.dispose();
-    focusNode.dispose();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Container(
       alignment: Alignment.topLeft,
@@ -258,7 +251,7 @@ class _BackAndSearchWidgetState extends State<BackAndSearchWidget> {
                                             color: ColorConstant.netralColor600,
                                           ),
                                           textStyleHighlight: TextStyleConstant
-                                              .boldParagraph
+                                              .regularParagraph
                                               .copyWith(
                                             color: ColorConstant.netralColor900,
                                           ),
@@ -317,14 +310,8 @@ class SearchContentWidget extends StatelessWidget {
                           .searchVideoContentData.value?.data?[index];
                       return GestureDetector(
                         onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => DetailVideoContentScreen(
-                                id: videoData?.id ?? 0,
-                              ),
-                            ),
-                          );
+                          Get.to(
+                              DetailVideoContentScreen(id: videoData?.id ?? 0));
                           videoContentController
                               .getDetailVideoContent(videoData?.id ?? 0);
                         },
@@ -481,15 +468,9 @@ class _TabBarAndContentWidgetState extends State<TabBarAndContentWidget>
                                 .videoContentData.value?.data?[index];
                             return GestureDetector(
                               onTap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) =>
-                                        DetailVideoContentScreen(
-                                      id: videoData?.id ?? 0,
-                                    ),
-                                  ),
-                                );
+                                Get.to(DetailVideoContentScreen(
+                                  id: videoData?.id ?? 0,
+                                ));
                                 videoContentController
                                     .getDetailVideoContent(videoData?.id ?? 0);
                               },
@@ -642,12 +623,9 @@ class BuildTabContent extends StatelessWidget {
                     .categoryVideoContentData.value?.data?[index];
                 return GestureDetector(
                   onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => DetailVideoContentScreen(
-                          id: videoData?.id ?? 0,
-                        ),
+                    Get.to(
+                      DetailVideoContentScreen(
+                        id: videoData?.id ?? 0,
                       ),
                     );
                     videoContentController

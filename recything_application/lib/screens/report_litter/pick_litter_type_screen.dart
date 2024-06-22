@@ -56,14 +56,14 @@ class _PickLitterTypeScreenState extends State<PickLitterTypeScreen> {
         backgroundColor: ColorConstant.whiteColor,
         title: Text(
           'Pilih Kategori Sampah',
-          style: TextStyleConstant.boldHeading4,
+          style: TextStyleConstant.boldSubtitle,
         ),
         centerTitle: true,
       ),
       body: Column(
         children: [
           Expanded(
-            child: ListView.builder(
+            child: ListView.separated(
               itemCount: listSampah.length,
               itemBuilder: (BuildContext context, int index) {
                 return Column(
@@ -71,15 +71,17 @@ class _PickLitterTypeScreenState extends State<PickLitterTypeScreen> {
                     RadioListTile<String>(
                       activeColor: ColorConstant.primaryColor500,
                       title: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Image.asset(
                             'assets/images/report_litter/${listSampah[index]['image']}.png',
-                            width: 50,
-                            height: 50,
+                            width: 40,
+                            height: 40,
                             fit: BoxFit.cover,
                           ),
                           const SizedBox(width: 8),
-                          Text(listSampah[index]['name']!),
+                          Text(listSampah[index]['name']!,
+                              style: TextStyleConstant.regularSubtitle),
                         ],
                       ),
                       value: listSampah[index]['name'] ?? '',
@@ -93,11 +95,16 @@ class _PickLitterTypeScreenState extends State<PickLitterTypeScreen> {
                     ),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 24),
-                      child: Text(listSampah[index]['desc']!),
+                      child: Text(
+                        listSampah[index]['desc']!,
+                        style: TextStyleConstant.regularParagraph,
+                      ),
                     ),
-                    SpacingConstant.verticalSpacing300,
                   ],
                 );
+              },
+              separatorBuilder: (BuildContext context, int index) {
+                return SpacingConstant.verticalSpacing300;
               },
             ),
           ),
@@ -110,14 +117,14 @@ class _PickLitterTypeScreenState extends State<PickLitterTypeScreen> {
                       Get.to(const PickLitterLocationScreen());
                     },
               width: double.infinity,
-              height: 48,
+              height: 40,
               backgroundColor: _selectedType == null
                   ? ColorConstant.netralColor300
                   : ColorConstant.primaryColor500,
               isBorder: false,
               title: 'Selanjutnya',
               textColor: ColorConstant.whiteColor,
-              fontSize: 20,
+              fontSize: 16,
             ),
           ),
         ],

@@ -13,6 +13,9 @@ class ListActiveChallengeWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final ChallengeDashboardController controller = Get.find();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      controller.fetchOnProgressChallenge();
+    });
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: Column(

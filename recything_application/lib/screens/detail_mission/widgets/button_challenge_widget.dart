@@ -4,6 +4,7 @@ import 'package:recything_application/constants/color_constant.dart';
 import 'package:recything_application/constants/text_style_constant.dart';
 import 'package:recything_application/controllers/doing_task_detail_mission_controller.dart';
 import 'package:recything_application/screens/detail_mission/proof_upload_screen.dart';
+import 'package:recything_application/screens/homepage/home_navbar_screen.dart';
 import 'package:recything_application/screens/homepage/homepage_screen.dart';
 
 class ButtonChallengeWidget extends StatelessWidget {
@@ -52,26 +53,23 @@ class ButtonChallengeWidget extends StatelessWidget {
           if (buttonUpload &&
               statusProgress == 'done' &&
               statusAccept == 'reject') {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => ProofUploadScreen(
-                    userTaskId: userTaskId, statusAccept: statusAccept),
+            Get.to(
+              () => ProofUploadScreen(
+                userTaskId: userTaskId,
+                statusAccept: statusAccept,
               ),
             );
           } else if (buttonUpload && statusProgress == 'done') {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => const HomePageScreen(),
+            Get.offAll(
+              () => HomeNavBarScreen(
+                currentIndex: 0,
               ),
             );
           } else if (buttonUpload) {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => ProofUploadScreen(
-                    userTaskId: userTaskId, statusAccept: statusAccept),
+            Get.to(
+              () => ProofUploadScreen(
+                userTaskId: userTaskId,
+                statusAccept: statusAccept,
               ),
             );
           } else {

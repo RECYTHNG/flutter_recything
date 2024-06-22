@@ -11,7 +11,7 @@ class ReportRubbishService {
 
   Future<int> sendReport(MapRubbishController controller) async {
     try {
-      final token = SharedPref.getToken();
+      final token = await SharedPref.getToken();
       FormData formData = FormData();
       var jsonData = jsonEncode({
         'latitude': controller.lat.value,

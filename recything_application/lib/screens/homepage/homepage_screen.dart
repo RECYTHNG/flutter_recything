@@ -5,6 +5,7 @@ import 'package:recything_application/constants/image_constant.dart';
 import 'package:recything_application/constants/text_style_constant.dart';
 import 'package:recything_application/controllers/challenge_dashboard_controller.dart';
 import 'package:recything_application/controllers/home_controller.dart';
+import 'package:recything_application/screens/edit_profile/edit_profile_screen.dart';
 import 'package:recything_application/screens/homepage/widgets/sections/article_section_widget.dart';
 import 'package:recything_application/screens/homepage/widgets/sections/challenge_section_widget.dart';
 import 'package:recything_application/screens/homepage/widgets/sections/leaderboard_section_widget.dart';
@@ -23,7 +24,7 @@ class HomePageScreen extends StatefulWidget {
 
 class _HomePageScreenState extends State<HomePageScreen> {
   final HomeController dataController = Get.put(HomeController());
-  final ChallengeDashboardController controller =
+  final ChallengeDashboardController challengeDashboardController =
       Get.put(ChallengeDashboardController());
 
   final List<Map<String, String>> carouselDataReport = [
@@ -121,24 +122,34 @@ class _HomePageScreenState extends State<HomePageScreen> {
                                 const SizedBox(
                                   width: 8,
                                 ),
-                                Container(
-                                  width: 250,
-                                  child: Row(
-                                    children: [
-                                      Text(
-                                        'Hi, ${dataController.user['name']}',
-                                        style:
-                                            TextStyleConstant.regularHeading4,
-                                        overflow: TextOverflow.ellipsis,
-                                      ),
-                                      const SizedBox(
-                                        width: 4,
-                                      ),
-                                      const Icon(
-                                        Icons.arrow_forward_ios_rounded,
-                                        size: 24,
-                                      ),
-                                    ],
+                                GestureDetector(
+                                  onTap: () {
+                                    Get.to(
+                                      () => const EditProfileScreen(),
+                                    );
+                                  },
+                                  child: SizedBox(
+                                    width: 250,
+                                    child: Row(
+                                      children: [
+                                        Text(
+                                          'Hi, ${dataController.user['name']}',
+                                          style: TextStyleConstant
+                                              .semiboldSubtitle
+                                              .copyWith(
+                                            color: ColorConstant.netralColor900,
+                                          ),
+                                          overflow: TextOverflow.ellipsis,
+                                        ),
+                                        const SizedBox(
+                                          width: 4,
+                                        ),
+                                        const Icon(
+                                          Icons.arrow_forward_ios_rounded,
+                                          size: 18,
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                 ),
                               ],

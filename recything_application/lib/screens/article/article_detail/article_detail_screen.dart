@@ -18,14 +18,14 @@ class ArticleDetailScreen extends StatefulWidget {
 }
 
 class _ArticleDetailScreenState extends State<ArticleDetailScreen> {
-  final ArticleController articleController = Get.put(ArticleController());
+  final ArticleController articleController = Get.find();
   final TextEditingController commentController = TextEditingController();
   late String articleId;
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    articleId = ModalRoute.of(context)!.settings.arguments as String;
+    articleId = articleController.id;
     WidgetsBinding.instance.addPostFrameCallback((_) {
       articleController.fetchArticleById(id: articleId);
     });
@@ -172,7 +172,7 @@ class _ArticleDetailScreenState extends State<ArticleDetailScreen> {
                                 commentController.clear();
                                 articleController.fetchArticleById(
                                     id: articleId);
-                                Navigator.pop(context);
+                                Get.back();
                               },
                               child: const Icon(
                                 Icons.send,
@@ -222,7 +222,7 @@ class _ArticleDetailScreenState extends State<ArticleDetailScreen> {
                   child: Row(
                     children: [
                       GestureDetector(
-                        onTap: () => Navigator.pop(context),
+                        onTap: () => Get.back(),
                         child: const Icon(
                           Icons.arrow_back,
                           color: ColorConstant.netralColor900,

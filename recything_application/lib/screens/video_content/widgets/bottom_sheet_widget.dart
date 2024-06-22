@@ -223,7 +223,7 @@ class BottomSheetWidget extends StatelessWidget {
                               videoContentController.commentController.text,
                             );
                             videoContentController.commentController.clear();
-                            Navigator.pop(context);
+                            Get.back();
                           } else {
                             Get.snackbar("Error", "Comment cannot be empty");
                           }

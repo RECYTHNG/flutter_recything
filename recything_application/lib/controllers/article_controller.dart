@@ -9,6 +9,7 @@ class ArticleController extends GetxController {
   var queryResults = <String>[].obs;
   var isLoading = false.obs;
   String keyword = '';
+  String id = '';
 
   final ArticleService _articleService = ArticleService();
 
@@ -31,6 +32,10 @@ class ArticleController extends GetxController {
       keyword = newKeyword;
     }
     fetchArticles();
+  }
+
+  void setId(String newId) {
+    id = newId;
   }
 
   void fetchArticleById({required String id}) async {
