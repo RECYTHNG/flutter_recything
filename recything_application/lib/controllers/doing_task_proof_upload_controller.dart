@@ -5,10 +5,11 @@ import 'package:recything_application/services/detail_mission_service/post_image
 class DoingTaskProofUploadController extends GetxController {
   final PostImageProofService _taskStepService = PostImageProofService();
   final List<String> selectedImages = [];
-  var isLoading = true.obs; // Observable loading state
+  var isLoading = false.obs; // Observable loading state
 
   Future<void> uploadProof(
       String userTaskId, String description, String statusAccept) async {
+    isLoading.value = true;
     if (selectedImages.isEmpty) {
       Get.snackbar('Error', 'Please select at least one image');
       return;

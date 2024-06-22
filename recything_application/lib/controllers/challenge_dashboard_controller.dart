@@ -32,6 +32,7 @@ class ChallengeDashboardController extends GetxController {
     fetchUserAchievement();
     fetchAllChallenge();
     fetchOnProgressChallenge();
+    fetchDoneChallengeSection();
   }
 
   void fetchDoneChallengeSection() {

@@ -253,7 +253,8 @@ class _ProofUploadScreenState extends State<ProofUploadScreen> {
                           width: double.infinity,
                           child: ElevatedButton(
                             onPressed: () {
-                              if (_formKey.currentState!.validate()) {
+                              if (controller.selectedImages.isNotEmpty &&
+                                  descriptionController.text.isNotEmpty) {
                                 controller.uploadProof(
                                     widget.userTaskId,
                                     descriptionController.text,
