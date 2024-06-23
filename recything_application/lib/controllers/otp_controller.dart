@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -12,6 +10,7 @@ class OtpController extends GetxController {
       List.generate(6, (index) => TextEditingController()).obs;
 
   var email = ''.obs;
+  var isLoading = false.obs;
 
   void setEmail(String email) {
     this.email.value = email;
@@ -19,6 +18,7 @@ class OtpController extends GetxController {
 
   Future<void> submitOtp() async {
     if (formKey.currentState!.validate()) {
+      isLoading(true); 
       try {
         final otp = otpControllers
             .map((e) => e.text)
@@ -46,13 +46,9 @@ class OtpController extends GetxController {
               contentType: ContentType.success,
             ),
           );
-          Timer(
-            const Duration(seconds: 3),
-            () {
-              Get.off(
-                () => LoginAuthenticationScreen(),
-              );
-            },
+
+          Get.off(
+            () => LoginAuthenticationScreen(),
           );
         } else if (response.code == 400) {
           Get.snackbar(
@@ -124,11 +120,14 @@ class OtpController extends GetxController {
             contentType: ContentType.failure,
           ),
         );
+      } finally {
+        isLoading(false); 
       }
     }
   }
 
   Future<void> resendOtp() async {
+    isLoading(true);
     try {
       final response = await OneTimePasswordAuthenticationService()
           .postResendOneTimePassword(
@@ -186,6 +185,8 @@ class OtpController extends GetxController {
           contentType: ContentType.failure,
         ),
       );
+    } finally {
+      isLoading(false);
     }
   }
 }
