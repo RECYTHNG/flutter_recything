@@ -78,7 +78,13 @@ class MissionStepUploadWidget extends StatelessWidget {
       decoration: BoxDecoration(
         color: _getCase(statusProgress, statusAccepted)['color'],
         borderRadius: BorderRadius.circular(12),
-        boxShadow: ShadowConstant.shadowMd,
+        boxShadow: [
+          BoxShadow(
+            blurRadius: 13,
+            spreadRadius: -2,
+            color: ColorConstant.blackColor.withOpacity(0.15),
+          )
+        ],
       ),
       child: Padding(
         padding: const EdgeInsets.all(8),

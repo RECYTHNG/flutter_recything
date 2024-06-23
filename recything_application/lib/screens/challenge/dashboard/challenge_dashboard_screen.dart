@@ -15,8 +15,8 @@ class ChallengeDashboardScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final ChallengeDashboardController controller = Get.put(ChallengeDashboardController());
     SystemUiOverlayUtils().setSystemUiOverlay(ColorConstant.netralColor900, false);
+    final ChallengeDashboardController controller = Get.put(ChallengeDashboardController());
     WidgetsBinding.instance.addPostFrameCallback((_){
       controller.fetchAllChallenge();
       controller.fetchOnProgressChallenge();

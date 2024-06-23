@@ -5,16 +5,15 @@ import 'package:recything_application/constants/color_constant.dart';
 import 'package:recything_application/constants/lottie_constant.dart';
 import 'package:recything_application/constants/text_style_constant.dart';
 import 'package:recything_application/controllers/doing_task_detail_mission_controller.dart';
+import 'package:recything_application/screens/halaman_riwayat/point_history_screen.dart';
 import 'package:recything_application/screens/homepage/home_navbar_screen.dart';
 
 class WaitingVerificationScreen extends StatelessWidget {
-  WaitingVerificationScreen({super.key});
+  const WaitingVerificationScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final DoingTaskDetailMissionController controller =
-        Get.put(DoingTaskDetailMissionController());
-
+    final DoingTaskDetailMissionController controller = Get.put(DoingTaskDetailMissionController());
     final data = controller.dataGetProgress;
     int pointChallenge = data['task_challenge']['point'];
     return Scaffold(
@@ -41,7 +40,7 @@ class WaitingVerificationScreen extends StatelessWidget {
                   child: Column(
                     children: [
                       Text(
-                        'Selamat ! Challenge Selesai',
+                        'Selamat! Challenge Selesai',
                         style: TextStyleConstant.boldSubtitle.copyWith(
                           color: ColorConstant.netralColor900,
                         ),
@@ -98,7 +97,7 @@ class WaitingVerificationScreen extends StatelessWidget {
                       child: SizedBox(
                         width: double.infinity,
                         child: ElevatedButton(
-                          onPressed: () {},
+                          onPressed: () => Get.offAll(() => PointHisstoryScreen()),
                           style: ElevatedButton.styleFrom(
                             backgroundColor: ColorConstant.whiteColor,
                             side: const BorderSide(

@@ -26,7 +26,7 @@ class SubheaderCategoryDashboardRecycleWidget extends StatelessWidget {
                 borderRadius: const BorderRadius.all(
                   Radius.circular(10),
                 ),
-                onTap: () {},
+                onTap: () => Get.to(() => const CategoryRecycleScreen()),
                 splashColor: ColorConstant.netralColor600,
                 child: Text(
                   'Lihat Semua',

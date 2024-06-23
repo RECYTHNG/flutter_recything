@@ -10,7 +10,7 @@ class SubheaderVideoDashboardRecycleWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {},
+      onTap: () => Get.to(() => VideoContentScreen()),
       child: Column(
         children: [
           Row(
@@ -26,9 +26,7 @@ class SubheaderVideoDashboardRecycleWidget extends StatelessWidget {
                 borderRadius: const BorderRadius.all(
                   Radius.circular(10),
                 ),
-                onTap: () {
-                  Get.to(VideoContentScreen());
-                },
+                onTap: () => Get.to(() => VideoContentScreen()),
                 splashColor: ColorConstant.netralColor600,
                 child: Text(
                   'Lihat Semua',

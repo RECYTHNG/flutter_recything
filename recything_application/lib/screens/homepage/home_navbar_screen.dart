@@ -31,12 +31,13 @@ class _HomeScreenState extends State<HomeNavBarScreen> {
   void _onItemTapped(int index) {
     if (index == 3) {
       Get.to(() => const ChallengeOnboardingScreen());
+    } else {
+      setState(
+        () {
+          widget.currentIndex = index;
+        },
+      );
     }
-    setState(
-      () {
-        widget.currentIndex = index;
-      },
-    );
   }
 
   void _onCenterMenuTapped() {

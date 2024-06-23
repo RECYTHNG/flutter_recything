@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:recything_application/constants/color_constant.dart';
+import 'package:recything_application/constants/spacing_constant.dart';
 import 'package:recything_application/constants/text_style_constant.dart';
 import 'package:recything_application/controllers/doing_task_detail_mission_controller.dart';
 import 'package:recything_application/screens/challenge/my_challenge/my_challenge_screen.dart';
@@ -141,7 +142,8 @@ class DetailMissionProgressScreen extends StatelessWidget {
                     const SizedBox(height: 12),
                     const Divider(),
                     const SizedBox(height: 12),
-                    ListView.builder(
+                    ListView.separated(
+                      separatorBuilder: (context, index) => SpacingConstant.verticalSpacing150,
                       shrinkWrap: true,
                       physics: const NeverScrollableScrollPhysics(),
                       itemCount: data['task_challenge']['task_steps'].length,
@@ -159,12 +161,13 @@ class DetailMissionProgressScreen extends StatelessWidget {
                         );
                       },
                     ),
+                    SpacingConstant.verticalSpacing150,
                     MissionStepUploadWidget(
                       progress: statusProgress,
                       statusProgress: statusProgress,
                       statusAccepted: data['status_accepted'],
                     ),
-                    const SizedBox(height: 12),
+                    SpacingConstant.verticalSpacing200,
                     ButtonChallengeWidget(
                       buttonstepCount: controller.stepCount,
                       userTaskId: data['id'],

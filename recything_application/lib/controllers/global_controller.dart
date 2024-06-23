@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:recything_application/screens/splash/splash_screen.dart';
+import 'package:recything_application/utils/shared_pref.dart';
 
 class GlobalController extends GetxController {
   void showExpiredSessionDialog() {
@@ -11,7 +12,12 @@ class GlobalController extends GetxController {
         actions: [
           TextButton(
             onPressed: () {
-              Get.offAll(() => const SplashScreen());
+              SharedPref.removeToken();
+              SharedPref.deleteAllHistory();
+              Get.deleteAll();
+              Get.off(
+                () => const SplashScreen(),
+              );
             },
             child: const Text('Login Ulang'),
           ),

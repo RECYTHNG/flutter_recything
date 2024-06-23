@@ -58,6 +58,7 @@ class AboutUsScreen extends StatelessWidget {
                   color: ColorConstant.netralColor900,
                   fontFamily: 'Nunito',
                 ),
+                indicatorWeight: 4,
                 indicatorColor: ColorConstant.primaryColor500,
                 unselectedLabelStyle: TextStyleConstant.boldParagraph.copyWith(
                   color: ColorConstant.netralColor600,

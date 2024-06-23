@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:recything_application/constants/color_constant.dart';
 import 'package:recything_application/constants/shadow_constant.dart';
 import 'package:recything_application/constants/text_style_constant.dart';
+import 'package:recything_application/screens/homepage/home_navbar_screen.dart';
 import 'package:recything_application/screens/recycle/dashboard/dashboard_recycle_screen.dart';
 
 class AppBarCategoryRecycleWidget extends StatelessWidget implements PreferredSizeWidget {
@@ -40,7 +41,7 @@ class AppBarCategoryRecycleWidget extends StatelessWidget implements PreferredSi
                         color: ColorConstant.netralColor50,
                         size: 24,
                       ),
-                      onPressed: () => Get.off(() => const DashboardRecycleScreen()),
+                      onPressed: () => Get.off(() => HomeNavBarScreen(currentIndex: 1)),
                     ),
                     const Spacer(),
                     Text(

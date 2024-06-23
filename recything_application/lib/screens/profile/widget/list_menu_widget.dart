@@ -3,9 +3,9 @@ import 'package:get/get.dart';
 import 'package:recything_application/constants/color_constant.dart';
 import 'package:recything_application/constants/spacing_constant.dart';
 import 'package:recything_application/screens/about_us/about_us_screen.dart';
-import 'package:recything_application/screens/authentication/login/login_screen.dart';
 import 'package:recything_application/screens/customer_service/cutomer_service_faq_main/customer_service_screen.dart';
 import 'package:recything_application/screens/profile/widget/menu_widget.dart';
+import 'package:recything_application/screens/splash/splash_screen.dart';
 import 'package:recything_application/utils/shared_pref.dart';
 
 class ListMenuWidget extends StatelessWidget {
@@ -53,7 +53,7 @@ class ListMenuWidget extends StatelessWidget {
             SharedPref.deleteAllHistory();
             Get.deleteAll();
             Get.off(
-              () => LoginAuthenticationScreen(),
+              () => const SplashScreen(),
             );
           },
           child: const MenuWidget(

@@ -20,6 +20,7 @@ class CustomPointWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: width,
+      padding: const EdgeInsets.symmetric(vertical: 3),
       decoration: BoxDecoration(
         color: ColorConstant.whiteColor,
         borderRadius: BorderRadius.circular(12),
@@ -35,7 +36,7 @@ class CustomPointWidget extends StatelessWidget {
           const SizedBox(width: 4),
           Text(
             pointChallenge,
-            style: TextStyleConstant.semiboldTitle,
+            style: TextStyleConstant.semiboldCaption.copyWith(color: const Color(0xFF1554C2)),
           ),
         ],
       ),

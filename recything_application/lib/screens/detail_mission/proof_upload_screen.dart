@@ -1,15 +1,15 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:recything_application/constants/color_constant.dart';
 import 'package:recything_application/constants/icon_constant.dart';
-import 'package:recything_application/constants/image_constant.dart';
+import 'package:recything_application/constants/spacing_constant.dart';
 import 'package:recything_application/constants/text_style_constant.dart';
 import 'package:recything_application/controllers/doing_task_proof_upload_controller.dart';
 import 'package:recything_application/widgets/global_image_picker_dialog_widget.dart';
+import 'package:recything_application/widgets/global_loading_widget.dart';
 
 class ProofUploadScreen extends StatefulWidget {
   final String userTaskId;
@@ -52,7 +52,6 @@ class _ProofUploadScreenState extends State<ProofUploadScreen> {
 
   @override
   Widget build(BuildContext context) {
-    print(widget.userTaskId);
     return Scaffold(
       backgroundColor: ColorConstant.whiteColor,
       appBar: AppBar(
@@ -75,14 +74,14 @@ class _ProofUploadScreenState extends State<ProofUploadScreen> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const SizedBox(height: 24),
+                const SizedBox(height: 16),
                 Center(
                   child: Text(
                     'Upload Aksimu',
                     style: TextStyleConstant.semiboldHeading4,
                   ),
                 ),
-                const SizedBox(height: 12),
+                const SizedBox(height: 8),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 100),
                   child: Text(
@@ -140,7 +139,7 @@ class _ProofUploadScreenState extends State<ProofUploadScreen> {
                     color: ColorConstant.netralColor600,
                   ),
                 ),
-                const SizedBox(height: 64),
+                const SizedBox(height: 32),
                 Container(
                   alignment: Alignment.centerLeft,
                   child: Text(
@@ -148,12 +147,18 @@ class _ProofUploadScreenState extends State<ProofUploadScreen> {
                     style: TextStyleConstant.semiboldSubtitle,
                   ),
                 ),
+                SpacingConstant.verticalSpacing200,
                 TextFormField(
                   controller: descriptionController,
                   minLines: 5,
                   maxLines: null,
                   keyboardType: TextInputType.multiline,
                   decoration: InputDecoration(
+                    focusedBorder: const OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: ColorConstant.primaryColor500,
+                      ),
+                    ),
                     alignLabelWithHint: true,
                     border: const OutlineInputBorder(),
                     hintText: 'Tulis keterangan aksimu disini...',
@@ -167,7 +172,7 @@ class _ProofUploadScreenState extends State<ProofUploadScreen> {
                     });
                   },
                 ),
-                const SizedBox(height: 24),
+                const SizedBox(height: 48),
                 Obx(
                   () {
                     return Stack(
@@ -189,24 +194,27 @@ class _ProofUploadScreenState extends State<ProofUploadScreen> {
                                   controller.selectedImages.isNotEmpty &&
                                           descriptionController.text.isNotEmpty
                                       ? ColorConstant.primaryColor500
-                                      : ColorConstant.netralColor700,
+                                      : const Color(0XFF9F9F9F),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(12),
                               ),
                             ),
-                            child: Text(
-                              'Upload Bukti',
-                              style:
-                                  TextStyleConstant.semiboldSubtitle.copyWith(
-                                color: ColorConstant.whiteColor,
-                              ),
-                            ),
+                            child: controller.isLoading.value
+                                ? const Center(
+                                    child: Padding(
+                                      padding: EdgeInsets.all(5),
+                                      child: MyLoading(),
+                                    ),
+                                  )
+                                : Text(
+                                    'Upload Bukti',
+                                    style: TextStyleConstant.semiboldSubtitle
+                                        .copyWith(
+                                      color: ColorConstant.whiteColor,
+                                    ),
+                                  ),
                           ),
                         ),
-                        if (controller.isLoading.value)
-                          const Center(
-                            child: CircularProgressIndicator(),
-                          ),
                       ],
                     );
                   },

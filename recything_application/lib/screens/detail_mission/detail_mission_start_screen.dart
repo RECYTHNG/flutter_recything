@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:recything_application/constants/color_constant.dart';
+import 'package:recything_application/constants/spacing_constant.dart';
 import 'package:recything_application/constants/text_style_constant.dart';
 import 'package:recything_application/controllers/doing_task_detail_mission_controller.dart';
 import 'package:recything_application/screens/detail_mission/widgets/button_start_challenge_widget.dart';
@@ -8,6 +9,7 @@ import 'package:recything_application/screens/detail_mission/widgets/mission_hea
 import 'package:recything_application/screens/detail_mission/widgets/mission_step_widget.dart';
 import 'package:recything_application/screens/detail_mission/widgets/status_detail_mission_widget.dart';
 import 'package:recything_application/utils/date_time_utils.dart';
+import 'package:recything_application/widgets/global_loading_widget.dart';
 
 class DetailMissionStartScreen extends StatelessWidget {
   final String taskId;
@@ -37,8 +39,8 @@ class DetailMissionStartScreen extends StatelessWidget {
                 backgroundColor: ColorConstant.primaryColor500,
                 foregroundColor: ColorConstant.whiteColor,
               ),
-              body: Center(
-                child: CircularProgressIndicator(),
+              body: const Center(
+                child: MyLoading(),
               ),
             );
           }
@@ -59,11 +61,8 @@ class DetailMissionStartScreen extends StatelessWidget {
                 backgroundColor: ColorConstant.primaryColor500,
                 foregroundColor: ColorConstant.whiteColor,
               ),
-              body: Center(
-                child: Text(
-                  'Data not available.',
-                  style: TextStyleConstant.semiboldTitle,
-                ),
+              body: const Center(
+                child: MyLoading()
               ),
             );
           }
@@ -126,7 +125,8 @@ class DetailMissionStartScreen extends StatelessWidget {
                     const SizedBox(height: 12),
                     const Divider(),
                     const SizedBox(height: 12),
-                    ListView.builder(
+                    ListView.separated(
+                      separatorBuilder: (context, index) => SpacingConstant.verticalSpacing150,
                       shrinkWrap: true,
                       physics: const NeverScrollableScrollPhysics(),
                       itemCount: data['task_steps'].length,
@@ -140,7 +140,7 @@ class DetailMissionStartScreen extends StatelessWidget {
                         );
                       },
                     ),
-                    const SizedBox(height: 12),
+                    SpacingConstant.verticalSpacing200,
                     ButtonStartChallengeWidget(
                       taskId: data['id'],
                       dataTask: data,

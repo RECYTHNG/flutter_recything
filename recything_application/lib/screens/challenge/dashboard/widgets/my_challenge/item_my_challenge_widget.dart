@@ -29,7 +29,7 @@ class ItemMyChallengeWidget extends StatelessWidget {
         } else {
           if (controller.onProgressChallengeData.value == null) {
             return const EmptyStateChallengeWidget(
-              width: 250,
+              width: 245,
               height: 0.2,
               fontSize: 12,
             );

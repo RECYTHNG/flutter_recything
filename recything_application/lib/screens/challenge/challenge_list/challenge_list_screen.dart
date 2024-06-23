@@ -12,7 +12,7 @@ class ChallengeListScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final ChallengeDashboardController controller = Get.find();
+    final ChallengeDashboardController controller = Get.put(ChallengeDashboardController());
     WidgetsBinding.instance.addPostFrameCallback((_) {
       controller.fetchAllChallenge();
       controller.fetchUserAchievement();

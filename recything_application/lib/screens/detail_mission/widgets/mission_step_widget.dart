@@ -21,7 +21,6 @@ class MissionStepWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(progress);
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 4),
       decoration: BoxDecoration(
@@ -29,7 +28,13 @@ class MissionStepWidget extends StatelessWidget {
             ? ColorConstant.successColor50
             : ColorConstant.whiteColor,
         borderRadius: BorderRadius.circular(12),
-        boxShadow: ShadowConstant.shadowMd,
+        boxShadow: [
+          BoxShadow(
+            blurRadius: 13,
+            spreadRadius: -2,
+            color: ColorConstant.blackColor.withOpacity(0.15),
+          )
+        ],
       ),
       child: Padding(
         padding: const EdgeInsets.all(8),
