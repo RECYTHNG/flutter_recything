@@ -213,14 +213,9 @@ class _ArticleDetailScreenState extends State<ArticleDetailScreen> {
       backgroundColor: ColorConstant.whiteColor,
       body: SafeArea(
         child: Obx(() {
-          if (articleController.isLoading.value) {
-            return const Center(child: MyLoading());
-          }
-
           final article = articleController.article.value.data;
-
-          if (article == null) {
-            return const Center(child: Text('Article not found'));
+          if (articleController.isLoading.value || article == null) {
+            return const Center(child: MyLoading());
           }
 
           return SingleChildScrollView(
