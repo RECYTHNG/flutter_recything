@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:recything_application/constants/spacing_constant.dart';
 import 'package:recything_application/controllers/map_litter_controller.dart';
-import 'package:recything_application/screens/report_litter/widget/current_location_button_maps_report_litter_widget.dart';
-import 'package:recything_application/screens/report_litter/widget/next_button_maps_report_litter_widget.dart';
-import 'package:recything_application/screens/report_litter/widget/result_place_maps_report_litter_widget.dart';
+import 'package:recything_application/screens/report_litter/pick_location/widget/current_location_button_maps_report_litter_widget.dart';
+import 'package:recything_application/screens/report_litter/pick_location/widget/next_button_maps_report_litter_widget.dart';
+import 'package:recything_application/screens/report_litter/pick_location/widget/result_place_maps_report_litter_widget.dart';
 
 class FooterMapsReportLitterWidget extends StatelessWidget {
   const FooterMapsReportLitterWidget({super.key});

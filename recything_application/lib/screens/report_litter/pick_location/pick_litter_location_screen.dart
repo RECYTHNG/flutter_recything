@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:recything_application/constants/color_constant.dart';
-import 'package:recything_application/screens/report_litter/widget/footer_maps_report_litter_widget.dart';
-import 'package:recything_application/screens/report_litter/widget/header_maps_report_litter_widget.dart';
-import 'package:recything_application/screens/report_litter/widget/location_maps_report_litter_widget.dart';
+import 'package:recything_application/screens/report_litter/pick_location/widget/footer_maps_report_litter_widget.dart';
+import 'package:recything_application/screens/report_litter/pick_location/widget/header_maps_report_litter_widget.dart';
+import 'package:recything_application/screens/report_litter/pick_location/widget/location_maps_report_litter_widget.dart';
 import 'package:recything_application/utils/system_ui_overlay_utils.dart';
 
 class PickLitterLocationScreen extends StatelessWidget {

@@ -5,7 +5,7 @@ import 'package:recything_application/constants/spacing_constant.dart';
 import 'package:recything_application/constants/text_style_constant.dart';
 import 'package:recything_application/controllers/map_litter_controller.dart';
 import 'package:recything_application/controllers/report_litter_controller.dart';
-import 'package:recything_application/screens/report_litter/pick_litter_location_screen.dart';
+import 'package:recything_application/screens/report_litter/pick_location/pick_litter_location_screen.dart';
 import 'package:recything_application/widgets/global_button_widget.dart';
 
 class PickLitterTypeScreen extends StatefulWidget {

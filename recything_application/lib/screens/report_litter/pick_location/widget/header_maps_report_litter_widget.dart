@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:recything_application/constants/color_constant.dart';
 import 'package:recything_application/constants/spacing_constant.dart';
-import 'package:recything_application/screens/report_litter/widget/app_bar_maps_report_litter_widget.dart';
-import 'package:recything_application/screens/report_litter/widget/search_maps_report_litter_widget.dart';
+import 'package:recything_application/screens/report_litter/pick_location/widget/app_bar_maps_report_litter_widget.dart';
+import 'package:recything_application/screens/report_litter/pick_location/widget/search_maps_report_litter_widget.dart';
 
 class HeaderMapsReportLitterWidget extends StatelessWidget {
   const HeaderMapsReportLitterWidget({super.key});

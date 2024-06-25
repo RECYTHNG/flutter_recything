@@ -6,7 +6,7 @@ import 'package:recything_application/constants/text_style_constant.dart';
 import 'package:recything_application/screens/challenge/dashboard/challenge_dashboard_screen.dart';
 import 'package:recything_application/screens/homepage/home_navbar_screen.dart';
 import 'package:recything_application/screens/homepage/widgets/custom_carousel_item_widget.dart';
-import 'package:recything_application/screens/report_litter/pick_litter_type_screen.dart';
+import 'package:recything_application/screens/report_litter/pick_litter/pick_litter_type_screen.dart';
 import 'package:recything_application/screens/report_litter/report_litter_screen.dart';
 import 'package:recything_application/screens/report_rubbish/report_rubbish_screen.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
