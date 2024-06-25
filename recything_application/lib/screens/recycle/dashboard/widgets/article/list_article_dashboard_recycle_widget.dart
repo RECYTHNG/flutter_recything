@@ -55,7 +55,7 @@ class ListArticleDashboardRecycleWidget extends StatelessWidget {
                     final article = dataToShow[index];
                     return ItemSimpleArticleRecycleWidget(
                       onTap: () {
-                        articleController.fetchArticleById(id: article.id);
+                        articleController.setId(article.id);
                         Get.to(() => const ArticleDetailScreen());
                       },
                       authorImage: article.author.imageUrl,
