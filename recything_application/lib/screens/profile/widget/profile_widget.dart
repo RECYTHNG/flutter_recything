@@ -7,7 +7,6 @@ import 'package:recything_application/controllers/profile_controller.dart';
 import 'package:recything_application/screens/edit_profile/edit_profile_screen.dart';
 import 'package:recything_application/screens/profile/widget/image_widget.dart';
 import 'package:recything_application/widgets/global_image_picker_dialog_widget.dart';
-import 'package:recything_application/widgets/global_loading_widget.dart';
 
 class ProfileWidget extends StatelessWidget {
   ProfileWidget({super.key});

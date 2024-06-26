@@ -4,7 +4,6 @@ import 'package:recything_application/constants/color_constant.dart';
 import 'package:recything_application/constants/shadow_constant.dart';
 import 'package:recything_application/constants/text_style_constant.dart';
 import 'package:recything_application/screens/homepage/home_navbar_screen.dart';
-import 'package:recything_application/screens/recycle/dashboard/dashboard_recycle_screen.dart';
 
 class AppBarCategoryRecycleWidget extends StatelessWidget implements PreferredSizeWidget {
   const AppBarCategoryRecycleWidget({super.key});

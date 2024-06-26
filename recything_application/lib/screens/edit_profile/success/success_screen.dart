@@ -6,7 +6,6 @@ import 'package:recything_application/constants/spacing_constant.dart';
 import 'package:recything_application/constants/text_style_constant.dart';
 import 'package:recything_application/controllers/user_controller.dart';
 import 'package:recything_application/screens/homepage/home_navbar_screen.dart';
-import 'package:recything_application/screens/profile/profile_screen.dart';
 import 'package:recything_application/widgets/global_button_widget.dart';
 import 'package:lottie/lottie.dart';
 

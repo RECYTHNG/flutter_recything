@@ -1,10 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:get/get.dart';
 import 'package:recything_application/constants/color_constant.dart';
 import 'package:recything_application/constants/text_style_constant.dart';
-import 'package:recything_application/controllers/leaderboard_controller.dart';
 import 'package:recything_application/widgets/global_loading_widget.dart';
 
 class TopThreeLeaderboardItem extends StatelessWidget {

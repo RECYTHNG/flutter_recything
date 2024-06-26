@@ -1,9 +1,7 @@
-import 'package:carousel_indicator_simple/carousel_indicator_simple.dart';
 import 'package:flutter/material.dart';
 import 'package:recything_application/constants/color_constant.dart';
 import 'package:recything_application/constants/shadow_constant.dart';
 import 'package:recything_application/constants/text_style_constant.dart';
-import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class CustomCarouselItem extends StatelessWidget {
   final int pageViewIndex;

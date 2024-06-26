@@ -7,7 +7,6 @@ import 'package:recything_application/constants/spacing_constant.dart';
 import 'package:recything_application/constants/text_style_constant.dart';
 import 'package:recything_application/controllers/report_litter_controller.dart';
 import 'package:recything_application/controllers/map_litter_controller.dart';
-import 'package:recything_application/screens/dashboard_reporting/dashboard_reporting_screen.dart';
 import 'package:recything_application/screens/homepage/home_navbar_screen.dart';
 import 'package:recything_application/utils/system_ui_overlay_utils.dart';
 import 'package:recything_application/widgets/global_app_bar.dart';
