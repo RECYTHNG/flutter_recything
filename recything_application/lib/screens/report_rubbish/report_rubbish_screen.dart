@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:recything_application/constants/color_constant.dart';
 import 'package:recything_application/constants/text_style_constant.dart';
 import 'package:recything_application/controllers/map_rubbish_controller.dart';
+import 'package:recything_application/controllers/report_rubbish_controller.dart';
 import 'package:recything_application/screens/report_rubbish/details/details_report_rubbish_widget.dart';
 import 'package:recything_application/screens/report_rubbish/image/image_report_rubbish_widget.dart';
 import 'package:recything_application/screens/report_rubbish/widgets/header_report_rubbish_widget.dart';
@@ -15,39 +16,61 @@ class ReportRubbishScreen extends StatefulWidget {
 }
 
 class _ReportRubbishScreenState extends State<ReportRubbishScreen> with SingleTickerProviderStateMixin {
-  late TabController _tabController;
+  late TabController tabController;
   final MapRubbishController controller = Get.put(MapRubbishController());
+  final ReportRubbishController rubbishController = Get.put(ReportRubbishController());
 
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: 2, vsync: this);
+    tabController = TabController(length: 2, vsync: this);
+    tabController.addListener(onTap);
     controller.tabIndex.listen((index) {
-      _tabController.animateTo(index);
+      if (!controller.isDisabled[index]) {
+        tabController.animateTo(index);
+      }
     });
+  }
+
+  void onTap() {
+    if (controller.isDisabled[tabController.index]) {
+      int index = tabController.previousIndex;
+      setState(() {
+        tabController.index = index;
+      });
+    } else {
+      controller.changeTabIndex(tabController.index);
+    }
   }
 
   @override
   void dispose() {
-    _tabController.dispose();
+    tabController.dispose();
     super.dispose();
   }
 
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: ColorConstant.whiteColor,
-      body: Column(
-        children: [
-          const HeaderReportRubbishWidget(),
-          TabBar(
-            controller: _tabController,
+Widget build(BuildContext context) {
+  WidgetsBinding.instance.addPostFrameCallback((_) {
+    controller.updateIsDisabled();
+  });
+  return Scaffold(
+    backgroundColor: ColorConstant.whiteColor,
+    body: Column(
+      children: [
+        const HeaderReportRubbishWidget(),
+        Obx(() {
+          return TabBar(
+            controller: tabController,
             onTap: (index) {
+              if (controller.isDisabled[index]) {
+                return;
+              }
               controller.changeTabIndex(index);
             },
-            overlayColor: WidgetStateProperty.resolveWith<Color?>(
-              (Set<WidgetState> states) {
-                if (states.contains(WidgetState.pressed)) {
+            overlayColor: MaterialStateProperty.resolveWith<Color?>(
+              (Set<MaterialState> states) {
+                if (states.contains(MaterialState.pressed)) {
                   return ColorConstant.primaryColor200.withOpacity(0.2);
                 }
                 return null;
@@ -66,22 +89,42 @@ class _ReportRubbishScreenState extends State<ReportRubbishScreen> with SingleTi
               fontFamily: 'Nunito',
             ),
             indicatorColor: ColorConstant.primaryColor500,
-            tabs: const [
-              Tab(text: 'Deskripsi Sampah'),
-              Tab(text: 'Unggah Gambar'),
+            tabs: [
+              Tab(
+                child: Text(
+                  'Deskripsi Sampah',
+                  style: TextStyle(
+                    color: !controller.isDisabled[0] ? ColorConstant.netralColor900 : ColorConstant.netralColor400,
+                    fontFamily: 'Nunito',
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+              Tab(
+                child: Text(
+                  'Unggah Gambar',
+                  style: TextStyle(
+                    color: !controller.isDisabled[1] ? ColorConstant.netralColor900 : ColorConstant.netralColor400,
+                    fontFamily: 'Nunito',
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+            ],
+          );
+        }),
+        Expanded(
+          child: TabBarView(
+            physics: const NeverScrollableScrollPhysics(),
+            controller: tabController,
+            children: const [
+              DetailsReportRubbishWidget(),
+              ImageReportRubbishWidget(),
             ],
           ),
-          Expanded(
-            child: TabBarView(
-              controller: _tabController,
-              children: const [
-                DetailsReportRubbishWidget(),
-                ImageReportRubbishWidget(),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
+        ),
+      ],
+    ),
+  );
+}
 }

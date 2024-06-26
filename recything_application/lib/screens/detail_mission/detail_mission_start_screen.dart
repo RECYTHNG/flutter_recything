@@ -28,6 +28,7 @@ class DetailMissionStartScreen extends StatelessWidget {
         return Obx(() {
           if (controller.isLoading.value) {
             return Scaffold(
+              backgroundColor: ColorConstant.whiteColor,
               appBar: AppBar(
                 title: Text(
                   'Detail Challenge',

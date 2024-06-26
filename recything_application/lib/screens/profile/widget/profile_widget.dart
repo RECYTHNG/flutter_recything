@@ -7,7 +7,6 @@ import 'package:recything_application/controllers/profile_controller.dart';
 import 'package:recything_application/screens/edit_profile/edit_profile_screen.dart';
 import 'package:recything_application/screens/profile/widget/image_widget.dart';
 import 'package:recything_application/widgets/global_image_picker_dialog_widget.dart';
-import 'package:recything_application/widgets/global_loading_widget.dart';
 
 class ProfileWidget extends StatelessWidget {
   ProfileWidget({super.key});
@@ -65,40 +64,42 @@ class ProfileWidget extends StatelessWidget {
               ),
             ),
             SpacingConstant.horizontalSpacing400,
-            profileController.isLoading.value == true
-                ? const MyLoading()
-                : Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "${profileController.userData.value?.name}",
-                        style: TextStyleConstant.semiboldParagraph.copyWith(
-                          color: ColorConstant.netralColor900,
-                        ),
-                      ),
-                      SpacingConstant.verticalSpacing100,
-                      Text(
-                        "${profileController.userData.value?.email}",
-                        style: TextStyleConstant.regularParagraph.copyWith(
-                          color: ColorConstant.netralColor600,
-                        ),
-                      ),
-                      SpacingConstant.verticalSpacing100,
-                      GestureDetector(
-                        onTap: () {
-                          Get.to(
-                            () => const EditProfileScreen(),
-                          );
-                        },
-                        child: Text(
-                          "Lengkapi Profil",
-                          style: TextStyleConstant.boldCaption.copyWith(
-                            color: ColorConstant.infoColor500,
-                          ),
-                        ),
-                      )
-                    ],
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  profileController.userData.value?.name != null
+                      ? "${profileController.userData.value?.name}"
+                      : "-",
+                  style: TextStyleConstant.semiboldParagraph.copyWith(
+                    color: ColorConstant.netralColor900,
                   ),
+                ),
+                SpacingConstant.verticalSpacing100,
+                Text(
+                  profileController.userData.value?.email != null
+                      ? "${profileController.userData.value?.email}"
+                      : "-",
+                  style: TextStyleConstant.regularParagraph.copyWith(
+                    color: ColorConstant.netralColor600,
+                  ),
+                ),
+                SpacingConstant.verticalSpacing100,
+                GestureDetector(
+                  onTap: () {
+                    Get.to(
+                      () => const EditProfileScreen(),
+                    );
+                  },
+                  child: Text(
+                    "Lengkapi Profil",
+                    style: TextStyleConstant.boldCaption.copyWith(
+                      color: ColorConstant.infoColor500,
+                    ),
+                  ),
+                )
+              ],
+            ),
           ],
         );
       },

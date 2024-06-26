@@ -53,16 +53,8 @@ class ArticleNewestSearchRecycleWidget extends StatelessWidget {
                     final article = dataToShow[index];
                     return ItemSimpleArticleRecycleWidget(
                       onTap: () {
-                        articleController.fetchArticleById(id: article.id);
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const ArticleDetailScreen(),
-                            settings: RouteSettings(
-                              arguments: article.id,
-                            ),
-                          ),
-                        );
+                        articleController.setId(article.id);
+                        Get.to(() => const ArticleDetailScreen());
                       },
                       authorImage: article.author.imageUrl,
                       authorName: article.author.name,

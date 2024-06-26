@@ -81,16 +81,8 @@ class ArticleCurrentSearchRecycleWidget extends StatelessWidget {
                     desc: article.description,
                     date: article.createdAt,
                     onTap: () {
-                      articleController.fetchArticleById(id: article.id);
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const ArticleDetailScreen(),
-                          settings: RouteSettings(
-                            arguments: article.id,
-                          ),
-                        ),
-                      );
+                      articleController.setId(article.id);
+                      Get.to(() => const ArticleDetailScreen());
                     },
                   );
                 },

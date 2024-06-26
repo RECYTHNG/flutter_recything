@@ -70,7 +70,6 @@ class ReportLitterController extends GetxController {
     } else {
       Get.snackbar('Error', 'Coba Lagi');
     }
-    print('$response');
   }
 
   void replaceImage(int index) async {

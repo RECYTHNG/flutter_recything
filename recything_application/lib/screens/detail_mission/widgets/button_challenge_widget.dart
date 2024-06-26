@@ -26,7 +26,6 @@ class ButtonChallengeWidget extends StatelessWidget {
         Get.find<DoingTaskDetailMissionController>();
 
     final buttonUpload = controller.buttonUpload;
-    print(buttonUpload);
 
     String getButtonText() {
       if (buttonUpload &&

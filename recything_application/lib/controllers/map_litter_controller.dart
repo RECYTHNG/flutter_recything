@@ -118,7 +118,6 @@ class MapLitterController extends GetxController {
           '${placemark.street}, ${placemark.subLocality}, ${placemark.locality}';
       city.value = placemark.subAdministrativeArea!;
       province.value = placemark.administrativeArea!;
-      print(currentAddress);
     } catch (e) {
       _showSnackbar(
         title: 'Gagal Mendapatkan Alamat',

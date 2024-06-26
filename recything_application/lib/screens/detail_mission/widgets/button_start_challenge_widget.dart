@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:recything_application/constants/color_constant.dart';
@@ -31,10 +32,14 @@ class ButtonStartChallengeWidget extends StatelessWidget {
             if (userTaskId != null) {
               Get.to(() => DetailMissionProgressScreen(userTaskId: userTaskId));
             } else {
-              print('Failed to start task');
+              if (kDebugMode) {
+                print('Failed to start task');
+              }
             }
           } catch (e) {
-            print('Error: $e');
+            if (kDebugMode) {
+              print('Error: $e');
+            }
           }
         },
         style: ElevatedButton.styleFrom(

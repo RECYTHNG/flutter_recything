@@ -57,7 +57,6 @@ class ChallengeDashboardController extends GetxController {
     try {
       final response = await DashboardChallengeService().getDoneChallenge();
       doneChallengeData.value = response;
-      print(doneChallengeData.value!.data[0].id);
     } catch (e) {
       if (kDebugMode) {
         print('Error $e');

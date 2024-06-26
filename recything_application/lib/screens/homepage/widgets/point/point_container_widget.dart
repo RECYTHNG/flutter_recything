@@ -1,9 +1,6 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:recything_application/constants/color_constant.dart';
-import 'package:recything_application/constants/icon_constant.dart';
 import 'package:recything_application/constants/spacing_constant.dart';
 import 'package:recything_application/constants/text_style_constant.dart';
 import 'package:recything_application/controllers/challenge_dashboard_controller.dart';
@@ -12,8 +9,6 @@ import 'package:recything_application/screens/achievement_screen/achievement_scr
 import 'package:recything_application/screens/challenge/challenge_list/challenge_list_screen.dart';
 import 'package:recything_application/screens/halaman_riwayat/point_history_screen.dart';
 import 'package:recything_application/utils/user_level_utils.dart';
-import 'package:recything_application/widgets/global_button_widget.dart';
-import 'package:recything_application/widgets/global_loading_widget.dart';
 
 class PointsContainer extends StatelessWidget {
   PointsContainer({super.key});
