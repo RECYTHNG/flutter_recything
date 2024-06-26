@@ -3,12 +3,15 @@ import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:recything_application/controllers/report_rubbish_controller.dart';
 import 'package:recything_application/screens/report_rubbish/success_report_rubbish_screen.dart';
 import 'package:recything_application/screens/report_rubbish/widgets/confirmation_bottomsheet_report_rubbish_widget.dart';
 import 'package:recything_application/services/rubbish/rubbish_service.dart';
 import 'package:recything_application/widgets/global_image_picker_dialog_widget.dart';
 
 class MapRubbishController extends GetxController {
+  final ReportRubbishController rubbishController = Get.put(ReportRubbishController());
+
   RxMap<String, bool> materialData = RxMap({
     'Plastik': false,
     'Kaca': false,
@@ -40,23 +43,42 @@ class MapRubbishController extends GetxController {
 
   RxInt currentIndex = 0.obs;
 
-  void updateStateEvery2Seconds() {
-    Timer.periodic(const Duration(seconds: 2), (timer) {
-      update();
-    });
-  }
+  var tabIndex = 0.obs;
+  var isDisabled = <bool>[false, true].obs;
 
   @override
   void onInit() {
     super.onInit();
+    conditionController.addListener(_onFieldChanged);
+    address.listen((_) => updateIsDisabled());
+    sampahBasah.listen((_) => updateIsDisabled());
+    sampahKering.listen((_) => updateIsDisabled());
+    materialData.listen((_) => updateIsDisabled());
     updateStateEvery2Seconds();
+  }
+
+  @override
+  void onClose() {
+    conditionController.removeListener(_onFieldChanged);
+    super.onClose();
+  }
+
+  void _onFieldChanged() {
+    updateIsDisabled();
+  }
+
+  void updateIsDisabled() {
+    isDisabled[1] = !(
+      rubbishController.currentAddress.value.isNotEmpty &&
+      conditionController.text.isNotEmpty &&
+      (sampahBasah.value || sampahKering.value) &&
+      materialData.values.any((data) => data)
+    );
   }
 
   bool isMaxImagesReached() {
     return imageFiles.length >= 9;
   }
-
-  var tabIndex = 0.obs;
 
   void changeTabIndex(int index) {
     tabIndex.value = index;
@@ -147,6 +169,12 @@ class MapRubbishController extends GetxController {
     if (currentIndex.value < 1) {
       currentIndex.value++;
     }
+  }
+
+  void updateStateEvery2Seconds() {
+    Timer.periodic(const Duration(seconds: 2), (timer) {
+      update();
+    });
   }
 }
 
