@@ -1,4 +1,5 @@
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
@@ -37,7 +38,9 @@ class UserController extends GetxController {
       email.value = fetchedUser.data?.email ?? '';
       address.value = fetchedUser.data?.address ?? '';
     } catch (e) {
-      print("Error fetching user data: $e");
+      if (kDebugMode) {
+        print("Error fetching user data: $e");
+      }
     }
   }
 
@@ -51,7 +54,6 @@ class UserController extends GetxController {
         'birth_date': birthDate.value,
       };
       var response = await profileService.putUser(updatedData);
-      print("Response: ${response['message']}");
       if (response['code'] == 200) {
         fetchUser();
         onSuccess();
@@ -62,7 +64,9 @@ class UserController extends GetxController {
             contentType: ContentType.failure);
       }
     } catch (e) {
-      print("Error updating user profile: $e");
+      if (kDebugMode) {
+        print("Error updating user profile: $e");
+      }
     }
   }
 
@@ -84,15 +88,18 @@ class UserController extends GetxController {
 
       if (image != null) {
         var response = await profileService.uploadAvatar(image);
-        print("Response: ${response.message}");
         if (response.code == 200) {
           fetchUser();
         } else {
-          print("Error uploading avatar: ${response.message}");
+          if (kDebugMode) {
+            print("Error uploading avatar: ${response.message}");
+          }
         }
       }
     } catch (e) {
-      print("Error uploading avatar: $e");
+      if (kDebugMode) {
+        print("Error uploading avatar: $e");
+      }
     } finally {
       isLoading.value = false;
     }

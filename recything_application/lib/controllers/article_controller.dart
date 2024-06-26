@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:recything_application/models/article/article_model.dart';
 import 'package:recything_application/models/article/list_article_model.dart';
@@ -54,9 +55,10 @@ class ArticleController extends GetxController {
       var response =
           await _articleService.postComment(id: id, comment: comment);
       fetchArticleById(id: id);
-      print("Response: ${response['message']}");
     } catch (e) {
-      print("Error posting comment: $e");
+      if (kDebugMode) {
+        print("Error posting comment: $e");
+      }
     }
   }
 

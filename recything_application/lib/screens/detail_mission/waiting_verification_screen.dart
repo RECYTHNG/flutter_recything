@@ -97,7 +97,7 @@ class WaitingVerificationScreen extends StatelessWidget {
                       child: SizedBox(
                         width: double.infinity,
                         child: ElevatedButton(
-                          onPressed: () => Get.offAll(() => PointHisstoryScreen()),
+                          onPressed: () => Get.to(() => PointHisstoryScreen()),
                           style: ElevatedButton.styleFrom(
                             backgroundColor: ColorConstant.whiteColor,
                             side: const BorderSide(

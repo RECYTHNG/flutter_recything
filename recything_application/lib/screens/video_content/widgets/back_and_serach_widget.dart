@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:recything_application/constants/color_constant.dart';
@@ -131,7 +132,9 @@ class _BackAndSearchWidgetState extends State<BackAndSearchWidget> {
                       }
                     },
                     onSelected: (String option) {
-                      print("selected $option");
+                      if (kDebugMode) {
+                        print("selected $option");
+                      }
                     },
                     optionsViewBuilder: (context, Function(String) onSelected,
                         Iterable<String> options) {

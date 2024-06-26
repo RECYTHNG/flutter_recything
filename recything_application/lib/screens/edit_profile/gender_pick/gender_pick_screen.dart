@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
@@ -148,7 +149,9 @@ class _GenderPickScreenState extends State<GenderPickScreen> {
                               });
                               Get.back();
                             } catch (e) {
-                              print('Error in onTap: $e');
+                              if (kDebugMode) {
+                                print('Error in onTap: $e');
+                              }
                             }
                           },
                     child: Container(
