@@ -23,7 +23,7 @@ class VideoResultByKeywordWidget extends StatelessWidget {
     return Scaffold(
       backgroundColor: ColorConstant.whiteColor,
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16),
+        padding: const EdgeInsets.only(left: 16, right: 16, top:16),
         child: Column(
           children: [
             SpacingConstant.verticalSpacing050,
@@ -48,6 +48,7 @@ class VideoResultByKeywordWidget extends StatelessWidget {
                       scrollDirection: Axis.vertical,
                       itemCount: data.length,
                       clipBehavior: Clip.none,
+                      padding: const EdgeInsets.only(top: 0),
                       itemBuilder: (context, index) {
                         final video = data[index];
                         return ItemVideoRecycleWidget(

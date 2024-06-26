@@ -15,7 +15,7 @@ class GlobalController extends GetxController {
               SharedPref.removeToken();
               SharedPref.deleteAllHistory();
               Get.deleteAll();
-              Get.off(
+              Get.offAll(
                 () => const SplashScreen(),
               );
             },
